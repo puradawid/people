@@ -1,0 +1,23 @@
+development:
+  sessions:
+    default:
+      database: hrguru_dev
+      hosts:
+        - localhost:27017
+
+test:
+  sessions:
+    default:
+      database: hrguru_test
+      hosts:
+        - localhost:27017
+
+staging:
+  sessions:
+    default:
+      uri: <%= ENV['MONGOHQ_URL'] %>
+
+production:
+  sessions:
+    default:
+      uri: <%= ENV['MONGOHQ_URL'] %>

@@ -1,0 +1,27 @@
+- if memberships.present?
+  %table.table.table-striped.table-hover
+    %thead
+      %th Project
+      %th User
+      %th Role
+      %th From
+      %th To
+      %th Billable?
+      %th
+    %tbody
+      - memberships.each do |membership|
+        %tr
+          %td= membership.project.name
+          %td= membership.user.decorate.name
+          %td= membership.role
+          %td= membership.starts_at.to_date
+          %td= membership.ends_at ? membership.ends_at.to_date : content_tag("span", "unexpired", class: "label label-default")
+          %td= membership.billable
+          %td
+            - if current_user.admin? || current_user == membership.user
+              = link_to "Edit", edit_membership_path(membership), class: "btn btn-xs btn-default"
+              = link_to "Destroy", membership, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger"
+- else
+  %h2 No memberships
+
+= link_to "New membership", new_membership_path, class: "btn btn-primary" if current_user.admin?

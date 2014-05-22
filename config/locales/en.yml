@@ -1,0 +1,28 @@
+en:
+  time:
+    formats:
+      date_picker: "%F"
+  date:
+    formats:
+      date_picker: "%F"
+  confirm_question: "Are you sure?"
+  users:
+    show:
+      hours: How many hours do you work in a month?
+      positions: "Positions"
+      add_position: "Add position"
+  positions:
+    error:
+      create: "Something went wrong. Position create unsuccessful"
+      update: "Something went wrong. Position update unsuccessful"
+      delete: "Something went wrong. Position delete unsuccessful"
+      chronology: "Position dates should be chronologically ordered"
+      role: "Current position already exist for given user"
+    success:
+      create: "Position created!"
+      update: "Position updated!"
+      deleted: "Position deleted!"
+    title: "Position"
+    edit: "Edit position"
+    new: "Add position"
+    empty: "No positions"

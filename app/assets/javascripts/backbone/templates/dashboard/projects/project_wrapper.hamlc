@@ -1,0 +1,11 @@
+.project-name
+  != @link_to @name, Routes.project_path(@id)
+  .unarchive.glyphicon.glyphicon-folder-open.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to unarchive project' }
+  .archive.glyphicon.glyphicon-folder-close.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to archive project' }
+  .billable_ratio
+  - if @end_at
+    .time.hidden
+      Do
+      %time= moment(@end_at).format('LL')
+.js-memberships-region
+.js-notes-region

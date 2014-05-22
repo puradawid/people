@@ -1,0 +1,109 @@
+require 'spec_helper'
+
+describe PositionsController do
+  before(:each) do
+    role = create(:role, name: 'senior', admin: true)
+    sign_in create(:user, role_id: role.id)
+  end
+
+  describe '#index' do
+    render_views
+
+    before do
+      role = create(:role, name: 'developer', admin: false)
+      user = create(:user, role_id: role.id)
+      position = create(:position, user: user, role: role)
+      jun_role = create(:role, name: 'junior', admin: false)
+      create(:position, user: user, starts_at: position.starts_at - 2.days, role: jun_role)
+    end
+
+    it 'respond should be success with HTTP status 200' do
+      get :index
+      expect(response).to be_success
+      expect(response.status).to eq(200)
+    end
+
+    it 'exposes positions' do
+      get :index
+      expect(controller.positions.count).to be 2
+    end
+
+    it 'position should be displayed' do
+      get :index
+      expect(response.body).to match /junior/
+      expect(response.body).to match /developer/
+    end
+  end
+  describe '#new' do
+    before { get :new }
+
+    it 'respond should be success with HTTP status 200' do
+      expect(response).to be_success
+      expect(response.status).to eq(200)
+    end
+
+    it 'exposes new position' do
+      expect(controller.position.created_at).to be_nil
+    end
+  end
+
+  describe '#create' do
+    let(:role) { create(:role, name: 'junior1', technical: true) }
+    let(:user) { create(:user, role_id: role.id) }
+    let!(:params) { attributes_for(:position, user_id: user._id, role_id: role._id) }
+
+    context 'with valid attributes' do
+      it 'creates a new position' do
+        expect { post :create, position: params }.to change(Position, :count).by(1)
+      end
+    end
+
+    context 'with invalid attributes' do
+      let(:invalid_params) { params.except(:starts_at) }
+
+      it 'does not save' do
+        expect { post :create, position: invalid_params }.to_not change(Position, :count)
+      end
+    end
+  end
+
+  describe '#update' do
+    let(:role) { create(:role, name: 'junior1', technical: true) }
+    let(:user) { create(:user, role_id: role.id) }
+    let!(:position) { create(:position, user: user, role: role) }
+
+    it 'exposes positions' do
+      put :update, id: position, position: position.attributes
+      expect(controller.position).to eq position
+    end
+
+    context 'valid attributes' do
+      it 'changes position start date' do
+        attributes = {starts_at: Date.new(2014, 05, 19)}
+        put :update, id: position, position: attributes
+        position.reload
+        expect(position.starts_at.day).to eq 19
+      end
+    end
+
+    context 'invalid attributes' do
+      it 'does not change position attributes' do
+        attributes = {starts_at: nil}
+        put :update, id: position, position: attributes
+        position.reload
+        expect(position.starts_at.day).to_not be nil
+      end
+    end
+  end
+
+  describe '#destroy' do
+    let(:intern_role) { create(:role, name: 'intern', technical: true) }
+    let(:user) { create(:user, role_id: intern_role.id) }
+    let!(:position) { create(:position, user: user, role: intern_role) }
+
+    it 'deletes the position' do
+      @request.env['HTTP_REFERER'] = positions_path
+      expect { delete :destroy, id: position }.to change(Position, :count).by(-1)
+    end
+  end
+end

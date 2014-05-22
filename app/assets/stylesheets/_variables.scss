@@ -1,0 +1,58 @@
+$left-time-red: #A81C1A;
+$start-time-green: #20A81A;
+$admin-checkbox: #F6FAC4;
+$gray-background: #e7e7e7;
+$gray-project: rgb(243, 243, 243);
+$archived-project: #B8B8B8;
+$potential-project: #A9ACFC;
+$link: #428bca;
+$link-hover: #2a6496;
+$success: #5cb85c;
+
+@mixin highlight_ending_item( $number ) {
+  @for $i from 0 through $number {
+    $red-ending: lighten($left-time-red, $i/2);
+
+    .left-#{$i} {
+      background-color: $red-ending;
+      td { background-color: transparent; }
+
+      .to_end {
+        .number_days {
+          background-color: white;
+          color: $red-ending;
+        }
+        p { color: white; }
+      }
+
+      &:hover {
+        background-color: $gray-background;
+        td {
+          background-color: transparent;
+          a { color: $link; &:hover { color: $link-hover } }
+          i { color: black; &:hover { color: $left-time-red } }
+        }
+
+        .to_end {
+          .number_days {
+            background-color: $red-ending;
+            color: white;
+            font-weight: 300;
+          }
+          p { color: $red-ending; }
+        }
+      }
+
+      @if $i < 70 {
+        td {
+          a { color: white; }
+          i { color: white; }
+        }
+      }
+    }
+  }
+}
+
+.lowercase {
+  text-transform: lowercase;
+}

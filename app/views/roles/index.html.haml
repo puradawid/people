@@ -1,0 +1,21 @@
+.row
+  .col-sm-8.col-sm-offset-2
+    %ul#roles
+      - if current_user.admin?
+        %li.no-sortable
+          .input-group
+            %span.input-group-btn
+              #add-role.btn.btn-primary create
+            = text_field_tag 'name', nil, placeholder: 'Enter role name...', class: 'form-control'
+            .input-group-addon.admin-group
+              .checkbox
+                %label
+                  %input#admin{ type: 'checkbox' } admin?
+            .input-group-addon.billable-group
+              .checkbox
+                %label
+                  %input#billable{ type: 'checkbox' } billable?
+            .input-group-addon.technical-group
+              .checkbox
+                %label
+                  %input#technical{ type: 'checkbox' } technical?

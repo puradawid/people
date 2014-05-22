@@ -1,0 +1,9 @@
+%div.inline.project{ class: "#{'potential' if @project.potential}" }
+  - if @role.technical
+    - if @project.potential
+      %i.glyphicon.glyphicon-asterisk.potential.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Potential project' }
+    - unless @membership.billable
+      %i.glyphicon.glyphicon-exclamation-sign.notbillable.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Notbillable' }
+  != @link_to @project.name, Routes.project_path(@project._id)
+  - if @show_dates
+    %time= moment(@membership.starts_at).format 'YYYY-MM-DD'

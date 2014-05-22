@@ -1,0 +1,42 @@
+%td.to_end
+  - if @daysToEndMembership < 0
+    %p.ready.btn-success.img-thumbnail Ready
+  - else
+    .number_days.img-circle!= @daysToEndMembership
+    %p.lowercase= _.pluralize "Day", @daysToEndMembership, showNumber: false
+%td!= @gravatar
+%td
+  != @link_to @name, Routes.user_path(@id)
+  .icons
+    %a{ href: "mailto:#{@email}", title: @email }
+      != @icon 'envelope-o'
+    != @github
+- if H.currentUserIsAdmin() || H.currentUserIdIs(@id)
+  %td
+    %select.form-control.roles.role_id
+  %td
+    .input-group.employment-container
+      %input.form-control.employment
+      %label.input-group-addon
+        %p h
+  %td
+    .projects-region
+    .next_projects-region
+    .potential_projects-region
+  %td
+    %input.form-control.phone{ maxlength: 12 }
+  %td
+    %select.form-control.locations.location_id
+- else
+  %td
+    != @role.name if @role
+  %td
+    != "#{@employment}h"
+  %td
+    .projects-region
+    .next_projects-region
+    .potential_projects-region
+  %td
+    != @phone
+  %td
+    != @location.name if @location

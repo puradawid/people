@@ -1,0 +1,23 @@
+body.projects {
+  &.new {
+    .project_potential > * { display: inline-block; }
+
+    .project_potential {
+
+      label.control-label {
+        vertical-align: text-bottom;
+        cursor: pointer;
+      }
+
+      label.checkbox {
+        margin: 0 0 -4px 8px;
+        cursor: pointer;
+      }
+    }
+
+    #project_potential {
+      float: none;
+    }
+
+  }
+}

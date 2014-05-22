@@ -1,0 +1,26 @@
+.modal-dialog
+  .modal-content
+    .modal-header
+      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+      %h4.modal-title Edit membership
+    .modal-body
+      .form-group.date
+        .input-group
+          %label.date_picker.required.control-label.input-group-addon{for: "membership_starts_at"}
+            %abbr{title: "required"} *
+            From
+          %input.form-control.date_picker.starts_at
+      .form-group.date
+        .input-group
+          %label.date_picker.required.control-label.input-group-addon{for: "membership_starts_at"}
+            To
+          %input.form-control.date_picker.ends_at
+      .form-group
+        .checkbox
+          %label
+            %input.billable{ type: 'checkbox'}
+            = "Billable"
+
+    .modal-footer
+      %a.btn.close_btn{"data-dismiss" => "modal", href: "#"} Close
+      %a.btn.btn-primary.submit{href: "#"} Save changes

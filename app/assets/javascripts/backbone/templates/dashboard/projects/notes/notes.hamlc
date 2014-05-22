@@ -1,0 +1,5 @@
+.js-project-notes-region.project-notes-region
+.new-project-note.input-group
+  %input{ class: 'form-control new-project-note-text', type: 'text', placeholder: 'Type your note...' }
+  %span.input-group-btn
+    %a.btn.btn-primary.new-project-note-submit Save changes

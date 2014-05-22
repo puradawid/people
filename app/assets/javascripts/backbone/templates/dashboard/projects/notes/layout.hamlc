@@ -1,0 +1,7 @@
+- if H.currentUserIsAdmin()
+  .show-notes.js-open-project-notes.glyphicon.glyphicon-pencil.btn-primary
+    %p Open notes
+  .show-notes.js-close-project-notes.glyphicon.glyphicon-pencil.btn-primary
+    %p Close notes
+  .js-project-notes-wrapper.project-notes-wrapper
+    .js-project-notes-region.project-notes-region

@@ -1,0 +1,15 @@
+//= require jquery
+//= require jquery.ui.all
+//= require jquery.scrollTo
+//= require jquery_ujs
+//= require bootstrap
+//= require bootstrap-datepicker
+//= require messenger
+//= require messenger-theme-flat
+//= require selectize
+//= require js_stack
+//= require js_stack/plugins/underscore.string
+//= require js_stack/plugins/underscore.inflections
+//= require moment/pl.js
+//= require backbone/hrguru
+//= require_tree .

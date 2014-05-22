@@ -1,0 +1,10 @@
+.timeline-topic
+  .pull-left
+    .glyphicon.glyphicon-time
+  .pull-left
+    .top
+      .project-name= project.name
+      = link_to 'Edit project', edit_project_path(project), class: "btn btn-default btn-xs" if current_user.admin?
+    .bottom
+      %i timeline of related users
+.timeline

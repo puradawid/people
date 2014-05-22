@@ -1,0 +1,25 @@
+.glyphicon.glyphicon-plus.new-project-add.btn-success
+  %p New project
+.new-project-form
+  .form-group
+    .input-group
+      %label.control-label
+        %abbr{title: "required"} *
+        Project Name
+      %input.form-control.name{  placeholder: "Project name...", type: "text"  }
+  .checkbox
+    %label
+      %input.potential{ type: 'checkbox', value: true } Potential
+  .form-group
+    .input-group
+      %label.date_picker.required.control-label.input-group-addon
+        Kickoff
+      %input.form-control.date_picker.kickoff
+  .form-group
+    .input-group
+      %label.date_picker.required.control-label.input-group-addon
+        End at
+      %input.form-control.date_picker.endAt
+  .actions
+    %a.btn.btn-danger.new-project-close{ href: "#"} Close
+    %a.btn.btn-default.new-project-submit{href: "#"} Add Project

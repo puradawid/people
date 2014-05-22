@@ -1,0 +1,75 @@
+#user.row
+  .col-sm-6
+    .user-heading
+      %h1
+        = user.gravatar_image class: "img-rounded", alt: user.name
+        = user.name
+      = mail_to user.email, "send email"
+    .list-group
+      = simple_form_for user do |f|
+        .list-group-item
+          = f.input :contract_type_id, collection: contractTypes
+        .list-group-item
+          = f.input :role_id, collection: roles
+        .list-group-item
+          = f.input :abilities_names, as: :select, collection: abilities, input_html: { multiple: true, id: 'user_abilities'}
+        .list-group-item
+          %h4.list-group-item-heading= "Positions"
+          .list-group
+            - positions.each do |p|
+              .row
+                .col-sm-12-with-margin
+                  = link_to edit_position_path(p), class: 'list-group-item' do
+                    %i.fa.fa-calendar
+                    = p.starts_at
+                    = p.role.label
+                  = link_to 'delete', p, method: :delete, data: { confirm: I18n.t('confirm_question') }, class: 'btn btn-xs btn-danger pull-right'
+          .actions
+            = link_to I18n.t('positions.new'), new_position_path, class: "btn btn-default btn-success"
+        .list-group-item
+          .row
+            .col-sm-12
+              .info{ title: t('.hours') }
+                = f.input :employment, wrapper: :prepend, label_html: { class: 'input-group-addon' }
+        .list-group-item
+          = f.input :location_id, collection: locations
+        .list-group-item
+          = f.input :phone
+        .list-group-item
+          = f.input :archived, as: :boolean
+        .list-group-item
+          = f.button :submit, class: 'btn-success'
+
+  .col-sm-6
+    .panel.panel-default
+      .panel-body
+        = simple_form_for @membership do |f|
+          .row
+            .col-sm-6
+              = f.input :starts_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
+              = f.association :project, collection: projects, include_blank: false
+            .col-sm-6
+              = f.input :ends_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
+              = f.association :role, collection: roles, include_blank: false
+            .col-sm-6
+              = f.input :billable, as: :boolean
+              .hidden= f.input :user_id
+          .actions
+            = f.button :submit, "Add to project", data: { confirm: I18n.t('confirm_question') }, class: 'btn-success'
+
+    .list-group
+      - user.memberships_by_project.each do |project, memberships|
+        .list-group-item
+          %h4.list-group-item-heading= project
+          .list-group
+            - memberships.each do |m|
+              .membership__item
+                = link_to edit_membership_path(m), class: 'list-group-item' do
+                  = m.date_range
+                  %span.badge= m.duration_in_words
+                  = m.role.label
+                  - if m.project.potential?
+                    %strong potential
+                = link_to 'delete', m, method: :delete, data: { confirm: I18n.t('confirm_question') }, class: 'btn btn-xs btn-danger pull-right'
+                .clearfix
+

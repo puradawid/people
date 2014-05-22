@@ -1,0 +1,11 @@
+.role-indicator{ style: "border-color: #{@color}" }
+%span.name!= @link_to @user.name, Routes.user_path(@user.id)
+%span.icon
+- if H.currentUserIsAdmin()
+  %a.edit{ href: "##{@id}", data: { toggle: 'modal' } }
+    != @icon 'pencil-square-o'
+  %span.remove &times;
+- if @show_time
+  .time
+    Do
+    %time= moment(@ends_at).format('LL')

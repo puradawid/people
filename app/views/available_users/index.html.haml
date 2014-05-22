@@ -1,0 +1,28 @@
+%table.table.table-striped.table-hover#available_users
+  %thead
+    %th
+    %th User
+    %th Role
+    %th Per month
+    %th Projects
+
+  %tbody
+    - users.each do |user|
+      %tr
+        %td= user.gravatar_image(size: 40)
+        %td
+          = link_to user.name, user_path(user)
+          .icons
+            = mail_to user.email do
+              = tooltip user.email do
+                = icon 'envelope-o'
+            = tooltip user.gh_nick do
+              = user.github_link(icon: true)
+        %td= user.role
+        %td #{user.employment}h
+        %td
+          = render partial: 'membership', collection: user.current_memberships
+          = 'Next:' if user.has_next_projects?
+          = render partial: 'membership', collection: user.next_memberships
+          = 'Potential:' if user.has_potential_projects?
+          = render partial: 'membership', collection: user.potential_memberships

@@ -1,0 +1,17 @@
+.col-xs-5
+  = simple_form_for membership do |f|
+    %h4 Work on project
+    .row
+      .col-xs-6
+        = f.input :starts_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
+      .col-xs-6
+        = f.input :ends_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
+
+    - f.with_options include_blank: false do |g|
+      = g.association :project, collection: projects
+      = g.association :user, collection: users
+      = g.association :role, collection: roles
+      = g.input :billable, as: :boolean
+
+    .actions
+      = f.button :submit, class: "btn-success", confirm: "Are you sure?"

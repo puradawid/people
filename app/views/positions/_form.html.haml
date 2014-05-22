@@ -1,0 +1,12 @@
+.col-xs-5
+  = simple_form_for position do |f|
+    .row
+      .col-xs-12
+        - f.with_options include_blank: false do |g|
+          = g.association :role, collection: roles
+          = g.association :user, collection: users
+    .row
+      .col-xs-12
+        = f.input :starts_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
+    .actions
+      = f.button :submit, class: "btn-success", confirm: I18n.t('confirm_question')

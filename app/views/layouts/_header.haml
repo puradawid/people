@@ -1,0 +1,36 @@
+.navbar.navbar-default.navbar-static-top{ role: "navigation" }
+  .container
+    .navbar-header
+      %button.navbar-toggle{ type: "button", data: { toggle: "collapse", target: ".navbar-collapse" } }
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to "#{AppConfig.company_name} People", root_path, class: "navbar-brand"
+    .navbar-collapse.collapse
+      - if signed_in? && current_user.github_connected?
+        %ul.nav.navbar-nav
+          %li{ class: menu_class('users') }= link_to "Users", users_path
+          %li{ class: menu_class('available_users') }= link_to "Available people", available_users_path
+          - if current_user.admin?
+            %li.dropdown
+              %a.dropdown-toggle{ href: "#", :'data-toggle' => "dropdown"}
+                Other
+                %b.caret
+              %ul.dropdown-menu
+                %li{ class: menu_class('projects') }= link_to "Projects", projects_path
+                %li{ class: menu_class('memberships') }= link_to "Memberships", memberships_path
+                %li{ class: menu_class('roles') }= link_to "Roles", roles_path
+                %li{ class: menu_class('positions') }= link_to "Positions", positions_path
+                %li{ class: menu_class('abilities') }= link_to "Abilities", abilities_path
+      - if signed_in?
+        %ul.nav.navbar-nav.navbar-right
+          %li.dropdown
+            %a#profile.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' } }
+              = image_tag current_user.gravatar_url(30), class: 'img-circle'
+              = current_user.first_name
+              %b.caret
+            %ul.dropdown-menu
+              %li= link_to 'Profile', user_path(current_user)
+              %li
+                %a{ href: sign_out_path, data: { method: 'delete' } } Sign out

@@ -1,0 +1,140 @@
+body.users {
+  &.show {
+    .user-heading {
+      margin-bottom: 30px;
+    }
+    .col-sm-12-with-margin {
+      @extend .col-sm-12;
+      padding-bottom: 4px;
+    }
+  }
+  &.index {
+
+    #filters {
+      margin: 30px auto;
+
+      .selectize-input {
+        min-width: 180px;
+        min-height: 34px;
+      }
+
+      .roles, .projects, .users, .locations, {
+        width: 400px;
+        display: table-cell;
+      }
+
+      .checkbox {
+        margin: 10px 20px 10px 0;
+        display: inline-block;
+      }
+
+    }
+
+    table#users {
+      .to_end {
+        display: none;
+        text-align: center;
+      }
+      tbody {
+        @include highlight_ending_item(100);
+        .to_end {
+
+          .ready {
+            margin-top: 6px;
+          }
+
+          .number_days {
+            margin: 1px auto 0 auto;
+            height: 23px;
+            width: 23px;
+            line-height: 22px;
+            font-weight: bold;
+            text-align: center;
+            -webkit-transition: all 0.2s ease-in-out;
+            transition: all 0.2s ease-in-out;
+          }
+
+          p {
+            margin: 0;
+            line-height: 15px;
+            font-weight: 300;
+            text-align: center;
+            letter-spacing: 1px;
+          }
+        }
+        i.potential, i.billable {
+          font-size: 15px;
+        }
+        i.potential { color: #D8A31D; }
+        i.notbillable { color: #D81D1D; }
+      }
+    }
+
+    p.columnName {
+      float: left;
+      margin: 5px 5px 0px 5px;
+    }
+
+    .sort {
+      float: left;
+
+      .down {
+        margin-left: -1px;
+      }
+
+      .up, .down {
+        display: block;
+        &:hover {
+          color: gray;
+          cursor: pointer;
+        }
+
+        &.active {
+          color: blue;
+          cursor: default;
+        }
+      }
+    }
+
+    #main-container{
+      width: 100%;
+    }
+    table {
+      .intern_dates {
+        width: 205px;
+      }
+      a {
+        text-decoration: none;
+        i {
+          color: black;
+          &:hover { color: $gray-light; }
+        }
+      }
+
+      input {
+        &.phone,
+        &.date_picker { width: 100px; }
+
+        &.employment { width: 80px; }
+      }
+    }
+
+    .employment-container {
+      display: table-cell;
+
+      .input-group-addon, .employment {
+        margin: 0;
+        float: left;
+      }
+
+      .input-group-addon p {
+        padding: 3px 0 3px 0;
+        margin: 0 0 0 -6px;
+      }
+    }
+  }
+}
+
+.membership__item {
+  margin: 5px 0;
+}

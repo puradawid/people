@@ -1,0 +1,39 @@
+#filters
+  .checkboxes
+    .checkbox.info{title: 'People leaving the project soon are highlighted red.'}
+      %label
+        %input#highlight-ending{ type: 'checkbox', data: { type: 'highlight' } } Highlight ending
+    .checkbox.info{title: 'People whose are archived.'}
+      %label
+        %input#show-archived{ type: 'checkbox', data: { type: 'archived' } } Show archived
+    .checkbox.info{title: "People whose aren't in any project."}
+      %label
+        %input#show-without-project{ type: 'checkbox', data: { type: 'has_project' } } Free people
+  .filters
+    .users
+      %input{ type: 'text', name: 'users', placeholder: 'Filter users...' }
+    .roles
+      %input{ type: 'text', name: 'roles', placeholder: 'Filter roles...' }
+    .projects
+      %input{ type: 'text', name: 'projects', placeholder: 'Filter projects...' }
+    .locations
+      %input{ type: 'text', name: 'locations', placeholder: 'Filter locations...' }
+
+%table.table.table-striped.table-hover#users
+  %thead
+    %th.to_end To end
+    %th
+    %th
+      %p.columnName User
+      .sort
+        .up.glyphicon.glyphicon-chevron-up.active{ data: { sort: 'name' } }
+        .down.glyphicon.glyphicon-chevron-down{ data: { sort: 'name' } }
+    %th Role
+    %th
+      %p.columnName.info{title: t('users.show.hours') } Per month
+      .sort
+        .up.glyphicon.glyphicon-chevron-up{ data: { sort: 'employment' } }
+        .down.glyphicon.glyphicon-chevron-down{ data: { sort: 'employment' } }
+    %th Projects
+    %th Phone
+    %th Location

@@ -1,0 +1,5 @@
+%span.name!= @link_to @user.name, Routes.user_path(@user.id)
+%span.icon
+.time
+  Od
+  %time= moment(@starts_at).format('LL')

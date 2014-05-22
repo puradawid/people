@@ -1,0 +1,20 @@
+- if positions_decorated.present?
+  %table.table.table-striped.table-hover
+    %thead
+      %th User
+      %th Position
+      %th Starts at
+      %th
+    %tbody
+      - positions_decorated.each do |position|
+        %tr
+          %td= position.user.name
+          %td= position.role
+          %td= position.starts_at.to_date
+          %td
+            - if current_user.admin? || current_user == position.user
+              = link_to "Edit", edit_position_path(position), class: "btn btn-xs btn-default"
+              = link_to "Destroy", position, method: :delete, data: { confirm: I18n.t('confirm_question') }, class: "btn btn-xs btn-danger"
+- else
+  %h2 No positions
+= link_to  I18n.t('positions.new'), new_position_path, class: "btn btn-primary"

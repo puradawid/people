@@ -1,0 +1,4 @@
+.person
+  .pull-left
+    %img.img-circle{ src: @gravatar }
+  .name= @name

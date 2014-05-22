@@ -1,0 +1,4 @@
+.glyphicon.glyphicon-folder-close.open-all-notes-button.js-open-all-notes.btn.btn-primary
+  %p open all notes
+.glyphicon.glyphicon-folder-open.open-all-notes-button.js-close-all-notes.btn.btn-primary
+  %p close all notes
