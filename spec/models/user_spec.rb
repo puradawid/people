@@ -198,4 +198,21 @@ describe User do
       end
     end
   end
+
+  describe "#get users with UoP contract" do
+
+    context "when user have UoP contracts" do
+      let(:contract_uop) { create(:contract_type, name: "UoP") }
+      let(:seniorRole) { create(:role, name: "senior", technical: true) }
+      let!(:user_with_uop) { create(:user, role_id: seniorRole.id, contract_type_id: contract_uop.id) }
+      let!(:user_without_uop) { create(:user, role_id: seniorRole.id) }
+
+      it "return user with UoP contract" do
+        expect(User.contract_users.to_a).to include user_with_uop
+      end
+      it "should not return user without UoP contract" do
+        expect(User.contract_users.to_a).to_not include user_without_uop
+      end
+    end
+  end
 end
