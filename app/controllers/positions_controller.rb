@@ -2,7 +2,7 @@ class PositionsController < ApplicationController
 
   expose(:position, attributes: :position_params)
   expose(:positions)
-  expose(:positions_decorated) { Position.by_user_name(PositionDecorator.decorate_collection(Position.all)) }
+  expose(:positions_decorated) { PositionDecorator.decorate_collection Position.by_user_name_and_date }
   expose_decorated(:users) { current_user.admin? ? User.by_name : [current_user] }
   expose_decorated(:roles) { Role.by_name }
 

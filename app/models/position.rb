@@ -31,8 +31,8 @@ class Position
     errors.add(:role, I18n.t('positions.error.role')) unless available_roles.any? { |p| p.name == role.name }
   end
 
-  def self.by_user_name(positions)
-    positions.sort_by! { |p| [p.user.name, p.starts_at] }
+  def self.by_user_name_and_date(positions = all)
+    positions.sort_by! { |p| [p.user.first_name, p.user.last_name, p.starts_at] }
   end
 
 end
