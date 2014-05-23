@@ -40,7 +40,7 @@ class User
   scope :available, -> { where(available: true) }
   scope :active, -> { where(archived: false) }
   scope :roles, -> (roles) { where(:role.in => roles) }
-  scope :contract_users, -> (contract) { where(contract_type: contract) }
+  scope :contract_users, -> { where(contract_type_id: ContractType.where(name: "UoP").map(&:id).first) }
 
   before_save :end_memberships
   before_validation :assign_abilities
@@ -61,11 +61,11 @@ class User
   end
 
   def flat_memberships
-    membs_grouped = memberships.group_by{ |m| m.project.name }
+    membs_grouped = memberships.group_by { |m| m.project.name }
     membs_grouped.each do |name, membs|
       membs_grouped[name] = {
-        starts_at: (membs.map(&:starts_at).include?(nil) ? nil : membs.map(&:starts_at).compact.min),
-        ends_at: (membs.map(&:ends_at).include?(nil) ? nil : membs.map(&:ends_at).compact.max)
+          starts_at: (membs.map(&:starts_at).include?(nil) ? nil : membs.map(&:starts_at).compact.min),
+          ends_at: (membs.map(&:ends_at).include?(nil) ? nil : membs.map(&:ends_at).compact.max)
       }
     end
   end
@@ -75,7 +75,7 @@ class User
   end
 
   def potential_projects
-    potential_memberships.map{ |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
+    potential_memberships.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
   end
 
   def potential_memberships
@@ -85,7 +85,7 @@ class User
   end
 
   def current_projects
-    current_memberships.map{ |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
+    current_memberships.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
   end
 
   def current_memberships
@@ -107,13 +107,13 @@ class User
   end
 
   def next_projects
-    next_memberships.map{ |n_ms| { project: n_ms.project, billable: n_ms.billable, membership: n_ms } }
+    next_memberships.map { |n_ms| { project: n_ms.project, billable: n_ms.billable, membership: n_ms } }
   end
 
   def memberships_by_project
     Project.unscoped do
       memberships.includes(:project, :role).group_by(&:project_id).each_with_object({}) do |data, memo|
-        memberships = data[1].sort{ |m1, m2| m2.starts_at <=> m1.starts_at }
+        memberships = data[1].sort { |m1, m2| m2.starts_at <=> m1.starts_at }
         project = memberships.first.project
         memo[project] = MembershipDecorator.decorate_collection memberships
       end
@@ -129,7 +129,7 @@ class User
   end
 
   def self.by_name
-    all.sort_by{ |u| u.first_name.downcase }
+    all.sort_by { |u| u.first_name.downcase }
   end
 
   def abilities_names

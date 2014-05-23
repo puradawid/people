@@ -9,6 +9,6 @@ class Api::V1::UsersController < Api::V1::ApiController
   end
 
   def contract_users
-    render :json => User.contract_users(ContractType.uop_contracts.first).to_a
+    render :json => User.contract_users.to_a
   end
 end
