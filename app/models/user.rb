@@ -75,23 +75,23 @@ class User
   end
 
   def potential_projects
-    potential_memberships.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
+    @potential_projects ||= potential_memberships.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
   end
 
   def potential_memberships
     now = Time.now
-    project_ids = Project.where(potential: true).only(:_id).map(&:_id)
-    memberships.includes(:project).where(:project_id.in => project_ids).or({ :starts_at.lte => now, ends_at: nil }, { :starts_at.lte => now, :ends_at.gte => now })
+    @potential_project_ids ||= Project.where(potential: true).only(:_id).map(&:_id)
+    memberships.includes(:project).where(:project_id.in => @potential_project_ids).or({ :starts_at.lte => now, ends_at: nil }, { :starts_at.lte => now, :ends_at.gte => now })
   end
 
   def current_projects
-    current_memberships.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
+   @current_projects ||= current_memberships.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
   end
 
   def current_memberships
     now = Time.now
-    project_ids = Project.where(potential: false).only(:_id).map(&:_id)
-    memberships.includes(:project).where(:project_id.in => project_ids).or({ :starts_at.lte => now, ends_at: nil }, { :starts_at.lte => now, :ends_at.gte => now })
+    @nonpotential_project_ids ||= Project.where(potential: false).only(:_id).map(&:_id)
+    memberships.includes(:project).where(:project_id.in => @nonpotential_project_ids).or({ :starts_at.lte => now, ends_at: nil }, { :starts_at.lte => now, :ends_at.gte => now })
   end
 
   %w(current potential next).each do |type|
@@ -107,7 +107,7 @@ class User
   end
 
   def next_projects
-    next_memberships.map { |n_ms| { project: n_ms.project, billable: n_ms.billable, membership: n_ms } }
+   @next_projects ||= next_memberships.map { |n_ms| { project: n_ms.project, billable: n_ms.billable, membership: n_ms } }
   end
 
   def memberships_by_project

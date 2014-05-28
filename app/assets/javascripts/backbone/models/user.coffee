@@ -11,6 +11,7 @@ class Hrguru.Models.User extends Backbone.Model
   initialize: ->
     super
     @set('daysToEndMembership', -1)
+    @next_projects = new Hrguru.Models.Project(@get('next_projects'))
     @initMembership()
     @listenTo(EventAggregator, 'users:updateVisibility', @updateVisibility)
 
@@ -66,16 +67,16 @@ class Hrguru.Models.User extends Backbone.Model
     (!@hasNextProjects() || @nextProjectsOnlyPotentialOrNotbillable())
 
   hasNextProjects: ->
-    @get('next_projects')?
+    @next_projects?
 
   hasProjectsOnlyPotentialOrNotbillable: ->
     @areOnlyPotenialOrNotbillable(@get('projects'))
 
   nextProjectsOnlyPotentialOrNotbillable: ->
-    @areOnlyPotenialOrNotbillable(@get('next_projects'))
+    @areOnlyPotenialOrNotbillable(@next_projects)
 
   areOnlyPotenialOrNotbillable: (projects) ->
-    _.all @get('projects'), (project) =>
+    _.all projects, (project) =>
       @userProjectIsPotential(project) or !@userProjectIsBillable(project)
 
   userProjectIsPotential: (next_project) ->
