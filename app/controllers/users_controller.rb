@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   expose_decorated(:user, attributes: :user_params)
-  expose(:users_paginated) { users_paginated }
-  expose(:users) { UserDecorator.decorate_collection users_paginated}
+  expose(:users) { User.all.decorate }
   expose(:roles) { Role.all }
   expose(:locations) { Location.all }
   expose(:projects) { Project.all }
@@ -28,7 +27,7 @@ class UsersController < ApplicationController
       respond_to do |format|
         format.html do
           errors = []
-          errors << user.errors.messages.map{ |key, value| "#{key}: #{value[0]}" }.first
+          errors << user.errors.messages.map { |key, value| "#{key}: #{value[0]}" }.first
           redirect_to user, alert: errors.join
         end
         format.json { render json: { errors: user.errors.messages }, status: :unprocessable_entity }
@@ -38,10 +37,6 @@ class UsersController < ApplicationController
 
   def show
     @membership = Membership.new(user: user, role: user.role)
-  end
-
-  def users_paginated
-    User.all.paginate(page: params[:page],:per_page => 10)
   end
 
   private
