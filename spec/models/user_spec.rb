@@ -208,10 +208,10 @@ describe User do
       let!(:user_without_uop) { create(:user, role_id: seniorRole.id) }
 
       it "return user with UoP contract" do
-        expect(User.contract_users.to_a).to include user_with_uop
+        expect(User.contract_users("UoP").to_a).to include user_with_uop
       end
       it "should not return user without UoP contract" do
-        expect(User.contract_users.to_a).to_not include user_without_uop
+        expect(User.contract_users("UoP").to_a).to_not include user_without_uop
       end
     end
   end

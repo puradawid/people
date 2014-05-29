@@ -23,7 +23,6 @@ Hrguru::Application.routes.draw do
         # get resources
         resources :users, only: [:index, :show, :contract_users]
         resources :projects, only: [:index]
-        get '/contract_users' => 'users#contract_users'
       end
     end
   end

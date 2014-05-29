@@ -40,7 +40,7 @@ class User
   scope :available, -> { where(available: true) }
   scope :active, -> { where(archived: false) }
   scope :roles, -> (roles) { where(:role.in => roles) }
-  scope :contract_users, -> { where(contract_type_id: ContractType.where(name: "UoP").map(&:id).first) }
+  scope :contract_users, ->(contract_type) { where(contract_type_id: ContractType.where(name: contract_type).map(&:id).first) }
 
   before_save :end_memberships
   before_validation :assign_abilities
