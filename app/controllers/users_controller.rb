@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   expose_decorated(:user, attributes: :user_params)
-  expose(:users) { User.all.decorate }
+  expose(:users_paginated) { users_paginated }
+  expose(:users) { UserDecorator.decorate_collection users_paginated}
   expose(:roles) { Role.all }
   expose(:locations) { Location.all }
   expose(:projects) { Project.all }
@@ -37,6 +38,10 @@ class UsersController < ApplicationController
 
   def show
     @membership = Membership.new(user: user, role: user.role)
+  end
+
+  def users_paginated
+    User.all.paginate(page: params[:page],:per_page => 10)
   end
 
   private

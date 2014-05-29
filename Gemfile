@@ -51,6 +51,9 @@ gem 'messengerjs-rails'
 gem 'whenever', require: false
 gem 'versionist'
 
+gem 'will_paginate_mongoid'
+gem 'will_paginate-bootstrap'
+
 group :staging, :production do
   gem 'rails_12factor'
 end

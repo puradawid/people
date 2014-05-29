@@ -37,3 +37,7 @@
     %th Projects
     %th Phone
     %th Location
+#users
+
+.row
+  = will_paginate users_paginated, renderer: BootstrapPagination::Rails, page_links: true
