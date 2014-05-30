@@ -96,6 +96,12 @@ class User
     memberships_by_project_ids @nonpotential_project_ids
   end
 
+  def last_membership
+    without_date = current_memberships.reject(&:ends_at)
+    return without_date.last if without_date.present?
+    current_memberships.select(&:ends_at).sort_by(&:ends_at).reverse!.last
+  end
+
   def memberships_by_project_ids(project_ids)
     now = Time.now
     memberships_cached.select { |m| project_ids.include?(m.project_id) && (m.starts_at <= now && (m.ends_at == nil || m.ends_at >= now)) }

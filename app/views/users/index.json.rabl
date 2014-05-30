@@ -5,7 +5,7 @@ extends "users/base"
 node(:gravatar) { |user| user.gravatar_image(size: 40) }
 node(:github) { |user| user.github_link(icon: true) }
 node(:projects) { |user| user.current_projects }
-node(:membership) { |user| user.current_memberships.sort_by(&:ends_at).reverse!.last }
+node(:membership) { |user| user.last_membership }
 node(:has_project) { |user| user.has_current_projects? }
 node(:has_next_project) { |user| user.has_next_projects? }
 node(:has_potential_project) { |user| user.has_potential_projects? }
