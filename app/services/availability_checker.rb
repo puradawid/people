@@ -14,7 +14,7 @@ class AvailabilityChecker
   end
 
   def billable_memberships
-    @user.next_memberships.where(billable: true).count + @user.current_memberships.where(billable: true).count
+    @user.next_memberships.select { |m| m.billable == true }.count + @user.current_memberships.select { |m| m.billable == true }.count
   end
 
   def finishing_work
@@ -23,18 +23,18 @@ class AvailabilityChecker
   end
 
   def projects_with_end_date
-    current_projects.select{ |p| p.end_at.present? }
+    current_projects.select { |p| p.end_at.present? }
   end
 
   def ending_memberships
-    @user.current_memberships.billable.ending_soon
+    @user.current_memberships.select { |p| p.billable == true && p.ends_at < 1.week.from_now if p.ends_at.present? }
   end
 
   def ending_projects
-    current_projects.select{ |p| p.end_at < 1.week.from_now if p.end_at.present? }
+    current_projects.select { |p| p.end_at < 1.week.from_now if p.end_at.present? }
   end
 
   def current_projects
-    @user.current_memberships.billable.includes(:project).map(&:project)
+    @user.current_memberships.select { |m| m.billable == true }.map(&:project)
   end
 end

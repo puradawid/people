@@ -78,20 +78,27 @@ class User
     @potential_projects ||= potential_memberships.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
   end
 
+  def memberships_cached
+    @memberships ||= memberships.includes(:project).to_a
+  end
+
   def potential_memberships
-    now = Time.now
     @potential_project_ids ||= Project.where(potential: true).only(:_id).map(&:_id)
-    memberships.includes(:project).where(:project_id.in => @potential_project_ids).or({ :starts_at.lte => now, ends_at: nil }, { :starts_at.lte => now, :ends_at.gte => now })
+    memberships_by_project_ids @potential_project_ids
   end
 
   def current_projects
-   @current_projects ||= current_memberships.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
+    @current_projects ||= current_memberships.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
   end
 
   def current_memberships
-    now = Time.now
     @nonpotential_project_ids ||= Project.where(potential: false).only(:_id).map(&:_id)
-    memberships.includes(:project).where(:project_id.in => @nonpotential_project_ids).or({ :starts_at.lte => now, ends_at: nil }, { :starts_at.lte => now, :ends_at.gte => now })
+    memberships_by_project_ids @nonpotential_project_ids
+  end
+
+  def memberships_by_project_ids(project_ids)
+    now = Time.now
+    memberships_cached.select { |m| project_ids.include?(m.project_id) && (m.starts_at <= now && (m.ends_at == nil || m.ends_at >= now)) }
   end
 
   %w(current potential next).each do |type|
@@ -103,11 +110,11 @@ class User
 
   def next_memberships
     now = Time.now
-    memberships.includes(:project).or({ :starts_at.gte => now, ends_at: nil }, { :starts_at.gte => now, :ends_at.gte => now })
+    memberships_cached.select { |m| m.starts_at >= now && (m.ends_at == nil || m.ends_at >= now) }
   end
 
   def next_projects
-   @next_projects ||= next_memberships.map { |n_ms| { project: n_ms.project, billable: n_ms.billable, membership: n_ms } }
+    @next_projects ||= next_memberships.map { |n_ms| { project: n_ms.project, billable: n_ms.billable, membership: n_ms } }
   end
 
   def memberships_by_project
