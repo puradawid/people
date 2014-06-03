@@ -12,7 +12,7 @@
         .list-group-item
           = f.input :role_id, collection: roles
         .list-group-item
-          = f.input :abilities_names, as: :select, collection: abilities, input_html: { multiple: true, id: 'user_abilities'}
+          = f.input :abilities_names, as: :select, collection: abilities, input_html: { multiple: true, id: 'user_abilities'}, label: 'Skills & technologies'
         .list-group-item
           %h4.list-group-item-heading= "Positions"
           .list-group
