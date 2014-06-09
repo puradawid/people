@@ -1,5 +1,5 @@
 %div.inline.project{ class: "#{'potential' if @project.potential}" }
-  - if @role.technical
+  - if !$.isEmptyObject(@role) && @role.technical
     - if @project.potential
       %i.glyphicon.glyphicon-asterisk.potential.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Potential project' }
     - unless @membership.billable
