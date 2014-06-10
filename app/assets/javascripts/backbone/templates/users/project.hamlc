@@ -1,5 +1,4 @@
 %div.inline.project{ class: "#{'potential' if @project.potential}" }
-  - debugger
   - if @is_role_technical
     - if @project.potential
       %i.glyphicon.glyphicon-asterisk.potential.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Potential project' }
