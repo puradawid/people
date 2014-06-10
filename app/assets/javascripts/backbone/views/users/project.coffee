@@ -19,3 +19,4 @@ class Hrguru.Views.UsersProject extends Marionette.ItemView
     _.extend super,
       role: @role
       show_dates: @show_dates
+      is_role_technical: @role? && @role.technical
