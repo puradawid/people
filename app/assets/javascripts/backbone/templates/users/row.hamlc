@@ -11,6 +11,7 @@
     %a{ href: "mailto:#{@email}", title: @email }
       != @icon 'envelope-o'
     != @github
+    != @skype
 - if H.currentUserIsAdmin() || H.currentUserIdIs(@id)
   %td
     %select.form-control.roles.role_id

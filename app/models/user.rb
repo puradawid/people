@@ -17,6 +17,7 @@ class User
   field :last_name
   field :email
   field :gh_nick
+  field :skype
   field :employment, type: Integer, default: 0
   field :phone
   field :archived, type: Mongoid::Boolean, default: false

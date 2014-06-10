@@ -30,4 +30,12 @@ class UserDecorator < Draper::Decorator
       end
     end
   end
+
+  def skype_link
+    if skype?
+      h.link_to "skype:#{skype}?chat", title: skype do
+        h.fa_icon("skype")
+      end
+    end
+  end
 end
