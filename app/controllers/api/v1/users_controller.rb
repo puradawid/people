@@ -3,7 +3,7 @@ class Api::V1::UsersController < Api::V1::ApiController
   expose(:user) { User.get_from_api params }
 
   def index
-    if params[:filter] && params[:filter][:employment_type]
+    if params.fetch(:filter, {})[:employment_type]
       render json: User.contract_users(params[:filter][:employment_type])
     end
   end
