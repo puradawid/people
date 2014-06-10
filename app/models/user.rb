@@ -99,7 +99,7 @@ class User
   def last_membership
     without_date = current_memberships.reject(&:ends_at)
     return without_date.last if without_date.present?
-    current_memberships.select(&:ends_at).sort_by(&:ends_at).reverse!.last
+    current_memberships.select(&:ends_at).sort_by(&:ends_at).first
   end
 
   def memberships_by_project_ids(project_ids)
