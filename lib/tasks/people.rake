@@ -5,5 +5,6 @@ namespace :people do
     User.active.roles(roles).each do |user|
       AvailabilityCheckerJob.new.perform(user.id)
     end
+    sleep 1
   end
 end
