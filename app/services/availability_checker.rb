@@ -10,7 +10,8 @@ class AvailabilityChecker
   private
 
   def available?
-    billable_memberships <= finishing_work
+    bilable_count = billable_memberships
+    bilable_count == 0 || bilable_count <= finishing_work
   end
 
   def billable_memberships
