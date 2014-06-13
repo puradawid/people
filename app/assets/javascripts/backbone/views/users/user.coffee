@@ -4,6 +4,7 @@ class Hrguru.Views.UsersShow extends Backbone.View
   initialize: ->
     @removeFormControlClass()
     @initializeAbilities()
+    @initializeSortableAbilities()
 
   removeFormControlClass: ->
     @$('#user_abilities').removeClass('form-control')
@@ -16,3 +17,19 @@ class Hrguru.Views.UsersShow extends Backbone.View
       create: (input) ->
         value: input
         text: input
+
+  initializeSortableAbilities: ->
+    @$('div.selectize-input.items.not-full.has-options').sortable (->),
+      axis: 'x'
+      tolerance: 'pointer'
+      update: ->
+        $('select.optional.selectized option').remove()
+        _.each $('.ui-sortable.focus .item'), (item)->
+          item_value = $(item).attr('data-value')
+          $('select.optional.selectized').append $('<option>',
+            value: item_value
+            selected: 'selected'
+          )
+    @$( "#sortable" ).disableSelection();
+
+
