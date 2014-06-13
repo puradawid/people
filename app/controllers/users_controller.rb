@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   expose(:roles) { Role.all }
   expose(:locations) { Location.all }
   expose(:projects) { Project.all }
-  expose(:abilities) { Ability.all.map(&:name) }
+  expose(:abilities) { Ability.ordered_as_user_sort(user).map(&:name) }
   expose(:contractTypes) { ContractType.all }
   expose(:positions) { PositionDecorator.decorate_collection(user.positions) }
 
