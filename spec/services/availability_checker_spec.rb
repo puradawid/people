@@ -7,6 +7,7 @@ describe AvailabilityChecker do
   let(:project) { create(:project) }
   let(:project_without_end_date) { create(:project, end_at: nil) }
   let(:project_ending) { create(:project, end_at: 27.days.from_now) }
+  let(:project_ending_in_more_than_month) { create(:project, end_at: 40.days.from_now) }
 
   describe "#run!" do
     context "when user has not memberships" do
@@ -70,7 +71,7 @@ describe AvailabilityChecker do
         subject.run!
       end
 
-      it "changes user availability to false" do
+      it "changes user availability to true" do
         expect(user.available).to be_true
       end
     end
@@ -82,14 +83,13 @@ describe AvailabilityChecker do
       end
 
       it "changes user availability to true" do
-        expect(user.available).to be_false
+        expect(user.available).to be_true
       end
     end
 
     context "when user project ending more than one month" do
       before do
-        let(:pr) { create(:project, end_at: 32.days.from_now) }
-        create(:membership_billable, ends_at: nil, user: user, project: :pr)
+        create(:membership_billable, ends_at: nil, user: user, project: project_ending_in_more_than_month)
         subject.run!
       end
 

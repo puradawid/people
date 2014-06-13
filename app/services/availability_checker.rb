@@ -19,12 +19,8 @@ class AvailabilityChecker
   end
 
   def finishing_work
-    uniquee_projects = (projects_with_end_date.compact + ending_projects + ending_memberships.map(&:project)).uniq
+    uniquee_projects = ( ending_projects + ending_memberships.map(&:project)).uniq
     uniquee_projects.count
-  end
-
-  def projects_with_end_date
-    current_projects.select { |p| p.end_at.present? }
   end
 
   def ending_memberships
