@@ -62,7 +62,7 @@
     .list-group
       - user.memberships_by_project.each do |project, memberships|
         .list-group-item
-          %h4.list-group-item-heading= project
+          %h4.list-group-item-heading= link_to project, project_path(project)
           .list-group
             - memberships.each do |m|
               .membership__item
