@@ -22,6 +22,7 @@ class User
   field :phone
   field :archived, type: Mongoid::Boolean, default: false
   field :available, type: Mongoid::Boolean, default: true
+  field :uid, type: String
 
   has_many :memberships
   has_many :notes
@@ -47,12 +48,16 @@ class User
   before_validation :assign_abilities
 
   def self.create_from_google!(params)
-    user = User.where(email: params['email']).first
-    return user if user.present?
-
+    user = User.where(uid: params['uid']).first
+    user = User.where(email: params['info']['email']).first if user.blank?
+    if user.present?
+      user.update_attributes(uid: params['uid']) if user.uid.blank?
+      return user
+    end
     fields = %w(first_name last_name email)
-    attributes = fields.reduce({}) { |mem, key| mem.merge(key => params[key]) }
+    attributes = fields.reduce({}) { |mem, key| mem.merge(key => params['info'][key]) }
     attributes['password'] = Devise.friendly_token[0, 20]
+    attributes['uid'] = params['uid']
 
     User.create!(attributes)
   end
