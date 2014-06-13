@@ -18,6 +18,8 @@
                 = icon 'envelope-o'
             = tooltip user.gh_nick do
               = user.github_link(icon: true)
+            = tooltip user.skype do
+              = user.skype_link()
         %td= user.role
         %td #{user.employment}h
         %td
