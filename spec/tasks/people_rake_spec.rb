@@ -22,7 +22,7 @@ describe AvailabilityChecker do
       end
 
       it 'should receive perform' do
-        AvailabilityCheckerJob.any_instance.should_receive :perform
+        expect_any_instance_of(AvailabilityCheckerJob).to receive(:perform).once
         run_rake_task
       end
     end
