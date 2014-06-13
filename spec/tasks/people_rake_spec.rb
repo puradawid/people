@@ -12,9 +12,6 @@ describe AvailabilityChecker do
     end
 
     describe 'people:AvailabilityChecker' do
-      before do
-        AvailabilityCheckerJob.any_instance.stub(:perform)
-      end
 
       let :run_rake_task do
         Rake::Task['people:available_checker'].reenable
