@@ -6,9 +6,9 @@ describe AvailabilityChecker do
   let(:role) { create(:role, technical: true) }
   let(:project) { create(:project) }
   let(:project_without_end_date) { create(:project, end_at: nil) }
-  let(:project_ending) { create(:project, end_at: 2.days.from_now) }
+  let(:project_ending) { create(:project, end_at: 27.days.from_now) }
 
-  describe "#run" do
+  describe "#run!" do
     context "when user has not memberships" do
       before do
         subject.run!
@@ -53,14 +53,48 @@ describe AvailabilityChecker do
       end
     end
 
-    context "when user project ending" do
+    context "when user membership ending more than one month from now" do
+      before do
+        create(:membership_billable, ends_at: 32.days.from_now, user: user, project: project_without_end_date)
+        subject.run!
+      end
+
+      it "changes user availability to false" do
+        expect(user.available).to be_false
+      end
+    end
+
+    context "when user membership ending les than one month from now" do
+      before do
+        create(:membership_billable, ends_at: 4.week.from_now, user: user, project: project_without_end_date)
+        subject.run!
+      end
+
+      it "changes user availability to false" do
+        expect(user.available).to be_true
+      end
+    end
+
+    context "when user project ending less than one month" do
       before do
         create(:membership_billable, ends_at: nil, user: user, project: project_ending)
         subject.run!
       end
 
       it "changes user availability to true" do
-        expect(user.available).to be_true
+        expect(user.available).to be_false
+      end
+    end
+
+    context "when user project ending more than one month" do
+      before do
+        let(:pr) { create(:project, end_at: 32.days.from_now) }
+        create(:membership_billable, ends_at: nil, user: user, project: :pr)
+        subject.run!
+      end
+
+      it "changes user availability to true" do
+        expect(user.available).to be_false
       end
     end
 
