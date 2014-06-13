@@ -7,30 +7,13 @@ class Hrguru.Views.UsersShow extends Backbone.View
     @initializeSortableAbilities()
 
   removeFormControlClass: ->
-    @$('#user_abilities').removeClass('form-control')
+    @$('#js-user_abilities').removeClass('form-control')
 
   initializeAbilities: ->
-    @$('#user_abilities').selectize
-      plugins: ['remove_button']
+    @$('#js-user_abilities').selectize
+      plugins: ['remove_button', 'drag_drop']
       delimiter: ','
-      id: 'js-sortable'
       persist: false
       create: (input) ->
         value: input
         text: input
-
-  initializeSortableAbilities: ->
-    @$('div.selectize-input.items.not-full.has-options').sortable
-      axis: 'x'
-      tolerance: 'pointer'
-      update: ->
-        $('select.optional.selectized option').remove()
-        _.each $('.ui-sortable.focus .item'), (item)->
-          item_value = $(item).attr('data-value')
-          $('select.optional.selectized').append $('<option>',
-            value: item_value
-            selected: 'selected'
-          )
-    @$( 'div.selectize-input.items.not-full.has-options' ).disableSelection();
-
-
