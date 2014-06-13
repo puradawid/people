@@ -4,7 +4,6 @@ class Hrguru.Views.UsersShow extends Backbone.View
   initialize: ->
     @removeFormControlClass()
     @initializeAbilities()
-    @initializeSortableAbilities()
 
   removeFormControlClass: ->
     @$('#js-user_abilities').removeClass('form-control')

@@ -13,8 +13,8 @@
           = f.input :role_id, collection: roles
         .list-group-item
           = f.label :abilities_names, 'Skills & technologies'
-          = tooltip "you can reorder skills by drag and drop tags" do
-            = glyphicon("info-sign", class: "notbillable info")
+          = tooltip "You can reorder skills" do
+            = glyphicon("info-sign")
           = f.input :abilities_names, as: :select, collection: abilities, input_html: { multiple: true, id: 'js-user_abilities'}, label: false
         .list-group-item
           %h4.list-group-item-heading= "Positions"
