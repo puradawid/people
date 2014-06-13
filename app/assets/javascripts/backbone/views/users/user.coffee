@@ -13,13 +13,14 @@ class Hrguru.Views.UsersShow extends Backbone.View
     @$('#user_abilities').selectize
       plugins: ['remove_button']
       delimiter: ','
+      id: 'js-sortable'
       persist: false
       create: (input) ->
         value: input
         text: input
 
   initializeSortableAbilities: ->
-    @$('div.selectize-input.items.not-full.has-options').sortable (->),
+    @$('div.selectize-input.items.not-full.has-options').sortable
       axis: 'x'
       tolerance: 'pointer'
       update: ->
@@ -30,6 +31,6 @@ class Hrguru.Views.UsersShow extends Backbone.View
             value: item_value
             selected: 'selected'
           )
-    @$( "#sortable" ).disableSelection();
+    @$( 'div.selectize-input.items.not-full.has-options' ).disableSelection();
 
 
