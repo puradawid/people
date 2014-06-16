@@ -14,12 +14,12 @@ class MembershipsController < ApplicationController
   def create
     if membership.save
       respond_to do |format|
-        format.html { redirect_to memberships_path, notice: "Membership created!" }
+        format.html { redirect_to request.referer, notice: 'Membership created!' }
         format.json { render :show }
       end
     else
       respond_to do |format|
-        format.html { render :new, alert: "Something went wrong. Create unsuccessful" }
+        format.html { render :new, alert: 'Something went wrong. Create unsuccessful' }
         format.json { render json: { errors: membership.errors }, status: 400 }
       end
     end
@@ -28,12 +28,12 @@ class MembershipsController < ApplicationController
   def update
     if membership.save
       respond_to do |format|
-        format.html { redirect_to edit_membership_path, notice: "Membership updated!" }
+        format.html { redirect_to edit_membership_path, notice: 'Membership updated!' }
         format.json { render :show }
       end
     else
       respond_to do |format|
-        format.html { render :edit, alert: "Something went wrong. Update unsuccessful" }
+        format.html { render :edit, alert: 'Something went wrong. Update unsuccessful' }
         format.json { render json: { errors: membership.errors }, status: 400 }
       end
     end
@@ -41,9 +41,9 @@ class MembershipsController < ApplicationController
 
   def destroy
     if membership.destroy
-      redirect_to memberships_path, notice: "Membership deleted!"
+      redirect_to request.referer, notice: 'Membership deleted!'
     else
-      flash[:alert] = "Something went wrong. Delete unsuccessful"
+      redirect_to request.referer, flash[:alert] = 'Something went wrong. Delete unsuccessful'
     end
   end
 
