@@ -29,8 +29,7 @@ class MembershipsController < ApplicationController
 
   def update
     if membership.save
-      respond_to do |format|
-        format.html { redirect_to edit_membership_path, notice: 'Membership updated!' }
+        format.html { redirect_to user_path(membership.user), notice: 'Membership updated!' }
         format.json { render :show }
       end
     else
