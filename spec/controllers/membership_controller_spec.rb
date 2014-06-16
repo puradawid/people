@@ -4,6 +4,7 @@ describe MembershipsController do
   before(:each) do
     role = create(:role, name: "pm", admin: true)
     sign_in create(:user, role_id: role.id)
+    @request.env['HTTP_REFERER'] = memberships_path
   end
 
   describe "#index" do
