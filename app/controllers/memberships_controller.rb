@@ -14,7 +14,9 @@ class MembershipsController < ApplicationController
   def create
     if membership.save
       respond_to do |format|
-        format.html { redirect_to request.referer, notice: 'Membership created!' }
+        path = request.referer
+        path = memberships_path if Rails.application.routes.recognize_path(request.referrer)[:action] == 'new'
+        format.html { redirect_to path, notice: 'Membership created!' }
         format.json { render :show }
       end
     else
