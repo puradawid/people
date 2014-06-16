@@ -8,14 +8,13 @@ class PositionsController < ApplicationController
 
   def new
     position.user = current_user
+    position.user = params[:user] if params[:user]
   end
 
   def create
     if position.save
-      path = user_path(current_user)
-      path = positions_path unless current_user == position.user
       respond_to do |format|
-        format.html { redirect_to path, notice: I18n.t('positions.success.create') }
+        format.html { redirect_to user_path(position.user), notice: I18n.t('positions.success.create') }
         format.json { render :show }
       end
     else
@@ -29,7 +28,7 @@ class PositionsController < ApplicationController
   def update
     if position.save
       respond_to do |format|
-        format.html { redirect_to positions_path, notice: I18n.t('positions.success.update') }
+        format.html { redirect_to user_path(position.user), notice: I18n.t('positions.success.update') }
         format.json { render :show }
       end
     else

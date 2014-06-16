@@ -28,7 +28,8 @@
                     = p.role.label
                   = link_to 'delete', p, method: :delete, data: { confirm: I18n.t('confirm_question') }, class: 'btn btn-xs btn-danger pull-right'
           .actions
-            = link_to I18n.t('positions.new'), new_position_path, class: "btn btn-default btn-success"
+            - if current_user.admin? || current_user == user
+              = link_to I18n.t('positions.new'), new_position_path(user: user), class: "btn btn-default btn-success"
         .list-group-item
           .row
             .col-sm-12
