@@ -4,7 +4,7 @@ describe Api::V1::UsersController do
   before { controller.class.skip_before_filter :authenticate_api! }
 
   let!(:user) { create(:user) }
-  let(:user_keys) { ["id", "first_name", "last_name", "email", "contract_type", "archived", "abilities", "role", "memberships"] }
+  let(:user_keys) { ["first_name", "last_name", "email", "contract_type", "archived", "abilities", "role", "memberships"] }
 
   describe "GET #index" do
 
