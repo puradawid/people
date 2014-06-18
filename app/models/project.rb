@@ -22,7 +22,7 @@ class Project
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :slug, presence: true,
                    uniqueness: { case_sensitive: false },
-                   format: { with: /\A[a-zA-Z]+\Z/ }
+                   format: { with: /\A[a-z]+\Z/ }
   validates :archived, inclusion: { in: [true, false] }
   validates :potential, inclusion: { in: [true, false] }
 
