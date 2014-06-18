@@ -67,13 +67,12 @@ class User
   end
 
   def flat_memberships
-    membs_grouped = memberships.group_by { |m| m.project.name }
-    membs_grouped.each do |name, membs|
-      membs_grouped[name] = {
+    membs_grouped = memberships.group_by { |m| m.project.slug }
+    membs_grouped.each do |slug, membs|
+      membs_grouped[slug] = {
           starts_at: (membs.map(&:starts_at).include?(nil) ? nil : membs.map(&:starts_at).compact.min),
           ends_at: (membs.map(&:ends_at).include?(nil) ? nil : membs.map(&:ends_at).compact.max),
-          role: (membs.map { |memb| memb.role.try(:name) }).last,
-          slug: membs.first.project.try(:slug)
+          role: (membs.map { |memb| memb.role.try(:name) }).last
       }
     end
   end
