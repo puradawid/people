@@ -35,10 +35,20 @@ describe Api::V1::UsersController do
       expect(@json_response.first.keys).to eq(user_keys)
     end
 
-    it 'includes last user role in each membership' do
-      memberships = @json_response[0]['memberships']
-      memberships.each do |membership|
-        expect(membership[1]['role']).to be_in %w(junior senior)
+    context 'in each membership' do
+      subject { @json_response[0]['memberships'] }
+
+      it 'includes last user role' do
+        subject.each do |memb|
+          expect(memb[1]['role']).to be_in %w(junior senior)
+        end
+      end
+
+      it 'includes project slug' do
+        subject.each do |memb|
+          expect(memb[1]['slug']).to\
+            be_in [membership1.project.slug, membership2.project.slug]
+        end
       end
     end
   end
