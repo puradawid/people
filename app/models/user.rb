@@ -71,7 +71,8 @@ class User
     membs_grouped.each do |name, membs|
       membs_grouped[name] = {
           starts_at: (membs.map(&:starts_at).include?(nil) ? nil : membs.map(&:starts_at).compact.min),
-          ends_at: (membs.map(&:ends_at).include?(nil) ? nil : membs.map(&:ends_at).compact.max)
+          ends_at: (membs.map(&:ends_at).include?(nil) ? nil : membs.map(&:ends_at).compact.max),
+          role: (membs.map { |memb| memb.role.try(:name) }).last
       }
     end
   end

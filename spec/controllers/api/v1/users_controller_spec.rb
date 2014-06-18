@@ -6,6 +6,20 @@ describe Api::V1::UsersController do
   let!(:user) { create(:user) }
   let(:user_keys) { ["first_name", "last_name", "email", "contract_type", "archived", "abilities", "role", "memberships"] }
 
+  let!(:senior) { create(:role, name: 'senior') }
+  let!(:developer) { create(:role, name: 'developer') }
+  let!(:junior) { create(:role, name: 'junior') }
+
+  let!(:membership1) { create(:membership, user: user, role: junior) }
+
+  let!(:membership2) { create(:membership, user: user, role: developer) }
+  let!(:membership3) { create(:membership,
+                             user: user,
+                             role: senior,
+                             project: membership2.project,
+                             starts_at: membership2.ends_at + 1.day,
+                             ends_at: membership2.ends_at + 2.days) }
+
   describe "GET #index" do
 
     before do
@@ -17,8 +31,15 @@ describe Api::V1::UsersController do
       expect( response.status ).to eq 200
     end
 
-    it "contains current_week fields" do
+    it 'contains current user fields' do
       expect(@json_response.first.keys).to eq(user_keys)
+    end
+
+    it 'includes last user role in each membership' do
+      memberships = @json_response[0]['memberships']
+      memberships.each do |membership|
+        expect(membership[1]['role']).to be_in %w(junior senior)
+      end
     end
   end
 
