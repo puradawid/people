@@ -10,6 +10,7 @@ class Project
   SOON_END = 1.week
 
   field :name
+  field :slug
   field :end_at, type: Time
   field :archived, type: Mongoid::Boolean, default: false
   field :potential, type: Mongoid::Boolean, default: false
@@ -19,6 +20,9 @@ class Project
   has_many :notes
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :slug, presence: true,
+                   uniqueness: { case_sensitive: false },
+                   format: { with: /\A[a-zA-Z]+\Z/ }
   validates :archived, inclusion: { in: [true, false] }
   validates :potential, inclusion: { in: [true, false] }
 

@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :project do
     name { Faker::Internet.domain_word }
+    slug { name }
     end_at { 30.days.from_now }
 
     factory :project_deleted do
