@@ -67,7 +67,7 @@ class User
   end
 
   def flat_memberships
-    membs_grouped = memberships.includes(:project, :role).group_by { |m| m.project.name }
+    membs_grouped = memberships.includes(:project).group_by { |m| m.project.name }
     membs_grouped.each do |name, membs|
       membs_grouped[name] = {
           starts_at: (membs.map(&:starts_at).include?(nil) ? nil : membs.map(&:starts_at).compact.min),
