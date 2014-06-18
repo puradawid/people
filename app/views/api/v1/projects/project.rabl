@@ -1,1 +1,1 @@
-attributes :name
+attributes :name, :slug, :archived

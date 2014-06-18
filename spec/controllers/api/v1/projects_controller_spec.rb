@@ -4,7 +4,7 @@ describe Api::V1::ProjectsController do
   before { controller.class.skip_before_filter :authenticate_api! }
 
   let!(:project) { create(:project) }
-  let(:project_keys) { ['name'] }
+  let(:project_keys) { %w(name slug archived) }
 
   describe "GET #index" do
 
