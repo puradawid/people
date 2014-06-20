@@ -12,8 +12,8 @@ namespace :mailer do
   end
 
   task kickoff_tomorrow: :environment do
-    Projet.kickoff_tomorrow.each do |project|
-      Projet.kickoff_tomorrow(project).deliver
+    Project.kickoff_tomorrow.each do |project|
+      ProjectMailer.kickoff_tomorrow(project).deliver
     end
   end
 end
