@@ -92,7 +92,7 @@ describe Project do
       create(:project, kickoff: Time.current + 2.days, potential: true)
     end
 
-    it 'returns projects scheduled for kickoff in next 24 hours' do
+    it 'returns potential projects scheduled for kickoff in next 24 hours' do
       expect(Project.kickoff_tomorrow.count).to eq 2
     end
   end
