@@ -1,0 +1,5 @@
+= "#{ @user.name } added a new note to #{ @project.name }."
+
+%pre= @note.text
+
+%p= link_to 'view note', notes_path(@note)
