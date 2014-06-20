@@ -12,7 +12,7 @@ namespace :mailer do
   end
 
   task kickoff_tomorrow: :environment do
-    Project.kickoff_tomorrow.each do |project|
+    Project.starting_tomorrow.each do |project|
       ProjectMailer.kickoff_tomorrow(project).deliver
     end
   end

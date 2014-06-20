@@ -84,7 +84,7 @@ describe Project do
     end
   end
 
-  describe 'kickoff_tomorrow' do
+  describe 'starting_tomorrow' do
     before do
       2.times { |t| create(:project, kickoff: Time.current + t.hours, potential: true) }
 
@@ -93,7 +93,7 @@ describe Project do
     end
 
     it 'returns potential projects scheduled for kickoff in next 24 hours' do
-      expect(Project.kickoff_tomorrow.count).to eq 2
+      expect(Project.starting_tomorrow.count).to eq 2
     end
   end
 
