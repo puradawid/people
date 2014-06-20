@@ -4,7 +4,9 @@ describe Project do
   it { should have_many :memberships }
   it { should be_valid }
   it { should validate_presence_of :name }
+  it { should validate_presence_of :slug }
   it { should validate_uniqueness_of(:name).case_insensitive }
+  it { should validate_uniqueness_of(:slug).case_insensitive }
 
   describe "pm" do
     let(:actual_membership) { build(:membership, starts_at: 1.week.ago, ends_at: 1.week.from_now) }
@@ -78,6 +80,18 @@ describe Project do
 
       it "does not return project" do
         expect(Project.three_months_old).not_to include(project2)
+      end
+    end
+  end
+
+  describe 'validations' do
+    context 'with an empty slug' do
+      it 'does not pass' do
+        FactoryGirl.build(:project, slug: '').should_not be_valid
+      end
+
+      it 'pass if project is potential' do
+        FactoryGirl.build(:project, potential: true, slug: '').should be_valid
       end
     end
   end
