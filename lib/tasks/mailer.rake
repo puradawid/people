@@ -10,4 +10,10 @@ namespace :mailer do
       ProjectMailer.three_months_old(project).deliver
     end
   end
+
+  task kickoff_tomorrow: :environment do
+    Projet.kickoff_tomorrow.each do |project|
+      Projet.kickoff_tomorrow(project).deliver
+    end
+  end
 end
