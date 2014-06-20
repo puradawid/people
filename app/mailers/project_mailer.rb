@@ -10,4 +10,10 @@ class ProjectMailer < BaseMailer
     to = project.pm.try(:email) || AppConfig.emails.pm, AppConfig.emails.social
     mail(to: to, subject: "#{project.name}, references", project: @project)
   end
+
+  def kickoff_tomorrow(project)
+    @project = project
+    to = [project.pm.try(:email), AppConfig.emails.pm].compact
+    mail(to: to, subject: "#{ project.name } is starting tomorrow", project: @project)
+  end
 end
