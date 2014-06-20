@@ -84,6 +84,19 @@ describe Project do
     end
   end
 
+  describe 'kickoff_tomorrow' do
+    before do
+      2.times { |t| create(:project, kickoff: Time.current + t.hours, potential: true) }
+
+      create(:project, kickoff: Time.current + 12.hours, potential: false)
+      create(:project, kickoff: Time.current + 2.days, potential: true)
+    end
+
+    it 'returns projects scheduled for kickoff in next 24 hours' do
+      expect(Project.kickoff_tomorrow.count).to eq 2
+    end
+  end
+
   describe 'validations' do
     context 'with an empty slug' do
       it 'does not pass' do
