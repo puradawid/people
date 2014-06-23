@@ -37,6 +37,8 @@ Hrguru::Application.routes.draw do
   end
   resources :positions, except: [:show]
   resources :abilities
+  resources :settings, only: [:update]
+  get '/settings', to: 'settings#edit'
   root 'welcome#index'
   get '/github_connect', to: 'welcome#github_connect'
 end
