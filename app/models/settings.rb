@@ -10,7 +10,7 @@ class Settings
     delegate :inspect, to: :instance
 
     def method_missing method, *args
-      instance.send(method, *args)
+      instance.public_send(method, *args)
     end
 
     def instance
