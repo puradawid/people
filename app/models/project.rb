@@ -29,9 +29,10 @@ class Project
 
   scope :active, -> { where(archived: false) }
   scope :nonpotential, -> { active.where(potential: false) }
+  scope :potential, -> { active.where(potential: true) }
   scope :ending_in_a_week, -> { active.between(end_at: (SOON_END.from_now - 1.day)..SOON_END.from_now) }
   scope :ending_soon, -> { active.between(end_at: Time.now..SOON_END.from_now) }
-  scope :starting_tomorrow, -> { where(potential: true).between(kickoff: Time.now..1.day.from_now) }
+  scope :starting_tomorrow, -> { potential.between(kickoff: Time.now..1.day.from_now) }
 
   track_history on: [:archived, :potential], version_field: :version, track_create: true, track_update: true
 
