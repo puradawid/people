@@ -1,0 +1,5 @@
+= simple_form_for Settings.instance do |f|
+  = f.input :notifications_email, placeholder: 'notifications@your-app.com'
+  .actions
+    = link_to 'Back', :back, class: 'btn btn-default btn-sm'
+    = f.button :submit, 'Save', class: 'btn-success'
