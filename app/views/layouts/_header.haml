@@ -23,6 +23,7 @@
                 %li{ class: menu_class('roles') }= link_to "Roles", roles_path
                 %li{ class: menu_class('positions') }= link_to "Positions", positions_path
                 %li{ class: menu_class('abilities') }= link_to "Abilities", abilities_path
+                %li{ class: menu_class('settings') }= link_to 'Settings', settings_path
       - if signed_in?
         %ul.nav.navbar-nav.navbar-right
           %li.dropdown
