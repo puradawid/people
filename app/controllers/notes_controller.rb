@@ -6,7 +6,7 @@ class NotesController < ApplicationController
 
   def create
     if note.save
-      NoteMailer.note_added(note)
+      NoteMailer.note_added(note).deliver
       respond_to do |format|
         format.html { redirect_to note, notice: 'Note created!' }
         format.json { render :show }
