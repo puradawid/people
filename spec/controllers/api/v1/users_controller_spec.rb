@@ -6,9 +6,9 @@ describe Api::V1::UsersController do
   let!(:user) { create(:user) }
   let(:user_keys) { ["first_name", "last_name", "email", "contract_type", "archived", "abilities", "role", "memberships"] }
 
-  let!(:senior) { create(:role, name: 'senior') }
-  let!(:developer) { create(:role, name: 'developer') }
   let!(:junior) { create(:role, name: 'junior') }
+  let!(:developer) { create(:role, name: 'developer') }
+  let!(:senior) { create(:role, name: 'senior') }
 
   let!(:membership1) { create(:membership, user: user, role: junior) }
 
