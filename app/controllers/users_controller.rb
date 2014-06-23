@@ -37,9 +37,22 @@ class UsersController < ApplicationController
 
   def show
     @membership = Membership.new(user: user, role: user.role)
+    gon.events = get_events
   end
 
   private
+
+  def get_events
+    events = user.memberships.map do |m|
+      if m.project.present?
+        event = { text: m.project.name, startDate: m.starts_at.to_date }
+        event[:endDate] = m.ends_at.to_date if m.ends_at
+        event[:billable] = m.billable
+        event
+      end
+    end
+    events.compact
+  end
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :role_id, :employment, :phone,

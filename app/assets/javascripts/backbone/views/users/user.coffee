@@ -4,6 +4,10 @@ class Hrguru.Views.UsersShow extends Backbone.View
   initialize: ->
     @removeFormControlClass()
     @initializeAbilities()
+    elTimeline = @$(".timeline")
+    @timeline = elTimeline.timeline(gon.events)
+    elTimeline.scrollTo(elTimeline[0].scrollWidth, 0)
+    @$el.after @timeline
 
   removeFormControlClass: ->
     @$('#js-user_abilities').removeClass('form-control')
@@ -16,3 +20,4 @@ class Hrguru.Views.UsersShow extends Backbone.View
       create: (input) ->
         value: input
         text: input
+
