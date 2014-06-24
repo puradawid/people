@@ -4,9 +4,12 @@ describe Project do
   it { should have_many :memberships }
   it { should be_valid }
   it { should validate_presence_of :name }
-  it { should validate_presence_of :slug }
   it { should validate_uniqueness_of(:name).case_insensitive }
-  it { should validate_uniqueness_of(:slug).case_insensitive }
+  it { should validate_format_of(:slug).
+       to_allow('onlyletters').
+       to_allow('').
+       to_allow(nil).
+       not_to_allow('ANYTHING-else07') }
 
   describe "pm" do
     let(:actual_membership) { build(:membership, starts_at: 1.week.ago, ends_at: 1.week.from_now) }
@@ -94,18 +97,6 @@ describe Project do
 
     it 'returns potential projects scheduled for kickoff in next 24 hours' do
       expect(Project.starting_tomorrow.count).to eq 2
-    end
-  end
-
-  describe 'validations' do
-    context 'with an empty slug' do
-      it 'does not pass' do
-        FactoryGirl.build(:project, slug: '').should_not be_valid
-      end
-
-      it 'pass if project is potential' do
-        FactoryGirl.build(:project, potential: true, slug: '').should be_valid
-      end
     end
   end
 end

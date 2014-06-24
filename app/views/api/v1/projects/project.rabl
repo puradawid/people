@@ -1,1 +1,5 @@
-attributes :name, :slug, :archived
+attributes :name, :archived
+
+node :slug do |project|
+  project.api_slug
+end

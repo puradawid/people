@@ -20,10 +20,7 @@ class Project
   has_many :notes
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
-  validates :slug, presence: true,
-                   uniqueness: { case_sensitive: false },
-                   format: { with: /\A[a-z]+\Z/ },
-                   unless: 'potential'
+  validates :slug, allow_blank: true, allow_nil: true, format: { with: /\A[a-z]+\Z/ }
   validates :archived, inclusion: { in: [true, false] }
   validates :potential, inclusion: { in: [true, false] }
 
@@ -38,6 +35,10 @@ class Project
 
   def to_s
     name
+  end
+
+  def api_slug
+    slug.blank? ? name.try(:delete, '^a-zA-Z').try(:downcase) : slug
   end
 
   def pm

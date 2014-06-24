@@ -9,7 +9,6 @@
       %input.form-control.name{  placeholder: "Project name...", type: "text"  }
     .input-group
       %label.control-label
-        %abbr{title: "required"} *
         Project slug
       %input.form-control.slug{  placeholder: "Only small letters...", type: "text"  }
   .checkbox
