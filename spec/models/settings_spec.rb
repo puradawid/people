@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Settings do
 
-  context 'without any Settings instace initialized yet' do
+  context 'without any Settings instance initialized yet' do
 
     it 'sets the notifications_email' do
       expect(Settings.notifications_email).to eq nil
