@@ -30,4 +30,6 @@ People
 
 All the required app settings are located in `config/config.yml` file.
 
+Take a note that emails->internal: in `config/config.yml` should be domain used to login users eg. example.com not test@example.com
+
 Get started: https://devcenter.heroku.com/articles/getting-started-with-rails4
