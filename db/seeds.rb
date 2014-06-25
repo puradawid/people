@@ -1,7 +1,8 @@
-billable_roles = ["senior", "developer"]
-non_billable_roles = ["junior", "praktykant", "pm", "junior pm", "qa", "junior qa"]
-contract_types = ["DG", "UoP", "UoD"]
-locations = ["Poznan", "Warsaw", "Gdansk", "Zielona Gora", "Remotely"]
+billable_roles = %w(senior developer)
+non_billable_roles = %w(junior praktykant pm junior\ pm qa junior\ qa)
+admin_roles = %w(senior pm)
+contract_types = %w(DG UoP UoD)
+locations = %w(Poznan Warsaw Gdansk Zielona\ Gora Remotely)
 
 billable_roles.each do |name|
   Role.find_or_create_by(name: name).update_attribute(:billable, true)
@@ -9,6 +10,11 @@ end
 non_billable_roles.each do |name|
   Role.find_or_create_by(name: name).update_attribute(:billable, false)
 end
+
+admin_roles.each do |name|
+  Role.find_or_create_by(name: name).update_attribute(:admin, true)
+end
+
 contract_types.each do |name|
   ContractType.find_or_create_by(name: name)
 end

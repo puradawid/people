@@ -10,7 +10,7 @@ defaults: &defaults
   emails:
     from:             default_address_used_to_send_emails
     pm:               pms_email_address
-    internal:         example.com
+    internal:         email_domain_used_to_login_user
     social:           example.com
   tld_length:         1
 
