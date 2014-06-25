@@ -5,6 +5,7 @@ class Project
   include Mongoid::History::Trackable
   include Project::UserAvailability
 
+  after_save :update_membership_fields
   after_save :check_potential
 
   SOON_END = 1.week
@@ -63,6 +64,14 @@ class Project
   end
 
   private
+
+  def update_membership_fields
+    if potential_change == [true, false] || archived_change == [true, false]
+      memberships.each do |membership|
+        membership.update(project_potential: self.potential, project_archived: self.archived)
+      end
+    end
+  end
 
   def check_potential
     if potential_change == [true, false]

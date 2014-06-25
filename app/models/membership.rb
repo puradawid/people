@@ -6,6 +6,8 @@ class Membership
   field :starts_at, type: Time
   field :ends_at, type: Time
   field :billable, type: Mongoid::Boolean
+  field :project_archived, type: Mongoid::Boolean, default: false
+  field :project_potential, type: Mongoid::Boolean, default: true
 
   belongs_to :user
   belongs_to :project
@@ -26,6 +28,7 @@ class Membership
   scope :finished, -> { lte(ends_at: Time.current) }
   scope :ending_soon, -> { between(ends_at: Time.now..1.week.from_now) }
   scope :billable, -> { where(billable: true) }
+  scope :only_active, -> { where(project_potential: false, project_archived: false).desc('starts_at') }
 
   %w(user project role).each do |model|
     original_model = "original_#{model}"

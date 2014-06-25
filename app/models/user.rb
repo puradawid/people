@@ -41,6 +41,7 @@ class User
   scope :by_name, -> { asc(:first_name, :last_name) }
   scope :available, -> { where(available: true) }
   scope :active, -> { where(archived: false) }
+  scope :technical_active, -> { where(archived: false, available: true) }
   scope :roles, -> (roles) { where(:role.in => roles) }
   scope :contract_users, ->(contract_type) { where(contract_type_id: ContractType.where(name: contract_type).first.id) }
 

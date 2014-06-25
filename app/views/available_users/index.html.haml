@@ -1,30 +1,61 @@
-%table.table.table-striped.table-hover#available_users
-  %thead
-    %th
-    %th User
-    %th Role
-    %th Per month
-    %th Projects
+- if AppConfig.feature.new_available_view
+  .container
+    - roles.each do |role|
+      .row
+        %h3= role.name.capitalize
+        .row
+          = "no candidates" if role.users.blank?
+          - role.users.each do |user|
+            .col-md-3
+              .user
+                .avatar
+                  %center= user.gravatar_image(size: 100)
+                .name
+                  = link_to user.name, user_path(user)
+                .available_since
+                  available since: dd-mm-yyyy
+                .hours
+                  hours: #{user.employment}h
+                .link_to_cv
+                  = link_to "link to profile pdf", '#'
+                .last_projects
+                  last projects:
+                  %ul
+                    - user.memberships.only_active.limit(3).each do |p|
+                      %li= p.project.name
+                .current_project
+                  current project:
+                  - if user.memberships.only_active.present?
+                    #{user.memberships.only_active.first.project.name}
+- else
+  %table.table.table-striped.table-hover#available_users
+    %thead
+      %th
+      %th User
+      %th Role
+      %th Per month
+      %th Projects
 
-  %tbody
-    - users.each do |user|
-      %tr
-        %td= user.gravatar_image(size: 40)
-        %td
-          = link_to user.name, user_path(user)
-          .icons
-            = mail_to user.email do
-              = tooltip user.email do
-                = icon 'envelope-o'
-            = tooltip user.gh_nick do
-              = user.github_link(icon: true)
-            = tooltip user.skype do
-              = user.skype_link()
-        %td= user.role
-        %td #{user.employment}h
-        %td
-          = render partial: 'membership', collection: user.current_memberships
-          = 'Next:' if user.has_next_projects?
-          = render partial: 'membership', collection: user.next_memberships
-          = 'Potential:' if user.has_potential_projects?
-          = render partial: 'membership', collection: user.potential_memberships
+    %tbody
+      - users.each do |user|
+        %tr
+          %td= user.gravatar_image(size: 40)
+          %td
+            = link_to user.name, user_path(user)
+            .icons
+              = mail_to user.email do
+                = tooltip user.email do
+                  = icon 'envelope-o'
+              = tooltip user.gh_nick do
+                = user.github_link(icon: true)
+              = tooltip user.skype do
+                = user.skype_link()
+          %td= user.role
+          %td #{user.employment}h
+          %td
+            = render partial: 'membership', collection: user.current_memberships
+            = 'Next:' if user.has_next_projects?
+            = render partial: 'membership', collection: user.next_memberships
+            = 'Potential:' if user.has_potential_projects?
+            = render partial: 'membership', collection: user.potential_memberships
+

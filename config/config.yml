@@ -13,6 +13,8 @@ defaults: &defaults
     internal:         example.com
     social:           example.com
   tld_length:         1
+  feature:
+    new_available_view: false
 
 heroku_settings: &heroku_settings
   <<: *defaults
@@ -38,11 +40,13 @@ heroku_settings: &heroku_settings
 
 development:
   <<: *defaults
-  domain: hrguru.dev
+  domain: people.dev
+  feature:
+    new_available_view: true
 
 test:
   <<: *defaults
-  domain: hrguru.test
+  domain: people.test
 
 staging:
   <<: *heroku_settings
