@@ -1,4 +1,4 @@
-attributes :first_name, :last_name, :email, :archived
+attributes :first_name, :last_name, :email, :archived, :gh_nick
 
 node :role do |user|
   user.role.try(:name)
