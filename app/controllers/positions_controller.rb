@@ -13,29 +13,17 @@ class PositionsController < ApplicationController
 
   def create
     if position.save
-      respond_to do |format|
-        format.html { redirect_to user_path(position.user), notice: I18n.t('positions.success.create') }
-        format.json { render :show }
-      end
+      respond_on_success
     else
-      respond_to do |format|
-        format.html { render :new, alert: I18n.t('positions.error.create') }
-        format.json { render json: { errors: position.errors }, status: :unprocessable_entity }
-      end
+      respond_on_failure
     end
   end
 
   def update
     if position.save
-      respond_to do |format|
-        format.html { redirect_to user_path(position.user), notice: I18n.t('positions.success.update') }
-        format.json { render :show }
-      end
+      respond_on_success
     else
-      respond_to do |format|
-        format.html { render :edit, alert: I18n.t('positions.error.update') }
-        format.json { render json: { errors: position.errors }, status: :unprocessable_entity }
-      end
+      respond_on_failure
     end
   end
 
@@ -48,6 +36,20 @@ class PositionsController < ApplicationController
   end
 
   private
+
+  def respond_on_success
+    respond_to do |format|
+      format.html { redirect_to user_path(position.user), notice: I18n.t('positions.success.create') }
+      format.json { render :show }
+    end
+  end
+
+  def respond_on_failure
+    respond_to do |format|
+      format.html { render :new, alert: I18n.t('positions.error.create') }
+      format.json { render json: { errors: position.errors }, status: :unprocessable_entity }
+    end
+  end
 
   def position_params
     params.require(:position).permit(:starts_at, :user_id, :role_id)
