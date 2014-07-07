@@ -24,3 +24,6 @@ en:
     edit: "Edit position"
     new: "Add position"
     empty: "No positions"
+  notes:
+    success: "Note %{type}d!"
+    error:  "Something went wrong. %{type} unsuccessful."

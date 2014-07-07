@@ -7,15 +7,9 @@ class NotesController < ApplicationController
   def create
     if note.save
       NoteMailer.note_added(note).deliver
-      respond_to do |format|
-        format.html { redirect_to note, notice: 'Note created!' }
-        format.json { render :show }
-      end
+      respond_on_success 'create'
     else
-      respond_to do |format|
-        format.html { render :new, alert: 'Something went wrong. Create unsuccessful' }
-        format.json { render json: { errors: note.errors }, status: 400 }
-      end
+      respond_on_failure 'create'
     end
   end
 
@@ -24,15 +18,9 @@ class NotesController < ApplicationController
 
   def update
     if note.save
-      respond_to do |format|
-        format.html { redirect_to note, notice: 'Note updated!' }
-        format.json { render :show }
-      end
+      respond_on_success 'update'
     else
-      respond_to do |format|
-        format.html { render :edit, alert: 'Something went wrong. Update unsuccessful' }
-        format.json { render json: { errors: note.errors }, status: 400 }
-      end
+      respond_on_success 'update'
     end
   end
 
@@ -51,6 +39,20 @@ class NotesController < ApplicationController
   end
 
   private
+
+  def respond_on_success(action_type)
+    respond_to do |format|
+      format.html { redirect_to note, notice: I18n.t('notes.success', type: action_type)}
+      format.json { render :show }
+    end
+  end
+
+  def respond_on_failure(action_type)
+    respond_to do |format|
+      format.html { render :new, alert: I18n.t('notes.error', type: action_type)}
+      format.json { render json: { errors: note.errors }, status: 400 }
+    end
+  end
 
   def note_params
     params.require(:note).permit(:text, :open, :project_id, :user_id)
