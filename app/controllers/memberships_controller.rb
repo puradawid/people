@@ -1,5 +1,7 @@
 class MembershipsController < ApplicationController
 
+  include Shared::RespondsController
+
   respond_to :json, only: [:create, :update]
 
   expose(:membership, attributes: :membership_params)
@@ -20,24 +22,15 @@ class MembershipsController < ApplicationController
         format.json { render :show }
       end
     else
-      respond_to do |format|
-        format.html { render :new, alert: 'Something went wrong. Create unsuccessful' }
-        format.json { render json: { errors: membership.errors }, status: 400 }
-      end
+      respond_on_failure membership.errors
     end
   end
 
   def update
     if membership.save
-      respond_to do |format|
-        format.html { redirect_to user_path(membership.user), notice: 'Membership updated!' }
-        format.json { render :show }
-      end
+     respond_on_success user_path(membership.user)
     else
-      respond_to do |format|
-        format.html { render :edit, alert: 'Something went wrong. Update unsuccessful' }
-        format.json { render json: { errors: membership.errors }, status: 400 }
-      end
+      respond_on_failure membership.errors
     end
   end
 

@@ -27,3 +27,6 @@ en:
   notes:
     success: "Note %{type}d!"
     error:  "Something went wrong. %{type} unsuccessful."
+  memberships:
+    success: "Membership %{type}d!"
+    error:  'Something went wrong. %{type} unsuccessful'
