@@ -24,11 +24,11 @@ class Position
   def validate_chronology
     positions = user.positions.sort_by!(&:starts_at).map(&:role).map(&:name)
     is_valid = positions == Role.in(name: positions).sort_by(&:priority).map(&:name).reverse!
-    errors.add(:starts_at, I18n.t('positions.error.chronology')) unless is_valid
+    errors.add(:starts_at, I18n.t('positions.errors.chronology')) unless is_valid
   end
 
   def validate_position
-    errors.add(:role, I18n.t('positions.error.role')) unless available_roles.any? { |p| p.name == role.name }
+    errors.add(:role, I18n.t('positions.errors.role')) unless available_roles.any? { |p| p.name == role.name }
   end
 
   def self.by_user_name_and_date(positions = all)

@@ -11,17 +11,15 @@ en:
       hours: How many hours do you work in a month?
       positions: "Positions"
       add_position: "Add position"
+  projects:
+    success: "Project %{type}d!"
+    error: "Something went wrong. Project %{type} unsuccessful"
   positions:
-    error:
-      create: "Something went wrong. Position create unsuccessful"
-      update: "Something went wrong. Position update unsuccessful"
-      delete: "Something went wrong. Position delete unsuccessful"
+    error:  "Something went wrong. Position %{type} unsuccessful"
+    errors:
       chronology: "Position dates should be chronologically ordered"
       role: "Current position already exist for given user"
-    success:
-      create: "Position created!"
-      update: "Position updated!"
-      deleted: "Position deleted!"
+    success: "Position %{type}d!"
     title: "Position"
     edit: "Edit position"
     new: "Add position"

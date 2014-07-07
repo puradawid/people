@@ -41,7 +41,7 @@ describe Position do
         expect(pos).not_to be_valid
         expect(pos.errors).not_to be_blank
         expect(pos.errors).to include :starts_at
-        expect(pos.errors[:starts_at]).to include I18n.t('positions.error.chronology')
+        expect(pos.errors[:starts_at]).to include I18n.t('positions.errors.chronology')
       end
 
       it "should not return error when dates chronology is ok" do

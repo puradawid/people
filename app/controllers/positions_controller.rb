@@ -13,40 +13,40 @@ class PositionsController < ApplicationController
 
   def create
     if position.save
-      respond_on_success
+      respond_on_success 'create'
     else
-      respond_on_failure
+      respond_on_failure 'create'
     end
   end
 
   def update
     if position.save
-      respond_on_success
+      respond_on_success 'update'
     else
-      respond_on_failure
+      respond_on_failure 'update'
     end
   end
 
   def destroy
     if position.destroy
-      redirect_to request.referer, notice: I18n.t('positions.success.deleted')
+      redirect_to request.referer, notice: I18n.t('positions.success', type: 'delete')
     else
-      redirect_to request.referer, alert: I18n.t('positions.error.delete')
+      redirect_to request.referer, alert: I18n.t('positions.error',  type: 'delete')
     end
   end
 
   private
 
-  def respond_on_success
+  def respond_on_success(action_type)
     respond_to do |format|
-      format.html { redirect_to user_path(position.user), notice: I18n.t('positions.success.create') }
+      format.html { redirect_to user_path(position.user), notice: I18n.t('positions.success', type: action_type) }
       format.json { render :show }
     end
   end
 
-  def respond_on_failure
+  def respond_on_failure(action_type)
     respond_to do |format|
-      format.html { render :new, alert: I18n.t('positions.error.create') }
+      format.html { render :new, alert: I18n.t('positions.error', type: action_type) }
       format.json { render json: { errors: position.errors }, status: :unprocessable_entity }
     end
   end
