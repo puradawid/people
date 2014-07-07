@@ -17,7 +17,7 @@ class PositionsController < ApplicationController
     if position.save
       respond_on_success user_path(position.user)
     else
-      respond_on_failure
+      respond_on_failure position.errors
     end
   end
 
@@ -25,7 +25,7 @@ class PositionsController < ApplicationController
     if position.save
       respond_on_success user_path(position.user)
     else
-      respond_on_failure
+      respond_on_failure position.errors
     end
   end
 

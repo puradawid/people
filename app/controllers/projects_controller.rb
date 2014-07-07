@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
     if project.save
       respond_on_success project
     else
-      respond_on_failure
+      respond_on_failure project.errors
     end
   end
 
@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
     if project.save
       respond_on_success project
     else
-      respond_on_failure
+      respond_on_failure project.errors
     end
   end
 

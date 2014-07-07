@@ -25,11 +25,11 @@ module ApplicationHelper
   end
 
   def icon(name, options = {})
-    content_tag :i, nil, id: options[:id], class: "fa fa-#{name} #{options[:class]}"
+    icon_generator(name, 'fa fa', options)
   end
 
   def glyphicon(name, options = {})
-    content_tag :i, nil, id: options[:id], class: "glyphicon glyphicon-#{name} #{options[:class]}"
+    icon_generator(name, 'glyphicon glyphicon', options)
   end
 
   def tooltip(name, options = {}, &block)
@@ -38,6 +38,10 @@ module ApplicationHelper
   end
 
   private
+
+  def icon_generator(name, icon_class, options = {})
+    content_tag :i, nil, id: options[:id], class: "#{icon_class}-#{name} #{options[:class]}"
+  end
 
   def get_alert_class(type)
     case type

@@ -11,7 +11,7 @@ class NotesController < ApplicationController
       NoteMailer.note_added(note).deliver
       respond_on_success note
     else
-      respond_on_failure
+      respond_on_failure note.errors
     end
   end
 
@@ -22,7 +22,7 @@ class NotesController < ApplicationController
     if note.save
       respond_on_success note
     else
-      respond_on_success
+      respond_on_success note.errors
     end
   end
 
