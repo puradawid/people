@@ -1,5 +1,7 @@
 class ProjectsController < ApplicationController
 
+  include Shared::RespondsController
+
   expose(:project, attributes: :project_params)
   expose(:projects_sorted) { Project.by_name }
   expose(:projects)        { Project.all }
@@ -8,9 +10,9 @@ class ProjectsController < ApplicationController
 
   def create
     if project.save
-      respond_on_success 'create'
+      respond_on_success project
     else
-      respond_on_failure 'create'
+      respond_on_failure
     end
   end
 
@@ -20,9 +22,9 @@ class ProjectsController < ApplicationController
 
   def update
     if project.save
-      respond_on_success 'update'
+      respond_on_success project
     else
-      respond_on_failure 'update'
+      respond_on_failure
     end
   end
 
@@ -35,20 +37,6 @@ class ProjectsController < ApplicationController
   end
 
   private
-
-  def respond_on_success(action_type)
-     respond_to do |format|
-        format.html { redirect_to project, notice: I18n.t('projets.success', type: action_type) }
-        format.json { render :show }
-      end
-  end
-
-  def respond_on_failure(action_type)
-    respond_to do |format|
-      format.html { render :new, alert: I18n.t('projets.error',  type: action_type) }
-      format.json { render json: { errors: project.errors }, status: 400 }
-    end
-  end
 
   def project_params
     params.require(:project).permit(:name, :slug, :end_at, :archived, :potential, :kickoff)

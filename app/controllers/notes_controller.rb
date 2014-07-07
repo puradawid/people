@@ -1,5 +1,7 @@
 class NotesController < ApplicationController
 
+  include Shared::RespondsController
+
   expose :note, attributes: :note_params
 
   before_filter :authenticate_admin!
@@ -7,9 +9,9 @@ class NotesController < ApplicationController
   def create
     if note.save
       NoteMailer.note_added(note).deliver
-      respond_on_success 'create'
+      respond_on_success note
     else
-      respond_on_failure 'create'
+      respond_on_failure
     end
   end
 
@@ -18,9 +20,9 @@ class NotesController < ApplicationController
 
   def update
     if note.save
-      respond_on_success 'update'
+      respond_on_success note
     else
-      respond_on_success 'update'
+      respond_on_success
     end
   end
 
@@ -39,20 +41,6 @@ class NotesController < ApplicationController
   end
 
   private
-
-  def respond_on_success(action_type)
-    respond_to do |format|
-      format.html { redirect_to note, notice: I18n.t('notes.success', type: action_type)}
-      format.json { render :show }
-    end
-  end
-
-  def respond_on_failure(action_type)
-    respond_to do |format|
-      format.html { render :new, alert: I18n.t('notes.error', type: action_type)}
-      format.json { render json: { errors: note.errors }, status: 400 }
-    end
-  end
 
   def note_params
     params.require(:note).permit(:text, :open, :project_id, :user_id)
