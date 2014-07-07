@@ -83,7 +83,7 @@ class User
   end
 
   def potential_projects
-    @potential_projects ||= potential_memberships.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
+    @potential_projects ||= map_projects(potential_memberships)
   end
 
   def memberships_cached
@@ -96,7 +96,7 @@ class User
   end
 
   def current_projects
-    @current_projects ||= current_memberships.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
+    @current_projects ||= map_projects(current_memberships)
   end
 
   def current_memberships
@@ -128,7 +128,7 @@ class User
   end
 
   def next_projects
-    @next_projects ||= next_memberships.map { |n_ms| { project: n_ms.project, billable: n_ms.billable, membership: n_ms } }
+    @next_projects ||= map_projects(next_memberships)
   end
 
   def memberships_by_project
@@ -168,5 +168,9 @@ class User
       @abilities_list.reject!(&:empty?)
       self.abilities = @abilities_list.map { |name| Ability.find_or_initialize_by(name: name) }
     end
+  end
+
+  def map_projects membership
+    membership.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
   end
 end
