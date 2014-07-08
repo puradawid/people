@@ -59,9 +59,8 @@ class User
     attributes = fields.reduce({}) { |mem, key| mem.merge(key => params['info'][key]) }
     attributes['password'] = Devise.friendly_token[0, 20]
     attributes['uid'] = params['uid']
-
-    User.create!(attributes)
     UserMailer.notify_operations(params['info']['email']).deliver
+    User.create!(attributes)
   end
 
   def self.get_from_api params
