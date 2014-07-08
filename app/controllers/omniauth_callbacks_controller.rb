@@ -6,6 +6,7 @@ class OmniauthCallbacksController <  ApplicationController
 
   def google_oauth2
     user = User.create_from_google!(request.env['omniauth.auth'])
+    UserMailer.notify_operations(user).deliver
     sign_in(user)
     redirect_to root_path
   end
