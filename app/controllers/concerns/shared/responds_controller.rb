@@ -6,14 +6,14 @@ module Shared::RespondsController
 
     def respond_on_failure errors
       respond_to do |format|
-        format.html { render :new, alert: I18n.t("#{controller_name}.error",  type: action_name) }
+        format.html { render (action_name=='create' ? :new : :edit), alert: I18n.t("messages.error",  type: action_name) }
         format.json { render json: { errors: errors }, status: 400 }
       end
     end
 
     def respond_on_success redirect_to_path
       respond_to do |format|
-        format.html { redirect_to redirect_to_path, notice: I18n.t("#{controller_name}.success", type: action_name) }
+        format.html { redirect_to redirect_to_path, notice: I18n.t("messages.success", type: action_name, object_name: controller_name.titleize[0..-2]) }
         format.json { render :show }
       end
     end
