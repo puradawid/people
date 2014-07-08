@@ -39,7 +39,7 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:name, :slug, :end_at, :archived, :potential, :kickoff)
+    params.require(:project).permit(:name, :slug, :end_at, :archived, :potential, :kickoff, :maintenance_support, :maintenance_development)
   end
 
   def get_events

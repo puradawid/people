@@ -3,6 +3,8 @@
   = f.input :slug
   = f.input :end_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
   = f.input :kickoff, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
+  = f.input :maintenance_support, as: :boolean
+  = f.input :maintenance_development, as: :boolean
   = f.input :potential, as: :boolean
   .actions
     = link_to "Back", :back, class: "btn btn-default btn-sm"

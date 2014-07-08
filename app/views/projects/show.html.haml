@@ -7,4 +7,6 @@
       = link_to 'Edit project', edit_project_path(project), class: "btn btn-default btn-xs" if current_user.admin?
     .bottom
       %i timeline of related users
+  .pull-right
+    = render 'maintenance_tags'
 .timeline

@@ -15,6 +15,8 @@ class Project
   field :end_at, type: Time
   field :archived, type: Mongoid::Boolean, default: false
   field :potential, type: Mongoid::Boolean, default: false
+  field :maintenance_support, type: Mongoid::Boolean, default: false
+  field :maintenance_development, type: Mongoid::Boolean, default: false
   field :kickoff, type: Date
 
   has_many :memberships, dependent: :destroy
@@ -24,10 +26,14 @@ class Project
   validates :slug, allow_blank: true, allow_nil: true, format: { with: /\A[a-z]+\Z/ }
   validates :archived, inclusion: { in: [true, false] }
   validates :potential, inclusion: { in: [true, false] }
+  validates :maintenance_support, inclusion: { in: [true, false] }
+  validates :maintenance_development, inclusion: { in: [true, false] }
 
   scope :active, -> { where(archived: false) }
   scope :nonpotential, -> { active.where(potential: false) }
   scope :potential, -> { active.where(potential: true) }
+  scope :maintenance_support, -> { active.where(maintenance_support: true) }
+  scope :maintenance_development, -> { active.where(maintenance_development: true) }
   scope :ending_in_a_week, -> { active.between(end_at: (SOON_END.from_now - 1.day)..SOON_END.from_now) }
   scope :ending_soon, -> { active.between(end_at: Time.now..SOON_END.from_now) }
   scope :starting_tomorrow, -> { potential.between(kickoff: Time.now..1.day.from_now) }
