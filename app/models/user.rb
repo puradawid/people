@@ -61,6 +61,7 @@ class User
     attributes['uid'] = params['uid']
 
     User.create!(attributes)
+    UserMailer.notify_operations(params['info']['email']).deliver
   end
 
   def self.get_from_api params
