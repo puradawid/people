@@ -10,7 +10,6 @@ class Hrguru.Views.Dashboard.Notes extends Marionette.CompositeView
   triggers:
     'click .new-project-note-submit' : 'add:note:clicked'
 
-
   collectionEvents:
     add: 'clearInput'
 
@@ -19,6 +18,10 @@ class Hrguru.Views.Dashboard.Notes extends Marionette.CompositeView
 
   initialize: (options) ->
     @project_id = options.project_id
+    @users = options.users
+
+  itemViewOptions: ->
+    users: @users
 
   onAddNoteClicked: ->
     attributes =
