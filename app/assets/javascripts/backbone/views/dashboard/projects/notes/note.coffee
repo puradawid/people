@@ -8,6 +8,13 @@ class Hrguru.Views.Dashboard.Note extends Marionette.ItemView
     'click .note-remove' : 'remove:note:clicked'
     'click .note-close'  : 'close:note:clicked'
 
+  initialize: (options) ->
+    @user = @options.users.get(@model.get('user_id'))
+
+  serializeData: ->
+    _.extend super,
+      user: @user
+
   onRemoveNoteClicked: ->
     return unless confirm('Are you sure?')
     @model.destroy
