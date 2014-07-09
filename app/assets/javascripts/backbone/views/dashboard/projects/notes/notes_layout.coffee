@@ -14,7 +14,8 @@ class Hrguru.Views.Dashboard.NotesLayout extends Marionette.Layout
     'click .js-open-project-notes'  : 'open:project:notes'
     'click .js-close-project-notes' : 'close:project:notes'
 
-  initialize: ->
+  initialize: (options) ->
+    { @users, @model } = options
     @listenTo(EventAggregator, 'open:all:notes', @onOpenProjectNotes)
     @listenTo(EventAggregator, 'close:all:notes', @onCloseProjectNotes)
 
@@ -24,6 +25,7 @@ class Hrguru.Views.Dashboard.NotesLayout extends Marionette.Layout
     notesView = new Hrguru.Views.Dashboard.Notes
       collection: @model.get('notes')
       project_id: @model.get('id')
+      users: @users
     @notesRegion.show(notesView)
 
   onOpenProjectNotes: ->
