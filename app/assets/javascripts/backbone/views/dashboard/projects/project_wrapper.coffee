@@ -29,7 +29,9 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
     @updateBillableInfo()
 
   renderNotesRegion: ->
-    notesLayout = new Hrguru.Views.Dashboard.NotesLayout { @model }
+    notesLayout = new Hrguru.Views.Dashboard.NotesLayout
+      model: @model
+      users: @users
     @notesRegion.show(notesLayout)
 
   renderMembershipsRegion: ->
