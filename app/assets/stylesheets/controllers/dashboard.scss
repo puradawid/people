@@ -163,7 +163,7 @@ body.dashboard {
             display: none;
           }
 
-          .unarchive, .archive {
+          .unarchive, .archive, .js-timeline-show, .js-timeline-hide {
             margin-left: 5px;
             font-size: 15px;
             line-height: 10px;
@@ -176,7 +176,7 @@ body.dashboard {
           }
 
           &:hover {
-            .unarchive, .archive {
+            .unarchive, .archive, .js-timeline-show, .js-timeline-hide  {
               opacity: 1;
             }
           }

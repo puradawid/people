@@ -7,6 +7,8 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
     billable_ratio: '.billable_ratio'
     archive: '.archive'
     time: '.time'
+    timeline_show: '.js-timeline-show'
+    timeline_hide: '.js-timeline-hide'
 
   regions:
     membershipsRegion: '.js-memberships-region'
@@ -15,6 +17,8 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
   events:
     'click .archive'   : 'archiving'
     'click .unarchive' : 'unarchiving'
+    'click .js-timeline-show' : 'toggleTimeline'
+    'click .js-timeline-hide' : 'toggleTimeline'
 
   initialize: (options) ->
     { @users, @roles, @model, @memberships } = options
@@ -26,7 +30,13 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
   onRender: ->
     @renderNotesRegion()
     @renderMembershipsRegion()
+    @renderTimelineRegion()
     @updateBillableInfo()
+
+  renderTimelineRegion: ->
+    @ui.timeline_hide.css('color', 'red')
+    @ui.timeline_hide.hide()
+    console.log 'rendering Timeline Region'
 
   renderNotesRegion: ->
     notesLayout = new Hrguru.Views.Dashboard.NotesLayout
@@ -92,3 +102,8 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
       error: (model, xhr) =>
         Messenger().error(xhr.responseJSON.errors)
     )
+
+  toggleTimeline: ->
+    @ui.timeline_show.toggle()
+    @ui.timeline_hide.toggle()
+
