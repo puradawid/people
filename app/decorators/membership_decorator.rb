@@ -22,4 +22,8 @@ class MembershipDecorator < Draper::Decorator
     range << " ... #{ends_at.to_date}" if ends_at
     h.raw range
   end
+
+  def project_name
+    project.name
+  end
 end

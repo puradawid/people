@@ -28,7 +28,7 @@ class Membership
   scope :finished, -> { lte(ends_at: Time.current) }
   scope :ending_soon, -> { between(ends_at: Time.now..1.week.from_now) }
   scope :billable, -> { where(billable: true) }
-  scope :only_active, -> { where(project_potential: false, project_archived: false).desc('starts_at') }
+  scope :only_active, -> { where(project_potential: false, project_archived: false).desc('starts_at').limit(3) }
 
   %w(user project role).each do |model|
     original_model = "original_#{model}"
