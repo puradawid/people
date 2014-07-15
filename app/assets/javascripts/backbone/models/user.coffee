@@ -104,8 +104,8 @@ class Hrguru.Collections.Users extends Backbone.Collection
     if @sortDirection is 1
       return -1 unless a
       return 1 unless b
-      (if a > b then 1 else -1)
+      (a.localeCompare(b))
     else
       return 1 unless a
       return -1 unless b
-      (if a < b then 1 else -1)
+      (b.localeCompare(a))
