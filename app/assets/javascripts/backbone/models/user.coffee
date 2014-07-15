@@ -100,12 +100,7 @@ class Hrguru.Collections.Users extends Backbone.Collection
   comparator: (a, b) ->
     a = a.get(@sortAttribute)
     b = b.get(@sortAttribute)
-    return 0 if a is b
     if @sortDirection is 1
-      return -1 unless a
-      return 1 unless b
-      (a.localeCompare(b))
+      a.localeCompare(b)
     else
-      return 1 unless a
-      return -1 unless b
-      (b.localeCompare(a))
+      b.localeCompare(a)
