@@ -40,7 +40,7 @@ describe UsersController do
     end
 
     it "should display user name on view" do
-      expect(response.body).to match /Dean Winchester/
+      expect(response.body).to match /Winchester Dean/
     end
   end
 end
