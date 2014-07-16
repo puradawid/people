@@ -26,7 +26,7 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
       labelField: 'name'
       searchField: 'name'
       sortField: 'name'
-      options: @projects.toJSON()
+      options: @filterSelectizeProjects()
       onItemAdd: @filterProjects
       onItemRemove: @filterProjects
     @projects_selectize = projects_selectize[0].selectize
@@ -49,10 +49,16 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
     $('#show-next').trigger 'change'
     $('#highlight-not-billable').trigger 'change'
 
-  filterProjects: =>
+  filterSelectizeProjects: ->
+    filtered_projects = []
+    _.each(@projects.models, (item) =>
+      filtered_projects.push item.toJSON() if item.type() is @displayedType)
+    filtered_projects
+
+  filterProjects: ->
     EventAggregator.trigger('projects:toggleVisibility', @projects_selectize.items)
 
-  filterRoles: =>
+  filterRoles: ->
     EventAggregator.trigger('roles:toggleVisibility', @roles_selectize.items)
 
   highlightEndingChanged: (event) ->
@@ -65,20 +71,29 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
   highlightNotBillableChanged: (event) ->
     EventAggregator.trigger('memberships:highlightNotBillable', event.currentTarget.checked)
 
-  toggleByType: (event) ->
+  toggleByType: (event) =>
     @displayedType = event.currentTarget.dataset.type
+    @refresh_project_selectize()
     EventAggregator.trigger('projects:toggleByType', { type: @displayedType })
 
   retrive_radio_state: ->
+    distype = null
     @$('input#toggle-by-type').each ->
-      state = JSON.parse( localStorage.getItem('radio_'  + this.getAttribute('data-type')) )
-      if state && state.checked
-        this.checked =  true
-        EventAggregator.trigger('projects:toggleByType', { type: this.getAttribute('data-type') })
-
+      state = JSON.parse( localStorage.getItem('radio_'  + @getAttribute('data-type')) )
+      if state?.checked
+        @checked =  true
+        distype = @getAttribute('data-type')
+        EventAggregator.trigger('projects:toggleByType', { type: @getAttribute('data-type') })
+    @displayedType = distype
 
   save_radio_state: ->
     @$('input#toggle-by-type').each ->
       localStorage.setItem(
         'radio_' + this.getAttribute('data-type'), JSON.stringify({checked: this.checked})
       )
+
+  refresh_project_selectize: ->
+    if @projects_selectize?
+      @projects_selectize.clearOptions()
+      @projects_selectize.load (callback) =>
+        callback @filterSelectizeProjects()
