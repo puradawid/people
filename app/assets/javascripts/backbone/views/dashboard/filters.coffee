@@ -55,7 +55,7 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
       filtered_projects.push item.toJSON() if item.type() is @displayedType)
     filtered_projects
 
-  filterProjects: ->
+  filterProjects: =>
     EventAggregator.trigger('projects:toggleVisibility', @projects_selectize.items)
 
   filterRoles: ->
@@ -94,6 +94,8 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
 
   refresh_project_selectize: ->
     if @projects_selectize?
+      @projects_selectize.clear()
+      @filterProjects()
       @projects_selectize.clearOptions()
       @projects_selectize.load (callback) =>
         callback @filterSelectizeProjects()
