@@ -78,6 +78,7 @@ class Hrguru.Views.UsersFilters extends Marionette.View
 
   filterUsers: =>
     EventAggregator.trigger('users:updateVisibility', @selectize)
+    H.addUserIndex()
 
   initializeVariables: ->
     @selectize =

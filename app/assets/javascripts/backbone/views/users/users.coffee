@@ -11,6 +11,7 @@ class Hrguru.Views.UsersCollectionView extends Marionette.CollectionView
   initialize: (@collection) ->
     @listenTo(EventAggregator, 'user:sortAndHighlightEnding', @sortEnding)
     @listenTo(EventAggregator, 'user:sortBeforePotential', @sortByPotential)
+    @on('collection:rendered', H.addUserIndex)
 
   incressingDirection: (e) ->
     @toggleClass(e.target)

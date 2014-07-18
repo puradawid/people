@@ -11,6 +11,12 @@ class Hrguru.Helper
   currentTime: ->
     moment(@server_time).add(moment().diff(@time_now))
 
+  addUserIndex: ->
+    index = 1
+    rows = $('#users tbody').find('tr')
+    $.each(rows, (i, row) ->
+      $(row).find('td:first').text(index) && index++ if $(row).css('display') is 'table-row')
+
   addViewHelpers: ->
     HAML.globals = ->
       globals = {}
