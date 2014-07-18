@@ -13,7 +13,8 @@
                 .name
                   = link_to user.name, user_path(user)
                 .available_since
-                  available since: dd-mm-yyyy
+                  available since:
+                  #{user.availability.present? ? user.availability.to_date : "since now"}
                 .hours
                   hours: #{user.employment}h
                 .link_to_cv

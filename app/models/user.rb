@@ -110,6 +110,10 @@ class User
     current_memberships.select(&:ends_at).sort_by(&:ends_at).first
   end
 
+  def availability
+    memberships.asc(:ends_at).last.ends_at
+  end
+
   def memberships_by_project_ids(project_ids)
     now = Time.now
     memberships_cached.select { |m| project_ids.include?(m.project_id) && (m.starts_at <= now && (m.ends_at == nil || m.ends_at >= now)) }
