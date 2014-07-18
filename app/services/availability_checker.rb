@@ -15,7 +15,7 @@ class AvailabilityChecker
   end
 
   def billable_memberships
-    @user.next_memberships.select { |m| m.billable == true }.count + @user.current_memberships.select { |m| m.billable == true }.count
+    @user.current_memberships.select { |m| m.billable == true }.count
   end
 
   def finishing_work
