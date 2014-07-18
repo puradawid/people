@@ -24,6 +24,12 @@
                   %ul
                     - user.memberships.each do |p|
                       %li= link_to p.project_name, project_path(p.project)
+                - if user.has_potential_projects?
+                  .potential_projects
+                    potential projects:
+                    %ul
+                      - user.potential_memberships.each do |p|
+                        %li= link_to p.project.name, project_path(p.project)
                 .current_project
                   current project:
                   - if user.memberships.present?
