@@ -37,6 +37,8 @@ heroku_settings: &heroku_settings
   company_name:       <%= ENV['COMPANY_NAME'] %>
   domain:             <%= ENV['DOMAIN'] %>
   tld_length:         <%= ENV['TLD_LENGTH'] %>
+  feature:
+    new_available_view: <%= ENV['AVAILABLE_VIEW'] %>
 
 development:
   <<: *defaults
@@ -50,8 +52,6 @@ test:
 
 staging:
   <<: *heroku_settings
-  feature:
-    new_available_view: true
 
 production:
   <<: *heroku_settings
