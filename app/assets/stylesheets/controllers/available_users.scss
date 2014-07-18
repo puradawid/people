@@ -35,13 +35,16 @@ body.available_users {
       }
     }
     .container {
-      .user {
-        border: 1px solid #000;
-        margin: 20px;
-      }
-      .name, .available_since, .link_to_cv, .last_projects, .potential_projects, .current_project, .hours {
-        border-top: 1px solid #000;
-        padding: 5px;
+      .col-md-3 {
+        min-height: 400px;
+        .user {
+          border: 1px solid #000;
+          margin: 20px;
+        }
+        .name, .available_since, .link_to_cv, .last_projects, .potential_projects, .current_project, .hours {
+          border-top: 1px solid #000;
+          padding: 5px;
+        }
       }
     }
   }
