@@ -111,7 +111,7 @@ class User
   end
 
   def availability
-    memberships.asc(:ends_at).last.ends_at
+    memberships.present? ? memberships.asc(:ends_at).last.ends_at : nil
   end
 
   def memberships_by_project_ids(project_ids)
