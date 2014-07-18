@@ -21,12 +21,12 @@
                 .last_projects
                   last projects:
                   %ul
-                    - user.memberships.only_active.limit(3).each do |p|
-                      %li= p.project.name
+                    - user.memberships.each do |p|
+                      %li= link_to p.project_name, project_path(p.project)
                 .current_project
                   current project:
-                  - if user.memberships.only_active.present?
-                    #{user.memberships.only_active.first.project.name}
+                  - if user.memberships.present?
+                    = user.current_project
 - else
   %table.table.table-striped.table-hover#available_users
     %thead

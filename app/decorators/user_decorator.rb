@@ -41,4 +41,8 @@ class UserDecorator < Draper::Decorator
       end
     end
   end
+
+  def current_project
+    h.link_to(memberships.first.project_name, memberships.first.project)
+  end
 end

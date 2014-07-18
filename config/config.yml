@@ -50,6 +50,8 @@ test:
 
 staging:
   <<: *heroku_settings
+  feature:
+    new_available_view: true
 
 production:
   <<: *heroku_settings
