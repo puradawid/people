@@ -92,7 +92,7 @@ class User
 
   def potential_memberships
     @potential_project_ids ||= Project.where(potential: true).only(:_id).map(&:_id)
-    memberships_by_project_ids @potential_project_ids
+    potential_memberships_by_ids @potential_project_ids
   end
 
   def current_projects
@@ -117,6 +117,10 @@ class User
   def memberships_by_project_ids(project_ids)
     now = Time.now
     memberships_cached.select { |m| project_ids.include?(m.project_id) && (m.starts_at <= now && (m.ends_at == nil || m.ends_at >= now)) }
+  end
+
+  def potential_memberships_by_ids(project_ids)
+    memberships_cached.select { |m| project_ids.include?(m.project_id) }
   end
 
   %w(current potential next).each do |type|
