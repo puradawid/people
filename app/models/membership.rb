@@ -22,6 +22,8 @@ class Membership
   validate :validate_starts_at_ends_at
   validate :validate_duplicate_project
 
+  after_save :check_fields
+
   scope :active, -> { where(project_potential: false, project_archived: false) }
   scope :with_role, ->(role) { where(role: role) }
   scope :with_user, ->(user) { where(user: user) }
@@ -78,6 +80,12 @@ class Membership
   end
 
   private
+
+  def check_fields
+    if project_potential != project.potential || project_archived != project.archived
+      self.update(project_potential: project.potential, project_archived: project.archived)
+    end
+  end
 
   def validate_starts_at_ends_at
     if starts_at.present? && ends_at.present? && starts_at > ends_at
