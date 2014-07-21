@@ -12,10 +12,15 @@ class Hrguru.Helper
     moment(@server_time).add(moment().diff(@time_now))
 
   addUserIndex: ->
-    index = 1
-    rows = $('#users tbody').find('tr')
-    $.each(rows, (i, row) ->
-      $(row).find('td:first').text(index) && index++ if $(row).css('display') is 'table-row')
+    index = 0
+    table = $('#users tbody')
+    table.find('#summary').remove()
+    $.each(table.find('tr'), (i, row) ->
+      $(row).find('td:first').text(++index)  if $(row).css('display') is 'table-row')
+
+    summary = $('<tr style="display: table-row" class="warning" id="summary"></tr>')
+    summary.append('<td></td>').find('td').text('Total: ' + index)
+    table.append(summary)
 
   addViewHelpers: ->
     HAML.globals = ->
