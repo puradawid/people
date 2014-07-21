@@ -13,14 +13,12 @@ class Hrguru.Helper
 
   addUserIndex: ->
     index = 0
-    table = $('#users tbody')
-    table.find('#summary').remove()
-    $.each(table.find('tr'), (i, row) ->
-      $(row).find('td:first').text(++index)  if $(row).css('display') is 'table-row')
-
-    summary = $('<tr style="display: table-row" class="warning" id="summary"></tr>')
-    summary.append('<td></td>').find('td').text('Total: ' + index)
-    table.append(summary)
+    $table = $('#users tbody')
+    $table.find('#summary').remove()
+    $.each($table.find('tr'), (i, row) ->
+      $(row).find('td:first').text(++index) if $(row).css('display') is 'table-row')
+    $summary = JST['users/summary_row']
+    $table.append($summary({count: index}))
 
   addViewHelpers: ->
     HAML.globals = ->

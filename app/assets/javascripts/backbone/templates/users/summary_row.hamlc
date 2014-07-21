@@ -1,0 +1,2 @@
+%tr#summary.warning
+  %td= "Total: #{@count}"
