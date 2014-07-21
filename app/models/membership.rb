@@ -22,6 +22,7 @@ class Membership
   validate :validate_starts_at_ends_at
   validate :validate_duplicate_project
 
+  scope :active, -> { where(project_potential: false, project_archived: false) }
   scope :with_role, ->(role) { where(role: role) }
   scope :with_user, ->(user) { where(user: user) }
   scope :unfinished, -> { any_of({ ends_at: nil }, { :ends_at.gt => Time.current }) }
