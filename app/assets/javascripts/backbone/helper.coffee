@@ -17,8 +17,9 @@ class Hrguru.Helper
     $table.find('#summary').remove()
     $.each($table.find('tr'), (i, row) ->
       $(row).find('td:first').text(++index) if $(row).css('display') is 'table-row')
-    $summary = JST['users/summary_row']
-    $table.append($summary({count: index}))
+
+    $summary = JST['users/summary_row'](count: index)
+    $table.append($summary)
 
   addViewHelpers: ->
     HAML.globals = ->
