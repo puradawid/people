@@ -29,7 +29,7 @@
                   %ul
                     - user.potential_memberships.each do |p|
                       %li
-                        %span{rel: 'tooltip', title: p.starts_at.to_date, :'data-placement' => 'right' }
+                        %span{ rel: 'tooltip', title: p.potential_start, :'data-placement' => 'right' }
                           = link_to p.project.name, project_path(p.project)
               .current_project
                 current project:

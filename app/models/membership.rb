@@ -54,6 +54,10 @@ class Membership
     started? && !terminated?
   end
 
+  def potential_start
+    (project.kickoff || starts_at).to_date
+  end
+
   def ends_at=(new_date)
     if new_date.present?
       ends_at_time = Time.zone.parse(new_date.to_s)
