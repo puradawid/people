@@ -32,5 +32,5 @@ Membership.where(billable: nil).each do |membership|
   membership.update_attribute(:billable, billable)
 end
 
-FactoryGirl.create_list(:user, 50) if Rails.env == 'development'
+FactoryGirl.create_list(:user, 50) if Rails.env.development?
 
