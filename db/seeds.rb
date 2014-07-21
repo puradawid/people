@@ -1,3 +1,8 @@
+require 'factory_girl'
+require 'faker'
+
+Dir[Rails.root.join("spec/factories/*.rb")].each {|f| require f}
+
 billable_roles = %w(senior developer)
 non_billable_roles = %w(junior praktykant pm junior\ pm qa junior\ qa)
 admin_roles = %w(senior pm)
@@ -26,3 +31,6 @@ Membership.where(billable: nil).each do |membership|
   billable = membership.try(:role).try(:billable) || false
   membership.update_attribute(:billable, billable)
 end
+
+FactoryGirl.create_list(:user, 50) if Rails.env == 'development'
+
