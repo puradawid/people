@@ -111,7 +111,7 @@ describe ProjectsController do
 
       it "changes starts_at" do
         Timecop.freeze(Time.now) do
-          expect(new_project.memberships.first.starts_at.to_i).to eq Time.now.to_i
+          expect(new_project.memberships.first.starts_at).to eq Time.zone.parse(Time.now.to_s)
         end
       end
     end
