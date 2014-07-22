@@ -33,6 +33,6 @@
                           = link_to p.project.name, project_path(p.project)
               .current_project
                 current project:
-                - if user.memberships.present?
-                  = user.current_project
+                - if user.current_project.present?
+                  = link_to user.current_project, project_path(user.current_project)
 
