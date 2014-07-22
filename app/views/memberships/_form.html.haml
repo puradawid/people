@@ -11,7 +11,7 @@
       = g.association :project, collection: projects
       = g.association :user, collection: users
       = g.association :role, collection: roles
-      = g.input :billable, as: :boolean
+      = g.input :billable, as: :boolean, wrapper: :vertical_boolean
 
     .actions
       = f.button :submit, class: "btn-success", confirm: "Are you sure?"
