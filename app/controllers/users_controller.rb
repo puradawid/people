@@ -15,6 +15,11 @@ class UsersController < ApplicationController
     gon.rabl template: 'app/views/users/projects', as: 'projects'
     gon.roles = roles
     gon.locations = locations
+
+    respond_to do |format|
+      format.html
+      format.csv
+    end
   end
 
   def update
