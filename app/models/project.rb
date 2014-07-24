@@ -21,6 +21,7 @@ class Project
 
   has_many :memberships, dependent: :destroy
   has_many :notes
+  accepts_nested_attributes_for :memberships
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :slug, allow_blank: true, allow_nil: true, format: { with: /\A[a-z]+\Z/ }
@@ -87,10 +88,10 @@ class Project
 
   def set_proper_membership_dates
     memberships.each do |membership|
-      if membership.ends_at && membership.ends_at < Time.now
-        membership.destroy
-      else
+      if membership.stays
         membership.update(starts_at: Time.now)
+      else
+        membership.destroy
       end
     end
   end

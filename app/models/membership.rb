@@ -8,6 +8,7 @@ class Membership
   field :billable, type: Mongoid::Boolean
   field :project_archived, type: Mongoid::Boolean, default: false
   field :project_potential, type: Mongoid::Boolean, default: true
+  field :stays, type: Mongoid::Boolean, default: false
 
   belongs_to :user
   belongs_to :project

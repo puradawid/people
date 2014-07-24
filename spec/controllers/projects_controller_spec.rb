@@ -87,8 +87,8 @@ describe ProjectsController do
 
   describe '#update' do
     let!(:project) { create(:project, name: "hrguru") }
-    let(:actual_membership) { create(:membership, starts_at: 1.week.ago, ends_at: 1.week.from_now, project: new_project) }
-    let(:old_membership) { create(:membership, starts_at: 2.weeks.ago, ends_at: 1.week.ago, project: new_project) }
+    let(:actual_membership) { create(:membership, starts_at: 1.week.ago, ends_at: 1.week.from_now, stays: true, project: new_project) }
+    let(:old_membership) { create(:membership, starts_at: 2.weeks.ago, ends_at: 1.week.ago, stays: false, project: new_project) }
 
     context 'changes potential from true to false' do
       let!(:new_project) { create(:project, potential: true) }
