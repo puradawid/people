@@ -3,10 +3,10 @@ class UserDecorator < Draper::Decorator
   decorates :user
   decorates_association :memberships, scope: :only_active
   delegate_all
-  CSV_HEADERS = ['First Name', 'Last Name', 'Position', 'Location', 'Projects']
+  CSV_HEADERS = ['Last Name', 'First Name', 'Position', 'Location', 'Projects']
 
   def as_row
-    [model.first_name, model.last_name, model.role, model.location]
+    [model.last_name, model.first_name, model.role, model.location]
   end
 
   def project_names

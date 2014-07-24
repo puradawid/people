@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   expose_decorated(:user, attributes: :user_params)
-  expose(:users) { User.all.decorate }
+  expose(:users) { User.all.by_last_name.decorate }
   expose(:roles) { Role.all }
   expose(:locations) { Location.all }
   expose(:projects) { Project.all }

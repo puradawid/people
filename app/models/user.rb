@@ -41,6 +41,7 @@ class User
   validates :archived, inclusion: { in: [true, false] }
 
   scope :by_name, -> { asc(:first_name, :last_name) }
+  scope :by_last_name, -> { asc(:last_name, :first_name) }
   scope :available, -> { where(available: true) }
   scope :active, -> { where(archived: false) }
   scope :technical_active, -> { where(archived: false, available: true) }
