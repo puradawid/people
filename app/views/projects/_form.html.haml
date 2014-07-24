@@ -18,7 +18,7 @@
             %td Last Name
             %td Stays?
         %tbody
-          - project.memberships.each do |membership|
+          - project.memberships.unfinished.each do |membership|
             = f.simple_fields_for :memberships, membership do |fa|
               %tr
                 %td= membership.user.decorate.gravatar_image({size: 40})
