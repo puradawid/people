@@ -17,9 +17,7 @@ class MembershipsController < ApplicationController
     if membership.save
       respond_to do |format|
         format.html do
-          path = request.referrer
-          path = memberships_path if Rails.application.routes.recognize_path(path)[:action] == 'new'
-          redirect_to path, notice: 'Membership created!'
+          redirect_to create_redirect_path, notice: 'Membership created!'
         end
         format.json { render :show }
       end
@@ -51,6 +49,15 @@ class MembershipsController < ApplicationController
   end
 
   private
+
+  def create_redirect_path
+    path = request.referrer
+    if Rails.application.routes.recognize_path(path)[:action] == 'new'
+      memberships_path
+    else
+      path
+    end
+  end
 
   def set_users_gon
     gon.rabl template: 'app/views/memberships/users', as: 'users'
