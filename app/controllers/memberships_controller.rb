@@ -15,12 +15,7 @@ class MembershipsController < ApplicationController
 
   def create
     if membership.save
-      respond_to do |format|
-        format.html do
-          redirect_to create_redirect_path, notice: 'Membership created!'
-        end
-        format.json { render :show }
-      end
+      respond_on_success
     else
       respond_on_failure membership.errors
     end
@@ -35,11 +30,11 @@ class MembershipsController < ApplicationController
   end
 
   def destroy
-    if membership.destroy
-      redirect_to request.referer, notice: 'Membership deleted!'
-    else
-      redirect_to request.referer, flash[:alert] = 'Something went wrong. Delete unsuccessful'
-    end
+      if membership.destroy
+        respond_on_success request.referer
+      else
+        respond_on_failure membership.errors
+      end
   end
 
   protected
@@ -49,15 +44,6 @@ class MembershipsController < ApplicationController
   end
 
   private
-
-  def create_redirect_path
-    path = request.referrer
-    if Rails.application.routes.recognize_path(path)[:action] == 'new'
-      memberships_path
-    else
-      path
-    end
-  end
 
   def set_users_gon
     gon.rabl template: 'app/views/memberships/users', as: 'users'

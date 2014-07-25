@@ -11,10 +11,13 @@ module Shared::RespondsController
       end
     end
 
-    def respond_on_success redirect_to_path
+    def respond_on_success redirect_to_path = nil
       respond_to do |format|
-        format.html { redirect_to redirect_to_path, notice: I18n.t("messages.success", type: action_name, object_name: controller_name.titleize[0..-2]) }
         format.json { render :show }
+        format.html do
+          redirect_to_path = create_redirect_path if redirect_to_path.nil?
+          redirect_to redirect_to_path, notice: I18n.t("messages.success", type: action_name, object_name: controller_name.titleize[0..-2])
+        end
       end
     end
 
@@ -22,6 +25,14 @@ module Shared::RespondsController
       action=='create' ? :new : :edit
     end
 
-  end
+    def create_redirect_path
+      path = request.referrer
+      if Rails.application.routes.recognize_path(path)[:action] == 'new'
+        memberships_path
+      else
+        path
+      end
+    end
 
+  end
 end
