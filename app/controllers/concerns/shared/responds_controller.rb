@@ -1,7 +1,6 @@
 module Shared
-  class RespondsController
+  module RespondsController
     extend ActiveSupport::Concern
-
     included do
 
       private
@@ -28,13 +27,12 @@ module Shared
       end
 
       def create_redirect_path
-        if Rails.application.routes.recognize_path(path)[:action] == 'new'
+        if Rails.application.routes.recognize_path(request.referrer)[:action] == 'new'
           memberships_path
         else
           request.referrer
         end
       end
-
     end
   end
 end
