@@ -32,7 +32,14 @@ class Hrguru.Views.Dashboard.Membership extends Hrguru.Views.Dashboard.BaseMembe
   finishMembership: (event) =>
     if !@project.attributes.potential
       ends_at = H.currentTime().format()
-      @model.save({ ends_at: ends_at }, { patch: true, success: @finishedMembership, error: @onMembershipError })
+      @model.save(
+        { ends_at: ends_at }
+        {
+          patch: true
+          success: @finishedMembership
+          error: @onMembershipError
+        }
+      )
     else
       @model.destroy {success: @finishedMembership, error: @onMembershipError}
 

@@ -23,18 +23,18 @@ class MembershipsController < ApplicationController
 
   def update
     if membership.save
-     respond_on_success user_path(membership.user)
+      respond_on_success user_path(membership.user)
     else
       respond_on_failure membership.errors
     end
   end
 
   def destroy
-      if membership.destroy
-        respond_on_success request.referer
-      else
-        respond_on_failure membership.errors
-      end
+    if membership.destroy
+      respond_on_success request.referer
+    else
+      respond_on_failure membership.errors
+    end
   end
 
   protected
