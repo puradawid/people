@@ -10,6 +10,7 @@ defaults: &defaults
   emails:
     from:             default_address_used_to_send_emails
     pm:               pms_email_address
+    support:          support
     internal:         example.com
     social:           example.com
   tld_length:         1
@@ -34,6 +35,7 @@ heroku_settings: &heroku_settings
     pm:               <%= ENV['EMAIL_PM'] %>
     internal:         <%= ENV['EMAIL_INTERNAL'] %>
     social:           <%= ENV['EMAIL_SOCIAL'] %>
+    support:          <%= ENV['EMAIL_SUPPORT'] %>
   company_name:       <%= ENV['COMPANY_NAME'] %>
   domain:             <%= ENV['DOMAIN'] %>
   tld_length:         <%= ENV['TLD_LENGTH'] %>
