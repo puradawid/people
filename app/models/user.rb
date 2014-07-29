@@ -25,6 +25,7 @@ class User
   field :archived, type: Mongoid::Boolean, default: false
   field :available, type: Mongoid::Boolean, default: true
   field :uid, type: String
+  field :team_leader, type: Mongoid::Boolean, default: false
 
   has_many :memberships
   has_many :notes
@@ -32,6 +33,7 @@ class User
   belongs_to :role
   belongs_to :contract_type
   belongs_to :location
+  belongs_to :team
   has_and_belongs_to_many :abilities
 
   validates :first_name, :last_name, presence: true

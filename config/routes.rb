@@ -31,6 +31,7 @@ Hrguru::Application.routes.draw do
   resources :available_users, only: [:index], path: "available"
   resources :projects
   resources :memberships, except: [:show]
+  resources :teams
   resources :notes
   resources :roles, except: [:new, :edit, :destroy] do
     post 'sort', on: :collection

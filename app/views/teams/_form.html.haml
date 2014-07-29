@@ -1,0 +1,5 @@
+= simple_form_for team do |f|
+  = f.input :name
+  = f.association :users, label_method: :last_name, collection: users_without_team
+  = f.users.count
+  = f.submit
