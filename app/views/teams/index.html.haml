@@ -1,18 +1,23 @@
-%table.table.table-striped.table-hover#teams
-  %thead
-    %tr
-      %td Name
-      %td Members
-  %tbody
-    - teams.each do |t|
+- if teams.present?
+  %table.table.table-striped.table-hover#teams
+    %thead
       %tr
-        %td.warning= t.name
-        - t.users.each do |user|
-          %td
-            = user.last_name
-            .small= user.role.name
-        %td
-          = link_to 'Edit', edit_team_path(t), class: 'btn btn-default btn-sm'
-          = link_to 'Remove', team_path(t), method: :delete, class: 'btn btn-danger btn-sm'
-.row.col-md-12#buttons
-  = link_to 'New Team', new_team_path, class: 'btn btn-success'
+        %td Name
+        %td Members
+    %tbody
+      - teams.each do |t|
+        %tr
+          %td.warning= t.name
+          - t.users.each do |user|
+            %td
+              = user.last_name
+              .small= user.role.name
+          - if current_user.admin?
+            %td
+              = link_to 'Edit', edit_team_path(t), class: 'btn btn-default btn-xs'
+              = link_to 'Destroy', t, method: :delete, class: 'btn btn-danger btn-xs'
+- else
+  %h2 No teams
+- if current_user.admin?
+  .row.col-md-12#buttons
+    = link_to 'New Team', new_team_path, class: 'btn btn-success'
