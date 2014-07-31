@@ -1,0 +1,12 @@
+.new-team-add.btn.btn-success
+  .glyphicon.glyphicon-plus.pull-left
+  .small.pull-right New team
+.js-new-team-form
+  .form-group
+    .input-group
+      %label.control-label
+        %abbr{title: "required"}
+      %input.form-control.name{  placeholder: "Team name...", type: "text"  }
+  .actions
+    %a.btn.btn-sm.btn-danger.new-team-close{ href: "#"} Close
+    %a.btn.btn-sm.btn-default.new-team-submit{href: "#"} Add team
