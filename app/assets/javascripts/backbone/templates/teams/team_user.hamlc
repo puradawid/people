@@ -1,0 +1,3 @@
+%div= "#{@model.last_name} #{@model.first_name}"
+%div.small= @role_name
+
