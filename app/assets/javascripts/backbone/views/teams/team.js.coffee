@@ -17,6 +17,12 @@ class Hrguru.Views.Team extends Backbone.Marionette.CompositeView
   template: JST['teams/team']
   tagName: 'tr'
 
+  ui:
+    form: '.js-new-member-form'
+
+  events:
+    'click .js-add-member' : 'addMember'
+
   initialize: (options) ->
     @collection = options.users
     @collection.models =  _.filter @collection.models, (user) =>
@@ -25,6 +31,12 @@ class Hrguru.Views.Team extends Backbone.Marionette.CompositeView
 
   itemViewOptions: ->
     roles: @roles
+
+  onRender: ->
+    @ui.form.hide()
+
+  addMember: ->
+    @ui.form.fadeToggle('fast')
 
 class Hrguru.Views.Teams extends Backbone.Marionette.CompositeView
   template: JST['teams/teams']
