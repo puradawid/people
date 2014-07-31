@@ -1,4 +1,7 @@
 = simple_form_for team do |f|
   = f.input :name
-  = f.association :users, label_method: :last_name, collection: users_without_team
+  = f.association :users, label_method: :last_name, collection: team.users + users_without_team, as: :check_boxes
+  - if team.users.present?
+    = f.input :team_leader_id, label_method: :last_name, value_method: :id, collection: team.users, as: :radio_buttons
+
   = f.submit
