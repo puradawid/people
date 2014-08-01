@@ -102,6 +102,7 @@ class Hrguru.Views.Team extends Backbone.Marionette.CompositeView
 class Hrguru.Views.Teams extends Backbone.Marionette.CompositeView
   template: JST['teams/teams']
   itemView: Hrguru.Views.Team
+  emptyView: Hrguru.Views.TeamsEmpty
   itemViewContainer: '#teams-body'
   className: 'table table-striped table-hover'
 
@@ -112,8 +113,3 @@ class Hrguru.Views.Teams extends Backbone.Marionette.CompositeView
   initialize: (options) ->
     @users = options.users
     @roles = options.roles
-    @initTemplate()
-
-  initTemplate: ->
-    if _.size(@collection) is 0
-      @template = JST['teams/empty_teams']
