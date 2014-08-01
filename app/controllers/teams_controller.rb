@@ -6,6 +6,8 @@ class TeamsController < ApplicationController
   expose(:users_without_team) { User.where(team_id: nil) }
   expose(:roles) { Role.all }
 
+  before_filter :authenticate_admin!, only: [:update, :create, :destroy, :new, :edit]
+
   def index
     gon.rabl template: 'app/views/teams/teams', as: 'teams'
     gon.rabl template: 'app/views/dashboard/users', as: 'users'
