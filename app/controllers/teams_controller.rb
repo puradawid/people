@@ -3,7 +3,6 @@ class TeamsController < ApplicationController
   expose(:team, attributes: :team_params)
   expose(:teams) { Team.all }
   expose(:users) { User.all.decorate }
-  expose(:users_without_team) { User.where(team_id: nil) }
   expose(:roles) { Role.all }
 
   before_filter :authenticate_admin!, only: [:update, :create, :destroy, :new, :edit]
@@ -25,10 +24,7 @@ class TeamsController < ApplicationController
         format.json { render json: {}, status: 200 }
       end
     else
-      respond_to do |format|
-        format.html
-        format.json {render json: {}, status: 500 }
-      end
+      respond_on_failure team.errors
     end
   end
 
@@ -45,16 +41,13 @@ class TeamsController < ApplicationController
         format.json { render json: team, status: 200 }
       end
     else
-      respond_to do |format|
-        format.html
-        format.json {render json: {}, status: 500 }
-      end
+      respond_on_failure(team.errors)
     end
   end
 
   def show
     respond_to do |format|
-      format.html { redirect_to teams_path }
+      format.html { redirect_to team }
       format.json { render json: team, status: 200 }
     end
   end

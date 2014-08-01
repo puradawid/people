@@ -20,7 +20,7 @@ class Hrguru.Views.TeamButtons extends Marionette.ItemView
   toggleFormClass: ->
     @ui.form.stop().fadeToggle('fast')
     @ui.add.toggleClass('clicked')
-    @clearInputs()
+    $(@ui.form).find('input').val('')
 
   addTeam: ->
     attributes =
