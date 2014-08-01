@@ -1,5 +1,6 @@
 = "#{@model.last_name} #{@model.first_name}"
 .small= @role_name
-.pull-right.btn.btn-xs.btn-danger.info.{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to exlude team member' }
-  x
+- if H.currentUserIsAdmin()
+  .js-exlude-member.pull-right.btn.btn-xs.btn-danger.info.{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to exlude team member' }
+    x
 

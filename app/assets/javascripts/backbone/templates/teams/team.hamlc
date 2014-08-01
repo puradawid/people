@@ -1,13 +1,7 @@
 %td.warning
   = @name
-  %span.js-add-member.glyphicon.glyphicon-plus.pull-right.info.{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to add team member' }
-%td.js-new-member-form
-  .form-group
-    .input-group
-      %label.control-label
-        %abbr{title: "required"}
-      %input.form-control.name{  placeholder: "Team name...", type: "text"  }
-  .actions
-    %a.btn.btn-sm.btn-danger.new-team-close{ href: "#"} Close
-    %a.btn.btn-sm.btn-default.new-team-submit{href: "#"} Add team
+  - if H.currentUserIsAdmin()
+    %span.js-add-member.glyphicon.glyphicon-plus.pull-right.info.{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to add team member' }
+%td.js-team-member-new
+  %input.name{  placeholder: 'Find a volunteer ...', type: "text"  }
 #team-users-region
