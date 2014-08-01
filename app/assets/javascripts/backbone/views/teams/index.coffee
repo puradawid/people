@@ -20,6 +20,6 @@ class Hrguru.Views.TeamsIndex extends Marionette.Layout
       roles: @roles
     )
     @buttons_view = new Hrguru.Views.TeamButtons (collection: @teams)
-    @buttonsRegion.show @buttons_view
+    @buttonsRegion.show @buttons_view if H.currentUserIsAdmin()
     @teamsRegion.show @teams_view
 

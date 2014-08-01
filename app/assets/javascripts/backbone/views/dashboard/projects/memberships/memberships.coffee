@@ -39,8 +39,7 @@ class Hrguru.Views.Dashboard.Memberships extends Marionette.CompositeView
       searchField: 'name'
       options: @selectize_options
       onItemAdd: (value, item) => @newMembership(value, item)
-      render:
-        option: (item, escape) => @completionTemplate(item)
+
     @selectize = selectize[0].selectize
     @fillEditPopups()
 
