@@ -32,7 +32,8 @@ class User
   belongs_to :role
   belongs_to :contract_type
   belongs_to :location
-  belongs_to :team
+  belongs_to :team, inverse_of: :user
+  belongs_to :leader_team, class_name: 'Team', inverse_of: :leader
   has_and_belongs_to_many :abilities
 
   validates :first_name, :last_name, presence: true
