@@ -25,7 +25,6 @@ class User
   field :archived, type: Mongoid::Boolean, default: false
   field :available, type: Mongoid::Boolean, default: true
   field :uid, type: String
-  field :team_leader, type: Mongoid::Boolean, default: false
 
   has_many :memberships
   has_many :notes
@@ -49,6 +48,7 @@ class User
   scope :technical_active, -> { where(archived: false, available: true) }
   scope :roles, -> (roles) { where(:role.in => roles) }
   scope :contract_users, ->(contract_type) { where(contract_type_id: ContractType.where(name: contract_type).first.id) }
+  scope :without_team, -> { where(team: nil) }
 
   before_save :end_memberships
   before_validation :assign_abilities
