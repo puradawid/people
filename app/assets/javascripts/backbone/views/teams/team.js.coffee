@@ -6,12 +6,30 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
     'click .js-exclude-member' : 'onMembersExcludeClicked'
     'click .js-promote-leader': 'onPromoteLeaderCLicked'
 
+  ui:
+    promote: '.js-promote-leader'
+    exclude: '.js-exclude-member'
+
   initialize: (options) ->
+    @noUI = options.noUI?
     @role = _.find(options.roles.models, (role) =>
       role.id is @model.get('role_id')
     )
     @role_name = @role.get('name')
     @$el.addClass('success') if @model.get('leader_team_id')?
+    @listenTo(@model, 'change', @updateVisibility)
+
+  updateVisibility: ->
+    if @noUI
+      if @model.get('team_id') is null then @$el.show() else @$el.hide()
+
+  onRender: ->
+    @hideUI() if @noUI
+    @updateVisibility()
+
+  hideUI: ->
+    @ui.promote.hide()
+    @ui.exclude.hide()
 
   serializeData: ->
     model: @model.toJSON()
@@ -120,7 +138,7 @@ class Hrguru.Views.Team extends Backbone.Marionette.CompositeView
     @collection = _.clone @users
     @collection.models =  _.filter @collection.models, (user) =>
       user.get('team_id') is @model.id
-    @collection.sortUsers('leader_team_id')
+    # @collection.sortUsers('leader_team_id')
 
   refreshSelectizeOptions: ->
     selected = _.compact(@collection.pluck('id'))
