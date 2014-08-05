@@ -1,38 +1,79 @@
 .container
-  - roles.each do |role|
-    .row
-      %h3= role.name.capitalize
-      .row
-        = "no candidates" if role.users.blank?
-        - role.users.each do |user|
-          .col-md-3
-            .user
-              .avatar
-                %center= user.gravatar_image(size: 100)
-              .name
+  %ul.nav.nav-tabs
+    %li.box__tab.active= link_to 'Cards view', '#cards_view', data: { toggle: 'tab' }
+    %li.box__tab= link_to 'Table view', '#table_view', data: { toggle: 'tab' }
+  .tab-content
+    .tab-pane.active#cards_view
+      - roles.each do |role|
+        .row
+          %h3= role.name.capitalize
+          .row
+            = "no candidates" if role.users.blank?
+            - role.users.each do |user|
+              .col-md-3
+                .user
+                  .avatar
+                    %center= user.gravatar_image(size: 100)
+                  .name
+                    = link_to user.name, user_path(user)
+                  .available_since
+                    available since:
+                    #{user.availability.present? ? user.availability.to_date : "since now"}
+                  .hours
+                    hours: #{user.employment}h
+                  .link_to_cv
+                    = link_to "link to profile pdf", '#'
+                  .last_projects
+                    last projects:
+                    %ul
+                      - user.memberships.each do |p|
+                        %li= link_to p.project_name, project_path(p.project)
+                  - if user.has_potential_projects?
+                    .potential_projects
+                      potential projects:
+                      %ul
+                        - user.potential_memberships.each do |p|
+                          %li
+                            %span{ rel: 'tooltip', title: p.potential_start, :'data-placement' => 'right' }
+                              = link_to p.project.name, project_path(p.project)
+                  .current_project
+                    current project:
+                    - if user.current_project.present?
+                      = link_to user.current_project, project_path(user.current_project)
+    .tab-pane#table_view
+      %table.table.table-striped.table-hover#available_users
+        %thead
+          %th
+          %th User
+          %th Role
+          %th Available
+          %th Per month
+          %th Current project
+          %th Projects
+
+        %tbody
+          - users.each do |user|
+            %tr
+              %td= user.gravatar_image(size: 40)
+              %td
                 = link_to user.name, user_path(user)
-              .available_since
-                available since:
-                #{user.availability.present? ? user.availability.to_date : "since now"}
-              .hours
-                hours: #{user.employment}h
-              .link_to_cv
-                = link_to "link to profile pdf", '#'
-              .last_projects
-                last projects:
-                %ul
-                  - user.memberships.each do |p|
-                    %li= link_to p.project_name, project_path(p.project)
-              - if user.has_potential_projects?
-                .potential_projects
-                  potential projects:
-                  %ul
-                    - user.potential_memberships.each do |p|
-                      %li
-                        %span{ rel: 'tooltip', title: p.potential_start, :'data-placement' => 'right' }
-                          = link_to p.project.name, project_path(p.project)
-              .current_project
-                current project:
+                .icons
+                  = mail_to user.email do
+                    = tooltip user.email do
+                      = icon 'envelope-o'
+                  = tooltip user.gh_nick do
+                    = user.github_link(icon: true)
+                  = tooltip user.skype do
+                    = user.skype_link()
+              %td= user.role
+              %td #{user.availability.present? ? user.availability.to_date : "since now"}
+              %td #{user.employment}h
+              %td
                 - if user.current_project.present?
                   = link_to user.current_project, project_path(user.current_project)
-
+              %td
+                = render partial: 'membership', collection: user.current_memberships
+                = 'Next:' if user.has_next_projects?
+                = render partial: 'membership', collection: user.next_memberships
+                = 'Potential:' if user.has_potential_projects?
+                = render partial: 'membership', collection: user.potential_memberships

@@ -7,4 +7,3 @@
       = glyphicon("exclamation-sign", class: "notbillable info")
   = link_to membership.project, project_path(membership.project)
   ( #{membership.decorate.date_range} )
-  = "Project ends at #{membership.project.end_at.to_date}" if membership.project.end_at.present?

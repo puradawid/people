@@ -4,3 +4,4 @@ class Hrguru.Views.AvailableUsersIndex extends Marionette.View
 
   initialize: ->
     $("*[rel=tooltip]").tooltip()
+    $('table').tablesorter()
