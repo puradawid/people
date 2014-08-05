@@ -1,6 +1,7 @@
+- if H.currentUserIsAdmin() and !@model.leader_team_id?
+  .js-promote-leader.glyphicon.glyphicon-star.info.pull-right{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Promote to team leader' }
 = @model.name
 .small= @role_name
 - if H.currentUserIsAdmin()
-  .js-exlude-member.pull-right.btn.btn-xs.btn-danger.info.{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to exlude team member' }
+  .js-exclude-member.btn.btn-xs.btn-danger.info.pull-right{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Exclude team member' }
     x
-

@@ -3,20 +3,25 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
   tagName: 'td'
 
   events:
-    'click .js-exlude-member' : 'onMembersExludeClicked'
+    'click .js-exclude-member' : 'onMembersExcludeClicked'
+    'click .js-promote-leader': 'onPromoteLeaderCLicked'
 
   initialize: (options) ->
     @role = _.find(options.roles.models, (role) =>
       role.id is @model.get('role_id')
     )
     @role_name = @role.get('name')
+    @$el.addClass('success') if @model.get('leader_team_id')?
 
   serializeData: ->
     model: @model.toJSON()
     role_name: @role_name
 
-  onMembersExludeClicked: =>
+  onMembersExcludeClicked: =>
     @trigger('exclude', @model)
+
+  onPromoteLeaderCLicked: =>
+    @trigger('promote', @model)
 
 class Hrguru.Views.Team extends Backbone.Marionette.CompositeView
   itemView: Hrguru.Views.TeamUser
@@ -32,9 +37,11 @@ class Hrguru.Views.Team extends Backbone.Marionette.CompositeView
 
   initialize: (options) ->
     @users = options.users
-    @refreshTeamUsers()
     @roles = options.roles
+    @refreshTeamUsers()
+
     @listenTo(@, 'itemview:exclude', @excludeMember)
+    @listenTo(@, 'itemview:promote', @promoteLeader)
 
   itemViewOptions: ->
     roles: @roles
@@ -72,11 +79,11 @@ class Hrguru.Views.Team extends Backbone.Marionette.CompositeView
     @refreshTeamUsers()
     @render()
 
-  memberError: ->
-    Messenger().error("Error")
+  memberError: (model, xhr) ->
+    Messenger().error(xhr.responseJSON.errors)
 
   excludeMember: (member) =>
-    member.model.save team_id: null,
+    member.model.save team_id: null, leader_team_id: null,
       wait: true
       success: @memberExluded
       error: @memberError
@@ -86,10 +93,34 @@ class Hrguru.Views.Team extends Backbone.Marionette.CompositeView
     @refreshTeamUsers()
     @render()
 
+  promoteLeader: (leader) =>
+    old_leader = _.find @users.models, (u) =>
+      u.get('leader_team_id') is @model.id
+
+    if old_leader?
+      old_leader.save leader_team_id: null,
+        wait: true
+        success: () => @saveNewLeader(leader)
+        error: @memberError
+    else
+      @saveNewLeader(leader)
+
+  saveNewLeader: (leader) =>
+    leader.model.save leader_team_id: @model.id,
+      wait: true
+      success: @leaderPromoted
+      error: @memberError
+
+  leaderPromoted: (leader) =>
+    Messenger().success("We successfully promoted #{leader.get('name')} to the leader of #{@model.get('name')}!")
+    @refreshTeamUsers()
+    @render()
+
   refreshTeamUsers: ->
     @collection = _.clone @users
     @collection.models =  _.filter @collection.models, (user) =>
       user.get('team_id') is @model.id
+    @collection.sortUsers('leader_team_id')
 
   refreshSelectizeOptions: ->
     selected = _.compact(@collection.pluck('id'))
