@@ -13,7 +13,7 @@ class TeamsController < ApplicationController
     gon.rabl template: 'app/views/dashboard/roles', as: 'roles'
     respond_to do |format|
       format.html
-      format.json {render json: teams }
+      format.json { render json: teams }
     end
   end
 
@@ -24,7 +24,7 @@ class TeamsController < ApplicationController
         format.json { render json: {}, status: 201 }
       end
     else
-      respond_on_failure(team.errors)
+      respond_on_failure team.errors
     end
   end
 
@@ -41,7 +41,7 @@ class TeamsController < ApplicationController
         format.json { render json: team, status: 202 }
       end
     else
-      respond_on_failure(team.errors)
+      respond_on_failure team.errors
     end
   end
 
@@ -54,9 +54,9 @@ class TeamsController < ApplicationController
 
   def destroy
     if team.destroy
-      respond_on_success(teams_path)
+      respond_on_success teams_path
     else
-      respond_on_failure(team.errors)
+      respond_on_failure team.errors
     end
   end
 
