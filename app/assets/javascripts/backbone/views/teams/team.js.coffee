@@ -138,7 +138,7 @@ class Hrguru.Views.Team extends Backbone.Marionette.CompositeView
     @collection = _.clone @users
     @collection.models =  _.filter @collection.models, (user) =>
       user.get('team_id') is @model.id
-    # @collection.sortUsers('leader_team_id')
+    @collection.sortUsers('leader_team_id', -1)
 
   refreshSelectizeOptions: ->
     selected = _.compact(@collection.pluck('id'))
