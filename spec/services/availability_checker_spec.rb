@@ -67,7 +67,7 @@ describe AvailabilityChecker do
 
     context "when user membership ending les than one month from now" do
       before do
-        create(:membership_billable, ends_at: 4.week.from_now, user: user, project: project_without_end_date)
+        create(:membership_billable, ends_at: 2.week.from_now, user: user, project: project_without_end_date)
         subject.run!
       end
 
@@ -76,14 +76,14 @@ describe AvailabilityChecker do
       end
     end
 
-    context "when user project ending less than one month" do
+    context "when user membership ending is nil" do
       before do
         create(:membership_billable, ends_at: nil, user: user, project: project_ending)
         subject.run!
       end
 
-      it "changes user availability to true" do
-        expect(user.available).to be_true
+      it "changes user availability to false" do
+        expect(user.available).to be_false
       end
     end
 
