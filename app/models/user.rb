@@ -188,7 +188,7 @@ class User
   private
 
   def save_team_join_time
-    if self.team_id_changed? && !self.team_id.nil?
+    if self.team_id_changed? && self.team_id.present?
       assign_attributes(team_join_time: DateTime.now)
     end
   end
