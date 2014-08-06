@@ -14,4 +14,4 @@
   .glyphicon.glyphicon-user.pull-left
   .small.pull-right Show users without team
 .js-users-table
-  .row.col-md-12#users-body
+  #users-body.row.col-md-12

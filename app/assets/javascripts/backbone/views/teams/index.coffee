@@ -4,8 +4,8 @@ class Hrguru.Views.TeamsIndex extends Marionette.Layout
   template: JST['teams/index']
 
   regions:
-    buttonsRegion: '#buttons-region'
-    teamsRegion: '#teams-region'
+    buttonsRegion:  '#buttons-region'
+    teamsRegion:    '#teams-region'
 
   initialize: ->
     @teams = new Hrguru.Collections.Teams(gon.teams)
@@ -14,16 +14,15 @@ class Hrguru.Views.TeamsIndex extends Marionette.Layout
     @render()
 
   onRender: ->
-    @teams_view = new Hrguru.Views.Teams (
+    @teams_view = new Hrguru.Views.Teams
       collection: @teams
       users: @users
       roles: @roles
-    )
-    @buttons_view = new Hrguru.Views.TeamButtons (
+
+    @buttons_view = new Hrguru.Views.TeamButtons
       collection: @users
       teams: @teams
       roles: @roles
-    )
+
     @buttonsRegion.show @buttons_view if H.currentUserIsAdmin()
     @teamsRegion.show @teams_view
-

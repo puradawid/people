@@ -3,13 +3,13 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
   tagName: 'td'
 
   events:
-    'click .js-exclude-member' : 'onMembersExcludeClicked'
-    'click .js-promote-leader': 'onPromoteLeaderCLicked'
+    'click .js-exclude-member'  : 'onMembersExcludeClicked'
+    'click .js-promote-leader'  : 'onPromoteLeaderCLicked'
 
   ui:
-    promote: '.js-promote-leader'
-    exclude: '.js-exclude-member'
-    daysCount: '.js-number-of-days'
+    promote:    '.js-promote-leader'
+    exclude:    '.js-exclude-member'
+    daysCount:  '.js-number-of-days'
 
   initialize: (options) ->
     @noUI = options.noUI?
