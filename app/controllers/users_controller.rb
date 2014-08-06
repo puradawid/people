@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     if user.save
       respond_to do |format|
         format.html { redirect_to user, notice: "User updated." }
-        format.json { render json: {} }
+        format.json { render json: user }
       end
     else
       respond_to do |format|

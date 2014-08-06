@@ -14,6 +14,7 @@ class User
   field :last_sign_in_at, type: Time
   field :current_sign_in_ip
   field :last_sign_in_ip
+  field :team_join_time, type: DateTime
 
   field :first_name
   field :last_name
@@ -52,6 +53,7 @@ class User
   scope :without_team, -> { where(team: nil) }
 
   before_save :end_memberships
+  before_update :save_team_join_time
   before_validation :assign_abilities
 
   def self.create_from_google!(params)
@@ -179,7 +181,17 @@ class User
     @abilities_list = abilities_list
   end
 
+  def days_in_current_team
+    self.team_join_time.nil? ? 0 : (DateTime.now - self.team_join_time).to_i
+  end
+
   private
+
+  def save_team_join_time
+    if self.team_id_changed? && !self.team_id.nil?
+      assign_attributes(team_join_time: DateTime.now)
+    end
+  end
 
   def assign_abilities
     if @abilities_list.present?

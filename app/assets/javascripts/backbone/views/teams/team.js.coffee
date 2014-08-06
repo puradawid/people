@@ -9,6 +9,7 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
   ui:
     promote: '.js-promote-leader'
     exclude: '.js-exclude-member'
+    daysCount: '.js-number-of-days'
 
   initialize: (options) ->
     @noUI = options.noUI?
@@ -17,19 +18,20 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
     )
     @role_name = @role.get('name')
     @$el.addClass('success') if @model.get('leader_team_id')?
-    @listenTo(@model, 'change', @updateVisibility)
+    @listenTo(@model, 'change', @render)
 
   updateVisibility: ->
     if @noUI
       if @model.get('team_id') is null then @$el.show() else @$el.hide()
+      @hideUI()
 
   onRender: ->
-    @hideUI() if @noUI
     @updateVisibility()
 
   hideUI: ->
     @ui.promote.hide()
     @ui.exclude.hide()
+    @ui.daysCount.hide()
 
   serializeData: ->
     model: @model.toJSON()

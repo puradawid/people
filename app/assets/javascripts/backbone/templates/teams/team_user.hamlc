@@ -2,6 +2,7 @@
   .js-promote-leader.glyphicon.glyphicon-star.info.pull-right{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Promote to team leader' }
 = @model.name
 .small= @role_name
+.small.js-number-of-days= "Since: #{@model.days_in_current_team} days"
 - if H.currentUserIsAdmin()
   .js-exclude-member.btn.btn-xs.btn-danger.info.pull-right{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Exclude team member' }
     x
