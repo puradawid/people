@@ -344,7 +344,7 @@ $brand-danger:          #d9534f;
 // $navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 2) !default;
 // $navbar-collapse-max-height:       340px !default;
 
-// $navbar-default-color:             #777 !default;
+$navbar-default-color:                $navbar-text;
 $navbar-default-bg:                   $brand-secondary;
 // $navbar-default-border:            darken($navbar-default-bg, 6.5%) !default;
 
