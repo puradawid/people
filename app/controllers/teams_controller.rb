@@ -21,7 +21,7 @@ class TeamsController < ApplicationController
     if team.save
       respond_to do |format|
         format.html { redirect_to teams_path }
-        format.json { render json: {}, status: 201 }
+        format.json { render json: team, status: 201 }
       end
     else
       respond_on_failure team.errors
