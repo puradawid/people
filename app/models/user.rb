@@ -126,7 +126,7 @@ class User
 
   def memberships_by_project_ids(project_ids)
     now = Time.now
-    memberships_cached.select { |m| project_ids.include?(m.project_id) && (m.starts_at <= now && (m.ends_at == nil || m.ends_at >= now)) }
+    memberships_cached.select { |m| project_ids.include?(m.project_id) && (m.ends_at == nil || m.ends_at >= now) }
   end
 
   def potential_memberships_by_ids(project_ids)

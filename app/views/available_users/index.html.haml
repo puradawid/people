@@ -72,7 +72,7 @@
                 - if user.current_project.present?
                   = link_to user.current_project, project_path(user.current_project)
               %td
-                = render partial: 'membership', collection: user.current_memberships
+                = render partial: 'membership', collection: user.last_membership
                 = 'Next:' if user.has_next_projects?
                 = render partial: 'membership', collection: user.next_memberships
                 = 'Potential:' if user.has_potential_projects?
