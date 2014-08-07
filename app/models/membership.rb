@@ -104,6 +104,7 @@ class Membership
   end
 
   def notify_removed
+    msg = HipChat::MessageBuilder.membership_removed_message(self)
   end
 
   def notify_updated
