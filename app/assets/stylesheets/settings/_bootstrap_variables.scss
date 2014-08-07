@@ -29,9 +29,9 @@ $brand-danger:          #d9534f;
 // $text-color:            $gray-dark !default;
 
 //** Global textual link color.
-// $link-color:            $brand-primary !default;
+$link-color:            $brand-primary;
 //** Link hover color set via `darken()` function.
-// $link-hover-color:      darken($link-color, 15%) !default;
+$link-hover-color:      darken($link-color, 15%);
 
 
 //== Typography
@@ -182,14 +182,14 @@ $btn-primary-border:                $brand-primary;
 //** Text color for `<input>`s
 // $input-color:                    $gray !default;
 //** `<input>` border color
-$input-border:                   $gray-lighter;
+$input-border:                   $gray;
 //** `<input>` border radius
 $input-border-radius:            $border-radius-base;
 //** Border color for inputs on focus
 $input-border-focus:             $brand-primary;
 
 //** Placeholder text color
-// $input-color-placeholder:        $gray-light !default;
+$input-color-placeholder:        $gray-dark;
 
 //** Default `.form-control` height
 // $input-height-base:              ($line-height-computed + ($padding-base-vertical * 2) + 2) !default;
@@ -477,9 +477,9 @@ $nav-tabs-justified-active-link-border-color:     none;
 //
 //## Define colors for form feedback states and, by default, alerts.
 
-// $state-success-text:             #3c763d !default;
-// $state-success-bg:               #dff0d8 !default;
-// $state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%) !default;
+$state-success-bg:                  #1dc528;
+$state-success-text:                lighten($state-success-bg, 80%);
+$state-success-border:              darken(adjust-hue($state-success-bg, -10), 5%);
 
 // $state-info-text:                #31708f !default;
 // $state-info-bg:                  #d9edf7 !default;

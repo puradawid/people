@@ -18,7 +18,7 @@
         background-color: $gray-background;
         td {
           background-color: transparent;
-          a { color: $link; &:hover { color: $link-hover } }
+          a { color: $link-color; &:hover { color: $link-hover-color } }
           i { color: black; &:hover { color: $left-time-red } }
         }
 

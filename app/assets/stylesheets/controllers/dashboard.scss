@@ -302,7 +302,7 @@ body.dashboard {
       cursor: pointer;
       line-height: 16px;
       text-align: center;
-      border: 1px solid $success;
+      border: 1px solid $brand-success;
       &::before { float: left; }
       p {
         margin: 0;
@@ -313,9 +313,9 @@ body.dashboard {
       }
 
       &.clicked {
-        border: 1px solid $success;
+        border: 1px solid $brand-success;
         background: white;
-        color: $success;
+        color: $brand-success;
         &:hover { background: #EEEEEE; }
       }
     }
@@ -412,8 +412,8 @@ body.dashboard {
       display: none;
       position: absolute;
       z-index: 100;
-      background: $success;
-      border: 1px solid $success;
+      background: $brand-success;
+      border: 1px solid $brand-success;
       color: white;
       .new-project-submit { float: right; }
       .new-project-close { float: left; }

@@ -2,6 +2,10 @@
 // Forms
 // --------------------------------------------------
 
+.form-control{
+    @include box-shadow(none);
+}
+
 .form-control-focus{
   @include box-shadow(0 0 5px rgba($brand-primary, .25));
 }

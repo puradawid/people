@@ -1,42 +1,102 @@
-%h1 Css
-%h2 h2
-%h3 h3
-%h4 h4
-%h5 h5
-%h6 h6
+.row
+  .col-md-12
+    %h1 Css
+    %h2 h2
+    %h3 h3
+    %h4 h4
+    %h5 h5
+    %h6 h6
+    %hr/
 
-%p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, ab.
+.row
+  .col-md-12
+    %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, ab.
+    %strong strong
+    %cite cite
+    %pre pre
+    %hr/
 
-%ul
-  %li lorem
-  %li lorem
-  %li lorem
-  %li lorem
+.row
+  .col-md-12
+    %a link
+    %hr/
 
-%ol
-  %li lorem
-  %li lorem
-  %li lorem
-  %li lorem
+.row
+  .col-md-12
+    %ul
+      %li lorem
+      %li lorem
+      %li lorem
+      %li lorem
+    %hr/
 
-%table
-  %tbody
-    %tr
-      %td lorem
-      %td lorem
-      %td lorem
-    %tr
-      %td lorem
-      %td lorem
-      %td lorem
+    %ol
+      %li lorem
+      %li lorem
+      %li lorem
+      %li lorem
+    %hr/
 
-%input{:type => "text", :placeholder => "placholder"}/
+.row
+  .col-md-12
+    %table
+      %tbody
+        %tr
+          %td lorem
+          %td lorem
+          %td lorem
+        %tr
+          %td lorem
+          %td lorem
+          %td lorem
+    %hr/
 
-%select
-  %option{:value => "1"}1
-  %option{:value => "2"}2
-  %option{:value => "3"}3
+.row
+  .col-md-3
+    %input.form-control{ type: 'text', placeholder: 'input' }
 
-%textarea{:name => "", :cols => "30", :rows => "10", :placeholder => "placholder" }
-%input{:type => "submit", :value => "submit"}/
-%button accept
+  .col-md-3
+    %select.form-control
+      %option{ value: '1'}select 1
+      %option{ value: '2'}select 2
+      %option{ value: '3'}select 3
+
+  .col-md-3
+    %textarea.form-control{ name: '', cols: '30', rows: '1', placeholder: 'textarea' }
+
+  .col-md-3
+    %input.btn.btn-primary{ type: 'submit', value: 'submit'}/
+
+  .col-md-3
+    .checkbox
+      %label
+        %input{ type: 'checkbox'}
+        %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, nostrum.
+
+  .col-md-3
+    .checkbox
+      %label
+        %input{ type: 'checkbox'}
+        %p Lorem ipsum dolor sit amet.
+
+  .col-md-3
+    .radio
+      %label
+        %input{ type: 'radio'}
+        %p Lorem ipsum dolor.
+
+  .col-md-3
+    .radio
+      %label
+        %input{ type: 'radio'}
+        %p Lorem ipsum dolor.
+  %hr/
+
+.row
+  .col-md-12
+    %button.btn.btn-default default
+    %button.btn.btn-primary primary
+    %button.btn.btn-succes succes
+    %button.btn.btn-info info
+    %button.btn.btn-warning warning
+    %button.btn.btn-danger danger
