@@ -1,3 +1,6 @@
+class Hrguru.Views.EmptyLeader extends Backbone.Marionette.ItemView
+  template: JST['teams/empty_leader']
+
 class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
   template: JST['teams/team_user']
   tagName: 'td'
