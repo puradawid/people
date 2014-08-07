@@ -15,18 +15,23 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
     daysCount:  '.js-number-of-days'
 
   initialize: (options) ->
+    unless @model.get('id')?
+      return
     @noUI = options.noUI?
     @role = _.find(options.roles.models, (role) =>
       role.id is @model.get('role_id')
     )
     @role_name = @role.get('name')
-    @$el.addClass('success') if @model.get('leader_team_id')?
     @listenTo(@model, 'change', @render)
 
   updateVisibility: ->
     if @noUI
       if @model.get('team_id') is null then @$el.show() else @$el.hide()
       @hideUI()
+    if @model.get('leader_team_id')?
+      @$el.hide()
+    if @options.leader_display?
+      @$el.show()
 
   onRender: ->
     @updateVisibility()
@@ -211,7 +216,7 @@ class Hrguru.Views.Teams extends Backbone.Marionette.CompositeView
   itemView: Hrguru.Views.TeamLayout
   emptyView: Hrguru.Views.TeamsEmpty
   itemViewContainer: '#teams-body'
-  className: 'table table-striped table-hover'
+  className: 'table table-hover'
 
   itemViewOptions: ->
     users: @users
