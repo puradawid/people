@@ -39,6 +39,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'therubyracer'
 
 gem 'bootstrap-sass'
+gem 'bourbon'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-tablesorter'

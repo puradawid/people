@@ -70,6 +70,9 @@ GEM
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.0.2.1)
       sass (~> 3.2)
+    bourbon (3.1.8)
+      sass (>= 3.2.0)
+      thor
     bson (2.0.0)
     bson_ext (1.5.1)
     builder (3.1.4)
@@ -369,6 +372,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass
+  bourbon
   bson
   bson_ext
   codeclimate-test-reporter
