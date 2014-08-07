@@ -3,8 +3,8 @@
 // --------------------------------------------------
 
 .form-control{
-  font-style: italic;
   @include box-shadow(none);
+  font-style: italic;
 }
 
 .form-control-focus{

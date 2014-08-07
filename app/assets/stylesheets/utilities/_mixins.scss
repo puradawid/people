@@ -18,8 +18,12 @@
         background-color: $gray-background;
         td {
           background-color: transparent;
-          a { color: $link-color; &:hover { color: $link-hover-color } }
-          i { color: black; &:hover { color: $left-time-red } }
+          a { color: $link-color;
+            &:hover { color: $link-hover-color }
+          }
+          i { color: black;
+            &:hover { color: $left-time-red }
+          }
         }
 
         .to_end {
