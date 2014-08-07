@@ -477,9 +477,9 @@ $nav-tabs-justified-active-link-border-color:     none;
 //
 //## Define colors for form feedback states and, by default, alerts.
 
-$state-success-bg:                  #1dc528;
-$state-success-text:                lighten($state-success-bg, 80%);
-$state-success-border:              darken(adjust-hue($state-success-bg, -10), 5%);
+// $state-success-bg:                  $brand-success;
+// $state-success-text:                lighten($state-success-bg, 80%);
+// $state-success-border:              darken(adjust-hue($state-success-bg, -10), 5%);
 
 // $state-info-text:                #31708f !default;
 // $state-info-bg:                  #d9edf7 !default;
