@@ -52,4 +52,4 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     @ui.slug.val('')
     @ui.endAt.val('')
     @ui.kickoff.val('')
-    @ui.potential.attr('checked', false)
+    @ui.potential.attr('checked', true)
