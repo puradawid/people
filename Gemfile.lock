@@ -161,6 +161,11 @@ GEM
       tilt (~> 1.1)
     hashie (2.0.5)
     hike (1.2.3)
+    hipchat (1.2.0)
+      httparty
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     httpauth (0.2.0)
     i18n (0.6.9)
     jquery-rails (3.0.4)
@@ -218,6 +223,7 @@ GEM
       connection_pool (~> 1.2)
       optionable (~> 0.2.0)
     multi_json (1.9.0)
+    multi_xml (0.5.5)
     multipart-post (1.2.0)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
@@ -390,6 +396,7 @@ DEPENDENCIES
   google-analytics-rails
   haml-rails
   heroku-mongo-backup!
+  hipchat
   jquery-rails
   jquery-tablesorter
   jquery-ui-rails

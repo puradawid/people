@@ -31,6 +31,7 @@ gem 'draper', '~> 1.3'
 gem 'rabl'
 gem 'oj'
 gem 'sucker_punch', '~> 1.0'
+gem 'hipchat'
 
 gem 'haml-rails'
 gem 'sass-rails', '~> 4.0.0'
