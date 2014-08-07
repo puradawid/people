@@ -25,7 +25,7 @@ class Membership
 
   after_save :check_fields
 
-  if AppConfig.hipchat.room_name?
+  if AppConfig.hipchat.active
     after_create :notify_added
     after_update :notify_updated
     before_destroy :notify_removed
