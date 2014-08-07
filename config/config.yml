@@ -14,7 +14,7 @@ defaults: &defaults
     internal:         example.com
     social:           example.com
   hipchat:
-    active:           true
+    active:           false
     api_token:        your_hipchat_api_token
     author_name:      name_for_message_author
     notify_users:     true
