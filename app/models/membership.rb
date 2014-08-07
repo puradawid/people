@@ -25,6 +25,12 @@ class Membership
 
   after_save :check_fields
 
+  if AppConfig.hipchat.room_name?
+    after_create :notify_added
+    after_update :notify_updated
+    before_destroy :notify_removed
+  end
+
   scope :active, -> { where(project_potential: false, project_archived: false) }
   scope :with_role, ->(role) { where(role: role) }
   scope :with_user, ->(user) { where(user: user) }
@@ -93,6 +99,14 @@ class Membership
     end
   end
 
+  def notify_added
+  end
+
+  def notify_removed
+  end
+
+  def notify_updated
+  end
   def validate_starts_at_ends_at
     if starts_at.present? && ends_at.present? && starts_at > ends_at
       errors.add(:ends_at, "can't be before starts_at date")
