@@ -67,6 +67,7 @@ test:
   domain: people.test
   hipchat:
     active: false
+    api_token: 1234567890
 
 staging:
   <<: *heroku_settings
