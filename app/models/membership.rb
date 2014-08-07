@@ -101,14 +101,21 @@ class Membership
 
   def notify_added
     msg = HipChat::MessageBuilder.membership_added_message(self)
+    hipchat_notify(msg)
   end
 
   def notify_removed
     msg = HipChat::MessageBuilder.membership_removed_message(self)
+    hipchat_notify(msg)
   end
 
   def notify_updated
   end
+
+  def hipchat_notify(msg)
+    HipChat::Notifier.new.send_notification(msg)
+  end
+
   def validate_starts_at_ends_at
     if starts_at.present? && ends_at.present? && starts_at > ends_at
       errors.add(:ends_at, "can't be before starts_at date")
