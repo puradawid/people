@@ -1,0 +1,2 @@
+class HipChat::Notifier
+end
