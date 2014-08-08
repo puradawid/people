@@ -10,8 +10,8 @@
 $gray-darker:            #505b65;
 $gray-dark:              lighten($gray-darker, 10%);
 $gray:                   lighten($gray-darker, 20%);
-$gray-light:             lighten($gray-darker, 30%);
-$gray-lighter:           lighten($gray-darker, 50%);
+$gray-light:             lighten($gray-darker, 50%);
+$gray-lighter:           lighten($gray-darker, 60%);
 
 $brand-primary:         #ffb33d;
 $brand-success:         #5cb85c;
@@ -128,13 +128,13 @@ $border-radius-small:       1px !default;
 //** Default background color used for all tables.
 // $table-bg:                      transparent !default;
 //** Background color used for `.table-striped`.
-// $table-bg-accent:               #f9f9f9 !default;
+$table-bg-accent:               $gray-lighter;
 //** Background color used for `.table-hover`.
-// $table-bg-hover:                #f5f5f5 !default;
+$table-bg-hover:                $gray-lighter;
 // $table-bg-active:               $table-bg-hover !default;
 
 //** Border color for table and cell borders.
-// $table-border-color:            #ddd !default;
+$table-border-color:            $gray-light;
 
 
 //== Buttons
@@ -182,7 +182,7 @@ $btn-primary-border:                $brand-primary;
 //** Text color for `<input>`s
 $input-color:                    $gray-dark;
 //** `<input>` border color
-$input-border:                   $gray-lighter;
+$input-border:                   $gray-light;
 //** `<input>` border radius
 $input-border-radius:            $border-radius-base;
 //** Border color for inputs on focus

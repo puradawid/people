@@ -69,25 +69,19 @@
 
 .row
   .col-md-12
+    %h2 Table striped
     %table.table.table-striped
+      %theader
+        %tr
+          %th header
+          %th header
+          %th header
       %tbody
-        %tr.active
+        %tr
+          %td Lorem
+          %td Lorem
           %td lorem
-          %td lorem
-          %td lorem
-        %tr.success
-          %td lorem
-          %td lorem
-          %td lorem
-        %tr.info
-          %td lorem
-          %td lorem
-          %td lorem
-        %tr.warning
-          %td lorem
-          %td lorem
-          %td lorem
-        %tr.danger
+        %tr
           %td lorem
           %td lorem
           %td lorem
@@ -95,6 +89,56 @@
           %td lorem
           %td lorem
           %td lorem
+  .col-md-12
+    %h2 Table hover
+    %table.table.table-hover
+      %theader
+        %tr
+          %th header
+          %th header
+          %th header
+      %tbody
+        %tr
+          %td lorem
+          %td lorem
+          %td lorem
+        %tr
+          %td lorem
+          %td lorem
+          %td lorem
+        %tr
+          %td lorem
+          %td lorem
+          %td lorem
+  .col-md-12
+    %h2 Table with status
+    %table.table
+      %theader
+        %tr
+          %th header
+          %th header
+          %th header
+      %tbody
+        %tr.active
+          %td active
+          %td active
+          %td active
+        %tr.success
+          %td success
+          %td success
+          %td success
+        %tr.warning
+          %td warning
+          %td warning
+          %td warning
+        %tr.danger
+          %td danger
+          %td danger
+          %td danger
+        %tr.info
+          %td info
+          %td info
+          %td info
     %hr
 
 .row
@@ -136,6 +180,15 @@
       %label
         %input{ type: 'radio' }
         %p Lorem ipsum dolor.
+  %hr
+
+.row
+  .col-md-12
+    %form.form-inline{ role: 'form' }
+      .form-group
+        .input-group
+          .input-group-addon some text
+          %input.form-control{ type: 'text', placeholder: 'input' }
   %hr
 
 .row
