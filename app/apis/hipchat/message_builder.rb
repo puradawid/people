@@ -10,6 +10,20 @@ class HipChat::MessageBuilder
     ).to_str
   end
 
+  def self.membership_beginning_message(membership)
+    hipchat_render(
+      'hipchat/memberships/beginning',
+      { membership: membership.decorate }
+    ).to_str
+  end
+
+  def self.membership_ending_message(membership)
+    hipchat_render(
+      'hipchat/memberships/ending',
+      { membership: membership.decorate }
+    ).to_str
+  end
+
   def self.membership_removed_message(membership)
     hipchat_render(
       'hipchat/memberships/removed',
@@ -24,6 +38,20 @@ class HipChat::MessageBuilder
         membership: membership.decorate,
         changes: changes.except('updated_at')
       }
+    ).to_str
+  end
+
+  def self.project_ending_message(project)
+    hipchat_render(
+      'hipchat/projects/ending',
+      { project: project.decorate }
+    ).to_str
+  end
+
+  def self.project_kickoff_message(project)
+    hipchat_render(
+      'hipchat/projects/kickoff',
+      { project: project.decorate }
     ).to_str
   end
 
