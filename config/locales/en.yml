@@ -6,6 +6,14 @@ en:
     formats:
       date_picker: "%F"
   confirm_question: "Are you sure?"
+  hipchat:
+    memberships:
+      added:
+        main_line: "%{user} has been added to project '%{project}'"
+        details_line: "from %{start_date} to %{end_date} as %{role} (billable: %{billable})"
+        link: "view..."
+      removed:
+        main_line: "%{user} has been removed from project '%{project}'"
   users:
     show:
       hours: How many hours do you work in a month?

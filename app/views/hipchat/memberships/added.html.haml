@@ -1,0 +1,13 @@
+= t('.main_line',
+  user: membership.user_name,
+  project: membership.project_name)
+
+%br
+= t('.details_line',
+  start_date: membership.starts_at.to_formatted_s(:hipchat),
+  end_date: membership.ends_at.to_formatted_s(:hipchat),
+  role: membership.role_name,
+  billable: membership.billable)
+
+%br
+= link_to t('.link'), membership

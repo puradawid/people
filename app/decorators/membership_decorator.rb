@@ -26,4 +26,8 @@ class MembershipDecorator < Draper::Decorator
   def project_name
     project.name
   end
+
+  def role_name
+    role.name
+  end
 end

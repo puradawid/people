@@ -1,14 +1,28 @@
+require 'render_anywhere'
+
 class HipChat::MessageBuilder
+  extend RenderAnywhere
+
   def self.membership_added_message(membership)
-    "#{membership.user.first_name} #{membership.user.last_name} "\
-    "added to project \"#{membership.project.name}\" "\
-    "from #{membership.starts_at.strftime('%d %b %Y')} "\
-    "to #{membership.ends_at.strftime('%d %b %Y')} "\
-    "as #{membership.role.name} (billable: #{membership.billable})"
+    hipchat_render(
+      'hipchat/memberships/added',
+      { membership: membership.decorate }
+    ).to_str
   end
 
   def self.membership_removed_message(membership)
-    "#{membership.user.first_name} #{membership.user.last_name} "\
-    "removed from project \"#{membership.project.name}\" "\
+    hipchat_render(
+      'hipchat/memberships/removed',
+      { membership: membership.decorate }
+    ).to_str
+  end
+
+  private
+
+  def self.hipchat_render(template_path, local_variables = {})
+    render template: template_path,
+      layout: false,
+      xray: false,
+      locals: local_variables
   end
 end
