@@ -17,6 +17,16 @@ class HipChat::MessageBuilder
     ).to_str
   end
 
+  def self.membership_updated_message(membership, changes)
+    hipchat_render(
+      'hipchat/memberships/updated',
+      {
+        membership: membership.decorate,
+        changes: changes.except('updated_at')
+      }
+    ).to_str
+  end
+
   private
 
   def self.hipchat_render(template_path, local_variables = {})
@@ -26,3 +36,4 @@ class HipChat::MessageBuilder
       locals: local_variables
   end
 end
+

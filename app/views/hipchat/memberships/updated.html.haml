@@ -1,0 +1,10 @@
+= t('.main_line',
+  user: membership.user_name,
+  project: membership.project_name)
+
+%br
+- changes.each do |change|
+  = "- #{change.first}: #{change.second[0]} -> #{change.second[1]}"
+  %br
+
+= link_to t('.link'), membership

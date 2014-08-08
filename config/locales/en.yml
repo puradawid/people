@@ -14,6 +14,9 @@ en:
         link: "view..."
       removed:
         main_line: "%{user} has been removed from project '%{project}'"
+      updated:
+        main_line: "%{user} membership in project '%{project}' has been modified:"
+        link: "view..."
   users:
     show:
       hours: How many hours do you work in a month?
