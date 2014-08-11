@@ -68,7 +68,4 @@ class Hrguru.Helper
       $(".info-#{direcion}").tooltip({placement: direcion})
 
   togglePotentialCheckbox: (type) ->
-    if type is 'potential'
-      $('.potential').prop('checked', true)
-    else if type is 'active'
-      $('.potential').prop('checked', false)
+    $('.potential').prop('checked', type is 'potential')
