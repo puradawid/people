@@ -36,7 +36,6 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
   renderTimelineRegion: ->
     @ui.timeline_hide.css('color', 'red')
     @ui.timeline_hide.hide()
-    console.log 'rendering Timeline Region'
 
   renderNotesRegion: ->
     notesLayout = new Hrguru.Views.Dashboard.NotesLayout
