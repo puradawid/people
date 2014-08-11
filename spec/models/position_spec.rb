@@ -51,4 +51,17 @@ describe Position do
       end
     end
   end
+
+  describe "#by_user_name_and_date" do
+    let(:pos1) { mock_model(Position, user: nil, role: nil)  }
+    let(:pos2) { mock_model(Position, user: nil, role: nil)  }
+    let(:pos3) { mock_model(Position, user: nil, role: nil)  }
+    let(:positions) { [pos1, pos2, pos3] }
+    context "by_user_name_and_date" do
+
+      it "not return error when user is nil" do
+        expect(Position.by_user_name_and_date(positions)).to_not raise_error
+      end
+    end
+  end
 end
