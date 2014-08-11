@@ -155,3 +155,22 @@
       link
     %span.badge
       58
+  %hr
+
+.row
+  .col-md-12
+    %h2 Modal
+    %button.btn.btn-primary{ data: { toggle: 'modal', target: '.modal-lg' } }
+      Large modal
+.modal.fade.modal-lg{ tabindex: '-1', role: 'dialog', aria: { labelledby: 'myModal', hidden: 'true' } }
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{ type: 'button', data: { dismiss: 'modal'}}
+          %span{ aria: { hidden: 'true' } } &times;
+        %h4.modal-title My modal
+      .modal-body
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio quia iste alias velit, expedita consequatur.
+      .modal-footer
+        %button.btn.btn-default{ type: 'button', data: { dismiss: 'modal' } } close
+        %button.btn.btn-primary{ type: 'button' } Save changes

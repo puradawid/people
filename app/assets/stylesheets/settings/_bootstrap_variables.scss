@@ -569,7 +569,7 @@ $nav-tabs-justified-active-link-border-color:     none;
 //##
 
 //** Padding applied to the modal body
-// $modal-inner-padding:         15px !default;
+$modal-inner-padding:         15px;
 
 //** Padding applied to the modal title
 // $modal-title-padding:         15px !default;
@@ -584,11 +584,11 @@ $nav-tabs-justified-active-link-border-color:     none;
 // $modal-content-fallback-border-color:          #999 !default;
 
 //** Modal backdrop background color
-// $modal-backdrop-bg:           #000 !default;
+$modal-backdrop-bg:           $brand-secondary;
 //** Modal backdrop opacity
-// $modal-backdrop-opacity:      .5 !default;
+$modal-backdrop-opacity:      .85;
 //** Modal header border color
-// $modal-header-border-color:   #e5e5e5 !default;
+$modal-header-border-color:   $gray-light;
 //** Modal footer border color
 // $modal-footer-border-color:   $modal-header-border-color !default;
 
