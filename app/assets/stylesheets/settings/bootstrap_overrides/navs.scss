@@ -82,9 +82,10 @@
 
     // Actual tabs (as links)
     > a {
-      color: $gray;
+      color: $text-color;
       margin-right: 2px;
-      line-height: $line-height-base;
+      line-height: $navbar-height;
+      padding: 0 15px;
       border-width: 0 0 3px;
       border-radius: 0;
       &:hover {
@@ -222,23 +223,26 @@
 // -------------------------
 
 // Hide tabbable panes to start, show them when `.active`
-// .tab-content {
-//   > .tab-pane {
-//     display: none;
-//   }
-//   > .active {
-//     display: block;
-//   }
-// }
+.tab-content {
+  > .tab-pane {
+    margin-top: $line-height-computed;
+    color: $text-color;
+    display: none;
+  }
+  > .active {
+    display: block;
+  }
+}
 
 
 // Dropdowns
 // -------------------------
 
 // Specific dropdowns
-// .nav-tabs .dropdown-menu {
-//   // make dropdown border overlap tab border
-//   margin-top: -1px;
-//   // Remove the top rounded corners here since there is a hard edge above the menu
-//   @include border-top-radius(0);
-// }
+.nav-tabs .dropdown-menu {
+  // make dropdown border overlap tab border
+  @include border-top-radius(0);
+  margin-top: -3px;
+  border-top: 3px solid $brand-primary;
+  // Remove the top rounded corners here since there is a hard edge above the menu
+}

@@ -51,11 +51,52 @@
 
 .row
   .col-md-12
+    %h2 Tabs
     %ul.nav.nav-tabs{ role: 'tablist' }
       %li.active
-        %a{ href: '#'} tab item 1
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab'} } people
       %li
-        %a{ href: '#'} tab item 2
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab'} } team
       %li
-        %a{ href: '#'} tab item 3
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab'} } projects
+
+    .tab-content
+      .tab-pane.active
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, pariatur?
+      .tab-pane
+        Lorem ipsum dolor sit amet.
+      .tab-pane
+        Lorem ipsum dolor sit amet, consectetur.
+
+    %h3 Tab dropdown
+    %ul.nav.nav-tabs{ role: 'tablist' }
+      %li.dropdown
+        %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' } }
+          people
+          %span.caret
+        %ul.dropdown-menu{ role: 'menu' }
+          %li
+            %a{ href: '#' }item 1
+          %li
+            %a{ href: '#' }item 2
+          %li
+            %a{ href: '#' }item 3
+      %li
+        %a{ href: '#', role: 'tab', data_toggle: 'tab'} team
+      %li
+        %a{ href: '#', role: 'tab', data_toggle: 'tab'} projects
+      %li
+        %a{ href: '#', role: 'tab', data_toggle: 'tab'} projects
+    .clearfix
+
+    %h3 Tab justified
+    %ul.nav.nav-tabs.nav-justified{ role: 'tablist' }
+      %li.active
+        %a{ href: '#', role: 'tab', data_toggle: 'tab'} people
+      %li
+        %a{ href: '#', role: 'tab', data_toggle: 'tab'} team
+      %li
+        %a{ href: '#', role: 'tab', data_toggle: 'tab'} projects
+
+
 
