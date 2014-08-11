@@ -73,6 +73,7 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
 
   toggleByType: (event) =>
     @displayedType = event.currentTarget.dataset.type
+    H.togglePotentialCheckbox(@displayedType)
     @refresh_project_selectize()
     EventAggregator.trigger('projects:toggleByType', { type: @displayedType })
 
@@ -85,6 +86,7 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
         distype = @getAttribute('data-type')
         EventAggregator.trigger('projects:toggleByType', { type: @getAttribute('data-type') })
     @displayedType = distype
+    H.togglePotentialCheckbox(@displayedType)
 
   save_radio_state: ->
     @$('input#toggle-by-type').each ->
@@ -99,3 +101,4 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
       @projects_selectize.clearOptions()
       @projects_selectize.load (callback) =>
         callback @filterSelectizeProjects()
+
