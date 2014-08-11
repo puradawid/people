@@ -1,0 +1,8 @@
+//
+// Dropdowns
+// --------------------------------------------------
+
+// The dropdown menu (ul)
+.dropdown-menu {
+  @include box-shadow(0 0 5px rgba($gray , .25));
+}

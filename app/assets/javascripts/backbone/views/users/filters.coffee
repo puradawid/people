@@ -94,6 +94,7 @@ class Hrguru.Views.UsersFilters extends Marionette.View
     @hideFiltersAndSorts(state)
     @toggleCheckboxes(type, state)
     EventAggregator.trigger('user:sortAndHighlightEnding', state)
+    H.addUserIndex()
 
   showOnlyBy: (event) ->
     checkbox = event.currentTarget
@@ -103,6 +104,7 @@ class Hrguru.Views.UsersFilters extends Marionette.View
     @toggleCheckboxes(type, state)
     @showOnlyByArchive(state) if type == 'archived'
     @showOnlyByPotential(state) if type == 'has_project'
+    H.addUserIndex()
 
   showOnlyByArchive: (state) ->
     EventAggregator.trigger('UsersRow:showOnlyIfArchived', state)

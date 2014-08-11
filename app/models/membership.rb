@@ -32,6 +32,7 @@ class Membership
   end
 
   scope :active, -> { where(project_potential: false, project_archived: false) }
+  scope :potential, -> { where(project_potential: true) }
   scope :with_role, ->(role) { where(role: role) }
   scope :with_user, ->(user) { where(user: user) }
   scope :unfinished, -> { any_of({ ends_at: nil }, { :ends_at.gt => Time.current }) }
@@ -100,18 +101,24 @@ class Membership
   end
 
   def notify_added
-    msg = HipChat::MessageBuilder.membership_added_message(self)
-    hipchat_notify(msg)
+    if active?
+      msg = HipChat::MessageBuilder.membership_added_message(self)
+      hipchat_notify(msg)
+    end
   end
 
   def notify_removed
-    msg = HipChat::MessageBuilder.membership_removed_message(self)
-    hipchat_notify(msg)
+    if active?
+      msg = HipChat::MessageBuilder.membership_removed_message(self)
+      hipchat_notify(msg)
+    end
   end
 
   def notify_updated
-    msg = HipChat::MessageBuilder.membership_updated_message(self, changes)
-    hipchat_notify(msg)
+    if persisted? && active?
+      msg = HipChat::MessageBuilder.membership_updated_message(self, changes)
+      hipchat_notify(msg)
+    end
   end
 
   def hipchat_notify(msg)

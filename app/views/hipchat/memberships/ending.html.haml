@@ -1,0 +1,7 @@
+= t('.main_line',
+  user: membership.user_name,
+  project: membership.project_name,
+  time_remaining: distance_of_time_in_words(Time.current, membership.ends_at))
+
+%br
+= link_to t('.link'), membership

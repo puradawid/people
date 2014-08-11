@@ -10,8 +10,8 @@
 $gray-darker:            #505b65;
 $gray-dark:              lighten($gray-darker, 10%);
 $gray:                   lighten($gray-darker, 20%);
-$gray-light:             lighten($gray-darker, 30%);
-$gray-lighter:           lighten($gray-darker, 50%);
+$gray-light:             lighten($gray-darker, 50%);
+$gray-lighter:           lighten($gray-darker, 60%);
 
 $brand-primary:         #ffb33d;
 $brand-success:         #5cb85c;
@@ -128,13 +128,13 @@ $border-radius-small:       1px !default;
 //** Default background color used for all tables.
 // $table-bg:                      transparent !default;
 //** Background color used for `.table-striped`.
-// $table-bg-accent:               #f9f9f9 !default;
+$table-bg-accent:               $gray-lighter;
 //** Background color used for `.table-hover`.
-// $table-bg-hover:                #f5f5f5 !default;
+$table-bg-hover:                $gray-lighter;
 // $table-bg-active:               $table-bg-hover !default;
 
 //** Border color for table and cell borders.
-// $table-border-color:            #ddd !default;
+$table-border-color:            $gray-light;
 
 
 //== Buttons
@@ -182,7 +182,7 @@ $btn-primary-border:                $brand-primary;
 //** Text color for `<input>`s
 $input-color:                    $gray-dark;
 //** `<input>` border color
-$input-border:                   $gray-lighter;
+$input-border:                   $gray-light;
 //** `<input>` border radius
 $input-border-radius:            $border-radius-base;
 //** Border color for inputs on focus
@@ -214,7 +214,7 @@ $input-color-placeholder:        $gray-light;
 //** Background for the dropdown menu.
 // $dropdown-bg:                    #fff !default;
 //** Dropdown menu `border-color`.
-// $dropdown-border:                rgba(0,0,0,.15) !default;
+$dropdown-border:                $gray-light;
 //** Dropdown menu `border-color` **for IE8**.
 // $dropdown-fallback-border:       #ccc !default;
 //** Divider color for between dropdown items.
@@ -223,9 +223,9 @@ $input-color-placeholder:        $gray-light;
 //** Dropdown link text color.
 // $dropdown-link-color:            $gray-dark !default;
 //** Hover color for dropdown links.
-// $dropdown-link-hover-color:      darken($gray-dark, 5%) !default;
+$dropdown-link-hover-color:      $brand-primary;
 //** Hover background for dropdown links.
-// $dropdown-link-hover-bg:         #f5f5f5 !default;
+$dropdown-link-hover-bg:         none;
 
 //** Active dropdown menu item text color.
 // $dropdown-link-active-color:     $component-active-color !default;
@@ -233,13 +233,13 @@ $input-color-placeholder:        $gray-light;
 // $dropdown-link-active-bg:        $component-active-bg !default;
 
 //** Disabled dropdown menu item background color.
-// $dropdown-link-disabled-color:   $gray-light !default;
+$dropdown-link-disabled-color:   $gray-lighter;
 
 //** Text color for headers within dropdown menus.
-// $dropdown-header-color:          $gray-light !default;
+$dropdown-header-color:          $gray-lighter;
 
 //** Deprecated `$dropdown-caret-color` as of v3.1.0
-// $dropdown-caret-color:           #000 !default;
+$dropdown-caret-color:           $brand-primary;
 
 
 //-- Z-index master list
@@ -477,9 +477,9 @@ $nav-tabs-justified-active-link-border-color:     none;
 //
 //## Define colors for form feedback states and, by default, alerts.
 
-// $state-success-bg:                  $brand-success;
-// $state-success-text:                lighten($state-success-bg, 80%);
-// $state-success-border:              darken(adjust-hue($state-success-bg, -10), 5%);
+// $state-success-text:             #3c763d !default;
+// $state-success-bg:               #dff0d8 !default;
+// $state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%) !default;
 
 // $state-info-text:                #31708f !default;
 // $state-info-bg:                  #d9edf7 !default;
@@ -843,4 +843,4 @@ $nav-tabs-justified-active-link-border-color:     none;
 //** Width of horizontal description list titles
 // $dl-horizontal-offset:        $component-offset-horizontal !default;
 //** Horizontal line color.
-// $hr-border:                   $gray-lighter !default;
+$hr-border:                   $gray-light !default;

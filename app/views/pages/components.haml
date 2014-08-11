@@ -1,0 +1,53 @@
+.row
+  .col-md-12
+    %h1 Components
+    %hr
+
+.row
+  .col-md-12
+    %h2 Dropdowns
+    .dropdown
+      %button.btn.btn-default.dropdown-toggle.btn-primary{ href: '#', role: 'button', data: { toggle: 'dropdown', target: '#' } }
+        dropdown button
+        %b.caret
+      %ul.dropdown-menu{ role: 'menu' }
+        %li
+          %a{ href: '#' }
+            Dropdown #1
+        %li
+          %a{ href: '#' }
+            Dropdown #2
+        %li
+          %a{ href: '#' }
+            Dropdown #3
+        %li
+          %a{ href: '#' }
+            Dropdown #4
+  %hr
+
+.row
+  .col-md-12
+    %h2 Buttons group
+    .btn-group
+      %button.btn.btn-default{ type: 'button' } button
+      %button.btn.btn-default{ type: 'button' } button
+      %button.btn.btn-default{ type: 'button' } button
+  %hr
+
+.row
+  .col-md-12
+    %h2 Input groups
+  .col-md-6
+    .input-group
+      %span.input-group-addon
+        %input{ type: 'checkbox' }
+      %input.form-control{ type: 'text', placeholder: 'placeholder' }
+  .col-md-6
+    .input-group
+      %span.input-group-addon
+        %input{ type: 'radio' }
+      %input.form-control{ type: 'text', placeholder: 'placeholder' }
+  %hr
+
+.row
+  %ul.nav.nav-tabs{ role: 'tablist' }
