@@ -400,7 +400,7 @@ $navbar-default-link-active-bg:               $navbar-default-bg;
 
 //=== Shared nav styles
 // $nav-link-padding:                          10px 15px !default;
-// $nav-link-hover-bg:                         $gray-lighter !default;
+$nav-link-hover-bg:                         transparent;
 
 // $nav-disabled-link-color:                   $gray-light !default;
 // $nav-disabled-link-hover-color:             $gray-light !default;
@@ -408,13 +408,13 @@ $navbar-default-link-active-bg:               $navbar-default-bg;
 // $nav-open-link-hover-color:                 #fff !default;
 
 //== Tabs
-$nav-tabs-border-color:                     none;
+$nav-tabs-border-color:                     $gray-light;
 
-$nav-tabs-link-hover-border-color:          none;
+$nav-tabs-link-hover-border-color:          $brand-primary;
 
-$nav-tabs-active-link-hover-bg:             none;
-$nav-tabs-active-link-hover-color:          none;
-$nav-tabs-active-link-hover-border-color:   none;
+$nav-tabs-active-link-hover-bg:             transparent;
+$nav-tabs-active-link-hover-color:          $brand-primary;
+$nav-tabs-active-link-hover-border-color:   $nav-tabs-link-hover-border-color;
 
 $nav-tabs-justified-link-border-color:            none;
 $nav-tabs-justified-active-link-border-color:     none;
