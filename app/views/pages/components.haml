@@ -82,21 +82,21 @@
           %li
             %a{ href: '#' }item 3
       %li
-        %a{ href: '#', role: 'tab', data_toggle: 'tab'} team
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab' } } team
       %li
-        %a{ href: '#', role: 'tab', data_toggle: 'tab'} projects
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab' } } projects
       %li
-        %a{ href: '#', role: 'tab', data_toggle: 'tab'} projects
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab' } } projects
     .clearfix
 
     %h3 Tab justified
     %ul.nav.nav-tabs.nav-justified{ role: 'tablist' }
       %li.active
-        %a{ href: '#', role: 'tab', data_toggle: 'tab'} people
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab' } } people
       %li
-        %a{ href: '#', role: 'tab', data_toggle: 'tab'} team
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab' } } team
       %li
-        %a{ href: '#', role: 'tab', data_toggle: 'tab'} projects
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab' } } projects
     %hr
 
 .row
@@ -166,7 +166,7 @@
   .modal-dialog.modal-lg
     .modal-content
       .modal-header
-        %button.close{ type: 'button', data: { dismiss: 'modal'}}
+        %button.close{ type: 'button', data: { dismiss: 'modal' } }
           %span{ aria: { hidden: 'true' } } &times;
         %h4.modal-title My modal
       .modal-body
