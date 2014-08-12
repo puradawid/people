@@ -13,7 +13,6 @@ h6, .h6 {
 
 // Emphasis & misc
 // -------------------------
-// Undo browser default styling
 
 mark,
 .mark {
@@ -21,9 +20,6 @@ mark,
   background-color: lighten($brand-primary, 25%);
 }
 
-// Opposite alignment of blockquote
-//
-// Heads up: `blockquote.pull-right` has been deprecated as of v3.1.0.
 .blockquote-reverse,
 blockquote.pull-right {
   border-right: 3px solid $blockquote-border-color;
