@@ -54,11 +54,20 @@
     %h2 Tabs
     %ul.nav.nav-tabs{ role: 'tablist' }
       %li.active
-        %a{ href: '#', role: 'tab', data: { toggle: 'tab'} } people
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab'} }
+          people
+          %span.badge
+            15
       %li
-        %a{ href: '#', role: 'tab', data: { toggle: 'tab'} } team
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab'} }
+          team
+          %span.badge
+            7
       %li
-        %a{ href: '#', role: 'tab', data: { toggle: 'tab'} } projects
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab'} }
+          projects
+          %span.badge
+            12
 
     .tab-content
       .tab-pane.active

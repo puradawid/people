@@ -10,13 +10,18 @@
   > li {
     > a {
       line-height: $navbar-height;
-      padding: 0 15px;
+      margin: 0 15px;
+      padding: 0;
       border-width: 0 0 3px;
       font-weight: bold;
       color: $text-color;
       &:hover {
         color: $nav-tabs-active-link-hover-color;
         border-color: transparent transparent $nav-tabs-link-hover-border-color;
+        .badge {
+          color: #ffffff;
+          background-color: $nav-tabs-active-link-hover-color;
+        }
       }
     }
 
@@ -29,11 +34,11 @@
         border-width: 0 0 3px;
         border-color: $nav-tabs-active-link-hover-border-color;
       }
+      .badge {
+        color: #ffffff;
+        background-color: $nav-tabs-active-link-hover-color;
+      }
     }
-  }
-  &.nav-justified {
-    @extend .nav-justified;
-    @extend .nav-tabs-justified;
   }
 }
 
