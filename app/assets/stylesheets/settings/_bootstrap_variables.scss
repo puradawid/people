@@ -101,7 +101,7 @@ $headings-font-weight:    100;
 // $line-height-large:         1.33 !default;
 // $line-height-small:         1.5 !default;
 
-$border-radius-base:        2px !default;
+$border-radius-base:        3px !default;
 $border-radius-large:       4px !default;
 $border-radius-small:       1px !default;
 
@@ -143,7 +143,7 @@ $table-border-color:            $gray-light;
 
 $btn-font-weight:                bold;
 
-$btn-default-color:                 $gray;
+$btn-default-color:                 $text-color;
 $btn-default-bg:                    $gray-lighter;
 $btn-default-border:                $gray-light;
 

@@ -1,23 +1,26 @@
 //
 // Buttons
 // --------------------------------------------------
+.btn {
+  font-size: $font-size-base - 1px;
+}
 
 .btn-primary {
   text-shadow: $btn-text-shadow $btn-primary-border;
 }
 // Success appears as green
 .btn-success {
-  text-shadow: $btn-text-shadow  darken($btn-success-bg, 10%);
+  text-shadow: $btn-text-shadow  darken($btn-success-bg, 7%);
 }
 // Info appears as blue-green
 .btn-info {
-  text-shadow: $btn-text-shadow darken($btn-info-bg, 10%);
+  text-shadow: $btn-text-shadow darken($btn-info-bg, 7%);
 }
 // Warning appears as orange
 .btn-warning {
-  text-shadow: $btn-text-shadow darken($btn-warning-bg, 10%);
+  text-shadow: $btn-text-shadow darken($btn-warning-bg, 7%);
 }
 // Danger and error appear as red
 .btn-danger {
-  text-shadow: $btn-text-shadow darken($btn-danger-bg, 10%);
+  text-shadow: $btn-text-shadow darken($btn-danger-bg, 7%);
 }
