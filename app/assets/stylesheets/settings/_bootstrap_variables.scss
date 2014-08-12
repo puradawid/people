@@ -148,7 +148,7 @@ $btn-default-bg:                    $gray-lighter;
 $btn-default-border:                $gray-light;
 
 // $btn-primary-color:              #fff !default;
-$btn-primary-bg:                    lighten($brand-primary, 12%);
+$btn-primary-bg:                    lighten($brand-primary, 9%);
 $btn-primary-border:                $brand-primary;
 
 // $btn-success-color:              #fff !default;
@@ -569,7 +569,7 @@ $nav-tabs-justified-active-link-border-color:     none;
 //##
 
 //** Padding applied to the modal body
-$modal-inner-padding:         15px;
+// $modal-inner-padding:         15px;
 
 //** Padding applied to the modal title
 // $modal-title-padding:         15px !default;

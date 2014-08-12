@@ -1,0 +1,23 @@
+//
+// Buttons
+// --------------------------------------------------
+
+.btn-primary {
+  text-shadow: $btn-text-shadow $btn-primary-border;
+}
+// Success appears as green
+.btn-success {
+  text-shadow: $btn-text-shadow  darken($btn-success-bg, 10%);
+}
+// Info appears as blue-green
+.btn-info {
+  text-shadow: $btn-text-shadow darken($btn-info-bg, 10%);
+}
+// Warning appears as orange
+.btn-warning {
+  text-shadow: $btn-text-shadow darken($btn-warning-bg, 10%);
+}
+// Danger and error appear as red
+.btn-danger {
+  text-shadow: $btn-text-shadow darken($btn-danger-bg, 10%);
+}
