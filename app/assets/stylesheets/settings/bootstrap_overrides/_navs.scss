@@ -19,7 +19,7 @@
         color: $nav-tabs-active-link-hover-color;
         border-color: transparent transparent $nav-tabs-link-hover-border-color;
         .badge {
-          color: #ffffff;
+          color: $white;
           background-color: $nav-tabs-active-link-hover-color;
         }
       }
@@ -35,7 +35,7 @@
         border-color: $nav-tabs-active-link-hover-border-color;
       }
       .badge {
-        color: #ffffff;
+        color: $white;
         background-color: $nav-tabs-active-link-hover-color;
       }
     }
