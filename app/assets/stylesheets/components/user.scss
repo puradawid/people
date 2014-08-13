@@ -10,10 +10,9 @@
     border-top: 1px solid $gray-light;
   }
   &-header{
-    height: $user-card-header-height;
+    padding: $half-gutter-width;
   }
   &-image {
-    @include centered-vertically;
     @include circle(64px);
     float: left;
   }
@@ -25,25 +24,34 @@
     background: $brand-primary;
   }
   &-times {
-    height: $user-card-times-height;
+    padding: $half-gutter-width;
   }
-  &-available,
-  &-hours {
-    @include centered-vertically;
+  &-available {
+    border-right: 1px solid $gray-light;
   }
   &-projects {
-    height: $user-card-projects-height;
-  }
-  &-projects-list {
-    @include centered-vertically;
+    padding: $half-gutter-width;
   }
   &-skills {
-    height: $user-card-skills-height;
+    padding: $half-gutter-width;
+  }
+  .label-skill {
+    background: $gray-light;
   }
   &-projects-list {
     padding: 0;
     li {
       list-style: none;
+    }
+  }
+  &-current-project {
+    padding: $half-gutter-width;
+    color: $white;
+    background: $gray-light;
+    a {
+      color: $white;
+      font-weight: bold;
+      text-decoration: underline;
     }
   }
 }
