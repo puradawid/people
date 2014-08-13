@@ -2,7 +2,7 @@
 // User
 // --------------------------------------------------
 
-.user {
+.user-card {
   border-radius: $border-radius-large;
   border: 1px solid $gray-light;
   overflow: hidden;
@@ -10,9 +10,10 @@
     border-top: 1px solid $gray-light;
   }
   &-header{
-    height: $user-header-height;
+    height: $user-card-header-height;
   }
   &-image {
+    @include centered-vertically;
     @include circle(64px);
     float: left;
   }
@@ -22,6 +23,22 @@
   }
   &-position {
     background: $brand-primary;
+  }
+  &-times {
+    height: $user-card-times-height;
+  }
+  &-available,
+  &-hours {
+    @include centered-vertically;
+  }
+  &-projects {
+    height: $user-card-projects-height;
+  }
+  &-projects-list {
+    @include centered-vertically;
+  }
+  &-skills {
+    height: $user-card-skills-height;
   }
   &-projects-list {
     padding: 0;

@@ -189,48 +189,60 @@
     %hr
     %h2 Users
   .col-md-3
-    .user
-      .user-header.col-md-12
-        %img.user-image{ src: '../assets/user-example.png', alt: '' }
-        %h3.user-name Agnieszka Amborska
-        %span.label.user-position
+    .user-card
+      .user-card-header.col-md-12
+        %img.user-card-image{ src: '../assets/user-example.png', alt: '' }
+        %h3.user-card-name Agnieszka Amborska
+        %span.label.user-card-position
           Senior Developer
 
-      .user-times.col-md-12
-        .user-available.col-md-6
+      .user-card-times.col-md-12
+        .user-card-available.col-md-6.text-center
           %strong 27.08.2014
-          %h4 available
-        .user-hours.col-md-6
+          %span.uppercase-heading available
+        .user-card-hours.col-md-6.text-center
           %strong 168h
-          %h4 hours
+          .clearfix
+          %span.uppercase-heading hours
 
-      .user-projects.col-md-12
-        %h4 last projects
-        %ul.user-projects-list
+      .user-card-projects.col-md-12
+        %span.uppercase-heading last projects
+        %ul.user-card-projects-list
           %li
             %span.label.label-project PL
-            People
+            %strong
+              People
+            (3 months)
           %li
             %span.label.label-project PL
-            People
+            %strong
+              People
+            (3 months)
           %li
             %span.label.label-project PL
-            People
+            %strong
+              People
+            (3 months)
           %li
             %span.label.label-project PL
-            People
+            %strong
+              People
+            (3 months)
           %li
             %span.label.label-project PL
-            People
+            %strong
+              People
+            (3 months)
 
-      .user-skills.col-md-12
-        %h4 skills
+      .user-card-skills.col-md-12
+        %span.uppercase-heading skills
+        .clearfix
         %span.label.label-default Ruby
         %span.label.label-default Rails
         %span.label.label-default Backbone
 
-      .user-current-project.col-md-12
-        %h4 current project
+      .user-card-current-project.col-md-12
+        %p current project
         %a{ href: '' } People
 
   .col-md-12
