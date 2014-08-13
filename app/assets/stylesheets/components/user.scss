@@ -1,0 +1,32 @@
+//
+// User
+// --------------------------------------------------
+
+.user {
+  border-radius: $border-radius-large;
+  border: 1px solid $gray-light;
+  overflow: hidden;
+  > div {
+    border-top: 1px solid $gray-light;
+  }
+  &-header{
+    height: $user-header-height;
+  }
+  &-image {
+    @include circle(64px);
+    float: left;
+  }
+  &-name {
+    font-size: $font-size-large;
+    font-weight: bold;
+  }
+  &-position {
+    background: $brand-primary;
+  }
+  &-projects-list {
+    padding: 0;
+    li {
+      list-style: none;
+    }
+  }
+}
