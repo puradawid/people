@@ -10,7 +10,7 @@
   > li {
     > a {
       line-height: $navbar-height;
-      margin: 0 15px;
+      margin: 0 $half-gutter-width;
       padding: 0;
       border-width: 0 0 3px;
       font-weight: bold;
@@ -24,7 +24,12 @@
         }
       }
     }
-
+    &:first-of-type > a {
+      margin-left: 0;
+    }
+    &:last-of-type > a {
+      margin-right: 0;
+    }
     &.active > a {
       &,
       &:hover,
