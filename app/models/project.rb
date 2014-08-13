@@ -38,6 +38,11 @@ class Project
   scope :ending_in_a_week, -> { active.between(end_at: (SOON_END.from_now - 1.day)..SOON_END.from_now) }
   scope :ending_soon, -> { active.between(end_at: Time.now..SOON_END.from_now) }
   scope :starting_tomorrow, -> { potential.between(kickoff: Time.now..1.day.from_now) }
+  scope :ending_in, ->(days) { between(end_at: Time.now..days.days.from_now) }
+  scope :starting_in, ->(x) { between(kickoff: Time.now..x.days.from_now) }
+  scope :ending_or_starting_in, ->(days) do
+    any_of(ending_in(days).selector, starting_in(days).selector)
+  end
 
   track_history on: [:archived, :potential], version_field: :version, track_create: true, track_update: true
 
@@ -64,6 +69,14 @@ class Project
     end.last
 
     last_track.present? ? last_track.created_at : self.created_at
+  end
+
+  def self.upcoming_changes(days)
+    projects = Membership.includes(:project).upcoming_changes(days).map do |m|
+      m.project
+    end
+    projects << Project.ending_or_starting_in(days).to_a
+    projects.uniq.flatten
   end
 
   def self.by_name
