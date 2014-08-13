@@ -58,6 +58,13 @@
   @include position(fixed, $args);
 }
 
+@mixin centered-vertically {
+  @include transform(translateY(-50%));
+  position: relative;
+  top: 50%;
+  display: block;
+}
+
 @mixin highlight_ending_item( $number ) {
   @for $i from 0 through $number {
     $red-ending: lighten($left-time-red, $i/2);
