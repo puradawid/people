@@ -23,7 +23,7 @@
         %li
           %a{ href: '#' }
             Dropdown #4
-  %hr
+    %hr
 
 .row
   .col-md-12
@@ -50,4 +50,133 @@
   %hr
 
 .row
-  %ul.nav.nav-tabs{ role: 'tablist' }
+  .col-md-12
+    %h2 Tabs
+    %ul.nav.nav-tabs{ role: 'tablist' }
+      %li.active
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab'} }
+          people
+          %span.badge 15
+      %li
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab'} }
+          team
+          %span.badge 7
+      %li
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab'} }
+          projects
+          %span.badge 12
+
+    .tab-content
+      .tab-pane.active
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, pariatur?
+      .tab-pane
+        Lorem ipsum dolor sit amet.
+      .tab-pane
+        Lorem ipsum dolor sit amet, consectetur.
+
+    %h3 Tab dropdown
+    %ul.nav.nav-tabs{ role: 'tablist' }
+      %li.dropdown
+        %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' } }
+          people
+          %span.caret
+        %ul.dropdown-menu{ role: 'menu' }
+          %li
+            %a{ href: '#' }item 1
+          %li
+            %a{ href: '#' }item 2
+          %li
+            %a{ href: '#' }item 3
+      %li
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab' } } team
+      %li
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab' } } projects
+      %li
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab' } } projects
+    .clearfix
+
+    %h3 Tab justified
+    %ul.nav.nav-tabs.nav-justified{ role: 'tablist' }
+      %li.active
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab' } } people
+      %li
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab' } } team
+      %li
+        %a{ href: '#', role: 'tab', data: { toggle: 'tab' } } projects
+    %hr
+
+.row
+  .col-md-6
+    %h2 Labels
+    %h3
+      example text
+      %span.label.label-default
+        text
+    %h4
+      example text
+      %a.label.label-default
+        text
+    %h5
+      example text
+      %a.label.label-default
+        text
+    %h6
+      example text
+      %a.label.label-default
+        text
+
+  .col-md-6
+    %h3
+      wykonane projekty
+      %span.label.label-primary
+        primary label
+    %h3
+      Lorem ipsum dolor sit amet.
+      %a.label.label-success
+        success label
+    %h3
+      example text
+      %a.label.label-info
+        info label
+    %h3
+      Lorem ipsum.
+      %a.label.label-warning
+        warning label
+    %h3
+      example text
+      %a.label.label-danger
+        danger label
+  %hr
+
+.row
+  .col-md-12
+    %h2 Badges
+  .col-md-2
+    %a{ href: '#' }
+      link
+    %span.badge
+      24
+  .col-md-2
+    %a{ href: '#' }
+      link
+    %span.badge
+      58
+  %hr
+
+.row
+  .col-md-12
+    %h2 Modal
+    %button.btn.btn-primary{ data: { toggle: 'modal', target: '.modal-lg' } }
+      Large modal
+.modal.fade.modal-lg{ tabindex: '-1', role: 'dialog', aria: { labelledby: 'myModal', hidden: 'true' } }
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{ type: 'button', data: { dismiss: 'modal' } }
+          %span{ aria: { hidden: 'true' } } &times;
+        %h4.modal-title My modal
+      .modal-body
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio quia iste alias velit, expedita consequatur.
+      .modal-footer
+        %button.btn.btn-default{ type: 'button', data: { dismiss: 'modal' } } close
+        %button.btn.btn-primary{ type: 'button' } Save changes

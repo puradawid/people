@@ -1,0 +1,67 @@
+//
+// Navs
+// --------------------------------------------------
+
+// Tabs
+// -------------------------
+
+.nav-tabs {
+  border-bottom: 1px solid $nav-tabs-border-color;
+  > li {
+    > a {
+      line-height: $navbar-height;
+      margin: 0 $half-gutter-width;
+      padding: 0;
+      border-width: 0 0 3px;
+      font-weight: bold;
+      color: $text-color;
+      &:hover {
+        color: $nav-tabs-active-link-hover-color;
+        border-color: transparent transparent $nav-tabs-link-hover-border-color;
+        .badge {
+          color: $white;
+          background-color: $nav-tabs-active-link-hover-color;
+        }
+      }
+    }
+    &:first-of-type > a {
+      margin-left: 0;
+    }
+    &:last-of-type > a {
+      margin-right: 0;
+    }
+    &.active > a {
+      &,
+      &:hover,
+      &:focus {
+        color: $nav-tabs-active-link-hover-color;
+        background-color: $nav-tabs-active-link-hover-bg;
+        border-width: 0 0 3px;
+        border-color: $nav-tabs-active-link-hover-border-color;
+      }
+      .badge {
+        color: $white;
+        background-color: $nav-tabs-active-link-hover-color;
+      }
+    }
+  }
+}
+
+// Tabbable tabs
+// -------------------------
+
+.tab-content {
+  > .tab-pane {
+    margin-top: $line-height-computed;
+    color: $text-color;
+  }
+}
+
+
+// Dropdowns
+// -------------------------
+
+.nav-tabs .dropdown-menu {
+  margin-top: -3px;
+  border-top: 3px solid $brand-primary;
+}

@@ -2,16 +2,17 @@
   .col-md-12
     %h1 CSS Bootstrap
     %hr
+    %h1 h1. Lorem ipsum dolor sit amet
+    %h2 h2. Lorem ipsum dolor sit amet
     %h3 h3. Lorem ipsum dolor sit amet
     %h4 h4. Lorem ipsum dolor sit amet
     %h5 h5. Lorem ipsum dolor sit amet
-    %h2 h2. Lorem ipsum dolor sit amet
-    %h1 h1. Lorem ipsum dolor sit amet
     %h6 h6. Lorem ipsum dolor sit amet
     %hr
 
 .row
   .col-md-12
+    %h2 Typography
     %p.lead This is lead
     %p This is simply paragraph
     %p
@@ -55,6 +56,7 @@
 
 .row
   .col-md-12
+    %h2 Lists
     %ul
       %li lorem
       %li lorem
@@ -144,6 +146,9 @@
     %hr
 
 .row
+  .col-md-12
+    %h2 Forms
+
   .col-md-3
     %input.form-control{ type: 'text', placeholder: 'input' }
 
@@ -159,11 +164,12 @@
   .col-md-3
     %input.btn.btn-primary{ type: 'submit', value: 'submit' }
 
+.row
   .col-md-3
     .checkbox
       %label
         %input{ type: 'checkbox' }
-        %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, nostrum.
+        %p Lorem ipsum dolor sit amet, consectetur
 
   .col-md-3
     .checkbox
@@ -182,7 +188,14 @@
       %label
         %input{ type: 'radio' }
         %p Lorem ipsum dolor.
-  %hr
+
+.row
+  .col-md-12
+    %form{ role: 'form' }
+      %label{ for: 'email'}
+        Twój e-mail
+      %input.form-control{ type: 'text', placeholder: 'wpisz email' }
+    %hr
 
 .row
   .col-md-12
@@ -191,17 +204,18 @@
         .input-group
           .input-group-addon some text
           %input.form-control{ type: 'text', placeholder: 'input' }
-  %hr
+    %hr
 
 .row
   .col-md-12
+    %h2 Buttons
     %button.btn.btn-default default
     %button.btn.btn-primary primary
     %button.btn.btn-success success
     %button.btn.btn-info info
     %button.btn.btn-warning warning
     %button.btn.btn-danger danger
-  %hr
+    %hr
 
 .row
   .col-md-12

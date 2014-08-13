@@ -1,0 +1,17 @@
+//
+// Labels
+// --------------------------------------------------
+
+.label {
+  border-radius: $border-radius-base;
+  padding: 1px 5px;
+}
+
+a.label {
+  &:hover,
+  &:focus {
+    color: $label-link-hover-color;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}

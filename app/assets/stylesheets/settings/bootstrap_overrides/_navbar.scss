@@ -4,4 +4,9 @@
 
 .navbar {
   margin-bottom: 0;
+  &-logo {
+    @include centered-vertically;
+    margin-right: 13px;
+  }
+  &-header { height: $navbar-height; }
 }

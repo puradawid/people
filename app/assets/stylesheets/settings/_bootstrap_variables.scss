@@ -13,11 +13,11 @@ $gray:                   lighten($gray-darker, 20%);
 $gray-light:             lighten($gray-darker, 50%);
 $gray-lighter:           lighten($gray-darker, 60%);
 
-$brand-primary:         #ffb33d;
-$brand-success:         #5cb85c;
-$brand-info:            #5bc0de;
-$brand-warning:         #f0ad4e;
-$brand-danger:          #d9534f;
+$brand-primary:         #f5a122;
+$brand-success:         #00ab2d;
+$brand-info:            #23a9db;
+$brand-warning:         #ffc805;
+$brand-danger:          #ff7851;
 
 //== Scaffolding
 //
@@ -26,7 +26,7 @@ $brand-danger:          #d9534f;
 //** Background color for `<body>`.
 // $body-bg:               #fff !default;
 //** Global text color on `<body>`.
-$text-color:            $gray-darker;
+$text-color:            $gray-dark;
 
 //** Global textual link color.
 $link-color:            $brand-primary;
@@ -62,7 +62,7 @@ $link-hover-color:      darken($link-color, 15%);
 
 //** By default, this inherits from the `<body>`.
 // $headings-font-family:    inherit !default;
-// $headings-font-weight:    500 !default;
+$headings-font-weight:    300;
 // $headings-line-height:    1.1 !default;
 // $headings-color:          inherit !default;
 
@@ -101,7 +101,7 @@ $link-hover-color:      darken($link-color, 15%);
 // $line-height-large:         1.33 !default;
 // $line-height-small:         1.5 !default;
 
-$border-radius-base:        2px !default;
+$border-radius-base:        3px !default;
 $border-radius-large:       4px !default;
 $border-radius-small:       1px !default;
 
@@ -141,14 +141,14 @@ $table-border-color:            $gray-light;
 //
 //## For each of Bootstrap's buttons, define text, background and border color.
 
-// $btn-font-weight:                normal !default;
+$btn-font-weight:                bold;
 
-$btn-default-color:                 $gray;
+$btn-default-color:                 $text-color;
 $btn-default-bg:                    $gray-lighter;
 $btn-default-border:                $gray-light;
 
 // $btn-primary-color:              #fff !default;
-$btn-primary-bg:                    lighten($brand-primary, 5%);
+$btn-primary-bg:                    lighten($brand-primary, 9%);
 $btn-primary-border:                $brand-primary;
 
 // $btn-success-color:              #fff !default;
@@ -304,7 +304,7 @@ $dropdown-caret-color:           $brand-primary;
 //** Number of columns in the grid.
 // $grid-columns:              12 !default;
 //** Padding between columns. Gets divided in half for the left and right.
-// $grid-gutter-width:         30px !default;
+$grid-gutter-width:         30px;
 // Navbar collapse
 //** Point at which the navbar becomes uncollapsed.
 // $grid-float-breakpoint:     $screen-sm-min !default;
@@ -327,7 +327,7 @@ $dropdown-caret-color:           $brand-primary;
 // $container-md:                 $container-desktop !default;
 
 // Large screen / wide desktop
-// $container-large-desktop:      ((1140px + $grid-gutter-width)) !default;
+$container-large-desktop:      ((1380px + $grid-gutter-width));
 //** For `$screen-lg-min` and up.
 // $container-lg:                 $container-large-desktop !default;
 
@@ -400,7 +400,7 @@ $navbar-default-link-active-bg:               $navbar-default-bg;
 
 //=== Shared nav styles
 // $nav-link-padding:                          10px 15px !default;
-// $nav-link-hover-bg:                         $gray-lighter !default;
+$nav-link-hover-bg:                         transparent;
 
 // $nav-disabled-link-color:                   $gray-light !default;
 // $nav-disabled-link-hover-color:             $gray-light !default;
@@ -408,13 +408,13 @@ $navbar-default-link-active-bg:               $navbar-default-bg;
 // $nav-open-link-hover-color:                 #fff !default;
 
 //== Tabs
-$nav-tabs-border-color:                     none;
+$nav-tabs-border-color:                     $gray-light;
 
-$nav-tabs-link-hover-border-color:          none;
+$nav-tabs-link-hover-border-color:          $brand-primary;
 
-$nav-tabs-active-link-hover-bg:             none;
-$nav-tabs-active-link-hover-color:          none;
-$nav-tabs-active-link-hover-border-color:   none;
+$nav-tabs-active-link-hover-bg:             transparent;
+$nav-tabs-active-link-hover-color:          $brand-primary;
+$nav-tabs-active-link-hover-border-color:   $nav-tabs-link-hover-border-color;
 
 $nav-tabs-justified-link-border-color:            none;
 $nav-tabs-justified-active-link-border-color:     none;
@@ -569,7 +569,7 @@ $nav-tabs-justified-active-link-border-color:     none;
 //##
 
 //** Padding applied to the modal body
-// $modal-inner-padding:         15px !default;
+// $modal-inner-padding:         15px;
 
 //** Padding applied to the modal title
 // $modal-title-padding:         15px !default;
@@ -584,11 +584,11 @@ $nav-tabs-justified-active-link-border-color:     none;
 // $modal-content-fallback-border-color:          #999 !default;
 
 //** Modal backdrop background color
-// $modal-backdrop-bg:           #000 !default;
+$modal-backdrop-bg:           $brand-secondary;
 //** Modal backdrop opacity
-// $modal-backdrop-opacity:      .5 !default;
+$modal-backdrop-opacity:      .85;
 //** Modal header border color
-// $modal-header-border-color:   #e5e5e5 !default;
+$modal-header-border-color:   $gray-light;
 //** Modal footer border color
 // $modal-footer-border-color:   $modal-header-border-color !default;
 
@@ -759,7 +759,7 @@ $nav-tabs-justified-active-link-border-color:     none;
 
 // $badge-font-weight:           bold !default;
 // $badge-line-height:           1 !default;
-// $badge-border-radius:         10px !default;
+$badge-border-radius:         $border-radius-base;
 
 
 //== Breadcrumbs
@@ -808,15 +808,15 @@ $nav-tabs-justified-active-link-border-color:     none;
 //
 //##
 
-// $code-color:                  #c7254e !default;
-// $code-bg:                     #f9f2f4 !default;
+$code-color:                  #e6db74;
+$code-bg:                     #272832;
 
 // $kbd-color:                   #fff !default;
-// $kbd-bg:                      #333 !default;
+$kbd-bg:                      $brand-primary;
 
-// $pre-bg:                      #f5f5f5 !default;
-// $pre-color:                   $gray-dark !default;
-// $pre-border-color:            #ccc !default;
+$pre-bg:                      $code-bg;
+$pre-color:                   $code-color;
+$pre-border-color:            transparent;
 // $pre-scrollable-max-height:   340px !default;
 
 
@@ -837,10 +837,10 @@ $nav-tabs-justified-active-link-border-color:     none;
 //** Blockquote font size
 // $blockquote-font-size:        ($font-size-base * 1.25) !default;
 //** Blockquote border color
-// $blockquote-border-color:     $gray-lighter !default;
+$blockquote-border-color:     $brand-primary;
 //** Page header border color
 // $page-header-border-color:    $gray-lighter !default;
 //** Width of horizontal description list titles
 // $dl-horizontal-offset:        $component-offset-horizontal !default;
 //** Horizontal line color.
-$hr-border:                   $gray-light !default;
+$hr-border:                   lighten($brand-primary, 25%);

@@ -66,3 +66,6 @@ class Hrguru.Helper
     $('.info').tooltip()
     _.each ['top', 'right', 'left', 'button'], (direcion) ->
       $(".info-#{direcion}").tooltip({placement: direcion})
+
+  togglePotentialCheckbox: (type) ->
+    $('.potential').prop('checked', type is 'potential')

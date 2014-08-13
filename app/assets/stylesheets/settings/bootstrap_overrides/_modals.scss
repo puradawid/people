@@ -1,0 +1,15 @@
+//
+// Modals
+// --------------------------------------------------
+
+// Actual modal
+.modal-content {
+  border-radius: $border-radius-large;
+  @include box-shadow(none);
+}
+
+// Modal background
+.modal-backdrop {
+  &.fade { @include opacity(0); }
+  &.in { @include opacity($modal-backdrop-opacity); }
+}

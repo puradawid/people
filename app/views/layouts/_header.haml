@@ -6,7 +6,8 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = link_to "#{AppConfig.company_name} People", root_path, class: "navbar-brand"
+      = link_to root_path, class: 'navbar-logo' do
+        = image_tag 'logo.png', alt: "#{AppConfig.company_name} People"
     .navbar-collapse.collapse
       - if signed_in? && current_user.github_connected?
         %ul.nav.navbar-nav

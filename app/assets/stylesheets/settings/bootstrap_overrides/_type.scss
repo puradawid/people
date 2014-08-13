@@ -1,0 +1,26 @@
+//
+// Typography
+// --------------------------------------------------
+
+// Headings
+// -------------------------
+
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  font-weight: bold;
+}
+
+// Emphasis & misc
+// -------------------------
+
+mark,
+.mark {
+  color: $gray-darker;
+  background-color: lighten($brand-primary, 25%);
+}
+
+.blockquote-reverse,
+blockquote.pull-right {
+  border-right: 3px solid $blockquote-border-color;
+}
