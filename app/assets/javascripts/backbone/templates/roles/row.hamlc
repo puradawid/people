@@ -5,10 +5,6 @@
     %input.color{ type: 'color' }
   - if H.currentUserIsAdmin()
     %input.name.form-control
-    .input-group-addon.admin-row
-      .checkbox
-        %label
-          %input.admin{ type: 'checkbox' }
     .input-group-addon.billable-row
       .checkbox
         %label

@@ -30,6 +30,7 @@ class User
   has_many :memberships
   has_many :notes
   has_many :positions
+  belongs_to :admin_role
   belongs_to :role
   belongs_to :contract_type
   belongs_to :location
@@ -166,7 +167,7 @@ class User
   end
 
   def admin?
-    self.role.try(:admin)
+    self.admin_role.present?
   end
 
   def self.by_name

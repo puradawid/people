@@ -66,9 +66,9 @@ describe Position do
         let(:new_role) { build(:role, name: 'new', technical: true) }
         let(:first_user) { build(:user, first_name: 'Andrew', last_name: 'Snow', role_id: new_role.id) }
         let(:second_user) { build(:user, first_name: 'Tony', last_name: 'Second', role_id: new_role.id) }
-        let(:first_pos) { build(:position, user: first_user, role: new_role,
+        let(:first_pos) { build(:position, user: first_user, role: new_role, 
           starts_at: Date.new(2014, 7, 14)) }
-        let(:second_pos) { build(:position, user: second_user, role: new_role,
+        let(:second_pos) { build(:position, user: second_user, role: new_role, 
           starts_at: Date.new(2014, 6, 11)) }
         let(:all_pos) { [first_pos, second_pos] }
 

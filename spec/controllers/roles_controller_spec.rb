@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe RolesController do
   before(:each) do
-    role = create(:role, name: "pm", admin: true)
-    sign_in create(:user, role_id: role.id)
+    admin = create(:admin_role)
+    sign_in create(:user, admin_role_id: admin.id)
   end
 
   describe "#index" do
@@ -22,7 +22,7 @@ describe RolesController do
 
     it "exposes roles" do
       get :index
-      expect(controller.roles.count).to be 3
+      expect(controller.roles.count).to be 2
     end
 
     it "should display roles on view" do
@@ -51,7 +51,7 @@ describe RolesController do
       subject { attributes_for(:role, name: 'role2') }
 
       it "creates a new role" do
-        expect { post :create, role: subject, admin: true }.to change(Role, :count).by(1)
+        expect { post :create, role: subject }.to change(Role, :count).by(1)
       end
     end
 
