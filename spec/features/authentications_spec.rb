@@ -1,0 +1,50 @@
+require 'spec_helper'
+
+describe 'Authentication' do
+
+  subject { page }
+  before(:all) { OmniAuth.config.test_mode = true }
+
+  context 'sign in' do
+    let(:user) { build(:user, first_name: 'John', last_name: 'Doe', email: 'jdoe@sth.com') }
+    before do
+      OmniAuth.config.add_mock(:google_oauth2, {
+        info: {
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email
+        },
+        extra: { raw_info: { hd: 'example.com' }}
+      })
+    end
+
+    context 'with google' do
+      before do
+        Capybara.default_driver = :selenium
+        visit root_path
+        click_link_or_button 'Sign up with Google'
+      end
+
+      it {should have_content('John Now please connect your GitHub account.')}
+
+      context 'and github account' do
+        before do
+          OmniAuth.config.add_mock(:github, { info: { nickname: 'xyz' }})
+          click_link_or_button 'connect'
+        end
+
+        it 'redirects to the dashboard' do
+          expect(page).to have_content('Projects')
+        end
+      end
+
+      context 'and without github account' do
+        let!(:user) { create(:user, without_gh: true) }
+
+        it 'redirects to the dashboard' do
+          expect(page).to have_content('Projects')
+        end
+      end
+    end
+  end
+end
