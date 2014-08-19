@@ -22,6 +22,8 @@ class ProjectMailer < BaseMailer
     @days = days
     @memberships_leaving = @project.memberships.leaving(days)
     @memberships_joining = @project.memberships.joining(days)
+    @project_starting = @project.starting_in?(days)
+    @project_ending = @project.ending_in?(days)
     to = project.pm.try(:email) || [AppConfig.emails.pm]
     subject = "#{ project.name }: the next #{ days } days"
     mail(to: to, subject: subject, project: @project)

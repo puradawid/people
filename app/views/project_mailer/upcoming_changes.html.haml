@@ -1,9 +1,9 @@
 %h2= "#{ @project.name }: the next #{ @days } days"
 
-- if Project.starting_in(@days).include?(@project)
+- if @project_starting
   %p= "The project is starting on #{ @project.kickoff.strftime('%a, %-d %b') }"
 
-- if Project.ending_in(@days).include?(@project)
+- if @project_ending
   %p= "The project is ending on #{ @project.end_at.strftime('%a, %-d %b') }"
 
 - if @memberships_leaving.any?

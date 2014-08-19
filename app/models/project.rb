@@ -63,6 +63,14 @@ class Project
     Project.nonpotential.select{ |p| p.nonpotential_switch.to_date == 3.months.ago.to_date }
   end
 
+  def starting_in?(days)
+    Project.starting_in(days).to_a.include? self
+  end
+
+  def ending_in?(days)
+    Project.ending_in(days).to_a.include? self
+  end
+
   def nonpotential_switch
     last_track = history_tracks.select do |h|
       h.modified && h.modified['potential'] == false
