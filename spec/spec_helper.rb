@@ -18,6 +18,7 @@ Spork.prefork do
     config.include Mongoid::Matchers, type: :model
     config.include Devise::TestHelpers, type: :controller
     config.include Helpers::JSONResponse, type: :controller
+    config.include Capybara::DSL
 
     config.before(:suite) do
       DatabaseCleaner[:mongoid].strategy = :truncation

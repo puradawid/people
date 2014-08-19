@@ -82,4 +82,6 @@ group :test do
   gem 'faker'
   gem 'timecop'
   gem 'codeclimate-test-reporter', require: false
+  gem 'capybara', '~> 2.4.1'
+  gem 'selenium-webdriver', '~> 2.42.0'
 end
