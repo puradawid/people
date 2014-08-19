@@ -89,7 +89,7 @@ class User
   end
 
   def github_connected?
-    gh_nick.present?
+    gh_nick.present? || without_gh == true
   end
 
   def potential_projects

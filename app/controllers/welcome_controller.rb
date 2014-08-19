@@ -7,6 +7,5 @@ class WelcomeController < ApplicationController
   end
 
   def github_connect
-    current_user.without_gh == true
   end
 end

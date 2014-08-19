@@ -37,14 +37,15 @@ describe 'Authentication' do
           expect(page).to have_content('Projects')
         end
       end
+    end
+  end
 
-      context 'and without github account' do
-        let!(:user) { create(:user, without_gh: true) }
+  context 'sign in without GH account' do
+    let(:second_usr) { create(:user, first_name: 'Greg', gh_nick: nil, last_name: 'Doe', email: 'grdoe@sth.com', without_gh: true ) }
+    before { sign_in(second_usr) }
 
-        it 'redirects to the dashboard' do
-          expect(page).to have_content('Projects')
-        end
-      end
+    it 'redirects to the dashboard' do
+      expect(page).to have_content('Projects')
     end
   end
 end
