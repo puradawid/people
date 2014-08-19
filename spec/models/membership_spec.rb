@@ -94,9 +94,11 @@ describe Membership do
       expect(subject).to be_empty
     end
 
-    it "shows one user is leaving" do
+    it "returns memberships ending in next 30 days" do
       membership = create(:membership, ends_at: 1.week.from_now)
+      membership1 = create :membership, ends_at: 5.weeks.from_now
       expect(subject).to include membership
+      expect(subject).not_to include membership1
     end
 
   end
