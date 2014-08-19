@@ -25,6 +25,7 @@ class User
   field :phone
   field :archived, type: Mongoid::Boolean, default: false
   field :available, type: Mongoid::Boolean, default: true
+  field :without_gh, type: Mongoid::Boolean, default: false
   field :uid, type: String
 
   has_many :memberships
@@ -88,7 +89,7 @@ class User
   end
 
   def github_connected?
-    gh_nick.present?
+    gh_nick.present? || without_gh == true
   end
 
   def potential_projects

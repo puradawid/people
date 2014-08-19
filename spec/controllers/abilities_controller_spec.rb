@@ -26,8 +26,7 @@ describe AbilitiesController do
     end
 
     context "user" do
-      let(:role2) { build(:role, name: "dev", admin: false) }
-      before { sign_in create(:user, role_id: role2.id) }
+      before { sign_in create(:user) }
 
       it "has no access without admin rights" do
         get :index

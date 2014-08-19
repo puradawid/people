@@ -7,6 +7,7 @@ FactoryGirl.define do
     gh_nick { Faker::Name.first_name }
     employment { 100 }
     available false
+    without_gh false
 
     factory :user_deleted do
       deleted_at Time.now
