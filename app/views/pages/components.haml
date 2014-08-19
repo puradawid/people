@@ -189,60 +189,68 @@
     %h2 Users
   .col-md-3
     .user-card
-      .user-card-header.col-md-12
-        %img.user-card-image{ src: '../assets/user-example.png', alt: '' }
-        %h3.user-card-name Agnieszka Amborska
-        %span.label.user-card-position
-          Senior Developer
+      .user-card-header.row
+        .col-md-3
+          %img.user-card-avatar{ src: '../assets/user-example.png', alt: '' }
+        .col-md-9
+          %h3.user-card-name Agnieszka Amborska
+          %span.label.user-card-profession
+            Senior Developer
 
-      .user-card-times.col-md-12
-        .user-card-available.col-md-6.text-center
-          %strong 27.08.2014
-          %span.uppercase-heading available
-        .user-card-hours.col-md-6.text-center
-          %strong 168h
+      .user-card-times.row
+        .col-md-6.text-center.border-right
+          .user-card-available
+            %strong 27.08.2014
+            %span.uppercase-heading available
+
+        .col-md-6.text-center
+          .user-card-hours
+            %strong 168h
+            .clearfix
+            %span.uppercase-heading hours
+
+      .user-card-projects.row
+        .col-md-12
+          %span.uppercase-heading last projects
+          %ul.user-card-projects-list
+            %li
+              %span.label.label-project PL
+              %strong
+                People
+              (3 months)
+            %li
+              %span.label.label-project PL
+              %strong
+                People
+              (3 months)
+            %li
+              %span.label.label-project PL
+              %strong
+                People
+              (3 months)
+            %li
+              %span.label.label-project PL
+              %strong
+                People
+              (3 months)
+            %li
+              %span.label.label-project PL
+              %strong
+                People
+              (3 months)
+
+      .user-card-skills.row
+        .col-md-12
+          %span.uppercase-heading skills
           .clearfix
-          %span.uppercase-heading hours
+          %span.label.label-skill Ruby
+          %span.label.label-skill Rails
+          %span.label.label-skill Backbone
 
-      .user-card-projects.col-md-12
-        %span.uppercase-heading last projects
-        %ul.user-card-projects-list
-          %li
-            %span.label.label-project PL
-            %strong
-              People
-            (3 months)
-          %li
-            %span.label.label-project PL
-            %strong
-              People
-            (3 months)
-          %li
-            %span.label.label-project PL
-            %strong
-              People
-            (3 months)
-          %li
-            %span.label.label-project PL
-            %strong
-              People
-            (3 months)
-          %li
-            %span.label.label-project PL
-            %strong
-              People
-            (3 months)
-
-      .user-card-skills.col-md-12
-        %span.uppercase-heading skills
-        .clearfix
-        %span.label.label-skill Ruby
-        %span.label.label-skill Rails
-        %span.label.label-skill Backbone
-
-      .user-card-current-project.col-md-12
-        current project
-        %a{ href: '' } People
+      .user-card-current-project.row
+        .col-md-12
+          current project
+          %a{ href: '' } People
 
   .col-md-12
     %hr
