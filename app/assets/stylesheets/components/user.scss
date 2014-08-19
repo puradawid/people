@@ -17,6 +17,7 @@
     float: left;
   }
   &-name {
+    margin-top: $half-gutter-width / 2;
     font-size: $font-size-large;
     font-weight: bold;
   }
@@ -37,10 +38,18 @@
     background: $gray-light;
   }
   &-projects-list {
+    margin: $half-gutter-width / 2 0 0;
     padding: 0;
     li {
       list-style: none;
+      line-height: $line-height-computed + 5px;
     }
+  }
+  .label-project {
+    margin-right: $half-gutter-width / 2;
+    padding: $half-gutter-width / 2;
+    border-radius: 0;
+    background: $gray-light;
   }
   &-current-project {
     padding: $half-gutter-width;
