@@ -42,7 +42,7 @@ The main table shows the current teams in each project, but you can also add peo
  * run rake db:seed
  * by default only 'pm' and 'senior' roles have admin privilages - creating new projects, managing privileges, memberships etc.
  * after logging in, goto your Profile's settings and update your role to 'senior' or 'pm' * goto config/config.yml and update your google_client_id, google_secret, google_domain, github_client_id, github_secret accordingly
- * optionally update your emails and company_name * make sure emails.internal contains only company's domain  
+ * optionally update your emails and company_name 
 
 ### Local settings
 
