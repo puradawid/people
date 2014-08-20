@@ -39,9 +39,11 @@ class HipChat::DailyDigest
 
   def send_hipchat_messages(target, scope)
     targets = instance_variable_get("@#{scope}_#{target}")
-    targets.each do |t|
-      msg = HipChat::MessageBuilder.public_send("#{target.to_s.singularize}_#{scope}_message", t)
-      HipChat::Notifier.new.send_notification(msg)
+    if targets.present?
+      targets.each do |t|
+        msg = HipChat::MessageBuilder.public_send("#{target.to_s.singularize}_#{scope}_message", t)
+        HipChat::Notifier.new.send_notification(msg)
+      end
     end
   end
 end
