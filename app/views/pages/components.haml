@@ -197,55 +197,61 @@
           %span.label.user-card-profession
             Senior Developer
 
-      .user-card-times.row
-        .col-md-6.text-center.border-right
-          .user-card-available
-            %strong 27.08.2014
-            %span.uppercase-heading available
+      .user-card-content
+        .user-card-times.row
+          .col-md-6.text-center.border-right
+            .user-card-available
+              %strong 27.08.2014
+              %span.uppercase-heading available
 
-        .col-md-6.text-center
-          .user-card-hours
-            %strong 168h
+          .col-md-6.text-center
+            .user-card-hours
+              %strong 168h
+              .clearfix
+              %span.uppercase-heading hours
+
+        .user-card-projects.row
+          .col-md-12
+            %span.uppercase-heading last projects
+            %ul.user-card-projects-list
+              %li
+                %span.intro.violet-background PL
+                %strong
+                  People
+                (3 months)
+              %li
+                %span.intro.yellow-background CS
+                %strong
+                  CitySocializer
+                (11 months)
+              %li
+                %span.intro.brand-primary-background NG
+                %strong
+                  Netguru.co
+                (2 months)
+              %li
+                %span.intro.green-background IS
+                %strong
+                  iSensor
+                (4 months)
+              %li
+                %span.intro.blue-background RM
+                %strong
+                  Rate My Area
+                (1 week)
+
+        .user-card-skills.row
+          .col-md-12
+            %span.uppercase-heading skills
             .clearfix
-            %span.uppercase-heading hours
+            %span.label.label-skill Ruby
+            %span.label.label-skill Rails
+            %span.label.label-skill Backbone
 
-      .user-card-projects.row
-        .col-md-12
-          %span.uppercase-heading last projects
-          %ul.user-card-projects-list
-            %li
-              %span.intro.violet-background PL
-              %strong
-                People
-              (3 months)
-            %li
-              %span.intro.yellow-background CS
-              %strong
-                CitySocializer
-              (11 months)
-            %li
-              %span.intro.brand-primary-background NG
-              %strong
-                Netguru.co
-              (2 months)
-            %li
-              %span.intro.green-background IS
-              %strong
-                iSensor
-              (4 months)
-            %li
-              %span.intro.blue-background RM
-              %strong
-                Rate My Area
-              (1 week)
-
-      .user-card-skills.row
-        .col-md-12
-          %span.uppercase-heading skills
-          .clearfix
-          %span.label.label-skill Ruby
-          %span.label.label-skill Rails
-          %span.label.label-skill Backbone
+        %a.user-card-profile-link{ href: '' }
+          %span
+            %i.glyphicon.glyphicon-file
+            %p Download profile
 
       .user-card-current-project.row
         .col-md-12
