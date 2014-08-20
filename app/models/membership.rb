@@ -25,11 +25,9 @@ class Membership
 
   after_save :check_fields
 
-  if AppConfig.hipchat.active
-    after_create :notify_added
-    after_update :notify_updated
-    before_destroy :notify_removed
-  end
+  after_create :notify_added
+  after_update :notify_updated
+  before_destroy :notify_removed
 
   scope :active, -> { where(project_potential: false, project_archived: false) }
   scope :potential, -> { where(project_potential: true) }
@@ -101,21 +99,21 @@ class Membership
   end
 
   def notify_added
-    if active?
+    if AppConfig.hipchat.active && active?
       msg = HipChat::MessageBuilder.membership_added_message(self)
       hipchat_notify(msg)
     end
   end
 
   def notify_removed
-    if active?
+    if AppConfig.hipchat.active && active?
       msg = HipChat::MessageBuilder.membership_removed_message(self)
       hipchat_notify(msg)
     end
   end
 
   def notify_updated
-    if persisted? && active?
+    if AppConfig.hipchat.active && persisted? && active?
       msg = HipChat::MessageBuilder.membership_updated_message(self, changes)
       hipchat_notify(msg)
     end
