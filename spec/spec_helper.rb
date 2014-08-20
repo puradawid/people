@@ -4,6 +4,7 @@ if ENV['CI']
 end
 
 require 'spork'
+require 'sucker_punch/testing/inline'
 
 Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'

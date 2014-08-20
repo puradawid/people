@@ -67,7 +67,7 @@ class User
     attributes = fields.reduce({}) { |mem, key| mem.merge(key => params['info'][key]) }
     attributes['password'] = Devise.friendly_token[0, 20]
     attributes['uid'] = params['uid']
-    UserMailer.notify_operations(params['info']['email']).deliver
+    SendMailJob.new.async.perform(UserMailer, :notify_operations, params['info']['email'])
     User.create!(attributes)
   end
 
