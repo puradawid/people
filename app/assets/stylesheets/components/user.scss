@@ -17,9 +17,9 @@
     float: left;
   }
   &-name {
-    margin-top: $half-gutter-width / 2;
     font-size: $font-size-large;
     font-weight: bold;
+    margin-top: $half-gutter-width / 2;
   }
   &-profession {
     background: $brand-primary;
@@ -34,22 +34,25 @@
     padding: $half-gutter-width;
   }
   .label-skill {
-    margin-top: $half-gutter-width;
     background: $gray-light;
   }
   &-projects-list {
     margin: $half-gutter-width / 2 0 0;
     padding: 0;
     li {
+      margin-top: -1px;
       list-style: none;
-      line-height: $line-height-computed + 5px;
+      line-height: $line-height-computed + 4px;
     }
   }
-  .label-project {
+  .intro {
+    @include quantity($line-height-computed + 5px);
+    color: $white;
+    display: inline-block;
+    font-size: $font-size-extra-small;
+    font-weight: bold;
     margin-right: $half-gutter-width / 2;
-    padding: $half-gutter-width / 2;
-    border-radius: 0;
-    background: $gray-light;
+    text-align: center;
   }
   &-current-project {
     padding: $half-gutter-width;
