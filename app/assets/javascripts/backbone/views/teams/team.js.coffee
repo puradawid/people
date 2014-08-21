@@ -18,8 +18,8 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
     unless @model.get('id')?
       return
     @noUI = options.noUI?
-    @role_name = @role.get('name')
     @role = options.roles.findWhere id: @model.get('role_id')
+    @role_name = if @role then @role.get('name') else 'no role'
     @listenTo(@model, 'change', @render)
 
   updateVisibility: ->
