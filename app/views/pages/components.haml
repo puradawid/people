@@ -202,17 +202,16 @@
           .col-md-6.text-center.border-right
             .user-card-available
               %strong 27.08.2014
-              %span.uppercase-heading available
+              .uppercase-heading available
 
           .col-md-6.text-center
             .user-card-hours
               %strong 168h
-              .clearfix
-              %span.uppercase-heading hours
+              .uppercase-heading hours
 
         .user-card-projects.row
           .col-md-12
-            %span.uppercase-heading last projects
+            %p.uppercase-heading last projects
             %ul.user-card-projects-list
               %li
                 %span.intro.violet-background PL
@@ -242,15 +241,14 @@
 
         .user-card-skills.row
           .col-md-12
-            %span.uppercase-heading skills
-            .clearfix
+            %p.uppercase-heading skills
             %span.label.label-skill Ruby
             %span.label.label-skill Rails
             %span.label.label-skill Backbone
 
-        %a.user-card-profile-link{ href: '' }
-          %span
-            %i.glyphicon.glyphicon-file
+        %a.user-card-download-link{ href: '' }
+          %span.user-card-download
+            %span.glyphicon.glyphicon-file
             %p Download profile
 
       .user-card-current-project.row

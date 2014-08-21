@@ -63,7 +63,15 @@
       text-decoration: underline;
     }
   }
-  &-profile-link {
+  &-download {
+    @include centered-vertically;
+    font-weight: bold;
+    text-align: center;
+    span.glyphicon{
+      font-size: $font-size-large * 2;
+    }
+  }
+  &-download-link {
     position: absolute;
     top: 0;
     left: 0;
@@ -77,13 +85,8 @@
       color: $white;
       text-decoration: underline;
     }
-    span {
-      @include centered-vertically;
-      font-weight: bold;
-      text-align: center;
-      i{
-        font-size: $font-size-large * 2;
-      }
-    }
+  }
+  p {
+    margin-bottom: $half-gutter-width;
   }
 }
