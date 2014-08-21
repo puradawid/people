@@ -13,11 +13,14 @@
   &-search-button {
     background: $header-search-background-color;
     border: 1px solid $header-search-border-color;
-    color: $header-search-text-color;
+    color: $header-search-button-color;
     padding: 7px 12px;
+    &:hover {
+      color: lighten($header-search-button-color, 20);
+    }
     &:focus {
       outline: none;
-      color: lighten($header-search-background-color, 20);
+      color: lighten($header-search-button-color, 20);
       border: 1px solid lighten($header-search-border-color, 20);
     }
   }
