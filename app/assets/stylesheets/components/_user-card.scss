@@ -19,22 +19,27 @@
       padding: $half-gutter-width;
     }
   }
+
   &-avatar {
     @include circle(64px);
     background: $gray-light;
     float: left;
   }
+
   &-name {
     font-size: $font-size-large;
     font-weight: bold;
     margin-top: $half-gutter-width / 2;
   }
+
   &-profession {
     background: $brand-primary;
   }
+
   .label-skill {
     background: $gray-light;
   }
+
   &-projects-list {
     margin: $half-gutter-width / 2 0 0;
     padding: 0;
@@ -44,6 +49,7 @@
       line-height: $line-height-computed + 4px;
     }
   }
+
   .intro {
     @include quantity($line-height-computed + 5px);
     color: $white;
@@ -53,6 +59,7 @@
     margin-right: $half-gutter-width / 2;
     text-align: center;
   }
+
   &-current-project {
     background: $gray-light;
     color: $white;
@@ -63,6 +70,7 @@
       text-decoration: underline;
     }
   }
+
   &-download {
     @include centered-vertically;
     font-weight: bold;
@@ -71,6 +79,7 @@
       font-size: $font-size-large * 2;
     }
   }
+
   &-download-link {
     position: absolute;
     top: 0;
@@ -86,6 +95,7 @@
       text-decoration: underline;
     }
   }
+
   p {
     margin-bottom: $half-gutter-width;
   }
