@@ -17,7 +17,6 @@ describe MembershipsController do
 
     before do
       create(:membership, user: user, project: project, role: role_1)
-      binding.pry
       create(:membership, role: role_2)
     end
 
