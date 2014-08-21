@@ -4,13 +4,15 @@ development:
       database: hrguru_dev
       hosts:
         - localhost:27017
-
 test:
   sessions:
     default:
       database: hrguru_test
       hosts:
-        - localhost:27017
+        - localhost:27017        
+  options:
+    raise_not_found_error: false
+
 
 staging:
   sessions:
