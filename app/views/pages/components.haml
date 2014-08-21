@@ -258,3 +258,21 @@
 
   .col-md-12
     %hr
+
+.row
+  .col-md-12
+    %h2 Search in navbar
+    %hr
+
+.container-fluid
+  %nav.navbar.navbar-default{ role: 'navigation' }
+    .navbar-header
+      .col-md-2
+        %form.navbar-form{ role: 'search' }
+          .input-group
+            %input.form-control.navbar-search-input{ type: 'text', placeholder: 'search' }
+            %span.input-group-btn
+              %button.btn.navbar-search-button{ type: 'submit' }
+                %span.glyphicon.glyphicon-search
+
+

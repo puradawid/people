@@ -16,6 +16,11 @@ $yellow:             #ffb400;
 $blue:               #004bbb;
 $green:              #30bb00;
 
+$header-search-background-color:  lighten($brand-secondary, 5%);
+$header-search-text-color:        lighten($header-search-background-color, 35%);
+$header-search-border-color:      lighten($header-search-background-color, 10%);
+$header-search-placeholder-color: lighten($header-search-background-color, 15%);
+
 //== Other
 
 $btn-text-shadow:   -1px 1px 1px;
