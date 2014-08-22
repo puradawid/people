@@ -119,7 +119,11 @@ class User
   end
 
   def availability
-    memberships.present? ? memberships.active.asc(:ends_at).last.ends_at : nil
+    if memberships.present? && memberships.active.present?
+      memberships.active.asc(:ends_at).last.ends_at
+    else
+      nil
+    end
   end
 
   def current_project
