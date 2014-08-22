@@ -119,7 +119,7 @@ class User
   end
 
   def availability
-    if memberships.present? && memberships.active.present?
+    if memberships.try(:active).present?
       memberships.active.asc(:ends_at).last.ends_at
     else
       nil
