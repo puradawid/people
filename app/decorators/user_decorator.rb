@@ -35,6 +35,10 @@ class UserDecorator < Draper::Decorator
     h.image_tag gravatar_url(size), options
   end
 
+  def days_in_current_team
+    self.team_join_time.nil? ? 0 : (DateTime.now - self.team_join_time).to_i
+  end
+
   def github_link(options = {})
     if github_connected?
       h.link_to "http://github.com/#{gh_nick}", title: gh_nick do
