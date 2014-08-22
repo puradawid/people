@@ -185,15 +185,13 @@ class User
     @abilities_list = abilities_list
   end
 
-  def days_in_current_team
-    self.team_join_time.nil? ? 0 : (DateTime.now - self.team_join_time).to_i
-  end
 
   private
 
   def save_team_join_time
-    if self.team_id_changed? && self.team_id.present?
-      assign_attributes(team_join_time: DateTime.now)
+    if self.team_id_changed?
+      team_join_val = self.team_id.present? ? DateTime.now : nil
+      assign_attributes(team_join_time: team_join_val)
     end
   end
 
