@@ -75,7 +75,7 @@
     @include centered-vertically;
     font-weight: bold;
     text-align: center;
-    span.glyphicon {
+    .glyphicon {
       font-size: $font-size-large * 2;
     }
   }
