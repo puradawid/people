@@ -40,9 +40,9 @@ class Project
   scope :starting_tomorrow, -> { potential.between(kickoff: Time.now..1.day.from_now) }
   scope :ending_in, ->(days) { between(end_at: Time.now..days.days.from_now) }
   scope :starting_in, ->(x) { between(kickoff: Time.now..x.days.from_now) }
-  scope :ending_or_starting_in, ->(days) do
+  scope :ending_or_starting_in, lambda { |days|
     any_of(ending_in(days).selector, starting_in(days).selector)
-  end
+  }
 
   track_history on: [:archived, :potential], version_field: :version, track_create: true, track_update: true
 

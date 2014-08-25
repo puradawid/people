@@ -88,7 +88,7 @@ describe Membership do
 
   describe ".leaving" do
     let(:days) { 30 }
-    subject { Membership.leaving(days) }
+    subject { described_class.leaving(days) }
 
     it "is empty when no users are leaving" do
       expect(subject).to be_empty
@@ -105,7 +105,7 @@ describe Membership do
 
   describe ".joining" do
     let(:days) { 30 }
-    subject { Membership.joining(days) }
+    subject { described_class.joining(days) }
 
     it "is empty when no users are joining" do
       expect(subject).to be_empty
@@ -119,7 +119,7 @@ describe Membership do
 
   describe ".upcoming_changes" do
     let(:days) { 30 }
-    subject { Membership.upcoming_changes(days).to_a.flatten }
+    subject { described_class.upcoming_changes(days).to_a.flatten }
 
     it "includes 2 upcoming changes" do
       membership1 = create :membership, starts_at: 1.week.from_now

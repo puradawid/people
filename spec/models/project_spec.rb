@@ -102,7 +102,7 @@ describe Project do
 
   describe ".ending_in" do
     let(:days) { 30 }
-    subject { Project.ending_in(days).to_a.flatten }
+    subject { described_class.ending_in(days).to_a.flatten }
 
     it "returns projects ending soon" do
       project = create :project, end_at: 1.week.from_now
@@ -112,7 +112,7 @@ describe Project do
 
   describe ".starting_in" do
     let(:days) { 30 }
-    subject { Project.starting_in(days).to_a.flatten }
+    subject { described_class.starting_in(days).to_a.flatten }
 
     it "returns projects starting soon" do
       project = create :project, kickoff: 1.week.from_now
@@ -122,7 +122,7 @@ describe Project do
 
   describe ".ending_or_starting_in" do
     let(:days) { 30 }
-    subject { Project.ending_or_starting_in(days).to_a.flatten }
+    subject { described_class.ending_or_starting_in(days).to_a.flatten }
 
     it "returns projects ending or starting soon" do
       project1 = create :project, kickoff: 1.week.from_now
