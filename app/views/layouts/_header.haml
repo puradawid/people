@@ -14,6 +14,7 @@
           %li{ class: menu_class('users') }= link_to "Users", users_path
           %li{ class: menu_class('available_users') }= link_to "Available people", available_users_path
           %li{ class: menu_class('teams') }= link_to "Teams", teams_path
+          %li{ class: menu_class('vacations') }= link_to "Vacations", vacations_path
           - if current_user.admin?
             %li.dropdown
               %a.dropdown-toggle{ href: "#", :'data-toggle' => "dropdown"}
