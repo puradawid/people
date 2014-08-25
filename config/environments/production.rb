@@ -28,6 +28,8 @@ Hrguru::Application.configure do
 
   config.log_formatter = ::Logger::Formatter.new
 
+  config.action_mailer.default_url_options = { host: AppConfig.domain }
+
   ActionMailer::Base.smtp_settings = {
     :address        => 'smtp.sendgrid.net',
     :port           => '587',
