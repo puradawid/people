@@ -16,4 +16,16 @@ namespace :mailer do
       SendMailJob.new.async.perform(ProjectMailer, :kickoff_tomorrow, project)
     end
   end
+
+  desc 'Email upcoming changes to projects'
+  task changes_digest: :environment do
+    digest = AppConfig.emails.notifications.changes_digest
+    if Time.zone.now.public_send("#{ digest.weekday }?")
+      Project.upcoming_changes(digest.days).each do |project|
+        ProjectMailer.upcoming_changes(project, digest.days).deliver
+      end
+    else
+      puts "Task only runs on #{ digest.weekday }s"
+    end
+  end
 end
