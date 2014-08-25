@@ -43,9 +43,9 @@ class Membership
   scope :only_active, -> { where(project_potential: false, project_archived: false).desc('starts_at').limit(3) }
   scope :leaving, ->(days) { between(ends_at: Time.now..days.days.from_now) }
   scope :joining, ->(days) { between(starts_at: Time.now..days.days.from_now) }
-  scope :upcoming_changes, ->(days) do
+  scope :upcoming_changes, lambda { |days|
     any_of(leaving(days).selector, joining(days).selector)
-  end
+  }
 
   %w(user project role).each do |model|
     original_model = "original_#{model}"
