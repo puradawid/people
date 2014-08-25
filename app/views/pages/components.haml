@@ -198,7 +198,7 @@
             Senior Developer
 
       .user-card-content
-        .user-card-times.row
+        .user-card-times.content-part.row
           .col-md-6.text-center.border-right
             .user-card-available
               %strong 27.08.2014
@@ -209,7 +209,7 @@
               %strong 168h
               .uppercase-heading hours
 
-        .user-card-projects.row
+        .user-card-projects.content-part.row
           .col-md-12
             %p.uppercase-heading last projects
             %ul.user-card-projects-list
@@ -239,14 +239,14 @@
                   Rate My Area
                 (1 week)
 
-        .user-card-skills.row
+        .user-card-skills.content-part.row
           .col-md-12
             %p.uppercase-heading skills
             %span.label.label-skill Ruby
             %span.label.label-skill Rails
             %span.label.label-skill Backbone
 
-        %a.user-card-download-link{ href: '' }
+        = link_to '#', class: 'user-card-download-link' do
           %span.user-card-download
             %span.glyphicon.glyphicon-file
             %p Download profile
@@ -254,7 +254,7 @@
       .user-card-current-project.row
         .col-md-12
           current project
-          %a{ href: '' } People
+          = link_to 'People'
 
   .col-md-12
     %hr
