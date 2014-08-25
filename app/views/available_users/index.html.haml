@@ -15,7 +15,7 @@
                 .col-md-3
                   .user-card
                     .avatar
-                      %center= user.gravatar_image(size: 100)
+                      = user.gravatar_image(size: 100)
                     .name
                       = link_to user.name, user_path(user)
                     .available_since
@@ -24,7 +24,7 @@
                     .hours
                       hours: #{user.employment}h
                     .link_to_cv
-                      = link_to "link to profile pdf", '#'
+                      = link_to 'link to profile pdf', '#'
                     .last_projects
                       last projects:
                       %ul
@@ -36,12 +36,15 @@
                         %ul
                           - user.potential_memberships.each do |p|
                             %li
-                              %span{ rel: 'tooltip', title: p.potential_start, :'data-placement' => 'right' }
+                              %span{ rel: 'tooltip', title: p.potential_start, data: { placement: 'right' } }
                                 = link_to p.project.name, project_path(p.project)
                     .current_project
-                      current project:
                       - if user.current_project.present?
+                        current project:
                         = link_to user.current_project, project_path(user.current_project)
+                      - else
+                        There is no current project
+
     .tab-pane#table_view
       %table.table.table-striped.table-hover#available_users
         %thead
