@@ -13,6 +13,10 @@ defaults: &defaults
     support:          support
     internal:         example.com
     social:           example.com
+    notifications:
+      changes_digest:
+        days:         30
+        weekday:      monday
   hipchat:
     active:           false
     api_token:        your_hipchat_api_token

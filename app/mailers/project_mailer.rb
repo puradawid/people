@@ -16,4 +16,16 @@ class ProjectMailer < BaseMailer
     to = [project.pm.try(:email), AppConfig.emails.pm].compact
     mail(to: to, subject: "#{ project.name } is starting tomorrow", project: @project)
   end
+
+  def upcoming_changes(project, days)
+    @project = project
+    @days = days
+    @memberships_leaving = @project.memberships.leaving(days)
+    @memberships_joining = @project.memberships.joining(days)
+    @project_starting = @project.starting_in?(days)
+    @project_ending = @project.ending_in?(days)
+    to = project.pm.try(:email) || [AppConfig.emails.pm]
+    subject = "#{ project.name }: the next #{ days } days"
+    mail(to: to, subject: subject, project: @project)
+  end
 end
