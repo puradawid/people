@@ -64,11 +64,11 @@ class Project
   end
 
   def starting_in?(days)
-    Project.starting_in(days).to_a.include? self
+    Project.starting_in(days).where(id: id).exists?
   end
 
   def ending_in?(days)
-    Project.ending_in(days).to_a.include? self
+    Project.ending_in(days).where(id: id).exists?
   end
 
   def nonpotential_switch
@@ -80,9 +80,9 @@ class Project
   end
 
   def self.upcoming_changes(days)
-    projects = Membership.includes(:project).upcoming_changes(days).map do |m|
-      m.project
-    end
+    projects = Membership.includes(:project)
+                .upcoming_changes(days)
+                .map(&:project)
     projects << Project.ending_or_starting_in(days).to_a
     projects.uniq.flatten
   end
