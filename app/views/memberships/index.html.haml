@@ -20,7 +20,7 @@
           %td
             - if current_user.admin? || current_user == membership.user
               = link_to "Edit", edit_membership_path(membership), class: "btn btn-xs btn-default"
-              = link_to "Destroy", membership, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger"
+              = link_to "Delete", membership, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger"
 - else
   %h2 No memberships
 

@@ -14,7 +14,7 @@
           %td
             - if current_user.admin? || current_user == position.user
               = link_to "Edit", edit_position_path(position), class: "btn btn-xs btn-default"
-              = link_to "Destroy", position, method: :delete, data: { confirm: I18n.t('confirm_question') }, class: "btn btn-xs btn-danger"
+              = link_to "Delete", position, method: :delete, data: { confirm: I18n.t('confirm_question') }, class: "btn btn-xs btn-danger"
 - else
   %h2 No positions
 = link_to  I18n.t('positions.new'), new_position_path, class: "btn btn-primary"
