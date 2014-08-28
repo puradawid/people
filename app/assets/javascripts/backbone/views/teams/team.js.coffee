@@ -113,6 +113,7 @@ class Hrguru.Views.TeamMembers extends Backbone.Marionette.CollectionView
     @collection = _.clone @users
     @collection.models =  _.filter @collection.models, (user) =>
       user.get('team_id') is @model.id
+    EventAggregator.trigger('selectize:refreshOptions')
     @render()
 
   updateNoTeamUsers: (member) ->
@@ -213,6 +214,7 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
       render:
         option: (item, escape) => @completionTemplate(item)
     @selectize = selectize[0].selectize
+    @listenTo(EventAggregator, 'selectize:refreshOptions', @refreshSelectizeOptions)
 
 class Hrguru.Views.Teams extends Backbone.Marionette.CompositeView
   template: JST['teams/teams']
