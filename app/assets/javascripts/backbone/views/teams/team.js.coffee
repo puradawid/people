@@ -80,6 +80,7 @@ class Hrguru.Views.TeamMembers extends Backbone.Marionette.CollectionView
   memberExluded: (member) =>
     Messenger().success("We successfully exluded #{member.get('name')} from #{@model.get('name')}!")
     @refreshTeamUsers()
+    @updateNoTeamUsers(member)
     @trigger('leader_set', @children.findByModel(member)) if member._previousAttributes.leader_team_id?
 
   memberError: (model, xhr) ->
@@ -113,6 +114,10 @@ class Hrguru.Views.TeamMembers extends Backbone.Marionette.CollectionView
     @collection.models =  _.filter @collection.models, (user) =>
       user.get('team_id') is @model.id
     @render()
+
+  updateNoTeamUsers: (member) ->
+    EventAggregator.trigger('update:noTeamUsers', member)
+
 
 class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
   template: JST['teams/team_layout']
@@ -239,6 +244,7 @@ class Hrguru.Views.NoTeamUsers extends Backbone.Marionette.CompositeView
     @team_users = options.team_users
     @no_team_users = options.collection
     @roles = options.roles
+    @listenTo(EventAggregator, 'update:noTeamUsers', @updateNoTeamUsers)
 
   itemViewOptions: ->
     roles: @roles
@@ -253,3 +259,7 @@ class Hrguru.Views.NoTeamUsers extends Backbone.Marionette.CompositeView
   toggleUserTable: ->
     @ui.usersTable.toggle()
 
+  updateNoTeamUsers: (member) ->
+    mem = @team_users.find (m) ->
+      m is member
+    @collection.add mem
