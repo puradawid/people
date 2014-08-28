@@ -223,3 +223,33 @@ class Hrguru.Views.Teams extends Backbone.Marionette.CompositeView
   initialize: (options) ->
     @users = options.users
     @roles = options.roles
+
+class Hrguru.Views.NoTeamUsers extends Backbone.Marionette.CompositeView
+  template: JST['teams/no_team_users']
+  itemView: Hrguru.Views.TeamUser
+  itemViewContainer: '#users-body'
+
+  ui:
+    usersTable:   '.js-users-table'
+
+  events:
+    'click .show-users' : 'toggleUserTable'
+
+  initialize: (options) ->
+    @team_users = options.team_users
+    @no_team_users = options.collection
+    @roles = options.roles
+
+  itemViewOptions: ->
+    roles: @roles
+    collection: @no_team_users
+    tagName: 'div'
+    className: 'col-md-2'
+    noUI: true
+
+  onRender: ->
+    @ui.usersTable.hide()
+
+  toggleUserTable: ->
+    @ui.usersTable.toggle()
+
