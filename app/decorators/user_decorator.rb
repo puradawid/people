@@ -36,7 +36,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def days_in_current_team
-    self.team_join_time.nil? ? 0 : (DateTime.now - self.team_join_time).to_i
+    team_join_time.nil? ? 0 : (DateTime.now - team_join_time).to_i
   end
 
   def github_link(options = {})

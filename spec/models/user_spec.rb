@@ -218,9 +218,9 @@ describe User do
 
   describe "#days_in_current_team" do
 
-    let(:team1) { double("Team", id: "team1_id", name: "team1") }
-    let(:team2) { double("Team", id: "team2_id", name: "team2") }
-    let(:user) { create(:user, team_id: team1.id, team_join_time: Time.now ) }
+    let(:team1) { double('Team', id: 'team1_id', name: 'team1') }
+    let(:team2) { double('Team', id: 'team2_id', name: 'team2') }
+    let(:user) { create(:user, team_id: team1.id, team_join_time: Time.now) }
 
     context "when user.team_id is updated" do
       it "user.team_join_time updates as well" do

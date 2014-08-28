@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe UserDecorator do
-  let!(:team) { create(:team) }
-  let!(:user) { create(:user, team: team, team_join_time: 6.days.ago) }
-  let!(:user_without_team) { create(:user) }
+  let(:team) { create(:team) }
+  let(:user) { create(:user, team: team, team_join_time: 6.days.ago) }
+  let(:user_without_team) { create(:user) }
 
   describe '#days_in_current_team' do
     context 'user without team' do
