@@ -35,7 +35,6 @@ class Hrguru.Views.TeamsIndex extends Marionette.Layout
       roles: @roles
 
     @buttons_view = new Hrguru.Views.TeamButtons
-      collection: @users
       teams: @teams
       roles: @roles
 
