@@ -21,6 +21,8 @@ gem 'mongoid_userstamp'
 gem 'mongoid_rails_migrations'
 gem 'astrails-safe'
 
+gem "dotenv"
+gem "dotenv-deployment"
 gem 'decent_exposure'
 gem 'decent_decoration'
 gem 'devise'
@@ -66,6 +68,9 @@ group :development do
   gem 'binding_of_caller'
   gem 'quiet_assets'
   gem 'xray-rails'
+  gem 'capistrano', require: false
+  gem 'capistrano-rvm', require: false
+  gem 'capistrano-rails', require: false
 end
 
 group :development, :test do
