@@ -14,7 +14,7 @@ set :user, ->{ fetch(:application) }
 set :deploy_to, ->{ "/home/#{fetch(:user)}/app" }
 set :rvm_type, :system
 
-branches = { production: :production, staging: :master }
+branches = { production: :master, staging: :master }
 set :branch, ->{ branches[fetch(:stage).to_sym].to_s }
 
 set :scm, :git
