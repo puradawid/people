@@ -14,6 +14,14 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
     exclude:    '.js-exclude-member'
     daysCount:  '.js-number-of-days'
 
+  bindings:
+    '.js-number-of-days':
+      observe: 'team_join_time'
+      update: ($el, val, model, options) ->
+        val = if val then val else 0
+        daysCount = Math.floor(( new Date() - Date.parse(val) ) / 86400000)
+        $el.text("Since: " + daysCount + " days")
+
   initialize: (options) ->
     unless @model.get('id')?
       return
@@ -33,6 +41,7 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
 
   onRender: ->
     @updateVisibility()
+    @stickit()
 
   hideUI: ->
     @ui.promote.hide()
