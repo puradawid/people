@@ -55,6 +55,7 @@ gem 'messengerjs-rails'
 
 gem 'whenever', require: false
 gem 'versionist'
+gem 'jquery-cookie-rails'
 
 group :staging, :production do
   gem 'rails_12factor'

@@ -3,6 +3,7 @@
 //= require jquery.scrollTo
 //= require jquery-tablesorter
 //= require jquery_ujs
+//= require jquery.cookie
 //= require bootstrap
 //= require bootstrap-datepicker
 //= require messenger
