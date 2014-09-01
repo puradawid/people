@@ -429,13 +429,10 @@ DEPENDENCIES
   bourbon
   bson
   bson_ext
-<<<<<<< HEAD
-  capybara
-=======
   capistrano
   capistrano-rails
   capistrano-rvm
->>>>>>> FETCH_HEAD
+  capybara
   codeclimate-test-reporter
   coffee-rails (~> 4.0.0)
   database_cleaner
