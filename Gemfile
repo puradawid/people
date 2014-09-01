@@ -82,6 +82,5 @@ group :test do
   gem 'faker'
   gem 'timecop'
   gem 'codeclimate-test-reporter', require: false
-  gem 'cucumber-rails', require: false
   gem 'selenium-webdriver'
 end
