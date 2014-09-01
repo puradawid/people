@@ -237,7 +237,7 @@ class Hrguru.Views.NoTeamUsers extends Backbone.Marionette.CompositeView
   itemViewContainer: '#users-body'
 
   ui:
-    usersTable:   '.js-users-table'
+    usersTable: '.js-users-table'
 
   events:
     'click .show-users' : 'toggleUserTable'
