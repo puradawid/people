@@ -27,6 +27,8 @@ defaults: &defaults
   tld_length:         1
   feature:
     new_available_view: false
+  rollbar:
+    access_token:     token
 
 heroku_settings: &heroku_settings
   <<: *defaults
