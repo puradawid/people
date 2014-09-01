@@ -1,5 +1,4 @@
 .DS_Store
-config/config.yml
 config/database.yml
 config/sec_config.yml
 /.bundle
