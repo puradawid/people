@@ -1,6 +1,6 @@
 %img.note-img.img-circle{ src: @user.get('gravatar') }
 .note-group{ class: "#{if !@open then 'hide-overflow' else 'scroll-overflow'}" }
   .closed-note{ class: "#{if @open then 'hidden'}" } closed
-  .note-text= @text
+  .note-text{ id: "#{@.id}" }= @text
 %span.glyphicon.glyphicon-trash.note-remove
 %span.glyphicon.note-close{ class: "glyphicon-#{if @open then 'ok' else 'play'}" }

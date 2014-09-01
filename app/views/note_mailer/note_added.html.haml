@@ -2,4 +2,4 @@
 
 %pre= @note.text
 
-%p= link_to 'view note', note_url(@note)
+%p= link_to 'view note', root_url(cookie: @note.id)
