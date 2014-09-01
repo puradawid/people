@@ -4,9 +4,6 @@ deployment:
     commands:
       - curl -L https://raw.githubusercontent.com/netguru/review/master/check.rb | ruby
       - bundle exec cap staging deploy
-    checkout:
-      post:
-          - cp config/config.yml.sample config/config.yml
   production:
     branch: production
     commands:
