@@ -20,6 +20,9 @@ class Hrguru.Views.Dashboard.Notes extends Marionette.CompositeView
     @project_id = options.project_id
     @users = options.users
 
+  onShow: ->
+    EventAggregator.trigger('cookie:open:notes')
+
   itemViewOptions: ->
     users: @users
 

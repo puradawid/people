@@ -18,6 +18,7 @@ class Hrguru.Views.Dashboard.NotesLayout extends Marionette.Layout
     { @users, @model } = options
     @listenTo(EventAggregator, 'open:all:notes', @onOpenProjectNotes)
     @listenTo(EventAggregator, 'close:all:notes', @onCloseProjectNotes)
+    @listenToOnce(EventAggregator, 'cookie:open:notes', @cookieOpenNotes)
 
   onRender: ->
     @ui.notesWrapper.hide()
@@ -27,6 +28,15 @@ class Hrguru.Views.Dashboard.NotesLayout extends Marionette.Layout
       project_id: @model.get('id')
       users: @users
     @notesRegion.show(notesView)
+
+  cookieOpenNotes: ->
+    $(document).ready ->
+      note_id = $.cookie('note_id')
+      if note_id
+        $.removeCookie('note_id')
+        note = $('#' + note_id)
+        note.closest('.project-notes-wrapper').siblings('.js-open-project-notes').click()
+        $.scrollTo(note, 'fast')
 
   onOpenProjectNotes: ->
     @ui.openNotes.hide()
