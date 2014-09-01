@@ -5,6 +5,8 @@ end
 
 require 'spork'
 require 'sucker_punch/testing/inline'
+require 'capybara/rspec'
+require 'rack_session_access/capybara'
 
 Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
