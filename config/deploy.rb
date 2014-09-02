@@ -6,13 +6,13 @@ set :keep_releases, 5
 
 set :application, "people"
 
-set :ssh_options, proxy: Net::SSH::Proxy::Command.new('ssh people@g.devguru.co -W %h:%p')
 set :rvm_ruby_version, '2.0.0-p353'
 set :repo_url,  "git@github.com:netguru/people.git"
 set :rails_env, ->{ fetch(:stage) }
 set :user, ->{ fetch(:application) }
 set :deploy_to, ->{ "/home/#{fetch(:user)}/app" }
 set :rvm_type, :system
+set :gateway, "people@g.devguru.co"
 
 branches = { production: :master, staging: :master }
 set :branch, ->{ branches[fetch(:stage).to_sym].to_s }
