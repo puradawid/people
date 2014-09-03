@@ -5,6 +5,7 @@ gem 'rails', '4.0.3'
 gem 'rollbar'
 gem 'google-analytics-rails'
 gem 'newrelic_rpm'
+gem 'google-api-client', :require => 'google/api_client'
 
 gem 'konf'
 gem "heroku-mongo-backup", github: 'alexkravets/heroku-mongo-backup', branch: 'mongoid4'
@@ -84,4 +85,5 @@ group :test do
   gem 'codeclimate-test-reporter', require: false
   gem 'capybara', '~> 2.4.1'
   gem 'selenium-webdriver', '~> 2.42.0'
+  gem 'webmock'
 end

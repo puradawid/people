@@ -17,10 +17,10 @@ Devise.setup do |config|
   require 'omniauth-google-oauth2'
 
   config.omniauth(
-    :google_oauth2,
-    AppConfig.google_client_id,
-    AppConfig.google_secret,
-    { access_type: "offline", approval_prompt: "", hd: AppConfig.google_domain }
+    :google_oauth2, AppConfig.google_client_id, AppConfig.google_secret,
+    { access_type: "offline", approval_prompt: "", hd: AppConfig.google_domain,
+      scope: 'userinfo.email, userinfo.profile, calendar'
+    }
   )
 
   config.omniauth(

@@ -1,3 +1,8 @@
+</br>
+- if current_user.admin? && current_user.refresh_token.present?
+  = link_to 'Import vacations from Google Calendar', import_user_vacation_path(current_user), method: :post, class: "btn btn-primary"
+</br>
+
 - if vacations.present?
   %table.table.table-striped.table-hover#vacations
     %thead
@@ -9,7 +14,7 @@
       %th
 
     %tbody
-      - users.each do |user|
+      - @users.each do |user|
         - if user.vacation.present?
           %tr
             %td= user.gravatar_image(size: 40)

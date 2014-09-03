@@ -15,6 +15,9 @@ class User
   field :current_sign_in_ip
   field :last_sign_in_ip
   field :team_join_time, type: DateTime
+  field :oauth_token
+  field :refresh_token
+  field :oauth_expires_at, type: DateTime
 
   field :first_name
   field :last_name
@@ -31,7 +34,7 @@ class User
   has_many :memberships
   has_many :notes
   has_many :positions
-  has_one :vacation
+  has_one :vacation, inverse_of: :user
   belongs_to :admin_role
   belongs_to :role
   belongs_to :contract_type
@@ -64,12 +67,18 @@ class User
     user = User.where(email: params['info']['email']).first if user.blank?
     if user.present?
       user.update_attributes(uid: params['uid']) if user.uid.blank?
+      user.update_attributes(oauth_token: params['credentials']['token'])
+      user.update_attributes(refresh_token: params['credentials']['refresh_token']) if user.refresh_token.nil?
+      user.update_attributes(oauth_expires_at: params['credentials']['expires_at'])
       return user
     end
     fields = %w(first_name last_name email)
     attributes = fields.reduce({}) { |mem, key| mem.merge(key => params['info'][key]) }
     attributes['password'] = Devise.friendly_token[0, 20]
     attributes['uid'] = params['uid']
+    attributes['oauth_token'] = params['credentials']['token']
+    attributes['refresh_token'] = params['credentials']['refresh_token']
+    attributes['oauth_expires_at'] = params['credentials']['expires_at']
     UserMailer.notify_operations(params['info']['email']).deliver
     User.create!(attributes)
   end
@@ -174,6 +183,10 @@ class User
 
   def self.by_name
     all.sort_by { |u| u.first_name.downcase }
+  end
+
+  def self.by_vacation_date
+    all.decorate.select { |u| u.vacation.present? }.sort_by { |u| u.vacation.starts_at }
   end
 
   def abilities_names
