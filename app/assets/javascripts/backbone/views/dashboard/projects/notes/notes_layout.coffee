@@ -30,7 +30,7 @@ class Hrguru.Views.Dashboard.NotesLayout extends Marionette.Layout
     @notesRegion.show(notesView)
 
   cookieOpenNotes: ->
-    $(document).ready ->
+    $ ->
       note_id = $.cookie('note_id')
       if note_id
         $.removeCookie('note_id')
