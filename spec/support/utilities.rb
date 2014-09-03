@@ -9,7 +9,12 @@ def sign_in(user)
       last_name: user.last_name,
       email: user.email
     },
-    extra: { raw_info: { hd: 'example.com' }}
+    extra: { raw_info: { hd: 'example.com' }},
+    credentials: {
+      oauth_token: 123,
+      refresh_token: 456,
+      oauth_expires_at: Time.now+1.hour
+    }
   })
   visit new_user_session_path
   click_link_or_button 'Sign up with Google'

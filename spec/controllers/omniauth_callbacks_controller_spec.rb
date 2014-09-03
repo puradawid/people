@@ -13,7 +13,12 @@ describe OmniauthCallbacksController do
           last_name: 'Kowalski',
           email: 'jan@kowalski.pl'
         },
-        extra: { raw_info: { hd: 'example.com' }}
+        extra: { raw_info: { hd: 'example.com' }},
+        credentials: {
+          oauth_token: 123,
+          refresh_token: 456,
+          oauth_expires_at: Time.now+1.hour
+        }
       })
       request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
     end

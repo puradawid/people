@@ -1,0 +1,8 @@
+{
+  "items": [
+    {
+      "summary": "John Doe - meeting",
+      "creator": { "email": "johndoe@example.com" }
+    }
+  ]
+}

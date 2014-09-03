@@ -4,8 +4,10 @@ if ENV['CI']
 end
 
 require 'spork'
+require 'webmock/rspec'
 
 Spork.prefork do
+
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
@@ -14,6 +16,7 @@ Spork.prefork do
   Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
   RSpec.configure do |config|
+    WebMock.disable_net_connect!(:allow_localhost => true, :allow => /rest/ )
     config.include FactoryGirl::Syntax::Methods
     config.include Mongoid::Matchers, type: :model
     config.include Devise::TestHelpers, type: :controller
