@@ -39,10 +39,8 @@ describe "team view" do
     end
 
     it "adds new team" do
-      expect do
-        find('.js-new-team-form .form-control.name').set('teamX')
-        find('a.new-team-submit').click
-      end.to change{ Team.count }.from(1).to(2)
+      find('.js-new-team-form .form-control.name').set('teamX')
+      expect{ find('a.new-team-submit').click }.to change(Team, :count).from(1).to(2)
     end
   end
 

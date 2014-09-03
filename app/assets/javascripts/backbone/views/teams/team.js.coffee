@@ -19,8 +19,8 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
       observe: 'team_join_time'
       update: ($el, val, model, options) ->
         val = if val then val else 0
-        daysCount = Math.floor(( new Date() - Date.parse(val) ) / 86400000)
-        $el.text("Since: " + daysCount + " days")
+        days_count = Math.floor((new Date() - Date.parse(val)) / 86400000)
+        $el.text("Since: " + days_count + " days")
 
   initialize: (options) ->
     unless @model.get('id')?
