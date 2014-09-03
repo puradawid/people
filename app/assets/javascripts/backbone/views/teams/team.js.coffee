@@ -14,14 +14,20 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
     exclude:    '.js-exclude-member'
     daysCount:  '.js-number-of-days'
 
+  bindings:
+    '.js-number-of-days':
+      observe: 'team_join_time'
+      update: ($el, val, model, options) ->
+        val = if val then val else 0
+        daysCount = Math.floor(( new Date() - Date.parse(val) ) / 86400000)
+        $el.text("Since: " + daysCount + " days")
+
   initialize: (options) ->
     unless @model.get('id')?
       return
     @noUI = options.noUI?
-    @role = _.find(options.roles.models, (role) =>
-      role.id is @model.get('role_id')
-    )
-    @role_name = @role.get('name')
+    @role = options.roles.findWhere id: @model.get('role_id')
+    @role_name = if @role then @role.get('name') else 'no role'
     @listenTo(@model, 'change', @render)
 
   updateVisibility: ->
@@ -35,6 +41,7 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
 
   onRender: ->
     @updateVisibility()
+    @stickit()
 
   hideUI: ->
     @ui.promote.hide()
@@ -82,6 +89,7 @@ class Hrguru.Views.TeamMembers extends Backbone.Marionette.CollectionView
   memberExluded: (member) =>
     Messenger().success("We successfully exluded #{member.get('name')} from #{@model.get('name')}!")
     @refreshTeamUsers()
+    @updateNoTeamUsers(member)
     @trigger('leader_set', @children.findByModel(member)) if member._previousAttributes.leader_team_id?
 
   memberError: (model, xhr) ->
@@ -114,7 +122,12 @@ class Hrguru.Views.TeamMembers extends Backbone.Marionette.CollectionView
     @collection = _.clone @users
     @collection.models =  _.filter @collection.models, (user) =>
       user.get('team_id') is @model.id
+    EventAggregator.trigger('selectize:refreshOptions')
     @render()
+
+  updateNoTeamUsers: (member) ->
+    EventAggregator.trigger('update:noTeamUsers', member)
+
 
 class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
   template: JST['teams/team_layout']
@@ -210,6 +223,7 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
       render:
         option: (item, escape) => @completionTemplate(item)
     @selectize = selectize[0].selectize
+    @listenTo(EventAggregator, 'selectize:refreshOptions', @refreshSelectizeOptions)
 
 class Hrguru.Views.Teams extends Backbone.Marionette.CompositeView
   template: JST['teams/teams']
@@ -225,3 +239,38 @@ class Hrguru.Views.Teams extends Backbone.Marionette.CompositeView
   initialize: (options) ->
     @users = options.users
     @roles = options.roles
+
+class Hrguru.Views.NoTeamUsers extends Backbone.Marionette.CompositeView
+  template: JST['teams/no_team_users']
+  itemView: Hrguru.Views.TeamUser
+  itemViewContainer: '#users-body'
+
+  ui:
+    usersTable: '.js-users-table'
+
+  events:
+    'click .show-users' : 'toggleUserTable'
+
+  initialize: (options) ->
+    @team_users = options.team_users
+    @no_team_users = options.collection
+    @roles = options.roles
+    @listenTo(EventAggregator, 'update:noTeamUsers', @updateNoTeamUsers)
+
+  itemViewOptions: ->
+    roles: @roles
+    collection: @no_team_users
+    tagName: 'div'
+    className: 'col-md-2'
+    noUI: true
+
+  onRender: ->
+    @ui.usersTable.hide()
+
+  toggleUserTable: ->
+    @ui.usersTable.toggle()
+
+  updateNoTeamUsers: (member) ->
+    mem = @team_users.find (m) ->
+      m is member
+    @collection.add mem

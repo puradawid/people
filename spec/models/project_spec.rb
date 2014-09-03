@@ -99,4 +99,38 @@ describe Project do
       expect(Project.starting_tomorrow.count).to eq 2
     end
   end
+
+  describe ".ending_in" do
+    let(:days) { 30 }
+    subject { described_class.ending_in(days).to_a.flatten }
+
+    it "returns projects ending soon" do
+      project = create :project, end_at: 1.week.from_now
+      expect(subject).to include project
+    end
+  end
+
+  describe ".starting_in" do
+    let(:days) { 30 }
+    subject { described_class.starting_in(days).to_a.flatten }
+
+    it "returns projects starting soon" do
+      project = create :project, kickoff: 1.week.from_now
+      expect(subject).to include project
+    end
+  end
+
+  describe ".ending_or_starting_in" do
+    let(:days) { 30 }
+    subject { described_class.ending_or_starting_in(days).to_a.flatten }
+
+    it "returns projects ending or starting soon" do
+      project1 = create :project, kickoff: 1.week.from_now
+      project2 = create :project, end_at: 1.week.from_now
+      project_not_included = create :project, kickoff: 1.year.from_now,
+                                              end_at: 2.years.from_now
+      expect(subject).to include project1, project2
+      expect(subject).not_to include project_not_included
+    end
+  end
 end

@@ -1,0 +1,99 @@
+//
+// User card
+// --------------------------------------------------
+
+.user-card {
+  border-radius: $border-radius-large;
+  border: 1px solid $gray-light;
+  overflow: hidden;
+
+  &-header {
+    padding: $half-gutter-width;
+  }
+
+  &-content {
+    overflow: hidden;
+    position: relative;
+    > .content-part {
+      border-top: 1px solid $gray-light;
+      padding: $half-gutter-width;
+    }
+  }
+
+  &-avatar {
+    @include circle(64px);
+    background: $gray-light;
+    float: left;
+  }
+
+  &-name {
+    font-size: $font-size-large;
+    font-weight: bold;
+    margin-top: $half-gutter-width / 2;
+  }
+
+  &-profession {
+    background: $brand-primary;
+  }
+
+  .label-skill {
+    background: $gray-light;
+  }
+
+  &-projects-list {
+    margin: $half-gutter-width / 2 0 0;
+    padding: 0;
+    li {
+      margin-top: -1px;
+      list-style: none;
+      line-height: $line-height-computed + 4px;
+    }
+  }
+
+  .intro {
+    @include quantity($line-height-computed + 5px);
+    color: $white;
+    display: inline-block;
+    font-size: $font-size-extra-small;
+    font-weight: bold;
+    margin-right: $half-gutter-width / 2;
+    text-align: center;
+  }
+
+  &-current-project {
+    background: $gray-light;
+    color: $white;
+    padding: $half-gutter-width;
+    a {
+      color: $white;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+
+  &-download {
+    @include centered-vertically;
+    font-weight: bold;
+    text-align: center;
+    .glyphicon {
+      font-size: $font-size-large * 2;
+    }
+  }
+
+  &-download-link {
+    @include absolute(top 0 left 0);
+    @include quantity(100%);
+    z-index: 9;
+    opacity: 0;
+    &:hover {
+      opacity: 1;
+      background: transparentize($brand-primary, .2);
+      color: $white;
+      text-decoration: underline;
+    }
+  }
+
+  p {
+    margin-bottom: $half-gutter-width;
+  }
+}

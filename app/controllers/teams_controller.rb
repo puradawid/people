@@ -18,31 +18,15 @@ class TeamsController < ApplicationController
   end
 
   def create
-    if team.save
-      respond_to do |format|
-        format.html { redirect_to teams_path }
-        format.json { render json: team, status: 201 }
-      end
-    else
-      respond_on_failure team.errors
-    end
+    save_team_and_respond 201
   end
 
-  def new
-  end
+  def new; end
 
-  def edit
-  end
+  def edit; end
 
   def update
-    if team.save
-      respond_to do |format|
-        format.html { redirect_to teams_path }
-        format.json { render json: team, status: 202 }
-      end
-    else
-      respond_on_failure team.errors
-    end
+    save_team_and_respond 202
   end
 
   def show
@@ -64,5 +48,16 @@ class TeamsController < ApplicationController
 
   def team_params
     params.require(:team).permit(:name, :team_leader_id, user_ids: [], users: [])
+  end
+
+  def save_team_and_respond status_code
+    if team.save
+      respond_to do |format|
+        format.html { redirect_to teams_path }
+        format.json { render json: team, status: status_code }
+      end
+    else
+      respond_on_failure team.errors
+    end
   end
 end

@@ -25,11 +25,9 @@ class Membership
 
   after_save :check_fields
 
-  if AppConfig.hipchat.active
-    after_create :notify_added
-    after_update :notify_updated
-    before_destroy :notify_removed
-  end
+  after_create :notify_added
+  after_update :notify_updated
+  before_destroy :notify_removed
 
   scope :active, -> { where(project_potential: false, project_archived: false) }
   scope :potential, -> { where(project_potential: true) }
@@ -41,6 +39,11 @@ class Membership
   scope :ending_soon, -> { between(ends_at: Time.now..1.week.from_now) }
   scope :billable, -> { where(billable: true) }
   scope :only_active, -> { where(project_potential: false, project_archived: false).desc('starts_at').limit(3) }
+  scope :leaving, ->(days) { between(ends_at: Time.now..days.days.from_now) }
+  scope :joining, ->(days) { between(starts_at: Time.now..days.days.from_now) }
+  scope :upcoming_changes, lambda { |days|
+    any_of(leaving(days).selector, joining(days).selector)
+  }
 
   %w(user project role).each do |model|
     original_model = "original_#{model}"
@@ -101,21 +104,21 @@ class Membership
   end
 
   def notify_added
-    if active?
+    if AppConfig.hipchat.active && active?
       msg = HipChat::MessageBuilder.membership_added_message(self)
       hipchat_notify(msg)
     end
   end
 
   def notify_removed
-    if active?
+    if AppConfig.hipchat.active && active?
       msg = HipChat::MessageBuilder.membership_removed_message(self)
       hipchat_notify(msg)
     end
   end
 
   def notify_updated
-    if persisted? && active?
+    if AppConfig.hipchat.active && persisted? && active?
       msg = HipChat::MessageBuilder.membership_updated_message(self, changes)
       hipchat_notify(msg)
     end

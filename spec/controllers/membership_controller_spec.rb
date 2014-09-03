@@ -10,9 +10,14 @@ describe MembershipsController do
   describe "#index" do
     render_views
 
+    let!(:user) { create(:user, first_name: "Tomek") }
+    let!(:project) { create(:project_deleted, name: "hrguru") }
+    let!(:role_1) { create(:role, name: "junior1") }
+    let!(:role_2) { create(:role, name: "junior2") }
+
     before do
-      create(:membership, user: create(:user_deleted, first_name: "Tomek"), project: create(:project_deleted, name: "hrguru"), role: create(:role, name: "junior1"))
-      create(:membership, role: create(:role, name: "junior2"))
+      create(:membership, user: user, project: project, role: role_1)
+      create(:membership, role: role_2)
     end
 
     it "responds successfully with an HTTP 200 status code" do

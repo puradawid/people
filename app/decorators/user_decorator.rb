@@ -27,7 +27,7 @@ class UserDecorator < Draper::Decorator
 
   def gravatar_url(size = 80)
     gravatar_id = Digest::MD5.hexdigest(email.downcase)
-    "http://www.gravatar.com/avatar/#{gravatar_id}?size=#{size}"
+    "https://www.gravatar.com/avatar/#{gravatar_id}?size=#{size}"
   end
 
   def gravatar_image(options = {})
@@ -35,9 +35,13 @@ class UserDecorator < Draper::Decorator
     h.image_tag gravatar_url(size), options
   end
 
+  def days_in_current_team
+    team_join_time.nil? ? 0 : (DateTime.now - team_join_time).to_i
+  end
+
   def github_link(options = {})
     if github_connected?
-      h.link_to "http://github.com/#{gh_nick}", title: gh_nick do
+      h.link_to "https://github.com/#{gh_nick}", title: gh_nick do
         options[:icon] ? h.fa_icon("github-alt") : gh_nick
       end
     end

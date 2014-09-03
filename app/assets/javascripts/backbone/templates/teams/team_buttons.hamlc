@@ -10,8 +10,3 @@
   .actions
     %a.btn.btn-sm.btn-danger.new-team-close{ href: '#'} Close
     %a.btn.btn-sm.btn-default.new-team-submit{href: '#'} Add team
-.show-users.btn.btn-default
-  .glyphicon.glyphicon-user.pull-left
-  .small.pull-right Show users without team
-.js-users-table
-  #users-body.row.col-md-12

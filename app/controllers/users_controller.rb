@@ -24,19 +24,17 @@ class UsersController < ApplicationController
 
   def update
     if user.save
-      respond_to do |format|
-        format.html { redirect_to user, notice: "User updated." }
-        format.json { render json: user }
-      end
+      info = { notice: "User updated." }
+      json = user
+      status = 200
     else
-      respond_to do |format|
-        format.html do
-          errors = []
-          errors << user.errors.messages.map { |key, value| "#{key}: #{value[0]}" }.first
-          redirect_to user, alert: errors.join
-        end
-        format.json { render json: { errors: user.errors.messages }, status: :unprocessable_entity }
-      end
+      info = { alert: generate_errors }
+      json = { errors: user.errors.messages }
+      status = :unprocessable_entity
+    end
+    respond_to do |format|
+      format.html { redirect_to user, info }
+      format.json { render json: json, status: status }
     end
   end
 
@@ -67,5 +65,11 @@ class UsersController < ApplicationController
     params.require(:user).permit(:first_name, :last_name, :role_id, :team_id, :leader_team_id,
                                  :employment, :phone, :location_id, :contract_type_id,
                                  :archived, :skype, abilities_names: [])
+  end
+
+  def generate_errors
+    errors = []
+    errors << user.errors.messages.map { |key, value| "#{key}: #{value[0]}" }.first
+    errors.join
   end
 end

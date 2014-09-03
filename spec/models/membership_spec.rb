@@ -85,4 +85,49 @@ describe Membership do
       it { should be_false }
     end
   end
+
+  describe ".leaving" do
+    let(:days) { 30 }
+    subject { described_class.leaving(days) }
+
+    it "is empty when no users are leaving" do
+      expect(subject).to be_empty
+    end
+
+    it "returns memberships ending in next 30 days" do
+      membership = create :membership, ends_at: 1.week.from_now
+      membership1 = create :membership, ends_at: 5.weeks.from_now
+      expect(subject).to include membership
+      expect(subject).not_to include membership1
+    end
+
+  end
+
+  describe ".joining" do
+    let(:days) { 30 }
+    subject { described_class.joining(days) }
+
+    it "is empty when no users are joining" do
+      expect(subject).to be_empty
+    end
+
+    it "shows one user is joining" do
+      membership = create :membership, starts_at: 1.week.from_now
+      expect(subject).to include membership
+    end
+  end
+
+  describe ".upcoming_changes" do
+    let(:days) { 30 }
+    subject { described_class.upcoming_changes(days).to_a.flatten }
+
+    it "includes 2 upcoming changes" do
+      membership1 = create :membership, starts_at: 1.week.from_now
+      membership2 = create :membership, starts_at: 1.week.from_now
+      membership_not_included = create :membership, starts_at: 1.year.from_now,
+                                                    ends_at: 2.years.from_now
+      expect(subject).to include membership1, membership2
+      expect(subject).not_to include membership_not_included
+    end
+  end
 end

@@ -1,0 +1,27 @@
+.navbar {
+  &-search-input {
+    background: $header-search-background-color;
+    color: $header-search-text-color;
+    border: 1px solid $header-search-border-color;
+    &:focus {
+      @include box-shadow(none);
+      border: 1px solid lighten($header-search-border-color, 20)
+    }
+    @include placeholder($header-search-placeholder-color);
+  }
+
+  &-search-button {
+    background: $header-search-background-color;
+    border: 1px solid $header-search-border-color;
+    color: $header-search-button-color;
+    padding: 7px 12px;
+    &:hover {
+      color: lighten($header-search-button-color, 20);
+    }
+    &:focus {
+      outline: none;
+      color: lighten($header-search-button-color, 20);
+      border: 1px solid lighten($header-search-border-color, 20);
+    }
+  }
+}

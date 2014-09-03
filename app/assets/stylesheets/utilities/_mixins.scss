@@ -1,4 +1,4 @@
-@mixin size($args) {
+@mixin quantity($args) {
   @if length($args) == 2 {
     width: nth($args, 1);
     height: nth($args, 2);
@@ -9,8 +9,8 @@
   }
 }
 
-@mixin circle($size) {
-  @include size($size);
+@mixin circle($quantity) {
+  @include quantity($quantity);
   border-radius: 50%;
 }
 

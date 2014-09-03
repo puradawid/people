@@ -11,8 +11,19 @@ $archived-project:   #b8b8b8;
 $potential-project:  #a9acfc;
 $black:              #000;
 $white:              #fff;
+$violet:             #670081;
+$yellow:             #ffb400;
+$blue:               #004bbb;
+$green:              #30bb00;
 
-//==Other
+$header-search-background-color:  lighten($brand-secondary, 5%);
+$header-search-text-color:        lighten($header-search-background-color, 35%);
+$header-search-border-color:      lighten($header-search-background-color, 10%);
+$header-search-placeholder-color: lighten($header-search-background-color, 15%);
+$header-search-button-color:      lighten($header-search-background-color, 15%);
 
-$btn-text-shadow: -1px 1px 1px;
+//== Other
+
+$btn-text-shadow:   -1px 1px 1px;
+$font-size-extra-small: 10px;
 $half-gutter-width: 15px;

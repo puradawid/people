@@ -6,7 +6,7 @@ People
 
 ##About the app
 
-The main purpose of the app is to manage people within the projects. 
+The main purpose of the app is to manage people within the projects.
 
 The main table shows the current teams in each project, but you can also add people who will start working on the project in the future, and see the people who are going to join or leave the project team by clicking “highlight ending” and “highlight next”. The app also gathers the information about a team member, like role, telephone number, github nick, or the city in which we work.
 
@@ -25,17 +25,24 @@ The main table shows the current teams in each project, but you can also add peo
 
   * goto [https://cloud.google.com/console](https://cloud.google.com/console)
   * create new project
-  * choose credentials tab (on the left)
-  * create both new client id
-  * choose web application
+  * choose API & Auth > Credentials tab (on the left)
+  * create new Client Id
+  * choose `web application` option
   * set `Authorized JavaScript origins` to `http://localhost:3000`
   * set `Authorized redirect URI` to `http://localhost:3000/users/auth/google_oauth2/callback`
-  * goto next tab "Consent screen"
+  * goto API & Auth > Consent screen
   * fill in "Email address" and "Product name" and save
 
 ### Github Auth
 
   * do the same for github account (callback address is `http://localhost:3000/users/auth/github/callback`)
+
+### Initial setup
+
+ * run rake db:seed
+ * by default only 'pm' and 'senior' roles have admin privilages - creating new projects, managing privileges, memberships etc.
+ * after logging in, goto your Profile's settings and update your role to 'senior' or 'pm' * goto config/config.yml and update your google_client_id, google_secret, google_domain, github_client_id, github_secret accordingly
+ * optionally update your emails and company_name 
 
 ### Local settings
 

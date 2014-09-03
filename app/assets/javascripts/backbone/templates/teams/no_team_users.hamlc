@@ -1,0 +1,5 @@
+.show-users.btn.btn-default
+  .glyphicon.glyphicon-user.pull-left
+  .small.pull-right Show users without team
+.js-users-table
+  #users-body.row.col-md-12

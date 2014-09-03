@@ -10,5 +10,11 @@ class DashboardController < ApplicationController
     gon.rabl template: 'app/views/dashboard/roles', as: 'roles'
     gon.rabl template: 'app/views/dashboard/projects', as: 'projects'
     gon.currentTime = Time.now
+
+    if params[:cookie]
+      cookies[:note_id] = params[:cookie]
+    else
+      cookies.delete(:note_id)
+    end
   end
 end

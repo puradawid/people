@@ -11,5 +11,10 @@ FactoryGirl.define do
       name { %w(senior developer).sample }
       billable 1
     end
+
+    factory :role_admin do
+      name 'senior'
+      admin true
+    end
   end
 end

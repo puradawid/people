@@ -93,7 +93,6 @@
         %a{ href: '#', role: 'tab', data: { toggle: 'tab' } } projects
       %li
         %a{ href: '#', role: 'tab', data: { toggle: 'tab' } } projects
-    .clearfix
 
     %h3 Tab justified
     %ul.nav.nav-tabs.nav-justified{ role: 'tablist' }
@@ -146,7 +145,8 @@
       example text
       %a.label.label-danger
         danger label
-  %hr
+  .col-md-12
+    %hr
 
 .row
   .col-md-12
@@ -161,13 +161,14 @@
       link
     %span.badge
       58
-  %hr
+  .col-md-12
+    %hr
 
 .row
   .col-md-12
     %h2 Modal
-    %button.btn.btn-primary{ data: { toggle: 'modal', target: '.modal-lg' } }
-      Large modal
+    %button.btn.btn-primary{ data: { toggle: 'modal', target: '.modal-lg' } } Large modal
+    %hr
 .modal.fade.modal-lg{ tabindex: '-1', role: 'dialog', aria: { labelledby: 'myModal', hidden: 'true' } }
   .modal-dialog.modal-lg
     .modal-content
@@ -180,3 +181,96 @@
       .modal-footer
         %button.btn.btn-default{ type: 'button', data: { dismiss: 'modal' } } close
         %button.btn.btn-primary{ type: 'button' } Save changes
+
+.row
+  .col-md-12
+    %h2 Custom Components
+    %hr
+    %h2 User card
+  .col-md-3
+    .user-card
+      .user-card-header.row
+        .col-md-3
+          = image_tag('user-example.png', class: 'user-card-avatar')
+        .col-md-9
+          .user-card-name Agnieszka Amborska
+          %span.label.user-card-profession
+            Senior Developer
+
+      .user-card-content
+        .user-card-times.content-part.row
+          .col-md-6.text-center.border-right
+            .user-card-available
+              %strong 27.08.2014
+              .uppercase-heading available
+
+          .col-md-6.text-center
+            .user-card-hours
+              %strong 168h
+              .uppercase-heading hours
+
+        .user-card-projects.content-part.row
+          .col-md-12
+            %p.uppercase-heading last projects
+            %ul.user-card-projects-list
+              %li
+                %span.intro.violet-background PL
+                %strong
+                  People
+                (3 months)
+              %li
+                %span.intro.yellow-background CS
+                %strong
+                  CitySocializer
+                (11 months)
+              %li
+                %span.intro.brand-primary-background NG
+                %strong
+                  Netguru.co
+                (2 months)
+              %li
+                %span.intro.green-background IS
+                %strong
+                  iSensor
+                (4 months)
+              %li
+                %span.intro.blue-background RM
+                %strong
+                  Rate My Area
+                (1 week)
+
+        .user-card-skills.content-part.row
+          .col-md-12
+            %p.uppercase-heading skills
+            %span.label.label-skill Ruby
+            %span.label.label-skill Rails
+            %span.label.label-skill Backbone
+
+        = link_to '#', class: 'user-card-download-link' do
+          %span.user-card-download
+            %span.glyphicon.glyphicon-file
+            %p Download profile
+
+      .user-card-current-project.row
+        .col-md-12
+          current project
+          = link_to 'People'
+
+  .col-md-12
+    %hr
+
+.row
+  .col-md-12
+    %h2 Search in navbar
+    %hr
+
+.container-fluid
+  %nav.navbar.navbar-default{ role: 'navigation' }
+    .navbar-header
+      .col-md-2
+        %form.navbar-form{ role: 'search' }
+          .input-group
+            %input.form-control.navbar-search-input{ type: 'text', placeholder: 'search' }
+            %span.input-group-btn
+              %button.btn.navbar-search-button{ type: 'submit' }
+                %span.glyphicon.glyphicon-search

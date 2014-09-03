@@ -8,7 +8,7 @@ class NotesController < ApplicationController
 
   def create
     if note.save
-      NoteMailer.note_added(note).deliver
+      SendMailJob.new.async.perform(NoteMailer, :note_added, note)
       respond_on_success note
     else
       respond_on_failure note.errors

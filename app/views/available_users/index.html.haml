@@ -3,6 +3,47 @@
     %li.box__tab.active= link_to 'Table view', '#table_view', data: { toggle: 'tab' }
     %li.box__tab= link_to 'Cards view', '#cards_view', data: { toggle: 'tab' }
   .tab-content
+    .tab-pane.active#cards_view
+      - roles.each do |role|
+        .row
+          .col-md-12
+            %h3= role.name.capitalize
+          .col-md-12
+            = "no candidates" if role.users.blank?
+            - role.users.each do |user|
+              .row
+                .col-md-3
+                  .user-card
+                    .avatar
+                      = user.gravatar_image(size: 100)
+                    .name
+                      = link_to user.name, user_path(user)
+                    .available_since
+                      available since:
+                      #{user.availability.present? ? user.availability.to_date : "since now"}
+                    .hours
+                      hours: #{user.employment}h
+                    .link_to_cv
+                      = link_to 'link to profile pdf', '#'
+                    .last_projects
+                      last projects:
+                      %ul
+                        - user.memberships.each do |p|
+                          %li= link_to p.project_name, project_path(p.project)
+                    - if user.has_potential_projects?
+                      .potential_projects
+                        potential projects:
+                        %ul
+                          - user.potential_memberships.each do |p|
+                            %li
+                              %span{ rel: 'tooltip', title: p.potential_start, data: { placement: 'right' } }
+                                = link_to p.project.name, project_path(p.project)
+                    .current_project
+                      - if user.current_project.present?
+                        current project:
+                        = link_to user.current_project, project_path(user.current_project)
+                      - else
+                        There is no current project
     .tab-pane.active#table_view
       %table.table.table-striped.table-hover#available_users
         %thead
@@ -40,40 +81,3 @@
                 = render partial: 'membership', collection: user.next_memberships
                 = 'Potential:' if user.has_potential_projects?
                 = render partial: 'membership', collection: user.potential_memberships
-    .tab-pane#cards_view
-      - roles.each do |role|
-        .row
-          %h3= role.name.capitalize
-          .row
-            = "no candidates" if role.users.blank?
-            - role.users.each do |user|
-              .col-md-3
-                .user
-                  .avatar
-                    %center= user.gravatar_image(size: 100)
-                  .name
-                    = link_to user.name, user_path(user)
-                  .available_since
-                    available since:
-                    #{user.availability.present? ? user.availability.to_date : "since now"}
-                  .hours
-                    hours: #{user.employment}h
-                  .link_to_cv
-                    = link_to "link to profile pdf", '#'
-                  .last_projects
-                    last projects:
-                    %ul
-                      - user.memberships.each do |p|
-                        %li= link_to p.project_name, project_path(p.project)
-                  - if user.has_potential_projects?
-                    .potential_projects
-                      potential projects:
-                      %ul
-                        - user.potential_memberships.each do |p|
-                          %li
-                            %span{ rel: 'tooltip', title: p.potential_start, :'data-placement' => 'right' }
-                              = link_to p.project.name, project_path(p.project)
-                  .current_project
-                    current project:
-                    - if user.current_project.present?
-                      = link_to user.current_project, project_path(user.current_project)

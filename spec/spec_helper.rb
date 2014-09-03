@@ -5,6 +5,9 @@ end
 
 require 'spork'
 require 'webmock/rspec'
+require 'sucker_punch/testing/inline'
+require 'capybara/rspec'
+require 'rack_session_access/capybara'
 
 Spork.prefork do
 
@@ -22,6 +25,7 @@ Spork.prefork do
     config.include Devise::TestHelpers, type: :controller
     config.include Helpers::JSONResponse, type: :controller
     config.include Capybara::DSL
+    I18n.enforce_available_locales = false
 
     config.before(:suite) do
       DatabaseCleaner[:mongoid].strategy = :truncation

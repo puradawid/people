@@ -16,14 +16,12 @@ Hrguru::Application.routes.draw do
     root 'dashboard#index', as: 'dashboard'
   end
 
-  constraints subdomain: 'api' do
-    scope module: 'api', as: 'api' do
-      api_version(module: 'v1', path: {value: 'v1'}, default: true) do
+  namespace :api do
+    scope module: :v1 do
 
-        # get resources
-        resources :users, only: [:index, :show, :contract_users]
-        resources :projects, only: [:index]
-      end
+      resources :users, only: [:index, :show, :contract_users]
+      resources :projects, only: [:index]
+
     end
   end
 

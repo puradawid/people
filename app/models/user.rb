@@ -80,6 +80,7 @@ class User
     attributes['refresh_token'] = params['credentials']['refresh_token']
     attributes['oauth_expires_at'] = params['credentials']['expires_at']
     UserMailer.notify_operations(params['info']['email']).deliver
+    SendMailJob.new.async.perform(UserMailer, :notify_operations, params['info']['email'])
     User.create!(attributes)
   end
 
@@ -131,7 +132,11 @@ class User
   end
 
   def availability
-    memberships.present? ? memberships.active.asc(:ends_at).last.ends_at : nil
+    if memberships.try(:active).present?
+      memberships.active.asc(:ends_at).last.ends_at
+    else
+      nil
+    end
   end
 
   def current_project
@@ -197,15 +202,13 @@ class User
     @abilities_list = abilities_list
   end
 
-  def days_in_current_team
-    self.team_join_time.nil? ? 0 : (DateTime.now - self.team_join_time).to_i
-  end
 
   private
 
   def save_team_join_time
-    if self.team_id_changed? && self.team_id.present?
-      assign_attributes(team_join_time: DateTime.now)
+    if team_id_changed?
+      team_join_val = team_id.present? ? DateTime.now : nil
+      assign_attributes(team_join_time: team_join_val)
     end
   end
 

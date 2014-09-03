@@ -22,6 +22,8 @@ gem 'mongoid_userstamp'
 gem 'mongoid_rails_migrations'
 gem 'astrails-safe'
 
+gem "dotenv"
+gem "dotenv-deployment"
 gem 'decent_exposure'
 gem 'decent_decoration'
 gem 'devise'
@@ -56,6 +58,7 @@ gem 'messengerjs-rails'
 
 gem 'whenever', require: false
 gem 'versionist'
+gem 'jquery-cookie-rails'
 
 group :staging, :production do
   gem 'rails_12factor'
@@ -67,6 +70,9 @@ group :development do
   gem 'binding_of_caller'
   gem 'quiet_assets'
   gem 'xray-rails'
+  gem 'capistrano', require: false
+  gem 'capistrano-rvm', require: false
+  gem 'capistrano-rails', require: false
 end
 
 group :development, :test do
@@ -86,4 +92,5 @@ group :test do
   gem 'capybara', '~> 2.4.1'
   gem 'selenium-webdriver', '~> 2.42.0'
   gem 'webmock'
+  gem 'rack_session_access'
 end
