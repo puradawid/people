@@ -70,6 +70,19 @@ describe "team view" do
     it 'removes member from the team' do
       find('.js-exclude-member').click
       expect(page).not_to have_xpath("//td[@id='members-region']//td")
+  describe '.js-edit-team' do
+    before(:each) do
+      find('.js-edit-team').click
+    end
+
+    it 'shows edit form' do
+      expect(page).to have_content('edit name')
+    end
+
+    it 'updates team name' do
+      find('.ui-dialog input.new-name').set('Relatively OK team')
+      find('.edit-team-name button').click
+      expect(page).to have_content('Relatively OK team')
     end
   end
 end
