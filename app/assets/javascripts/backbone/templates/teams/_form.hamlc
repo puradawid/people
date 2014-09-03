@@ -1,0 +1,6 @@
+%form.form-horizontal
+  .control-group
+    .controls
+      %label
+        New name: 
+      %input.new-name{type: 'text', name: 'new-team-name'}
