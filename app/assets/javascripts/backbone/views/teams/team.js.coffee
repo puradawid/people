@@ -143,6 +143,10 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
 
   events:
     'click .js-add-member': 'toggleMemberForm'
+    'click .js-edit-team' : -> EventAggregator.trigger('modal:edit:team', @model)
+
+  modelEvents:
+    'change:name' : 'render'
 
   initialize: (options) ->
     @users = options.users
