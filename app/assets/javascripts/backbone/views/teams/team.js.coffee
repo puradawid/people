@@ -239,6 +239,7 @@ class Hrguru.Views.Teams extends Backbone.Marionette.CompositeView
   itemViewOptions: ->
     users: @users
     roles: @roles
+    teams: @collection
 
   initialize: (options) ->
     @users = options.users
