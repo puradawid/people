@@ -1,6 +1,7 @@
 </br>
 - if current_user.admin? && current_user.refresh_token.present?
-  = link_to 'Import vacations from Google Calendar', import_user_vacation_path(current_user), method: :post, class: "btn btn-primary"
+  = link_to 'Import vacations from Google Calendar', import_user_vacation_path(current_user),
+    method: :post, class: "btn btn-default"
 </br>
 
 - if vacations.present?
