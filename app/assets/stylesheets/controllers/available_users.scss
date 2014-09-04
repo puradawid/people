@@ -43,9 +43,19 @@ body.available_users {
             border: 1px solid #000;
             margin: 20px;
           }
-          .name, .available_since, .link_to_cv, .last_projects, .potential_projects, .current_project, .hours {
+          .name, .available_since,
+          .link_to_cv, .last_projects,
+          .potential_projects, .skills,
+          .current_project, .hours {
             border-top: 1px solid #000;
             padding: 5px;
+          }
+
+          .skills {
+            ul {
+              list-style: none;
+              padding-left: 0;
+            }
           }
         }
         &:after {

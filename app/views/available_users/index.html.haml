@@ -44,6 +44,15 @@
                         = link_to user.current_project, project_path(user.current_project)
                       - else
                         There is no current project
+                    .skills
+                      - if user.abilities.present?
+                        %ul
+                          skills:
+                          %li
+                            = user.abilities_names.join(" | ")
+                      - else
+                        This guy has no skills whatsoever.
+
 
     .tab-pane#table_view
       %table.table.table-striped.table-hover#available_users
