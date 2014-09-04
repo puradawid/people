@@ -7,8 +7,10 @@ class Hrguru.Views.TeamsIndex extends Marionette.Layout
     buttonsRegion:  '#buttons-region'
     teamsRegion:    '#teams-region'
     noTeamRegion:   '#no-team-region'
+    modalRegion:    '#modal-region'
 
   initialize: ->
+    @listenTo(EventAggregator, 'modal:edit:team', @renderModalView)
     @teams = new Hrguru.Collections.Teams(gon.teams)
     @roles = new Hrguru.Collections.Roles(gon.roles)
     @base_users = new Hrguru.Collections.Users(gon.users)
@@ -27,6 +29,11 @@ class Hrguru.Views.TeamsIndex extends Marionette.Layout
   noTeamUsers: ->
     filtered = @dev_users.where team_id:null, archived:false
     new Hrguru.Collections.Users(filtered)
+
+  renderModalView: (model) ->
+    @modal_view = new Hrguru.Views.ModalView
+      team: model
+    @modalRegion.show @modal_view
 
   onRender: ->
     @teams_view = new Hrguru.Views.Teams
