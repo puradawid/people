@@ -1,13 +1,13 @@
 require 'spec_helper'
 describe "team view" do
-  let(:senior_role) { create(:role_admin) }
+  let(:senior_role) { create(:admin_role) }
   let(:non_dev_role) { create(:role) }
-  let(:user) { create(:user, role_id: senior_role.id) }
-  let!(:dev_user) { create(:user, first_name: 'Developer Daisy', role_id: senior_role.id) }
+  let(:user) { create(:user, admin_role_id: senior_role.id) }
+  let!(:dev_user) { create(:user, first_name: 'Developer Daisy', admin_role_id: senior_role.id) }
   let!(:non_dev_user) { create(:user, first_name: 'Nondev Nigel', role_id: non_dev_role.id) }
   let!(:archived_user) { create(:user, first_name: 'Archived Arthur', archived: true) }
   let!(:team) { create(:team) }
-  let!(:team_user) { create(:user, first_name: 'Developer Dave', role_id: senior_role.id, team_id: team.id) }
+  let!(:team_user) { create(:user, first_name: 'Developer Dave', admin_role_id: senior_role.id, team_id: team.id) }
 
   before(:each) do
     page.set_rack_session 'warden.user.user.key' => User.serialize_into_session(user).unshift('User')

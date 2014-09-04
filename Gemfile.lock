@@ -456,11 +456,10 @@ DEPENDENCIES
   bourbon
   bson
   bson_ext
-  capybara (~> 2.4.1)
   capistrano
   capistrano-rails
   capistrano-rvm
-  capybara
+  capybara (~> 2.4.1)
   codeclimate-test-reporter
   coffee-rails (~> 4.0.0)
   database_cleaner
@@ -515,7 +514,6 @@ DEPENDENCIES
   sass-rails (~> 4.0.0)
   selectize-rails
   selenium-webdriver (~> 2.42.0)
-  selenium-webdriver
   simple_form (~> 3.1.0.rc2)
   spork-rails
   sucker_punch (~> 1.0)
