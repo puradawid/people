@@ -5,7 +5,7 @@
 %br
 = t('.details_line',
   start_date: membership.starts_at.to_formatted_s(:hipchat),
-  end_date: membership.ends_at.to_formatted_s(:hipchat),
+  end_date: membership.ends_at.try(:to_formatted_s, :hipchat),
   role: membership.role_name,
   billable: membership.billable)
 
