@@ -14,12 +14,10 @@ class Role
   field :name, type: String
   field :color, type: String
   field :billable, type: Mongoid::Boolean, default: false
-  field :admin, type: Mongoid::Boolean, default: false
   field :technical, type: Mongoid::Boolean, default: false
 
   validates :name, presence: true, uniqueness: true
   validates :billable, inclusion: { in: [true, false] }
-  validates :admin, inclusion: { in: [true, false] }
   validates :technical, inclusion: { in: [true, false] }
 
   default_scope asc(:priority)
