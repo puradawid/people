@@ -15,11 +15,6 @@ class Position
 
   default_scope asc(:starts_at)
 
-  def <=>(other)
-    [user.last_name, user.first_name, starts_at] <=> [other.user.last_name,
-      other.user.first_name, other.starts_at]
-  end
-
   def available_roles
     pos = Role.all.to_a - user.positions.ne(created_at: nil).map(&:role)
     pos << role if created_at
@@ -37,6 +32,7 @@ class Position
   end
 
   def self.by_user_name_and_date(positions = all)
-    positions.select { |p| p.user.present? }.sort
+    positions.sort_by! { |p| [p.user.first_name, p.user.last_name, p.starts_at] }
   end
+
 end
