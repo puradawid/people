@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
   def update
     if user.save
-      info = { notice: "User updated." }
+      info = { notice: t('users.updated') }
       json = user
       status = 200
     else
