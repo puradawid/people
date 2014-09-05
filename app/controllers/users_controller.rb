@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   expose(:contractTypes) { ContractType.all }
   expose(:positions) { PositionDecorator.decorate_collection(user.positions) }
 
-  before_filter :authenticate_admin!, only: [:update], unless: -> { user == current_user }
+  before_filter :authenticate_admin!, only: [:update], unless: -> { current_user? }
 
   def index
     gon.rabl as: 'users'
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
   def update
     if user.save
-      info = { notice: "User updated." }
+      info = { notice: t('users.updated') }
       json = user
       status = 200
     else
@@ -39,8 +39,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @membership = Membership.new(user: user, role: user.role)
-    gon.events = get_events
+    if current_user? || current_user.admin?
+      @membership = Membership.new(user: user, role: user.role)
+      gon.events = get_events
+    else
+      redirect_to users_path, alert: "Permission denied! You have no rights to do this."
+    end
   end
 
   private

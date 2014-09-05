@@ -25,11 +25,13 @@ class User
   field :phone
   field :archived, type: Mongoid::Boolean, default: false
   field :available, type: Mongoid::Boolean, default: true
+  field :without_gh, type: Mongoid::Boolean, default: false
   field :uid, type: String
 
   has_many :memberships
   has_many :notes
   has_many :positions
+  belongs_to :admin_role
   belongs_to :role
   belongs_to :contract_type
   belongs_to :location
@@ -87,7 +89,7 @@ class User
   end
 
   def github_connected?
-    gh_nick.present?
+    gh_nick.present? || without_gh == true
   end
 
   def potential_projects
@@ -170,7 +172,7 @@ class User
   end
 
   def admin?
-    self.role.try(:admin)
+    self.admin_role.present?
   end
 
   def self.by_name

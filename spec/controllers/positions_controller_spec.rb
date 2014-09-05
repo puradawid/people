@@ -2,18 +2,18 @@ require 'spec_helper'
 
 describe PositionsController do
   before(:each) do
-    role = create(:role, name: 'senior', admin: true)
-    sign_in create(:user, role_id: role.id)
+    admin = create(:admin_role)
+    sign_in create(:user, admin_role_id: admin.id)
   end
 
   describe '#index' do
     render_views
 
     before do
-      role = create(:role, name: 'developer', admin: false)
+      role = create(:role, name: 'developer')
       user = create(:user, role_id: role.id)
       position = create(:position, user: user, role: role)
-      jun_role = create(:role, name: 'junior', admin: false)
+      jun_role = create(:role, name: 'junior')
       create(:position, user: user, starts_at: position.starts_at - 2.days, role: jun_role)
     end
 

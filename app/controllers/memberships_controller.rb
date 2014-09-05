@@ -10,8 +10,11 @@ class MembershipsController < ApplicationController
   expose_decorated(:roles) { Role.by_name }
   expose_decorated(:users) { current_user.admin? ? User.by_name : [current_user] }
 
-  before_filter :authenticate_admin!, only: [:update, :destroy, :create, :edit], unless: -> { membership.user == current_user }
+  before_filter :authenticate_admin!, only: [:index, :update, :destroy, :create, :edit], unless: -> { membership.user == current_user }
   before_action :set_users_gon, only: [:new, :create]
+
+  def index
+  end
 
   def create
     if membership.save

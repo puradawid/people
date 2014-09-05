@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe AbilitiesController do
   before(:each) do
-    role = create(:role, name: "developer", admin: true)
-    sign_in create(:user, role_id: role.id)
+    admin = create(:admin_role)
+    sign_in create(:user, admin_role_id: admin.id)
   end
 
   describe "#index" do
@@ -23,6 +23,15 @@ describe AbilitiesController do
       get :index
       expect(response.body).to match /Ruby/
       expect(response.body).to match /Rspec/
+    end
+
+    context "user" do
+      before { sign_in create(:user) }
+
+      it "has no access without admin rights" do
+        get :index
+        response.should redirect_to(root_path)
+      end
     end
   end
 
