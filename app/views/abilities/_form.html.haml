@@ -1,6 +1,7 @@
 .col-xs-5
   = simple_form_for ability do |f|
     = f.input :name
+    = f.input :icon, as: 'file'
 
     .actions
       = f.button :submit, class: 'btn-success', confirm: 'Are you sure?'
