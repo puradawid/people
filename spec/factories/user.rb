@@ -8,6 +8,7 @@ FactoryGirl.define do
     employment { 100 }
     available false
     without_gh false
+    oauth_token '123'
 
     factory :user_deleted do
       deleted_at Time.now

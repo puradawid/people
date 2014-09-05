@@ -36,6 +36,12 @@ Hrguru::Application.routes.draw do
   end
   resources :positions, except: [:show]
   resources :abilities
+  resources :users do
+    resource :vacation do
+      post 'import'
+    end
+  end
+  get '/vacations', to: 'vacations#index'
   resources :settings, only: [:update]
   get '/settings', to: 'settings#edit'
   root 'welcome#index'

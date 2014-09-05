@@ -1,5 +1,6 @@
 require 'spec_helper'
-describe 'team view', js: true do
+
+describe "team view", js: true do
   let(:senior_role) { create(:admin_role) }
   let(:non_dev_role) { create(:role) }
   let(:user) { create(:user, admin_role_id: senior_role.id) }

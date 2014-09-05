@@ -9,7 +9,7 @@
             = link_to project.name, project
             - if current_user.admin?
               - if project.potential?
-                = link_to 'Destroy', project, method: :delete, data: { confirm: "Are you sure you want to delete the project #{project.name} ? It's better to 'archive' the project rather than delete it completely." }, class: "btn btn-danger btn-xs pull-right"
+                = link_to 'Delete', project, method: :delete, data: { confirm: "Are you sure you want to delete the project #{project.name} ? It's better to 'archive' the project rather than delete it completely." }, class: "btn btn-danger btn-xs pull-right"
               = link_to 'Edit', edit_project_path(project), class: "btn btn-default btn-xs pull-right"
 -else
   %h2 No projects

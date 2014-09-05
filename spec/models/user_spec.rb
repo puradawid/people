@@ -3,6 +3,7 @@ require 'spec_helper'
 describe User do
   subject { create(:user) }
 
+  it { should have_one :vacation }
   it { should have_many :memberships }
   it { should belong_to :role }
   it { should belong_to :contract_type }

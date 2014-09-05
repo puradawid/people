@@ -4,11 +4,13 @@ if ENV['CI']
 end
 
 require 'spork'
+require 'webmock/rspec'
 require 'sucker_punch/testing/inline'
 require 'capybara/rspec'
 require 'rack_session_access/capybara'
 
 Spork.prefork do
+
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
@@ -17,12 +19,13 @@ Spork.prefork do
   Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
   RSpec.configure do |config|
+    WebMock.disable_net_connect!(:allow_localhost => true, :allow => /rest/ )
     config.include FactoryGirl::Syntax::Methods
     config.include Mongoid::Matchers, type: :model
     config.include Devise::TestHelpers, type: :controller
     config.include Helpers::JSONResponse, type: :controller
-    I18n.enforce_available_locales = false
     config.include Capybara::DSL
+    I18n.enforce_available_locales = false
 
     config.before(:suite) do
       DatabaseCleaner[:mongoid].strategy = :truncation
