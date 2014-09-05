@@ -14,14 +14,13 @@ class Hrguru.Views.RolesRow extends Backbone.Marionette.ItemView
     '.color': 'color'
     '.billable': 'billable'
     '.technical': 'technical'
-    '.admin': 'admin'
 
   onRender: ->
     @stickit()
 
   addInputHandler: ->
     Backbone.Stickit.addHandler
-      selector: '.name,.color,.billable,.technical,.admin'
+      selector: '.name,.color,.billable,.technical'
       events: ['change']
       onSet: 'update'
 
