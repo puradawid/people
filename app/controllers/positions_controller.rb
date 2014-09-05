@@ -8,6 +8,8 @@ class PositionsController < ApplicationController
   expose_decorated(:users) { current_user.admin? ? User.by_name : [current_user] }
   expose_decorated(:roles) { Role.by_name }
 
+  before_filter :authenticate_admin!, except: [:new, :create]
+
   def new
     position.user = current_user
     position.user = params[:user] if params[:user]

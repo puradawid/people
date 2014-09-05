@@ -4,7 +4,7 @@ class RolesController < ApplicationController
   expose(:role, attributes: :role_params)
   expose(:roles) { Role.all }
 
-  before_filter :authenticate_admin!, only: [:create, :update]
+  before_filter :authenticate_admin!, only: [:index, :create, :update]
 
   def index
     gon.rabl as: 'roles'
