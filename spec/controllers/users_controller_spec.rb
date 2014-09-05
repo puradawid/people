@@ -3,12 +3,9 @@ require 'spec_helper'
 describe UsersController do
   render_views
 
-  before(:each) do
-    sign_in create(:user, first_name: "Marian")
-  end
-
   describe "#index" do
     before do
+      sign_in create(:user, first_name: "Marian")
       create(:user, first_name: "Tomek")
     end
 
@@ -31,8 +28,11 @@ describe UsersController do
   end
 
   describe "#show" do
-    subject { create(:user, first_name: "Dean", last_name: "Winchester") }
-    before { get :show, id: subject }
+    let(:user) { create(:user, first_name: "Dean", last_name: "Winchester") }
+    before do
+      sign_in user
+      get :show, id: user
+    end
 
     it "responds successfully with an HTTP 200 status code" do
       expect(response).to be_success

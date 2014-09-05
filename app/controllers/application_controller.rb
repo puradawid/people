@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
     @decorated_cu ||= super.decorate if super.present?
   end
 
+  def current_user?
+    user == current_user
+  end
+
   def connect_github
     if signed_in? && !current_user.github_connected?
       redirect_to github_connect_path
