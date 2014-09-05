@@ -58,6 +58,8 @@ gem 'messengerjs-rails'
 gem 'whenever', require: false
 gem 'versionist'
 gem 'jquery-cookie-rails'
+gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
+gem 'mini_magick'
 
 group :staging, :production do
   gem 'rails_12factor'
