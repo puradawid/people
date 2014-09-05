@@ -35,6 +35,7 @@ en:
       hours: How many hours do you work in a month?
       positions: "Positions"
       add_position: "Add position"
+      updated: 'User updated.'
   positions:
     errors:
       chronology: "Position dates should be chronologically ordered"

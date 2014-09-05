@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe ProjectsController do
   before(:each) do
-    role = create(:role, name: "pm", admin: true)
-    sign_in create(:user, role_id: role.id)
+    admin = create(:admin_role)
+    sign_in create(:user, admin_role_id: admin.id)
   end
 
   describe "#index" do
