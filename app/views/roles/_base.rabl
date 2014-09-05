@@ -1,1 +1,1 @@
-attributes :id, :name, :priority, :color, :billable, :technical
+attributes :id, :name, :priority, :color, :billable, :technical, :admin
