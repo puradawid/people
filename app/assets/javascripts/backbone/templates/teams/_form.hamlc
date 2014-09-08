@@ -1,0 +1,7 @@
+%form.form-horizontal.edit-team-name
+  .control-group
+    .controls
+      %label
+        New name:
+      %input.new-name{type: 'text', name: 'new-team-name'}
+      %button.btn.btn-primary{type: 'submit'} Confirm

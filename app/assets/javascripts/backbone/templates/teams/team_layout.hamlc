@@ -2,7 +2,8 @@
   = @model.name
   - if H.currentUserIsAdmin()
     %span.js-add-member.glyphicon.glyphicon-plus.pull-right.info.{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to add team member' }
+    %span.js-edit-team.glyphicon.glyphicon-pencil.pull-right.info.{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to edit team' }
   .js-team-member-new.pull-right
-    %input.name{  placeholder: 'Find a volunteer ...', type: "text"  }
+    %input.name{ placeholder: 'Find a volunteer ...', type: "text" }
 %td#leader-region
 %td#members-region

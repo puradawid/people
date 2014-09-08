@@ -27,8 +27,7 @@ describe Calendar do
       stub_request(:post, "https://www.googleapis.com/calendar/v3/calendars/1/events").
         with(:body => "{\"summary\":\"John Doe - vacation\",\"start\":{\"date\":\"2014-09-02\"},\"end\":{\"date\":\"2014-09-10\"}}",
           :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'Bearer 123',
-          'Cache-Control'=>'no-store', 'Content-Type'=>'application/json',
-          'User-Agent'=>'calendar/1.0 google-api-ruby-client/0.6.4 Linux/3.2.0-4-amd64'}).
+          'Cache-Control'=>'no-store', 'Content-Type'=>'application/json'}).
         to_return(:status => 200, :body => File.read(File.join("spec", "support", "calendar", "result.txt")),
           :headers => { 'Content-Type' => 'application/json' })
       user.build_vacation
@@ -48,8 +47,7 @@ describe Calendar do
       stub_request(:get, "https://www.googleapis.com/calendar/v3/calendars/1/events/1").
         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization'=>'Bearer 123', 'Cache-Control'=>'no-store',
-          'Content-Type'=>'application/x-www-form-urlencoded',
-          'User-Agent'=>'calendar/1.0 google-api-ruby-client/0.6.4 Linux/3.2.0-4-amd64'}).
+          'Content-Type'=>'application/x-www-form-urlencoded'}).
         to_return(:status => 200, :body => File.read(File.join("spec", "support", "calendar", "result.txt")),
           :headers => { 'Content-Type' => 'application/json' })
 
@@ -57,7 +55,7 @@ describe Calendar do
         with(:body => "{\"id\":1,\"start\":{\"date\":\"2014-09-02\"},\"end\":{\"date\":\"2014-09-10\"}}",
               :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
                 'Authorization'=>'Bearer 123', 'Cache-Control'=>'no-store',
-                'Content-Type'=>'application/json', 'User-Agent'=>'calendar/1.0 google-api-ruby-client/0.6.4 Linux/3.2.0-4-amd64'}).
+                'Content-Type'=>'application/json'}).
         to_return(:status => 200, :body => "", :headers => {})
       user.build_vacation
       user.vacation.starts_at = "2014-09-02"
@@ -77,8 +75,7 @@ describe Calendar do
       stub_request(:get, "https://www.googleapis.com/calendar/v3/calendars/1/events").
         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization'=>'Bearer 123', 'Cache-Control'=>'no-store',
-          'Content-Type'=>'application/x-www-form-urlencoded',
-          'User-Agent'=>'calendar/1.0 google-api-ruby-client/0.6.4 Linux/3.2.0-4-amd64'}).
+          'Content-Type'=>'application/x-www-form-urlencoded'}).
         to_return(:status => 200, :body => File.read(File.join("spec", "support", "calendar", "import.txt")),
           :headers => { 'Content-Type' => 'application/json' })
     end
@@ -118,8 +115,7 @@ describe Calendar do
           stub_request(:get, "https://www.googleapis.com/calendar/v3/calendars/1/events").
             with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
               'Authorization'=>'Bearer 123', 'Cache-Control'=>'no-store',
-              'Content-Type'=>'application/x-www-form-urlencoded',
-              'User-Agent'=>'calendar/1.0 google-api-ruby-client/0.6.4 Linux/3.2.0-4-amd64'}).
+              'Content-Type'=>'application/x-www-form-urlencoded'}).
             to_return(:status => 200, :body => File.read(File.join("spec", "support", "calendar", "invalid_import.txt")),
               :headers => { 'Content-Type' => 'application/json' })
           import_vacation(user)

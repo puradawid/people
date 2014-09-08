@@ -36,7 +36,7 @@ describe VacationsController do
         with(:body => "{\"summary\":\"John Doe - vacation\",\"start\":{\"date\":\"2014-09-02\"},\"end\":{\"date\":\"2014-09-11\"}}",
           :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
             'Authorization'=>'Bearer 123', 'Cache-Control'=>'no-store',
-            'Content-Type'=>'application/json', 'User-Agent'=>'calendar/1.0 google-api-ruby-client/0.6.4 Linux/3.2.0-4-amd64'}).
+            'Content-Type'=>'application/json'}).
         to_return(:status => 200, :body => File.read(File.join("spec", "support", "calendar", "result.txt")),
           :headers => { 'Content-Type' => 'application/json' })
     end
