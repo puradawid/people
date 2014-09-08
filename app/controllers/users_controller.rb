@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  expose_decorated(:user, attributes: :user_params)
+  expose_decorated(:user) { User.find(params[:id]) }
   expose(:users) { User.all.by_last_name.decorate }
   expose(:roles) { Role.all }
   expose(:locations) { Location.all }
@@ -23,6 +23,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    self.user.attributes = user_params
     if user.save
       info = { notice: t('users.updated') }
       json = user
