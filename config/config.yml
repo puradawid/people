@@ -7,7 +7,7 @@ defaults: &defaults
   api_token:          miamiamia
   secret_token_key:   miaaaaamia
   company_name:       Company
-  calendar_id: xxxx@group.calendar.google.com
+  calendar_id:               xxxx@group.calendar.google.com
   calendar_summary_regex: vacation|urlop|holiday|wyjazd|wakacje
   emails:
     from:             default_address_used_to_send_emails

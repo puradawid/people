@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
   before_filter :connect_github
   before_filter :set_gon_data
+  #before_filter :check_expire_token
 
   before_render :message_to_js
 
@@ -24,6 +25,12 @@ class ApplicationController < ActionController::Base
   def connect_github
     if signed_in? && !current_user.github_connected?
       redirect_to github_connect_path
+    end
+  end
+
+  def check_expire_token
+    if signed_in? && current_user.oauth_expires_at.nil? || (current_user.oauth_expires_at+1.hour < Time.now)
+
     end
   end
 

@@ -1,38 +1,9 @@
-</br>
 - if current_user.admin? && current_user.refresh_token.present?
-  = link_to 'Import vacations from Google Calendar', import_user_vacation_path(current_user), method: :post, class: "btn btn-primary"
-</br>
+  = link_to 'Import vacations from Google Calendar', import_user_vacation_path(current_user),
+    class: "button btn btn-default"
 
 - if vacations.present?
-  %table.table.table-striped.table-hover#vacations
-    %thead
-      %th
-      %th User
-      %th Role
-      %th Starts at
-      %th Ends at
-      %th
-
-    %tbody
-      - @users.each do |user|
-        - if user.vacation.present?
-          %tr
-            %td= user.gravatar_image(size: 40)
-            %td
-              = link_to user.name, user_path(user)
-              .icons
-                = mail_to user.email do
-                  = tooltip user.email do
-                    = icon 'envelope-o'
-                = tooltip user.skype do
-                  = user.skype_link()
-            %td= user.role
-            %td= user.vacation.starts_at.to_date
-            %td= user.vacation.ends_at.to_date
-            %td
-              - if current_user.admin? || current_user == user
-                = link_to "Edit", edit_user_vacation_path(user), class: "btn btn-xs btn-default"
-                = link_to "Delete", user_vacation_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger"
+  = render 'row'
 - else
   %h2 No vacations
 
