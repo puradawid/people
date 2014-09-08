@@ -24,6 +24,15 @@ describe AbilitiesController do
       expect(response.body).to match /Ruby/
       expect(response.body).to match /Rspec/
     end
+
+    context "user" do
+      before { sign_in create(:user) }
+
+      it "has no access without admin rights" do
+        get :index
+        response.should redirect_to(root_path)
+      end
+    end
   end
 
   describe "#create" do

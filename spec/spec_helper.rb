@@ -22,6 +22,7 @@ Spork.prefork do
     config.include Devise::TestHelpers, type: :controller
     config.include Helpers::JSONResponse, type: :controller
     I18n.enforce_available_locales = false
+    config.include Capybara::DSL
 
     config.before(:suite) do
       DatabaseCleaner[:mongoid].strategy = :truncation
