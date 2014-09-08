@@ -9,15 +9,15 @@ class Project
   after_save :check_potential
 
   SOON_END = 1.week
+  POSSIBLE_TYPES = %w(regular maintenance_support maintenance_development)
 
   field :name
   field :slug
   field :end_at, type: Time
   field :archived, type: Mongoid::Boolean, default: false
   field :potential, type: Mongoid::Boolean, default: false
-  field :maintenance_support, type: Mongoid::Boolean, default: false
-  field :maintenance_development, type: Mongoid::Boolean, default: false
   field :kickoff, type: Date
+  field :project_type, default: POSSIBLE_TYPES.first
 
   has_many :memberships, dependent: :destroy
   has_many :notes
@@ -27,13 +27,14 @@ class Project
   validates :slug, allow_blank: true, allow_nil: true, format: { with: /\A[a-z]+\Z/ }
   validates :archived, inclusion: { in: [true, false] }
   validates :potential, inclusion: { in: [true, false] }
-  validates :maintenance_support, inclusion: { in: [true, false] }
-  validates :maintenance_development, inclusion: { in: [true, false] }
+  validates :project_type, inclusion: { in: POSSIBLE_TYPES }
 
   scope :active, -> { where(archived: false) }
   scope :nonpotential, -> { active.where(potential: false) }
   scope :potential, -> { active.where(potential: true) }
-  scope :maintenance_support, -> { active.where(maintenance_support: true) }
+  POSSIBLE_TYPES.each do |possible_type|
+    scope possible_type, -> { active.where(project_type: possible_type) }
+  end
   scope :maintenance_development, -> { active.where(maintenance_development: true) }
   scope :ending_in_a_week, -> { active.between(end_at: (SOON_END.from_now - 1.day)..SOON_END.from_now) }
   scope :ending_soon, -> { active.between(end_at: Time.now..SOON_END.from_now) }
@@ -89,6 +90,12 @@ class Project
 
   def self.by_name
     all.sort_by{ |p| p.name.downcase }
+  end
+
+  POSSIBLE_TYPES.each do |possible_type|
+    define_method "#{possible_type}?" do
+      project_type == possible_type
+    end
   end
 
   private

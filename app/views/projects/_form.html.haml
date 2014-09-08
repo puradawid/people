@@ -5,9 +5,8 @@
       = f.input :slug
       = f.input :end_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
       = f.input :kickoff, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
-      = f.input :maintenance_support,  as: :boolean,  wrapper: :vertical_boolean, label: false, inline_label: true
-      = f.input :maintenance_development, as: :boolean,  wrapper: :vertical_boolean, label: false, inline_label: true
       = f.input :potential, as: :boolean, wrapper: :vertical_boolean, label: false, inline_label: true, input_html: { checked: project.potential }
+      = f.input :project_type, label: 'Type', collection: Project::POSSIBLE_TYPES, label_method: ->(l) {l.humanize}, include_blank: false
     .col-xs-3#project-membership{ style: 'display: none' }
       .h3 Attached users:
       %table.table.table-hover

@@ -34,6 +34,6 @@ class AbilitiesController < ApplicationController
   private
 
   def ability_params
-    params.require(:ability).permit(:name)
+    params.require(:ability).permit(:name, :icon)
   end
 end

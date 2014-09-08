@@ -1,8 +1,12 @@
-- if project.maintenance_development
+- case project.project_type
+- when 'regular'
+  %div
+    Regular
+- when 'maintenance_development'
   %div
     .glyphicon.glyphicon-wrench
-    Development maintenance
-- if project.maintenance_support
+    Maintenance development
+- when 'maintenance_support'
   %div
     .glyphicon.glyphicon-leaf
-    Support maintenance
+    Maintenance support

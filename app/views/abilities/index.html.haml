@@ -8,6 +8,8 @@
         %tbody
           - abilities.each do |ability|
             %tr
+              %td
+                = image_tag ability.icon.url.to_s
               %td= ability.name
               %td
                 = link_to 'Edit', edit_ability_path(ability), class: 'btn btn-xs btn-default'

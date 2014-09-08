@@ -35,7 +35,9 @@ class Membership
   scope :with_user, ->(user) { where(user: user) }
   scope :unfinished, -> { any_of({ ends_at: nil }, { :ends_at.gt => Time.current }) }
   scope :finished, -> { lte(ends_at: Time.current) }
-  scope :current_active, -> { lt(starts_at: Time.current).gt(ends_at: Time.current) }
+  scope :current_active, -> do
+     lt(starts_at: Time.current).or({ ends_at: nil }, { ends_at: { "$gt" => Time.current } })
+   end
   scope :ending_soon, -> { between(ends_at: Time.now..1.week.from_now) }
   scope :billable, -> { where(billable: true) }
   scope :only_active, -> { where(project_potential: false, project_archived: false).desc('starts_at').limit(3) }
