@@ -13,8 +13,7 @@ class MembershipsController < ApplicationController
   before_filter :authenticate_admin!, only: [:index, :update, :destroy, :create, :edit], unless: -> { membership.user == current_user }
   before_action :set_users_gon, only: [:new, :create]
 
-  def index
-  end
+  def index; end
 
   def create
     if membership.save
