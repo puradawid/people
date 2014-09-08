@@ -83,10 +83,10 @@ class Hrguru.Views.TeamMembers extends Backbone.Marionette.CollectionView
   excludeMember: (member) =>
     member.model.save team_id: null, leader_team_id: null,
       wait: true
-      success: @memberExluded
+      success: @memberExcluded
       error: @memberError
 
-  memberExluded: (member) =>
+  memberExcluded: (member) =>
     Messenger().success("We successfully exluded #{member.get('name')} from #{@model.get('name')}!")
     @refreshTeamUsers()
     @updateNoTeamUsers(member)
