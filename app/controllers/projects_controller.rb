@@ -3,9 +3,14 @@ class ProjectsController < ApplicationController
   include Shared::RespondsController
 
   expose(:project, attributes: :project_params)
-  expose(:projects_sorted) { Project.by_name }
-  expose(:projects)        { Project.all }
-
+  expose(:projects_sorted) {
+    if params[:search].present?
+      Project.search(params[:search]) rescue []
+    else
+      Project.by_name
+    end
+    }
+  expose(:projects)
   before_filter :authenticate_admin!, only: [:update, :create, :destroy, :new, :edit]
 
   def create

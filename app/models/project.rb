@@ -63,6 +63,10 @@ class Project
     Project.nonpotential.select{ |p| p.nonpotential_switch.to_date == 3.months.ago.to_date }
   end
 
+  def self.search(search)
+    Project.where(name: /#{search}/i)
+  end
+
   def starting_in?(days)
     Project.starting_in(days).where(id: id).exists?
   end
