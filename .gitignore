@@ -8,6 +8,7 @@ config/sec_config.yml
 *~
 *.swp
 public/assets
+public/uploads
 RELEASE
 coverage
 tags
