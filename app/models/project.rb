@@ -9,7 +9,7 @@ class Project
   after_save :check_potential
 
   SOON_END = 1.week
-  POSSIBLE_TYPES = %w(regular maintenance_support maintenance_development)
+  POSSIBLE_TYPES = %w(regular maintenance_support maintenance_development).freeze
 
   field :name
   field :slug
