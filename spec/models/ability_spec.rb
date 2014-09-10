@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe Ability do
   subject { build(:ability) }
 
