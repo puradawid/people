@@ -72,14 +72,14 @@ group :development do
   gem 'binding_of_caller'
   gem 'quiet_assets'
   gem 'xray-rails'
-  gem 'capistrano', require: false
-  gem 'capistrano-rvm', require: false
-  gem 'capistrano-rails', require: false
 end
 
 group :development, :test do
   gem 'pry'
   gem 'pry-debugger'
+  gem 'capistrano', require: false
+  gem 'capistrano-rvm', require: false
+  gem 'capistrano-rails', require: false
 end
 
 group :test do
