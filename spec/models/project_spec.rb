@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe Project do
   subject { build(:project) }
 
@@ -131,6 +133,23 @@ describe Project do
                                               end_at: 2.years.from_now
       expect(subject).to include project1, project2
       expect(subject).not_to include project_not_included
+    end
+  end
+
+  describe '#upcoming_changes' do
+    let(:days) { 30 }
+    let(:user) { create(:user) }
+    subject { described_class.upcoming_changes(days).to_a.flatten }
+
+    it "returns projects with upcoming changes" do
+      project1 = create :project, kickoff: 2.weeks.from_now
+      project2 = create :project, end_at: 2.weeks.from_now
+      # not included directly but included through membership
+      project_through_membership = create :project, kickoff: 7.months.from_now,
+                                                    end_at: 10.months.from_now
+      create :membership, starts_at: 4.days.from_now,
+                          project: project_through_membership, user: user
+      expect(subject).to include project1, project2, project_through_membership
     end
   end
 end
