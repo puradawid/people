@@ -61,6 +61,7 @@ gem 'versionist'
 gem 'jquery-cookie-rails'
 gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 gem 'mini_magick'
+gem 'capistrano'
 
 group :staging, :production do
   gem 'rails_12factor'
@@ -77,7 +78,6 @@ end
 group :development, :test do
   gem 'pry'
   gem 'pry-debugger'
-  gem 'capistrano', require: false
   gem 'capistrano-rvm', require: false
   gem 'capistrano-rails', require: false
 end
