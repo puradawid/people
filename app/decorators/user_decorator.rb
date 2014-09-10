@@ -21,10 +21,6 @@ class UserDecorator < Draper::Decorator
     h.link_to name, object
   end
 
-  def project_link
-    h.link_to(project.name, project) if project
-  end
-
   def gravatar_url(size = 80)
     gravatar_id = Digest::MD5.hexdigest(email.downcase)
     "https://www.gravatar.com/avatar/#{gravatar_id}?size=#{size}"
