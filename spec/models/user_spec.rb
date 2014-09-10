@@ -5,8 +5,13 @@ describe User do
 
   it { should have_one :vacation }
   it { should have_many :memberships }
+  it { should have_many :notes }
+  it { should have_many :positions }
   it { should belong_to :role }
   it { should belong_to :contract_type }
+  it { should belong_to :location }
+  it { should belong_to :team}
+  it { should belong_to :leader_team }
   it { should have_and_belong_to_many :abilities }
 
   context "validation" do
@@ -106,7 +111,10 @@ describe User do
     end
 
     context "when user gets archived" do
-      before { create(:membership, starts_at: time(2012, 1, 1), ends_at: nil, user: user_to_archive, project: project) }
+      before do
+        create(:membership, starts_at: time(2012, 1, 1),
+               ends_at: nil, user: user_to_archive, project: project)
+      end
 
       it "returns current project" do
         expect(user_to_archive.memberships.first.ends_at).to be_nil
@@ -130,7 +138,9 @@ describe User do
     end
 
     context "when user has current project" do
-      before { create(:membership, starts_at: time(2012, 1, 1), ends_at: nil, user: subject) }
+      before do
+        create(:membership, starts_at: time(2012, 1, 1), ends_at: nil, user: subject)     end
+
       it "returns true" do
         expect(subject.has_current_projects?).to be_true
       end
@@ -157,8 +167,10 @@ describe User do
 
     context "when user has unstarted membership" do
       before do
-        create(:membership, starts_at: time(2012, 1, 1), ends_at: nil, user: subject, project: project_current)
-        create(:membership, starts_at: time(2013, 12, 15), ends_at: nil, user: subject, project: project_next)
+        create(:membership, starts_at: time(2012, 1, 1), ends_at: nil,
+                            user: subject, project: project_current)
+        create(:membership, starts_at: time(2013, 12, 15), ends_at: nil,
+                            user: subject, project: project_next)
       end
 
       it "returns next project" do
@@ -172,7 +184,8 @@ describe User do
 
     context "when user belongs to potential project" do
       before do
-        create(:membership, starts_at: 2.days.ago, ends_at: nil, user: subject, project: project_potential)
+        create(:membership, starts_at: 2.days.ago, ends_at: nil,
+                            user: subject, project: project_potential)
       end
 
       it "returns potential project" do
@@ -204,9 +217,10 @@ describe User do
 
     context "when user have UoP contracts" do
       let(:contract_uop) { create(:contract_type, name: "UoP") }
-      let(:seniorRole) { create(:role, name: "senior", technical: true) }
-      let!(:user_with_uop) { create(:user, role_id: seniorRole.id, contract_type_id: contract_uop.id) }
-      let!(:user_without_uop) { create(:user, role_id: seniorRole.id) }
+      let(:senior_role) { create(:role, name: "senior", technical: true) }
+      let!(:user_with_uop) { create(:user, role_id: senior_role.id,
+                                           contract_type_id: contract_uop.id) }
+      let!(:user_without_uop) { create(:user, role_id: senior_role.id) }
 
       it "return user with UoP contract" do
         expect(User.contract_users("UoP").to_a).to include user_with_uop
@@ -228,7 +242,6 @@ describe User do
         expect{ user.update(team_id: team2.id) }.to change{ user.team_join_time }
       end
     end
-
 
   end
 end
