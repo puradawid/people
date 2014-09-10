@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
   before_filter :connect_github
   before_filter :set_gon_data
-  #before_filter :check_expire_token
 
   before_render :message_to_js
 
@@ -29,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_expire_token
-    if signed_in? && current_user.oauth_expires_at.nil? || (current_user.oauth_expires_at+1.hour < Time.now)
+    if signed_in? && current_user.oauth_expires_at.nil? || (current_user.oauth_expires_at + 1.hour < Time.now)
 
     end
   end
@@ -37,20 +36,20 @@ class ApplicationController < ActionController::Base
   private
 
   def authenticate_admin!
-    redirect_to root_url, alert: "Permission denied! You have no rights to do this."  unless current_user.admin?
+    redirect_to root_url, alert: 'Permission denied! You have no rights to do this.'  unless current_user.admin?
   end
 
   def set_gon_data
     return unless current_user
-    gon.rabl template: "app/views/layouts/base.rabl", as: "current_user"
+    gon.rabl template: 'app/views/layouts/base.rabl', as: 'current_user'
   end
 
   def message_to_js
-    @flashMessage = { notice: [] , alert: [] }
+    @flashMessage = { notice: [], alert: [] }
     flash.each do |name, msg|
       @flashMessage[name] << msg
     end
-    gon.rabl template: "app/views/layouts/flash.rabl", as: "flash"
+    gon.rabl template: 'app/views/layouts/flash.rabl', as: 'flash'
     flash.clear
   end
 end
