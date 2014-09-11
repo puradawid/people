@@ -143,10 +143,8 @@ body.dashboard {
         }
 
         $project_height: 54px;
-        // $project_width:
 
         .project-name {
-          // padding: 17px;
           height: $project_height;
           font-weight: bold;
           border-right: 1px solid #DDD;
@@ -359,7 +357,6 @@ body.dashboard {
 
     .project-notes-wrapper {
       min-height: 100px;
-      // margin: 20px 20px 10px 206px;
       clear: both;
 
       .project-note {
