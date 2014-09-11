@@ -70,7 +70,7 @@ module Calendar
 
   def delete_vacation(user)
     initialize_client(user)
-    result = @client.execute(api_method: @service.events.delete,
-                             parameters: { 'calendarId' => AppConfig.calendar_id, 'eventId' => user.vacation.eventid })
+    @client.execute(api_method: @service.events.delete,
+                    parameters: { 'calendarId' => AppConfig.calendar_id, 'eventId' => user.vacation.eventid })
   end
 end
