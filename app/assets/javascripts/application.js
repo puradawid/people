@@ -4,7 +4,7 @@
 //= require jquery-tablesorter
 //= require jquery_ujs
 //= require jquery.cookie
-//= require bootstrap
+//= require netguru_theme
 //= require bootstrap-datepicker
 //= require messenger
 //= require messenger-theme-flat

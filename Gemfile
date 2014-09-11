@@ -35,17 +35,15 @@ gem 'rabl'
 gem 'oj'
 gem 'sucker_punch', '~> 1.0'
 gem 'hipchat'
+gem 'netguru_theme'
 
 gem 'haml-rails'
 gem 'sass-rails', '~> 4.0.0'
-gem 'sass', '~> 3.3.14'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'therubyracer'
 gem 'render_anywhere', require: false
 
-gem 'bootstrap-sass'
-gem 'bourbon'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-tablesorter'
