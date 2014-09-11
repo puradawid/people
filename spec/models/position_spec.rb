@@ -36,7 +36,7 @@ describe Position do
     let!(:juniorPos) { create(:position, user: user, role: juniorRole, starts_at: Date.new(2014, 5, 14)) }
     context 'validate chronology' do
 
-      it 'return error when dates are wrong' do
+      it 'returns error when dates are wrong' do
         pos = build(:position, user: user, role: seniorRole, starts_at: juniorPos.starts_at - 2.days)
         expect(pos).not_to be_valid
         expect(pos.errors).not_to be_blank
@@ -44,7 +44,7 @@ describe Position do
         expect(pos.errors[:starts_at]).to include I18n.t('positions.errors.chronology')
       end
 
-      it 'should not return error when dates chronology is ok' do
+      it 'will not return error when dates chronology is ok' do
         senior_pos = build(:position, user: user, role: seniorRole, starts_at: juniorPos.starts_at + 2.days)
         expect(senior_pos).to be_valid
         expect(senior_pos.errors).to be_blank
