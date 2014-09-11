@@ -1,13 +1,9 @@
-class Hrguru.Views.Dashboard.Memberships extends Marionette.CompositeView
+class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
+  template: JST['dashboard/projects/memberships/layout']
 
-  template: JST['dashboard/projects/memberships/memberships']
-  completionTemplate: JST['dashboard/projects/memberships/completion']
-
-  itemViewContainer: '.js-project-memberships'
-  itemViewOptions: ->
-    users: @users
-    roles: @roles
-    project: @model
+  regions:
+    billableRegion: '.billable'
+    nonBillableRegion: '.non-billable'
 
   collectionEvents:
     add: 'refreshView'
@@ -15,20 +11,47 @@ class Hrguru.Views.Dashboard.Memberships extends Marionette.CompositeView
     sync: 'refreshView'
 
   initialize: (options) ->
-    { @users, @roles, @model } = options
+    { @users, @roles, @model, @collection } = options
+    [@billable, @nonBillable] = @getUsers()
     @refreshSelectizeOptions()
     @listenTo(@model, 'membership:finished', @removeMembership)
+    @listenTo(EventAggregator, 'membership:updated:billable', @updateCollections)
 
-  getItemView: (item) ->
-    name = switch
-      when !item.started() then 'UnstartedMembership'
-      else 'Membership'
-    Hrguru.Views.Dashboard[name]
+  getUsers: ->
+    roles = @roles.where(billable: true).map (role) -> role.get('id')
+    billable = new Hrguru.Collections.Memberships
+    non_billable = new Hrguru.Collections.Memberships
+    @collection.each (user) ->
+      if _.contains(roles, user.get('role_id')) || user.get('billable')
+        billable.add(user)
+      else
+        non_billable.add(user)
+    [billable, non_billable]
 
   refreshView: ->
     @.render()
     @refreshSelectizeOptions()
     @model.trigger('members:change', @model)
+
+  updateCollections: (membership) ->
+    if membership.get('billable')
+      @billable.add(membership)
+      @nonBillable.remove(membership)
+    else
+      @nonBillable.add(membership)
+      @billable.remove(membership)
+
+  removeFromCollections: (memberships) ->
+    if memberships.model.get('billable')
+      @billable.remove(memberships.model)
+    else
+      @nonBillable.remove(memberships.model)
+
+  addToCollections: (membership) ->
+    if membership.get('billable')
+      @billable.add(membership)
+    else
+      @nonBillable.add(membership)
 
   onRender: ->
     return unless H.currentUserIsAdmin()
@@ -39,9 +62,10 @@ class Hrguru.Views.Dashboard.Memberships extends Marionette.CompositeView
       searchField: 'name'
       options: @selectize_options
       onItemAdd: (value, item) => @newMembership(value, item)
-
     @selectize = selectize[0].selectize
     @fillEditPopups()
+    @renderBillableRegion()
+    @renderNonBillableRegion()
 
   refreshSelectizeOptions: ->
     selected = _.compact(@collection.pluck('user_id'))
@@ -51,11 +75,28 @@ class Hrguru.Views.Dashboard.Memberships extends Marionette.CompositeView
       @selectize.clearOptions()
       @selectize.load (callback) => callback(@selectize_options)
 
-  removeMembership: (item_view) ->
-    return unless item_view
-    @collection.remove(item_view.model)
-    @removeEditPopupView(item_view.model)
-    user_name = item_view.user.get('name')
+  renderBillableRegion: ->
+    region = new Hrguru.Views.Dashboard.Memberships
+      users: @users
+      roles: @roles
+      model: @model
+      collection: @billable
+    @billableRegion.show(region)
+
+  renderNonBillableRegion: ->
+    region = new Hrguru.Views.Dashboard.Memberships
+      users: @users
+      roles: @roles
+      model: @model
+      collection: @nonBillable
+    @nonBillableRegion.show(region)
+
+  removeMembership: (membership) ->
+    return unless membership
+    @removeFromCollections(membership)
+    @collection.remove(membership.model)
+    @removeEditPopupView(membership.model)
+    user_name = membership.user.get('name')
     project_name = @model.get('name')
     Messenger().success("#{user_name} has been removed from #{project_name}")
 
@@ -70,6 +111,7 @@ class Hrguru.Views.Dashboard.Memberships extends Marionette.CompositeView
       error: (membership, request) => @membershipError(membership, request)
 
   membershipCreated: (membership) ->
+    @addToCollections(membership)
     @selectize.clear()
     user_name = @users.get(membership.get('user_id')).get('name')
     project_name = @model.get('name')
@@ -80,6 +122,7 @@ class Hrguru.Views.Dashboard.Memberships extends Marionette.CompositeView
     @selectize.clear()
     [ error_massage ] = request.responseJSON.errors.project
     Messenger().error(error_massage)
+
 
   fillEditPopups: ->
     @collection.each (membership) =>

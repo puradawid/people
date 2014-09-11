@@ -46,6 +46,7 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
   renderMembershipsRegion: ->
     collectMemberships = @model.get('memberships')
     membershipsLayout = new Hrguru.Views.Dashboard.Memberships
+    membershipsLayout = new Hrguru.Views.Dashboard.MembershipsLayout
       collection: collectMemberships
       model: @model
       roles: @roles
