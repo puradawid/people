@@ -6,7 +6,7 @@ describe IconUploader do
   subject { described_class.new(ability, 'image') }
 
   describe '#store_dir' do
-    it { expect(subject.store_dir).to eq "uploads/ability/image/#{ability.id.to_s}" }
+    it { expect(subject.store_dir).to eq "uploads/ability/image/#{ability.id}" }
   end
 
   describe '#extension_white_list' do
