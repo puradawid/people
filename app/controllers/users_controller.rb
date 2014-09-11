@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    self.user.attributes = user_params
+    user.attributes = user_params
     if user.save
       info = { notice: t('users.updated') }
       json = user
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
       @membership = Membership.new(user: user, role: user.role)
       gon.events = get_events
     else
-      redirect_to users_path, alert: "Permission denied! You have no rights to do this."
+      redirect_to users_path, alert: 'Permission denied! You have no rights to do this.'
     end
   end
 

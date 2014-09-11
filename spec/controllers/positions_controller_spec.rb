@@ -79,7 +79,7 @@ describe PositionsController do
 
     context 'valid attributes' do
       it 'changes position start date' do
-        attributes = {starts_at: Date.new(2014, 05, 19)}
+        attributes = { starts_at: Date.new(2014, 05, 19) }
         put :update, id: position, position: attributes
         position.reload
         expect(position.starts_at.day).to eq 19
@@ -88,7 +88,7 @@ describe PositionsController do
 
     context 'invalid attributes' do
       it 'does not change position attributes' do
-        attributes = {starts_at: nil}
+        attributes = { starts_at: nil }
         put :update, id: position, position: attributes
         position.reload
         expect(position.starts_at.day).to_not be nil

@@ -7,31 +7,31 @@ describe MembershipsController do
     @request.env['HTTP_REFERER'] = memberships_path
   end
 
-  describe "#index" do
+  describe '#index' do
     render_views
 
-    let!(:user) { create(:user, first_name: "Tomek") }
-    let!(:project) { create(:project_deleted, name: "hrguru") }
-    let!(:role_1) { create(:role, name: "junior1") }
-    let!(:role_2) { create(:role, name: "junior2") }
+    let!(:user) { create(:user, first_name: 'Tomek') }
+    let!(:project) { create(:project_deleted, name: 'hrguru') }
+    let!(:role_1) { create(:role, name: 'junior1') }
+    let!(:role_2) { create(:role, name: 'junior2') }
 
     before do
       create(:membership, user: user, project: project, role: role_1)
       create(:membership, role: role_2)
     end
 
-    it "responds successfully with an HTTP 200 status code" do
+    it 'responds successfully with an HTTP 200 status code' do
       get :index
       expect(response).to be_success
       expect(response.status).to eq(200)
     end
 
-    it "exposes memberships" do
+    it 'exposes memberships' do
       get :index
       expect(controller.memberships.count).to be 2
     end
 
-    it "should display memberships on view" do
+    it 'should display memberships on view' do
       get :index
       expect(response.body).to match /junior/
       expect(response.body).to match /hrguru/
@@ -39,48 +39,48 @@ describe MembershipsController do
     end
   end
 
-  describe "#new" do
+  describe '#new' do
     before { get :new }
 
-    it "responds successfully with an HTTP 200 status code" do
+    it 'responds successfully with an HTTP 200 status code' do
       expect(response).to be_success
       expect(response.status).to eq(200)
     end
 
-    it "exposes new membership" do
+    it 'exposes new membership' do
       expect(controller.membership.created_at).to be_nil
     end
   end
 
-  describe "#create" do
+  describe '#create' do
     let(:params) do
       attrs = build(:membership).attributes.except('_id')
       attrs.each { |key, value| attrs[key] = value.to_s }
       attrs
     end
 
-    context "with valid attributes" do
-      it "creates a new membership" do
+    context 'with valid attributes' do
+      it 'creates a new membership' do
         expect { post :create, membership: params }.to change(Membership, :count).by(1)
       end
     end
 
-    context "with invalid attributes" do
-      it "does not save" do
-        params["role_id"] = "data"
+    context 'with invalid attributes' do
+      it 'does not save' do
+        params['role_id'] = 'data'
         expect { post :create, membership: params }.to_not change(Membership, :count)
       end
     end
 
-    context "params starts_at Date picker" do
-      it "saves ends_at value as end of day" do
-        attributes = params.merge( ends_at: Date.new(2002, 10, 26) )
+    context 'params starts_at Date picker' do
+      it 'saves ends_at value as end of day' do
+        attributes = params.merge(ends_at: Date.new(2002, 10, 26))
         post :create, membership: attributes
         expect(Membership.last.ends_at.to_i).to eq Date.parse('2002-10-26').end_of_day.to_i
       end
     end
 
-    describe "json format" do
+    describe 'json format' do
       render_views
       subject { response }
 
@@ -99,7 +99,6 @@ describe MembershipsController do
         end
       end
 
-
       context 'invalid params' do
         let(:invalid_params) do
           params[:ends_at] = (Time.parse(params['starts_at']) - 1.day).to_s
@@ -116,10 +115,10 @@ describe MembershipsController do
     end
   end
 
-  describe "#destroy" do
+  describe '#destroy' do
     let!(:membership) { create(:membership) }
 
-    it "deletes the membership" do
+    it 'deletes the membership' do
       expect { delete :destroy, id: membership }.to change(Membership, :count).by(-1)
     end
   end
@@ -127,12 +126,12 @@ describe MembershipsController do
   describe '#update' do
     let!(:membership) { create(:membership, starts_at: Time.new(2002, 10, 1, 15, 2), ends_at: Time.new(2002, 10, 28, 15, 2)) }
 
-    it "exposes membership" do
+    it 'exposes membership' do
       put :update, id: membership, membership: membership.attributes
       expect(controller.membership).to eq membership
     end
 
-    context "valid attributes" do
+    context 'valid attributes' do
       it "changes membership's range" do
         attributes = { ends_at: Time.new(2002, 10, 26, 15, 2) }
         put :update, id: membership, membership: attributes
@@ -141,7 +140,7 @@ describe MembershipsController do
       end
     end
 
-    context "invalid attributes" do
+    context 'invalid attributes' do
       it "does not change membership's attributes" do
         put :update, id: membership, membership: attributes_for(:membership, project_id: nil)
         membership.reload
@@ -149,8 +148,8 @@ describe MembershipsController do
       end
     end
 
-    context "params starts_at Date picker" do
-      it "saves ends_at value as end of day" do
+    context 'params starts_at Date picker' do
+      it 'saves ends_at value as end of day' do
         attributes = { ends_at: Date.new(2002, 10, 26) }
         put :update, id: membership, membership: attributes
         membership.reload
@@ -158,7 +157,7 @@ describe MembershipsController do
       end
     end
 
-    describe "json format" do
+    describe 'json format' do
       render_views
       subject { response }
       before { put :update, id: membership, membership: params, format: :json }

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "team view", js: true do
+describe 'team view', js: true do
   let(:senior_role) { create(:admin_role) }
   let(:non_dev_role) { create(:role) }
   let(:user) { create(:user, admin_role_id: senior_role.id) }
@@ -20,14 +20,14 @@ describe "team view", js: true do
       find('.show-users').click
     end
 
-      it "doesn't show archived users" do
-        expect(page).not_to have_content archived_user.first_name
-      end
+    it "doesn't show archived users" do
+      expect(page).not_to have_content archived_user.first_name
+    end
 
-      it 'shows devs only' do
-        expect(page).to have_content dev_user.first_name
-        expect(page).not_to have_content non_dev_user.first_name
-      end
+    it 'shows devs only' do
+      expect(page).to have_content dev_user.first_name
+      expect(page).not_to have_content non_dev_user.first_name
+    end
   end
 
   describe '.new-team-add' do
@@ -41,29 +41,29 @@ describe "team view", js: true do
 
     it 'adds new team' do
       find('.js-new-team-form .form-control.name').set('teamX')
-      expect{ find('a.new-team-submit').click }.to change(Team, :count).from(1).to(2)
+      expect { find('a.new-team-submit').click }.to change(Team, :count).from(1).to(2)
     end
   end
 
   describe '.js-add-member' do
 
-      it 'shows selectize field' do
-        find('span.js-add-member').click
-        expect(page).to have_css('.js-team-member-new')
-      end
+    it 'shows selectize field' do
+      find('span.js-add-member').click
+      expect(page).to have_css('.js-team-member-new')
+    end
 
-      it 'adds new member to the team' do
-          find('span.js-add-member').click
-          find('.selectize-input input').set('Developer Daisy')
-          find(:css, '.person .name').click
-          expect(page).to have_content('Developer Daisy')
-      end
+    it 'adds new member to the team' do
+      find('span.js-add-member').click
+      find('.selectize-input input').set('Developer Daisy')
+      find(:css, '.person .name').click
+      expect(page).to have_content('Developer Daisy')
+    end
   end
 
   describe '.js-promote-leader' do
     it 'promotes member to leader' do
-        find('.js-promote-leader').click
-        expect(page).to have_xpath('//td[@id="leader-region"]/td')
+      find('.js-promote-leader').click
+      expect(page).to have_xpath('//td[@id="leader-region"]/td')
     end
   end
 

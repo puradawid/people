@@ -45,7 +45,7 @@ class User
 
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :employment, inclusion: { in: 0..200, message: "must be between 0-200" }
+  validates :employment, inclusion: { in: 0..200, message: 'must be between 0-200' }
   validates :phone, length: { maximum: 16 },
                     format: { with: %r{\A[+]?\d+(?>[- .]\d+)*\z} },
                     allow_blank: true
@@ -86,7 +86,7 @@ class User
     User.create!(attributes)
   end
 
-  def self.get_from_api params
+  def self.get_from_api(params)
     User.where(id: params['id']).first || User.where(email: params['email']).first
   end
 
@@ -94,9 +94,9 @@ class User
     membs_grouped = memberships.group_by { |m| m.project.api_slug }
     membs_grouped.each do |slug, membs|
       membs_grouped[slug] = {
-          starts_at: (membs.map(&:starts_at).include?(nil) ? nil : membs.map(&:starts_at).compact.min),
-          ends_at: (membs.map(&:ends_at).include?(nil) ? nil : membs.map(&:ends_at).compact.max),
-          role: (membs.map { |memb| memb.role.try(:name) }).last
+        starts_at: (membs.map(&:starts_at).include?(nil) ? nil : membs.map(&:starts_at).compact.min),
+        ends_at: (membs.map(&:ends_at).include?(nil) ? nil : membs.map(&:ends_at).compact.max),
+        role: (membs.map { |memb| memb.role.try(:name) }).last
       }
     end
   end
@@ -147,7 +147,7 @@ class User
 
   def memberships_by_project_ids(project_ids)
     now = Time.now
-    memberships_cached.select { |m| project_ids.include?(m.project_id) && (m.ends_at == nil || m.ends_at >= now) }
+    memberships_cached.select { |m| project_ids.include?(m.project_id) && (m.ends_at.nil? || m.ends_at >= now) }
   end
 
   def potential_memberships_by_ids(project_ids)
@@ -155,7 +155,7 @@ class User
   end
 
   %w(current potential next).each do |type|
-    type += "_projects"
+    type += '_projects'
     define_method("has_#{type}?") do
       send(type).present?
     end
@@ -163,7 +163,7 @@ class User
 
   def next_memberships
     now = Time.now
-    memberships_cached.select { |m| m.starts_at >= now && (m.ends_at == nil || m.ends_at >= now) }
+    memberships_cached.select { |m| m.starts_at >= now && (m.ends_at.nil? || m.ends_at >= now) }
   end
 
   def next_projects
@@ -185,7 +185,7 @@ class User
   end
 
   def admin?
-    self.admin_role.present?
+    admin_role.present?
   end
 
   def self.by_name
@@ -204,7 +204,6 @@ class User
     @abilities_list = abilities_list
   end
 
-
   private
 
   def save_team_join_time
@@ -221,7 +220,7 @@ class User
     end
   end
 
-  def map_projects membership
+  def map_projects(membership)
     membership.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
   end
 end

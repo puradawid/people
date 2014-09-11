@@ -12,6 +12,6 @@ class Vacation
   validates :starts_at, :ends_at, presence: true
 
   def date_range
-    range = "#{starts_at.to_date}... #{ends_at.to_date}"
+    "#{starts_at.to_date}... #{ends_at.to_date}"
   end
 end

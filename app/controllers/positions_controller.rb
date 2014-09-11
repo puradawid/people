@@ -1,5 +1,4 @@
 class PositionsController < ApplicationController
-
   include Shared::RespondsController
 
   expose(:position, attributes: :position_params)
