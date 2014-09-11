@@ -1,0 +1,7 @@
+.col-md-1
+  - if H.currentUserIsAdmin()
+    .js-project-new-membership.new-membership
+      %input{ type: 'text', placeholder: 'Click to add...' }
+
+.billable.col-md-11
+.non-billable.col-md-11.col-md-offset-1

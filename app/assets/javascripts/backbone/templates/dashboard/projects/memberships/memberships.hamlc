@@ -1,4 +1,0 @@
-- if H.currentUserIsAdmin()
-  .js-project-new-membership.new-membership
-    %input{ type: 'text', placeholder: 'Click to add...' }
-.js-project-memberships.memberships

@@ -1,13 +1,27 @@
-.project-name
-  != @link_to @name, Routes.project_path(@id)
-  .unarchive.glyphicon.glyphicon-folder-open.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to unarchive project' }
-  .archive.glyphicon.glyphicon-folder-close.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to archive project' }
-  .js-timeline-show.glyphicon.glyphicon-time.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to show timeline' }
-  .js-timeline-hide.glyphicon.glyphicon-time.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to hide timeline' }
-  .billable_ratio
-  - if @end_at
-    .time.hidden
-      Do
-      %time= moment(@end_at).format('LL')
-.js-memberships-region
-.js-notes-region
+.row.dashboard
+  .col-md-2
+    .row.dashboard
+      .project-name
+        .project-avatar{style: "background-color: #{@.colour}"}
+          %span.avatar-initials
+            #{@.initials}
+        .actual
+          != @link_to @name, Routes.project_path(@id)
+          .pull-right.unarchive.glyphicon.glyphicon-folder-open.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to unarchive project' }
+          .pull-right.archive.glyphicon.glyphicon-folder-close.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to archive project' }
+          .pull-right.js-timeline-show.glyphicon.glyphicon-time.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to show timeline' }
+          .pull-right.js-timeline-hide.glyphicon.glyphicon-time.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to hide timeline' }
+          - if @end_at
+            .time.hidden
+              Do
+              %time= moment(@end_at).format('LL')
+
+    .row.dashboard
+      - if H.currentUserIsAdmin()
+        .show-notes.js-open-project-notes.glyphicon.glyphicon-pencil.btn-primary
+
+  .col-md-10
+    .row
+      .js-memberships-region
+    .row
+      .js-notes-region
