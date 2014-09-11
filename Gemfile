@@ -76,6 +76,8 @@ end
 group :development, :test do
   gem 'pry'
   gem 'pry-debugger'
+  gem 'pry-rails'
+  gem 'awesome_print'
   gem 'capistrano-rvm', require: false
   gem 'capistrano-rails', require: false
 end
