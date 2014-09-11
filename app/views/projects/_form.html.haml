@@ -3,6 +3,7 @@
     .col-xs-9
       = f.input :name
       = f.input :slug
+      = f.input :colour
       = f.input :end_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
       = f.input :kickoff, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
       = f.input :potential, as: :boolean, wrapper: :vertical_boolean, label: false, inline_label: true, input_html: { checked: project.potential }
