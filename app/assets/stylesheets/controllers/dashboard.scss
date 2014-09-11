@@ -142,16 +142,36 @@ body.dashboard {
           float: left;
         }
 
+        $project_height: 54px;
+        // $project_width:
+
         .project-name {
-          padding: 17px;
-          margin-right: 5px;
-          width: 197px;
-          height: 54px;
+          // padding: 17px;
+          height: $project_height;
           font-weight: bold;
           border-right: 1px solid #DDD;
           border-bottom: 2px solid #DDD;
           text-align: center;
-          float: left;
+
+          .project-avatar {
+            height: $project_height;
+            width: $project_height;
+            float: left;
+            line-height: $project_height;
+            display: inline-block;
+
+            span.avatar-initials {
+              color: white;
+              text-align: center;
+              padding: auto;
+              font-size: 2em;
+            }
+          }
+
+          .actual {
+            line-height: $project_height;
+            display: inline-block;
+          }
 
           .billable_ratio { float: right; }
 
@@ -263,10 +283,10 @@ body.dashboard {
     }
 
     .new-membership {
-      margin: 8px 5px;
-      width: 170px;
+      margin: 8px 0px;
       float: left;
       text-align: center;
+      width: 100%;
 
       .selectize-control { line-height: 13px; }
       .selectize-input {
@@ -322,10 +342,11 @@ body.dashboard {
 
     .show-notes {
       display: inline-block;
-      width: 160px;
+      width: 40px;
       top: 6px;
       float: right;
       border: none;
+      border-radius: 5px;
     }
 
     .open-all-notes-button {
@@ -338,7 +359,7 @@ body.dashboard {
 
     .project-notes-wrapper {
       min-height: 100px;
-      margin: 20px 20px 10px 206px;
+      // margin: 20px 20px 10px 206px;
       clear: both;
 
       .project-note {
