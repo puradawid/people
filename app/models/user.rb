@@ -57,7 +57,9 @@ class User
   scope :active, -> { where(archived: false) }
   scope :technical_active, -> { where(archived: false, available: true) }
   scope :roles, -> (roles) { where(:role.in => roles) }
-  scope :contract_users, ->(contract_type) { where(contract_type_id: ContractType.where(name: contract_type).first.id) }
+  scope :contract_users, ->(contract_type) {
+    ContractType.where(name: contract_type).first.try(:users)
+  }
   scope :without_team, -> { where(team: nil) }
 
   before_save :end_memberships
