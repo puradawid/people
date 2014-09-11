@@ -12,11 +12,10 @@ The main table shows the current teams in each project, but you can also add peo
 
 ![People_View](https://netguruco-production.s3.amazonaws.com/uploads/1401956759-1401228321-people_main.jpg)
 
-##MongoDB OSX installation:
-
+## System Setup
+You need MongoDB and ImageMagick installed on your system, using homebrew:
 ```shell
-  brew update
-  brew install mongodb
+  brew update && brew install mongodb imagemagick
 ```
 
 ## Dev auth setup
@@ -47,6 +46,7 @@ The main table shows the current teams in each project, but you can also add peo
 ### Local settings
 
 All the required app settings are located in `config/config.yml` file.
+You should put your local settings in `config/sec_config.yml` file which is not checked in version control.
 
 Take a note that emails->internal: in `config/config.yml` should be domain used to login users eg. example.com not test@example.com
 
