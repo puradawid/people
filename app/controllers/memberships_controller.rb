@@ -1,5 +1,4 @@
 class MembershipsController < ApplicationController
-
   include Shared::RespondsController
 
   respond_to :json, only: [:create, :update]

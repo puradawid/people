@@ -17,7 +17,7 @@ class Position
 
   def <=>(other)
     [user.last_name, user.first_name, starts_at] <=> [other.user.last_name,
-      other.user.first_name, other.starts_at]
+                                                      other.user.first_name, other.starts_at]
   end
 
   def available_roles
