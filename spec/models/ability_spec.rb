@@ -9,10 +9,10 @@ describe Ability do
   it { should be_valid }
   it { should have_field(:name) }
 
-  describe "#to_s" do
-    it "returns name" do
-      subject.name = "Ruby on Rails"
-      expect(subject.to_s).to eq("Ruby on Rails")
+  describe '#to_s' do
+    it 'returns name' do
+      subject.name = 'Ruby on Rails'
+      expect(subject.to_s).to eq('Ruby on Rails')
     end
   end
 end

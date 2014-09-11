@@ -15,7 +15,7 @@ describe Membership do
   it { should validate_inclusion_of(:billable).to_allow([true, false]) }
 
   describe '#validate_starts_at_ends_at' do
-    it "should add an error if 'ends_at' is before 'starts_at'" do
+    it "adds an error if 'ends_at' is before 'starts_at'" do
       subject.ends_at = subject.starts_at - 2.days
       subject.send :validate_starts_at_ends_at
       expect(subject.errors[:ends_at]).to include("can't be before starts_at date")

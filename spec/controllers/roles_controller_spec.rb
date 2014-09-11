@@ -25,10 +25,10 @@ describe RolesController do
       expect(controller.roles.count).to be 2
     end
 
-    it 'should display roles on view' do
+    it 'displays roles on view' do
       get :index
-      expect(response.body).to match /junior/
-      expect(response.body).to match /developer/
+      expect(response.body).to match(/junior/)
+      expect(response.body).to match(/developer/)
     end
   end
 

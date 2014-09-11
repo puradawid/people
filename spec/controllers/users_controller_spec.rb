@@ -20,10 +20,10 @@ describe UsersController do
       expect(controller.users.count).to be 2
     end
 
-    it 'should display users on view' do
+    it 'displays users on view' do
       get :index
-      expect(response.body).to match /Marian/
-      expect(response.body).to match /Tomek/
+      expect(response.body).to match(/Marian/)
+      expect(response.body).to match(/Tomek/)
     end
   end
 
@@ -39,8 +39,8 @@ describe UsersController do
       expect(response.status).to eq(200)
     end
 
-    it 'should display user name on view' do
-      expect(response.body).to match /Winchester Dean/
+    it 'displays user name on view' do
+      expect(response.body).to match(/Winchester Dean/)
     end
   end
 end

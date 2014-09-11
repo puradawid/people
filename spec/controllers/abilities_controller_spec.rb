@@ -19,7 +19,7 @@ describe AbilitiesController do
       expect(controller.abilities.count).to be 2
     end
 
-    it 'should display abilities on view' do
+    it 'displays abilities on view' do
       get :index
       expect(response.body).to match /Ruby/
       expect(response.body).to match /Rspec/

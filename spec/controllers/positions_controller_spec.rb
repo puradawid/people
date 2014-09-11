@@ -17,7 +17,7 @@ describe PositionsController do
       create(:position, user: user, starts_at: position.starts_at - 2.days, role: jun_role)
     end
 
-    it 'respond should be success with HTTP status 200' do
+    it 'responds success with HTTP status 200' do
       get :index
       expect(response).to be_success
       expect(response.status).to eq(200)
@@ -28,16 +28,16 @@ describe PositionsController do
       expect(controller.positions.count).to be 2
     end
 
-    it 'position should be displayed' do
+    it 'displays position' do
       get :index
-      expect(response.body).to match /junior/
-      expect(response.body).to match /developer/
+      expect(response.body).to match(/junior/)
+      expect(response.body).to match(/developer/)
     end
   end
   describe '#new' do
     before { get :new }
 
-    it 'respond should be success with HTTP status 200' do
+    it 'responds success with HTTP status 200' do
       expect(response).to be_success
       expect(response.status).to eq(200)
     end

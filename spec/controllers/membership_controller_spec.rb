@@ -31,11 +31,11 @@ describe MembershipsController do
       expect(controller.memberships.count).to be 2
     end
 
-    it 'should display memberships on view' do
+    it 'displays memberships on view' do
       get :index
-      expect(response.body).to match /junior/
-      expect(response.body).to match /hrguru/
-      expect(response.body).to match /Tomek/
+      expect(response.body).to match(/junior/)
+      expect(response.body).to match(/hrguru/)
+      expect(response.body).to match(/Tomek/)
     end
   end
 

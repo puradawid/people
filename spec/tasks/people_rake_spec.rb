@@ -18,7 +18,7 @@ describe AvailabilityChecker do
         Rake.application.invoke_task 'people:available_checker'
       end
 
-      it 'should receive perform' do
+      it 'receives perform' do
         expect_any_instance_of(AvailabilityCheckerJob).to receive(:perform).once
         run_rake_task
       end

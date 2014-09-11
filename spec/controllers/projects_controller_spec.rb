@@ -25,10 +25,10 @@ describe ProjectsController do
       expect(controller.projects.count).to be 2
     end
 
-    it 'should display projects on view' do
+    it 'displays projects on view' do
       get :index
-      expect(response.body).to match /dwhite/
-      expect(response.body).to match /hrguru/
+      expect(response.body).to match(/dwhite/)
+      expect(response.body).to match(/hrguru/)
     end
   end
 
