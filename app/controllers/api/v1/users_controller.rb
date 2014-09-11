@@ -4,7 +4,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   def index
     if params.fetch(:filter, {}).try(:fetch, :employment_type, nil)
-      render json: User.contract_users(params[:filter][:employment_type])
+      self.users = User.contract_users(params[:filter][:employment_type])
     end
   end
 
