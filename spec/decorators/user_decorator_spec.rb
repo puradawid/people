@@ -49,4 +49,18 @@ describe UserDecorator do
     end
     it { expect(subject.days_in_current_team).to eq 1 }
   end
+
+  describe '#github_link' do
+    before do
+      user.gh_nick = 'github_nick'
+    end
+    it { expect(subject.github_link).to include('github_nick') }
+  end
+
+  describe '#skype_link' do
+    before do
+      user.skype = 'skype_login'
+    end
+    it { expect(subject.skype_link).to include('skype_login') }
+  end
 end
