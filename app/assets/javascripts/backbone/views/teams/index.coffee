@@ -23,11 +23,11 @@ class Hrguru.Views.TeamsIndex extends Marionette.Layout
     filtered = @base_users.filter (user) ->
       _role = roles.get(user.get('role_id'))
       role = if _role then _role.get('name') else null
-      _.contains(['developer', 'senior', 'junior', 'praktykant', null], role)
+      _.contains(['developer', 'senior', 'junior', 'praktykant'], role)
     new Hrguru.Collections.Users(filtered)
 
   noTeamUsers: ->
-    filtered = @dev_users.where team_id:null, archived:false
+    filtered = @dev_users.where team_id: null, archived: false
     new Hrguru.Collections.Users(filtered)
 
   renderModalView: (model) ->
