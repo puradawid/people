@@ -10,15 +10,12 @@ class Hrguru.Views.Dashboard.NotesLayout extends Marionette.Layout
     openNotes:    '.js-open-project-notes'
     closeNotes:   '.js-close-project-notes'
 
-  triggers:
-    'click .js-open-project-notes'  : 'open:project:notes'
-    'click .js-close-project-notes' : 'close:project:notes'
-
   initialize: (options) ->
     { @users, @model } = options
     @listenTo(EventAggregator, 'open:all:notes', @onOpenProjectNotes)
     @listenTo(EventAggregator, 'close:all:notes', @onCloseProjectNotes)
     @listenToOnce(EventAggregator, 'cookie:open:notes', @cookieOpenNotes)
+    @listenTo(@model, 'notes:toggle', -> @ui.notesWrapper.toggle())
 
   onRender: ->
     @ui.notesWrapper.hide()
@@ -39,11 +36,7 @@ class Hrguru.Views.Dashboard.NotesLayout extends Marionette.Layout
         $.scrollTo(note, 'fast')
 
   onOpenProjectNotes: ->
-    @ui.openNotes.hide()
-    @ui.closeNotes.show()
     @ui.notesWrapper.show()
 
   onCloseProjectNotes: ->
-    @ui.openNotes.show()
-    @ui.closeNotes.hide()
     @ui.notesWrapper.hide()
