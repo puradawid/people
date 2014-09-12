@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :project do
-    name { Faker::Internet.domain_word }
-    slug { name }
+    sequence(:name) { |i| "#{Faker::Internet.domain_word}_#{i}" }
+    slug { name.try(:tr, '^A-Za-z', '') }
     end_at { 30.days.from_now }
 
     factory :project_deleted do

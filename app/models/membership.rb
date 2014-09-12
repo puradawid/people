@@ -75,7 +75,7 @@ class Membership
   def ends_at=(new_date)
     if new_date.present?
       ends_at_time = Time.zone.parse(new_date.to_s)
-      ends_at_time = ends_at_time.end_of_day - 1.second if ends_at_time == ends_at_time.beginning_of_day
+      ends_at_time = ends_at_time.end_of_day if ends_at_time == ends_at_time.beginning_of_day
       write_attribute(:ends_at, ends_at_time)
     else
       write_attribute(:ends_at, nil)
