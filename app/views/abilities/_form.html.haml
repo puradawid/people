@@ -4,5 +4,6 @@
     .icon-preview
       %img.icon-preview__image
     = f.input :icon, as: 'file', label: 'New icon'
+    = f.input :remove_icon, as: 'boolean'
     .actions
       = f.button :submit, class: 'btn-success', confirm: 'Are you sure?'
