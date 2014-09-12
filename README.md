@@ -56,4 +56,16 @@ Get started: https://devcenter.heroku.com/articles/getting-started-with-rails4
 
 [Introducing: People. A simple open source app for managing devs within projects](https://netguru.co/blog/posts/introducing-people-a-simple-open-source-app-for-managing-devs-within-projects).
 
+###Contributing
+
+First, thank you for contributing!
+
+Here a few guidelines to follow:
+
+1. Write tests
+2. Make sure the entire test suite passes
+3. Make sure rubocop passes, our [config](https://github.com/netguru/hound/blob/master/config/rubocop.yml)
+3. Open a pull request on GitHub
+4. [Squash your commits](http://blog.steveklabnik.com/posts/2012-11-08-how-to-squash-commits-in-a-github-pull-request) after receiving feedback
+
 Copyright (c) 2014 [Netguru](https://netguru.co). See LICENSE for further details.
