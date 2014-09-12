@@ -14,4 +14,5 @@
 //= require js_stack/plugins/underscore.inflections
 //= require moment/pl.js
 //= require backbone/hrguru
+//= require abilities/icon_preview
 //= require_tree .
