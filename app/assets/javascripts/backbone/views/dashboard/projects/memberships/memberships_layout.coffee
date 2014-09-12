@@ -42,16 +42,12 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
       @billable.remove(membership)
 
   removeFromCollections: (memberships) ->
-    if memberships.model.get('billable')
-      @billable.remove(memberships.model)
-    else
-      @nonBillable.remove(memberships.model)
+    group = if memberships.model.get('billable') then @billable else @nonBillable
+    group.remove(memberships.model)
 
   addToCollections: (membership) ->
-    if membership.get('billable')
-      @billable.add(membership)
-    else
-      @nonBillable.add(membership)
+    group = if membership.get('billable') then @billable else @nonBillable
+    group.add(membership)
 
   onRender: ->
     return unless H.currentUserIsAdmin()
