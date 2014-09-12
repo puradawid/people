@@ -41,9 +41,9 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
       @nonBillable.add(membership)
       @billable.remove(membership)
 
-  removeFromCollections: (memberships) ->
-    group = if memberships.model.get('billable') then @billable else @nonBillable
-    group.remove(memberships.model)
+  removeFromCollections: (view) ->
+    group = if view.model.get('billable') then @billable else @nonBillable
+    group.remove(view.model)
 
   addToCollections: (membership) ->
     group = if membership.get('billable') then @billable else @nonBillable
@@ -71,28 +71,27 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
       @selectize.clearOptions()
       @selectize.load (callback) => callback(@selectize_options)
 
-  renderBillableRegion: ->
-    region = new Hrguru.Views.Dashboard.Memberships
+  renderMembershipsRegion: (collection) ->
+    new Hrguru.Views.Dashboard.Memberships
       users: @users
       roles: @roles
       model: @model
-      collection: @billable
+      collection: collection
+
+  renderBillableRegion: ->
+    region = @renderMembershipsRegion(@billable)
     @billableRegion.show(region)
 
   renderNonBillableRegion: ->
-    region = new Hrguru.Views.Dashboard.Memberships
-      users: @users
-      roles: @roles
-      model: @model
-      collection: @nonBillable
+    region = @renderMembershipsRegion(@nonBillable)
     @nonBillableRegion.show(region)
 
-  removeMembership: (membership) ->
-    return unless membership
-    @removeFromCollections(membership)
-    @collection.remove(membership.model)
-    @removeEditPopupView(membership.model)
-    user_name = membership.user.get('name')
+  removeMembership: (view) ->
+    return unless view
+    @removeFromCollections(view)
+    @collection.remove(view.model)
+    @removeEditPopupView(view.model)
+    user_name = view.user.get('name')
     project_name = @model.get('name')
     Messenger().success("#{user_name} has been removed from #{project_name}")
 
