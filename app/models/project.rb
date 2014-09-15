@@ -8,7 +8,7 @@ class Project
   after_save :update_membership_fields
   after_save :check_potential
   before_save :set_initials
-  before_create :set_colour
+  before_save :set_colour
 
   SOON_END = 1.week
   POSSIBLE_TYPES = %w(regular maintenance_support maintenance_development).freeze
@@ -152,6 +152,6 @@ class Project
     h = rand
     h += golden_ratio_conjugate
     h %= 1
-    self.colour = "#" + hsv_to_rgb(h, 0.5, 0.95).join()
+    self.colour ||= "#" + hsv_to_rgb(h, 0.5, 0.95).join()
   end
 end
