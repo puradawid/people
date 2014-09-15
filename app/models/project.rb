@@ -129,7 +129,9 @@ class Project
   end
 
   def set_initials
-    self.initials = name.split[0..1].map {|w| w[0]}.join.upcase
+    camel_case = name.underscore.split('_')
+    splitted = camel_case.count > 1 ? camel_case : name.split
+    self.initials = splitted[0..1].map {|w| w[0]}.join.upcase
   end
 
   def hsv_to_rgb(h, s, v)
