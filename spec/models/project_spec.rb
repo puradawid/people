@@ -152,4 +152,35 @@ describe Project do
       expect(subject).to include project1, project2, project_through_membership
     end
   end
+
+  describe "#set_initials" do
+    let(:project_camel_case) { create(:project, name: 'BolshoeSpasibo') }
+    let(:project) { create(:project, name: 'Blyuz') }
+    let(:project_multiword) { create(:project, name: 'Bolshoe Spasibo Harosho') }
+
+    context "camel case name" do
+      it "sets initials of a project" do
+        expect(project_camel_case.initials.length).to eq 2
+      end
+    end
+
+    context "1 word name" do
+      it "sets initials of a project" do
+        expect(project.initials.length).to eq 1
+      end
+    end
+
+    context "multiword name with spaces" do
+      it "sets initials of a project" do
+        expect(project_camel_case.initials.length).to eq 2
+      end
+    end
+  end
+
+  describe "#set_colour" do
+    let(:project) { create(:project) }
+    it "sets random colour in hex format" do
+      expect(project.colour).to match /#[a-f0-9]{6}/
+    end
+  end
 end
