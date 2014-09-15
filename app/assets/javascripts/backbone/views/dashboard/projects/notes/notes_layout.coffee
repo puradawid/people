@@ -32,7 +32,7 @@ class Hrguru.Views.Dashboard.NotesLayout extends Marionette.Layout
       if note_id
         $.removeCookie('note_id')
         note = $('#' + note_id)
-        note.closest('.project-notes-wrapper').siblings('.js-open-project-notes').click()
+        note.closest('.project').find('.js-open-project-notes').click()
         $.scrollTo(note, 'fast')
 
   onOpenProjectNotes: ->
