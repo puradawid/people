@@ -20,7 +20,11 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
       update: ($el, val, model, options) ->
         val = if val then val else 0
         days_count = Math.floor((new Date() - Date.parse(val)) / 86400000)
-        $el.text("Since: " + days_count + " days")
+        duration = switch
+          when 60 > days_count > 30 then "1 month"
+          when days_count >= 60 then "#{Math.floor(days_count / 30)} months"
+          else "#{days_count} days"
+        $el.text("Since: " + duration)
 
   initialize: (options) ->
     unless @model.get('id')?
