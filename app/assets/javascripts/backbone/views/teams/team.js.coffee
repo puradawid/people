@@ -157,7 +157,7 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
 
   onRender: ->
     @ui.form.hide()
-    @initializeSelectize() unless @selectize?
+    @initializeSelectize()
     @refreshSelectizeOptions()
     @renderMembersRegion()
     @renderLeaderRegion()
