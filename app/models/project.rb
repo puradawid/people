@@ -140,12 +140,14 @@ class Project
     p = v * (1 - s)
     q = v * (1 - f*s)
     t = v * (1 - (1 - f) * s)
-    r, g, b = v, t, p if h_i==0
-    r, g, b = q, v, p if h_i==1
-    r, g, b = p, v, t if h_i==2
-    r, g, b = p, q, v if h_i==3
-    r, g, b = t, p, v if h_i==4
-    r, g, b = v, p, q if h_i==5
+    case h_i
+    when 0 then r, g, b = v, t, p
+    when 1 then r, g, b = q, v, p
+    when 2 then r, g, b = p, v, t
+    when 3 then r, g, b = p, q, v
+    when 4 then r, g, b = t, p, v
+    when 5 then r, g, b = v, p, q
+    end
     [r, g, b].map { |color| (color*256).to_i.to_s(16) }
   end
 
