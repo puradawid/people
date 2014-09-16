@@ -74,8 +74,11 @@
                   = m.date_range
                   %span.badge= m.duration_in_words
                   = m.role.label
-                  - if m.project.potential?
-                    %strong potential
+                  - if m.project.archived?
+                    %strong archived
+                  - else
+                    - if m.project.potential?
+                      %strong potential
                 = link_to 'delete', m, method: :delete, data: { confirm: I18n.t('confirm_question') }, class: 'btn btn-xs btn-danger pull-right'
                 .clearfix
 
