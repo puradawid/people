@@ -13,7 +13,5 @@ class Hrguru.Views.Dashboard.Memberships extends Marionette.CompositeView
     { @users, @roles, @model } = options
 
   getItemView: (item) ->
-    name = switch
-      when !item.started() then 'UnstartedMembership'
-      else 'Membership'
+    name = if !item.started() then 'UnstartedMembership' else 'Membership'
     Hrguru.Views.Dashboard[name]
