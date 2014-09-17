@@ -1,15 +1,14 @@
 class ProjectsController < ApplicationController
-
   include Shared::RespondsController
 
   expose(:project, attributes: :project_params)
-  expose(:projects_sorted) {
+  expose(:projects_sorted) do
     if params[:search].present?
       Project.search(params[:search]) rescue []
     else
       Project.by_name
     end
-    }
+  end
   expose(:projects)
   before_filter :authenticate_admin!, only: [:update, :create, :destroy, :new, :edit]
 
@@ -45,8 +44,8 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:name, :slug, :end_at, :archived, :potential,
-                                    :kickoff, :project_type,
-                                    memberships_attributes: [:id, :stays])
+      :kickoff, :project_type,
+      memberships_attributes: [:id, :stays])
   end
 
   def get_events
