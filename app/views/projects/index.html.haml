@@ -1,8 +1,14 @@
+%div.col-md-4
+  = form_tag projects_path, :method => 'get' do
+    %div.input-group
+      = text_field_tag :search, params[:search], placeholder: 'projects', class: "form-control"
+      %span.input-group-btn
+        = submit_tag 'search', :name => nil, class: "btn btn-default sbutton"
 - if projects.present?
   %table.table
     %thead
       %th Projects
-    %tbody
+      %tbody
       - projects_sorted.each do |project|
         %tr
           %td
