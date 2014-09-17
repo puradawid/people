@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   expose_decorated(:user) { User.find(params[:id]) }
-  expose(:users) { User.all.by_last_name.decorate }
+  expose(:users) { fetch_users }
   expose(:roles) { Role.all }
   expose(:locations) { Location.all }
-  expose(:projects) { Project.all }
+  expose(:projects) { Project.includes(:notes).all }
   expose(:abilities) { Ability.ordered_by_user_abilities(user).map(&:name) }
   expose(:contractTypes) { ContractType.all }
   expose(:positions) { PositionDecorator.decorate_collection(user.positions) }
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   def show
     if current_user? || current_user.admin?
       @membership = Membership.new(user: user, role: user.role)
-      gon.events = get_events
+      gon.events = fetch_events
     else
       redirect_to users_path, alert: 'Permission denied! You have no rights to do this.'
     end
@@ -50,8 +50,8 @@ class UsersController < ApplicationController
 
   private
 
-  def get_events
-    events = user.memberships.map do |m|
+  def fetch_events
+    @events ||= user.memberships.includes(:project).map do |m|
       if m.project.present?
         event = { text: m.project.name, startDate: m.starts_at.to_date }
         event[:endDate] = m.ends_at.to_date if m.ends_at
@@ -59,13 +59,19 @@ class UsersController < ApplicationController
         event
       end
     end
-    events.compact
+    @events.compact
+  end
+
+  def fetch_users
+    @users ||= User
+      .includes(:role, :location, :contract_type, :memberships)
+      .all.by_last_name.decorate
   end
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :role_id, :team_id, :leader_team_id,
-                                 :employment, :phone, :location_id, :contract_type_id,
-                                 :archived, :skype, abilities_names: [])
+      :employment, :phone, :location_id, :contract_type_id,
+      :archived, :skype, abilities_names: [])
   end
 
   def generate_errors
