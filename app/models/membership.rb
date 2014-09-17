@@ -10,8 +10,8 @@ class Membership
   field :project_potential, type: Mongoid::Boolean, default: true
   field :stays, type: Mongoid::Boolean, default: false
 
-  belongs_to :user
-  belongs_to :project
+  belongs_to :user, index: true
+  belongs_to :project, index: true
   belongs_to :role
 
   validates :user, presence: true
