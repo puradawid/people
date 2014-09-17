@@ -72,7 +72,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'quiet_assets'
   gem 'xray-rails'
-  gem 'rack-mini-profiler', '~> 0.9.2'
+  gem 'rack-mini-profiler', '~> 0.9.2', require: false
 end
 
 group :development, :test do
