@@ -74,6 +74,7 @@ group :development do
   gem 'quiet_assets'
   gem 'xray-rails'
   gem 'rack-mini-profiler', '~> 0.9.2', require: false
+  gem 'bullet', '~> 4.13.2'
 end
 
 group :development, :test do
