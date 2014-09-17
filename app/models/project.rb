@@ -60,7 +60,7 @@ class Project
   end
 
   def pm
-    pm_membership = memberships.with_role(Role.pm).select{ |m| m.active? }.first
+    pm_membership = memberships.with_role(Role.pm).select(&:active?).first
     pm_membership.try(:user)
   end
 
@@ -85,7 +85,7 @@ class Project
       h.modified && h.modified['potential'] == false
     end.last
 
-    last_track.present? ? last_track.created_at : self.created_at
+    last_track.present? ? last_track.created_at : created_at
   end
 
   def self.upcoming_changes(days)
@@ -111,7 +111,7 @@ class Project
   def update_membership_fields
     if potential_change == [true, false] || archived_change == [true, false]
       memberships.each do |membership|
-        membership.update(project_potential: self.potential, project_archived: self.archived)
+        membership.update(project_potential: potential, project_archived: archived)
       end
     end
   end
@@ -135,14 +135,14 @@ class Project
   def set_initials
     camel_case = name.underscore.split('_')
     splitted = camel_case.count > 1 ? camel_case : name.split
-    self.initials = splitted[0..1].map {|w| w[0]}.join.upcase
+    self.initials = splitted[0..1].map { |w| w[0] }.join.upcase
   end
 
   def hsv_to_rgb(h, s, v)
-    h_i = (h*6).to_i
-    f = h*6 - h_i
+    h_i = (h * 6).to_i
+    f = h * 6 - h_i
     p = v * (1 - s)
-    q = v * (1 - f*s)
+    q = v * (1 - f * s)
     t = v * (1 - (1 - f) * s)
     case h_i
     when 0 then r, g, b = v, t, p
@@ -152,7 +152,7 @@ class Project
     when 4 then r, g, b = t, p, v
     when 5 then r, g, b = v, p, q
     end
-    [r, g, b].map { |color| (color*256).to_i.to_s(16) }
+    [r, g, b].map { |color| (color * 256).to_i.to_s(16) }
   end
 
   def set_colour
@@ -160,6 +160,6 @@ class Project
     h = rand
     h += golden_ratio_conjugate
     h %= 1
-    self.colour ||= "#" + hsv_to_rgb(h, 0.5, 0.95).join()
+    self.colour ||= "#" + hsv_to_rgb(h, 0.5, 0.95).join
   end
 end
