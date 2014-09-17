@@ -27,6 +27,7 @@ gem "dotenv"
 gem "dotenv-deployment"
 gem 'decent_exposure'
 gem 'decent_decoration'
+gem 'lograge', '~> 0.3.0'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-github'
