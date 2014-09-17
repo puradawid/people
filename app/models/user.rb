@@ -112,7 +112,7 @@ class User
   end
 
   def memberships_cached
-    @memberships ||= memberships.includes(:project).to_a
+    @memberships ||= memberships.to_a
   end
 
   def potential_memberships
