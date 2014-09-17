@@ -160,19 +160,19 @@ describe Project do
 
     context "camel case name" do
       it "sets initials of a project" do
-        expect(project_camel_case.initials.length).to eq 2
+        expect(project_camel_case.initials).to eq 'BS'
       end
     end
 
     context "1 word name" do
       it "sets initials of a project" do
-        expect(project.initials.length).to eq 1
+        expect(project.initials).to eq 'B'
       end
     end
 
     context "multiword name with spaces" do
       it "sets initials of a project" do
-        expect(project_camel_case.initials.length).to eq 2
+        expect(project_multiword.initials).to eq 'BS'
       end
     end
   end
@@ -180,7 +180,7 @@ describe Project do
   describe "#set_colour" do
     let(:project) { create(:project) }
     it "sets random colour in hex format" do
-      expect(project.colour).to match /#[a-f0-9]{6}/
+      expect(project.colour).to match(/#[a-f0-9]{6}/)
     end
   end
 end
