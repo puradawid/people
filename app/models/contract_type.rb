@@ -5,6 +5,8 @@ class ContractType
 
   field :name, type: String
 
+  index({ deleted_at: 1 })
+
   validates :name, presence: true, uniqueness: true
 
   has_many :users

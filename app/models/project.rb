@@ -23,6 +23,8 @@ class Project
   field :colour
   field :initials
 
+  index({ deleted_at: 1 })
+
   has_many :memberships, dependent: :destroy
   has_many :notes
   accepts_nested_attributes_for :memberships

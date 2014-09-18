@@ -4,7 +4,7 @@ class Position
 
   field :starts_at, type: Date
 
-  belongs_to :user
+  belongs_to :user, index: true
   belongs_to :role
 
   validates :user, presence: true
