@@ -63,6 +63,8 @@ gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 gem 'mini_magick'
 gem 'capistrano'
 
+gem 'rack-mini-profiler', '~> 0.9.2', require: false
+
 group :staging, :production do
   gem 'rails_12factor'
 end
@@ -73,7 +75,6 @@ group :development do
   gem 'binding_of_caller'
   gem 'quiet_assets'
   gem 'xray-rails'
-  gem 'rack-mini-profiler', '~> 0.9.2', require: false
   gem 'bullet', '~> 4.13.2'
 end
 
