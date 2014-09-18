@@ -175,7 +175,7 @@ class User
   end
 
   def memberships_by_project
-    Project.unscoped do
+    @project ||= Project.unscoped do
       memberships.includes(:project, :role).group_by(&:project_id).each_with_object({}) do |data, memo|
         memberships = data[1].sort { |m1, m2| m2.starts_at <=> m1.starts_at }
         project = memberships.first.project
