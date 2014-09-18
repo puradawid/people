@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   expose(:roles) { Role.all }
   expose(:locations) { Location.all }
   expose(:projects) { Project.includes(:notes).all }
-  expose(:abilities) { Ability.ordered_by_user_abilities(user).map(&:name) }
+  expose(:abilities) { fetch_abilities }
   expose(:contractTypes) { ContractType.all }
   expose(:positions) { PositionDecorator.decorate_collection(user.positions) }
 
@@ -66,6 +66,10 @@ class UsersController < ApplicationController
     @users ||= User
       .includes(:role, :location, :contract_type, :memberships)
       .all.by_last_name.decorate
+  end
+
+  def fetch_abilities
+    @abilities ||= Ability.ordered_by_user_abilities(user).map(&:name)
   end
 
   def user_params
