@@ -24,7 +24,7 @@ class Hrguru.Views.TeamsIndex extends Marionette.Layout
     new Hrguru.Collections.Users(filtered)
 
   noTeamUsers: ->
-    filtered = @base_users.where team_id: null, archived: false
+    filtered = @users_with_roles.where team_id: null, archived: false
     new Hrguru.Collections.Users(filtered)
 
   renderModalView: (model) ->
