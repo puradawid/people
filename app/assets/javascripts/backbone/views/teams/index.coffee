@@ -14,8 +14,14 @@ class Hrguru.Views.TeamsIndex extends Marionette.Layout
     @teams = new Hrguru.Collections.Teams(gon.teams)
     @roles = new Hrguru.Collections.Roles(gon.roles)
     @base_users = new Hrguru.Collections.Users(gon.users)
+    @users_with_roles = @usersWithRoles(@base_users, @roles)
     @no_team_users = @noTeamUsers()
     @render()
+
+  usersWithRoles: (users, roles) ->
+    filtered = users.filter (user) ->
+      user.get('role_id')
+    new Hrguru.Collections.Users(filtered)
 
   noTeamUsers: ->
     filtered = @base_users.where team_id: null, archived: false
@@ -29,7 +35,7 @@ class Hrguru.Views.TeamsIndex extends Marionette.Layout
   onRender: ->
     @teams_view = new Hrguru.Views.Teams
       collection: @teams
-      users: @base_users
+      users: @users_with_roles
       roles: @roles
 
     @buttons_view = new Hrguru.Views.TeamButtons
@@ -37,7 +43,7 @@ class Hrguru.Views.TeamsIndex extends Marionette.Layout
       roles: @roles
 
     @no_team_view = new Hrguru.Views.NoTeamUsers
-      team_users: @base_users
+      team_users: @users_with_roles
       collection: @no_team_users
       roles: @roles
 
