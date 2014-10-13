@@ -61,7 +61,13 @@ gem 'versionist'
 gem 'jquery-cookie-rails'
 gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 gem 'mini_magick'
+
 gem 'capistrano'
+gem 'rvm1-capistrano3', require: false
+gem 'capistrano-rails'
+gem 'capistrano-bundler'
+gem 'capistrano-passenger'
+
 
 gem 'rack-mini-profiler', '~> 0.9.2', require: false
 
