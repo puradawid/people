@@ -137,16 +137,22 @@ class User
     current_memberships.select(&:ends_at).sort_by(&:ends_at).first
   end
 
+  def last_membership_end_date
+    return unless last_membership.present?
+    last_membership.ends_at
+  end
+
   def availability
-    if memberships.try(:active).present?
-      memberships.active.asc(:ends_at).last.ends_at
-    else
-      nil
-    end
+    last_membership_end_date || current_project_end_date
   end
 
   def current_project
     memberships.active.current_active.present? ? memberships.active.current_active.first.project : nil
+  end
+
+  def current_project_end_date
+    return unless current_project.present?
+    current_project.end_at
   end
 
   def memberships_by_project_ids(project_ids)
