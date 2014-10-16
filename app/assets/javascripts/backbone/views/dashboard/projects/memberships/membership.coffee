@@ -14,7 +14,7 @@ class Hrguru.Views.Dashboard.Membership extends Hrguru.Views.Dashboard.BaseMembe
     @listenTo(EventAggregator, 'memberships:highlightEnding', @highlightEnding)
     @listenTo(EventAggregator, 'memberships:highlightNotBillable', @highlightNotBillable)
     @listenTo @model, 'membership:ended', @finishMembership
-    $("#{@model.get('id')}").modal
+    $("##{@model.get('id')}").modal
 
   onRender: ->
     @project.trigger('projects:rendered', @)
@@ -23,7 +23,7 @@ class Hrguru.Views.Dashboard.Membership extends Hrguru.Views.Dashboard.BaseMembe
     $.extend(super, { show_time: @showEndingTime(), color: @roleColor() })
 
   editMembership: (event) ->
-    $("#{@model.get('id')}").show()
+    $("##{@model.get('id')}").modal('show')
 
   finishMembershipConfirm: (event) ->
     return unless confirm("Are you sure?")

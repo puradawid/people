@@ -2,7 +2,7 @@
 %span.name!= @link_to @user.name, Routes.user_path(@user.id)
 %span.icon
 - if H.currentUserIsAdmin()
-  %a.edit{ href: "##{@id}", data: { toggle: 'modal' } }
+  %a.edit{ href: "##{@id}" }
     != @icon 'pencil-square-o'
   %span.remove &times;
 - if @show_time

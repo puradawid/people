@@ -9,6 +9,7 @@ body.dashboard {
         position: absolute !important;
         left: 50%;
         margin-left: -300px;
+        z-index: 1050;
         .form-group.date {
           display: inline-block;
           width: 45%;
