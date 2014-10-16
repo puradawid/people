@@ -51,4 +51,15 @@ class UserDecorator < Draper::Decorator
     end
   end
 
+  def availability
+    last_membership_end_date || current_project_end_date
+  end
+
+  def current_project_end_date
+    current_project.try(:end_at)
+  end
+
+  def last_membership_end_date
+    last_membership.try(:ends_at)
+  end
 end
