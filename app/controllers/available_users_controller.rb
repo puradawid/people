@@ -1,7 +1,7 @@
 class AvailableUsersController < ApplicationController
 
-  expose(:users) { available_users.decorate }
-  expose(:roles) { Role.technical.decorate }
+  expose_decorated(:users) { available_users }
+  expose_decorated(:roles) { Role.technical }
 
   def index; end
 
