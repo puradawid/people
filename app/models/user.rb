@@ -33,7 +33,7 @@ class User
 
   index({ email: 1, deleted_at: 1 })
 
-  has_many :memberships
+  has_many :memberships, dependent: :destroy
   has_many :notes
   has_many :positions
   has_one :vacation, inverse_of: :user
