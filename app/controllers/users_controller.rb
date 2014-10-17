@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   expose_decorated(:user) { User.find(params[:id]) }
   expose(:users) { fetch_users }
   expose(:roles) { Role.all }
+  expose(:admin_role) { [AdminRole.first_or_create] }
   expose(:locations) { Location.all }
   expose(:projects) { Project.includes(:notes).all }
   expose(:abilities) { fetch_abilities }
@@ -14,6 +15,7 @@ class UsersController < ApplicationController
     gon.rabl as: 'users'
     gon.rabl template: 'app/views/users/projects', as: 'projects'
     gon.roles = roles
+    gon.admin_role = admin_role
     gon.locations = locations
 
     respond_to do |format|
@@ -64,7 +66,7 @@ class UsersController < ApplicationController
 
   def fetch_users
     @users ||= User
-      .includes(:role, :location, :contract_type, :memberships)
+      .includes(:role, :admin_role, :location, :contract_type, :memberships)
       .all.by_last_name.decorate
   end
 
@@ -73,7 +75,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :role_id, :team_id, :leader_team_id,
+    params.require(:user).permit(:first_name, :last_name, :role_id, :admin_role_id, :team_id, :leader_team_id,
       :employment, :phone, :location_id, :contract_type_id,
       :archived, :skype, abilities_names: [])
   end
