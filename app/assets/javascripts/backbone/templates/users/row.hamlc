@@ -13,11 +13,12 @@
       != @icon 'envelope-o'
     != @github
     != @skype
+%td
+  - if H.currentUserIsAdmin()
+    %select.form-control.admin_role.role_id
 - if H.currentUserIsAdmin() || H.currentUserIdIs(@id)
   %td
     %select.form-control.roles.role_id
-  %td
-    %select.form-control.admin_role.role_id
   %td
     .input-group.employment-container
       %input.form-control.employment
