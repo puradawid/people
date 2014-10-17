@@ -61,6 +61,7 @@ gem 'versionist'
 gem 'jquery-cookie-rails'
 gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
 gem 'mini_magick'
+gem 'flip'
 
 gem 'capistrano'
 gem 'rvm1-capistrano3', require: false
