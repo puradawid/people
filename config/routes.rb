@@ -51,4 +51,10 @@ Hrguru::Application.routes.draw do
     get '/css', to: 'pages#css'
     get '/components', to: 'pages#components'
   end
+
+  resources :features, only: [ :index ] do
+    resources :strategies, only: [ :update, :destroy ]
+  end
+  mount Flip::Engine => "/features"
+
 end
