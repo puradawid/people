@@ -4,6 +4,7 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
 
   initialize: ->
     @addInputHandler()
+    @setAdminRoleName()
     @listenTo @model, 'change', @onChange
     @initVisibilitytListeners()
 
@@ -35,6 +36,15 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
         defaultOption:
           label: "no role"
           value: null
+    '.admin_role':
+      observe: 'admin_role_id'
+      selectOptions:
+        collection: -> gon.admin_role
+        labelPath: 'name'
+        valuePath: '_id'
+        defaultOption:
+          label: 'false'
+          value: null
     '.locations':
       observe: 'location_id'
       selectOptions:
@@ -49,6 +59,8 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
     @stickit()
     role = @model.get("role")
     @$el.find('.roles').val(role._id) if role
+    admin_role = @model.get("admin_role")
+    @$el.find('.admin_role').val(admin_role._id) if admin_role
     location = @model.get("location")
     @$el.find('.locations').val(location._id) if location
     @toggleVisibility(@model.isActive())
@@ -85,8 +97,11 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
 
   addInputHandler: ->
     Backbone.Stickit.addHandler
-      selector: '.phone,.roles,.employment,.locations,.date_picker'
+      selector: '.phone,.roles,.admin_role,.employment,.locations,.date_picker'
       events: ['change']
+
+  setAdminRoleName: ->
+    gon.admin_role[0].name = true
 
   onChange: ->
     attrObj = @model.changedAttributes()
