@@ -6,6 +6,8 @@ class VacationsController < ApplicationController
   expose(:vacations) { Vacation.all }
   expose(:vacation) { user.vacation }
 
+  require_feature :vacations
+
   before_filter :authenticate_admin!, only: [:update], unless: -> { current_user? }
 
   def index
