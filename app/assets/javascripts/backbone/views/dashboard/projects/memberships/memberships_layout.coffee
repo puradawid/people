@@ -50,6 +50,8 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
     group.add(membership)
 
   onRender: ->
+    @renderBillableRegion()
+    @renderNonBillableRegion()
     return unless H.currentUserIsAdmin()
     selectize = @$('.new-membership input').selectize
       create: false
@@ -60,8 +62,6 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
       onItemAdd: (value, item) => @newMembership(value, item)
     @selectize = selectize[0].selectize
     @fillEditPopups()
-    @renderBillableRegion()
-    @renderNonBillableRegion()
 
   refreshSelectizeOptions: ->
     selected = _.compact(@collection.pluck('user_id'))
