@@ -22,6 +22,7 @@ class Project
   field :project_type, default: POSSIBLE_TYPES.first
   field :colour
   field :initials
+  field :toggl_bookmark
 
   index({ deleted_at: 1 })
 
