@@ -7,10 +7,12 @@
             #{@.initials}
         .actual
           != @link_to @name, Routes.project_path(@id)
-          .pull-right.unarchive.glyphicon.glyphicon-folder-open.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to unarchive project' }
-          .pull-right.archive.glyphicon.glyphicon-folder-close.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to archive project' }
-          .pull-right.js-timeline-show.glyphicon.glyphicon-time.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to show timeline' }
-          .pull-right.js-timeline-hide.glyphicon.glyphicon-time.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to hide timeline' }
+
+          - if H.currentUserIsAdmin()
+            .pull-right.unarchive.glyphicon.glyphicon-folder-open.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to unarchive project' }
+            .pull-right.archive.glyphicon.glyphicon-folder-close.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to archive project' }
+            .pull-right.js-timeline-show.glyphicon.glyphicon-time.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to show timeline' }
+            .pull-right.js-timeline-hide.glyphicon.glyphicon-time.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to hide timeline' }
           - if @end_at
             .time.hidden
               Do
