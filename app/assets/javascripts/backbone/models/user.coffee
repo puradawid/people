@@ -108,3 +108,9 @@ class Hrguru.Collections.Users extends Backbone.Collection
       a.localeCompare(b)
     else
       b.localeCompare(a)
+
+  active: ->
+    filtered = @filter((user) ->
+      user.isActive()
+    )
+    new Hrguru.Collections.Users(filtered)
