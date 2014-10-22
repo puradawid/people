@@ -144,6 +144,8 @@ body.dashboard {
         }
 
         $project_height: 54px;
+        $project_name_width: 160px;
+        $project_cell_text_height: 15px;
 
         .project-name {
           height: $project_height;
@@ -168,8 +170,21 @@ body.dashboard {
           }
 
           .actual {
-            line-height: $project_height;
+            height: inherit;
+            width: $project_name_width;
+            word-wrap: break-word;
+            position: relative;
+            line-height: $project_cell_text_height;
             display: inline-block;
+
+            a {
+              width: 100%;
+              position: absolute;
+              top: 50%;
+              margin-right: 0%;
+              left: 0%;
+              transform: translate(0, -50%);
+            }
           }
 
           .billable_ratio { float: right; }
