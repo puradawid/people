@@ -127,7 +127,7 @@ class User
   end
 
   def current_memberships
-    @nonpotential_project_ids ||= Project.where(potential: false).only(:_id).map(&:_id)
+    @nonpotential_project_ids ||= Project.where(potential: false, archived: false).only(:_id).map(&:_id)
     memberships_by_project_ids @nonpotential_project_ids
   end
 
