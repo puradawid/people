@@ -52,6 +52,11 @@ Take a note that emails->internal: in `config/config.yml` should be domain used 
 
 Get started: https://devcenter.heroku.com/articles/getting-started-with-rails4
 
+### Feature flags
+
+Feature flags toggle is available at `/features`.
+Admin Role is required.
+
 ### Read More
 
 [Introducing: People. A simple open source app for managing devs within projects](https://netguru.co/blog/posts/introducing-people-a-simple-open-source-app-for-managing-devs-within-projects).
