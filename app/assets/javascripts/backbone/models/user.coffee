@@ -29,7 +29,7 @@ class Hrguru.Models.User extends Backbone.Model
     @trigger 'toggle_visible', @isVisible()
 
   isVisible: ->
-    @visibleBy.roles && @visibleBy.projects && @visibleBy.users && @visibleBy.locations
+    @visibleBy.roles && @visibleBy.projects && @visibleBy.users && @visibleBy.locations && @isActive()
 
   visibleByUsers: (users) ->
     return true if users.length < 1
