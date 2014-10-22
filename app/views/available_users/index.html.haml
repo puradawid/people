@@ -17,7 +17,7 @@
                     .avatar
                       = user.gravatar_image
                     .name
-                      = link_to user.name, user_path(user)
+                      = profile_link user
                     .available_since
                       available since:
                       #{user.availability.present? ? user.availability.to_date : "since now"}
@@ -70,7 +70,7 @@
             %tr
               %td= user.gravatar_image(size: :thumb)
               %td
-                = link_to user.name, user_path(user)
+                = profile_link user
                 .icons
                   = mail_to user.email do
                     = tooltip user.email do

@@ -1,4 +1,4 @@
-%span.name!= @link_to @user.name, Routes.user_path(@user.id)
+%span.name!= @profile_link(@user, Routes.user_path(@user.id))
 %span.icon
 .time
   Od

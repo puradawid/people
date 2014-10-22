@@ -12,7 +12,7 @@
       - memberships.each do |membership|
         %tr
           %td= membership.project.name rescue nil
-          %td= membership.user.decorate.name rescue nil
+          %td= profile_link membership.user.decorate rescue nil
           %td= membership.role
           %td= membership.starts_at.to_date
           %td= membership.ends_at ? membership.ends_at.to_date : content_tag("span", "unexpired", class: "label label-default")

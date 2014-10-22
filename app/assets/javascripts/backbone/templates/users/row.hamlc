@@ -8,7 +8,7 @@
 %td
   %img{ src: @gravatar }
 %td
-  != @link_to @name, Routes.user_path(@id)
+  != @profile_link(@, Routes.user_path(@id))
   .icons
     %a{ href: "mailto:#{@email}", title: @email }
       != @icon 'envelope-o'

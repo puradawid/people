@@ -8,7 +8,7 @@
     %tbody
       - positions_decorated.each do |position|
         %tr
-          %td= position.user.name
+          %td= profile_link position.user
           %td= position.role
           %td= position.starts_at.to_date
           %td
