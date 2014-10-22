@@ -30,11 +30,11 @@ class AvailabilityChecker
   end
 
   def ending_memberships
-    @user.current_memberships.select { |p| p.billable == true && p.ends_at < 2.week.from_now if p.ends_at.present? }
+    @user.current_memberships.select { |p| p.billable == true && p.ends_at < 4.week.from_now if p.ends_at.present? }
   end
 
   def ending_projects
-    current_projects.select { |p| p.end_at < 2.week.from_now if p.end_at.present? }
+    current_projects.select { |p| p.end_at < 4.week.from_now if p.end_at.present? }
   end
 
   def current_projects
