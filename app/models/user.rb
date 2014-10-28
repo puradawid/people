@@ -31,6 +31,8 @@ class User
   field :without_gh, type: Mongoid::Boolean, default: false
   field :uid, type: String
 
+  mount_uploader :gravatar, GravatarUploader
+
   index({ email: 1, deleted_at: 1 })
 
   has_many :memberships, dependent: :destroy
