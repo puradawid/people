@@ -34,13 +34,8 @@ describe UserDecorator do
     it { expect(subject.link).to eq h.link_to subject.name, user }
   end
 
-  describe '#gravatar_url' do
-    let(:user_md5) { Digest::MD5.hexdigest(subject.email.downcase) }
-    it { expect(subject.gravatar_url).to eq "https://www.gravatar.com/avatar/#{user_md5}?size=80" }
-  end
-
   describe '#gravatar_image' do
-    it { expect(subject.gravatar_image(size: 80)).to include(subject.gravatar_url) }
+    it { expect(subject.gravatar_image).to include(subject.gravatar_url.to_s) }
   end
 
   describe '#days_in_current_team' do

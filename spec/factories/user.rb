@@ -9,6 +9,7 @@ FactoryGirl.define do
     available false
     without_gh false
     oauth_token '123'
+    gravatar { File.open(Rails.root.join('spec', 'fixtures', 'gravatar', 'gravatar.jpg')) }
 
     factory :user_deleted do
       deleted_at Time.now

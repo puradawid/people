@@ -42,6 +42,11 @@ Spork.prefork do
 
     config.infer_base_class_for_anonymous_controllers = false
   end
+
+  CarrierWave.configure do |config|
+    config.storage = :file
+    config.enable_processing = false
+  end
 end
 
 Spork.each_run do
