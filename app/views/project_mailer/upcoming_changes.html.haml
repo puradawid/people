@@ -11,7 +11,7 @@
   %ul
   - @memberships_leaving.each do |membership|
     %li
-      = image_tag membership.user.decorate.gravatar_url(30)
+      = membership.user.decorate.gravatar_image(size: :circle)
       = "#{membership.user.first_name} #{membership.user.last_name} (#{ membership.ends_at.strftime('%a, %-d %b') })"
 
 - if @memberships_joining.any?
@@ -19,5 +19,5 @@
   %ul
   - @memberships_joining.each do |membership|
     %li
-      = image_tag membership.user.decorate.gravatar_url(30)
+      = membership.user.decorate.gravatar_image(size: :circle)
       = "#{membership.user.first_name} #{membership.user.last_name} (#{ membership.starts_at.strftime('%a, %-d %b') })"

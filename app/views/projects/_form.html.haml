@@ -22,7 +22,7 @@
           - project.memberships.unfinished.each do |membership|
             = f.simple_fields_for :memberships, membership do |fa|
               %tr
-                %td= membership.user.decorate.gravatar_image({size: 40})
+                %td= membership.user.decorate.gravatar_image(size: :thumb)
                 %td= membership.user.first_name
                 %td= membership.user.last_name
                 %td.warning
