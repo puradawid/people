@@ -3,6 +3,8 @@ class GravatarDownloaderJob
 
   def perform(user_id)
     user = User.find(user_id)
-    GravatarDownloader.new(user).call!
+    unless GravatarDownloader.new(user).call!
+      print "Failed to fetch gravatar for user #{user_id}"
+    end
   end
 end
