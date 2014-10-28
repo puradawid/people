@@ -6,4 +6,11 @@ namespace :people do
       AvailabilityCheckerJob.new.perform(user.id)
     end
   end
+
+  desc "Download user's gravatars"
+  task gravatars_download: :environment do
+    User.pluck(:id).each do |user_id|
+      GravatarDownloaderJob.new.perform(user_id)
+    end
+  end
 end
