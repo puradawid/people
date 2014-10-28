@@ -71,7 +71,7 @@ describe 'team view', js: true do
   end
 
   describe '.js-exclude-member' do
-    it 'removes member from the team' do
+    xit 'removes member from the team' do
       find('.js-exclude-member').click
       expect(page).not_to have_xpath('//td[@id="members-region"]//td')
     end
