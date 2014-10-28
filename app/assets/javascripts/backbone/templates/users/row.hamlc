@@ -5,7 +5,8 @@
   - else
     .number_days.img-circle!= @daysToEndMembership
     %p.lowercase= _.pluralize "Day", @daysToEndMembership, showNumber: false
-%td!= @gravatar
+%td
+  %img{ src: @gravatar }
 %td
   != @link_to @name, Routes.user_path(@id)
   .icons
