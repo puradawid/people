@@ -5,6 +5,7 @@
 #= require_tree ./lib
 #= require ./helper
 
+
 window.EventAggregator = new Backbone.Wreqr.EventAggregator()
 
 window.Hrguru =
