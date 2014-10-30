@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby "2.0.0"
 
-gem 'rails', '4.0.9'
+gem 'rails', '4.0.10'
 gem 'sprockets', '2.11.0'
 gem 'rollbar'
 gem 'google-analytics-rails'
@@ -41,7 +41,7 @@ gem 'netguru_theme'
 
 gem 'haml-rails'
 gem 'sass-rails', '~> 4.0.0'
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '~> 2.5.3'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'therubyracer', '= 0.12.0'
 gem 'render_anywhere', require: false
@@ -91,7 +91,6 @@ group :development, :test do
   gem 'pry-rails'
   gem 'awesome_print'
   gem 'capistrano-rvm', require: false
-  gem 'capistrano-rails', require: false
 end
 
 group :test do
