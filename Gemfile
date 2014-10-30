@@ -103,7 +103,8 @@ group :test do
   gem 'timecop'
   gem 'codeclimate-test-reporter', require: false
   gem 'capybara', '~> 2.4.1'
-  gem 'selenium-webdriver', '~> 2.42.0'
   gem 'webmock'
   gem 'rack_session_access'
+  gem 'poltergeist'
+  gem 'phantomjs', :require => 'phantomjs/poltergeist'
 end

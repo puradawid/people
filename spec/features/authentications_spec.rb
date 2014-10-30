@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Authentication' do
+describe 'Authentication', js: true do
 
   subject { page }
   before(:all) { OmniAuth.config.test_mode = true }
@@ -24,7 +24,6 @@ describe 'Authentication' do
 
     context 'with google' do
       before do
-        Capybara.default_driver = :selenium
         visit root_path
         click_link_or_button 'Sign up with Google'
       end
