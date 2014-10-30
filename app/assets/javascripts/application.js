@@ -5,9 +5,9 @@
 //= require jquery_ujs
 //= require jquery.cookie
 //= require netguru_theme
-//= require bootstrap-datepicker
 //= require messenger
 //= require messenger-theme-flat
+//= require bootstrap-datepicker
 //= require selectize
 //= require js_stack
 //= require js_stack/plugins/underscore.string
