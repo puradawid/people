@@ -246,4 +246,41 @@ describe User do
       end
     end
   end
+
+  describe "#booked_memberships" do
+    let!(:project_current) { create(:project, name: "google", potential: true) }
+    let!(:project_next) { create(:project, name: "facebook", potential: false) }
+    let(:first_memb) do
+      create(:membership,
+        starts_at: Time.now, ends_at: nil, user: subject, project: project_current)
+    end
+    let(:sec_memb) do
+      create(:membership,
+        starts_at: 1.month.from_now, ends_at: nil, user: subject, project: project_next)
+    end
+
+    context "when booked membership attribute ends_at is nil" do
+      before do
+        first_memb.update_attribute(:booked, true)
+        sec_memb.update_attribute(:booked, true)
+      end
+
+      it "returns an empty array" do
+        expect(subject.booked_memberships).to eq([])
+      end
+    end
+
+    context "when booked membership attribute ends_at is set " do
+      before do
+        first_memb.update_attribute(:booked, true)
+        sec_memb.update_attribute(:booked, true)
+        first_memb.update_attribute(:ends_at, 2.weeks.from_now)
+        sec_memb.update_attribute(:ends_at, 3.months.from_now)
+      end
+
+      it "returns memberships in the right order" do
+        expect(subject.booked_memberships).to eq([first_memb, sec_memb])
+      end
+    end
+  end
 end

@@ -10,6 +10,7 @@ class Membership
   field :project_potential, type: Mongoid::Boolean, default: true
   field :project_internal, type: Mongoid::Boolean, default: true
   field :stays, type: Mongoid::Boolean, default: false
+  field :booked, type: Mongoid::Boolean, default: false
 
   belongs_to :user, index: true
   belongs_to :project, index: true

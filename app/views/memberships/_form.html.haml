@@ -11,7 +11,11 @@
       = g.association :project, collection: projects
       = g.association :user, collection: users
       = g.association :role, collection: roles
-      = g.input :billable, as: :boolean, wrapper: :vertical_boolean
+      .checkbox-left
+        .col-xs-6
+          = g.input :billable, as: :boolean, wrapper: :vertical_boolean
+      .col-xs-6
+        = g.input :booked, as: :boolean, wrapper: :vertical_boolean
 
     .actions
       = f.button :submit, class: "btn-success", confirm: "Are you sure?"

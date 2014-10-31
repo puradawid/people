@@ -59,6 +59,8 @@
               = f.association :role, collection: roles, include_blank: false
             .col-sm-6
               = f.input :billable, as: :boolean
+            .col-sm-6
+              = f.input :booked, as: :boolean
               .hidden= f.input :user_id
           .actions
             = f.button :submit, "Add to project", data: { confirm: I18n.t('confirm_question') }, class: 'btn-success'

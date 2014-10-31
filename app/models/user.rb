@@ -119,6 +119,10 @@ class User
     @memberships ||= memberships.to_a
   end
 
+  def booked_memberships
+    memberships.select(&:booked).select(&:ends_at).sort_by(&:ends_at)
+  end
+
   def potential_memberships
     @potential_project_ids ||= Project.where(potential: true).only(:_id).map(&:_id)
     potential_memberships_by_ids @potential_project_ids

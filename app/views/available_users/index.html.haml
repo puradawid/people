@@ -38,6 +38,14 @@
                             %li
                               %span{ rel: 'tooltip', title: p.potential_start, data: { placement: 'right' } }
                                 = link_to p.project.name, project_path(p.project)
+                    - if user.booked_memberships.present?
+                      .booked
+                        booked:
+                        %ul
+                          - user.booked_memberships.each do |m|
+                            %li
+                              %span{ rel: 'tooltip', title: m.ends_at.to_date, data: { placement: 'right' } }
+                                = link_to m.project.name, project_path(m.project)
                     .current_project
                       - if user.current_project.present?
                         current project:
@@ -64,6 +72,7 @@
           %th Per month
           %th Current project
           %th Projects
+          %th Booked
 
         %tbody
           - users.each do |user|
@@ -91,3 +100,5 @@
                 = render partial: 'membership', collection: user.next_memberships
                 = 'Potential:' if user.has_potential_projects?
                 = render partial: 'membership', collection: user.potential_memberships
+              %td
+                = render partial: 'membership', collection: user.booked_memberships
