@@ -5,6 +5,7 @@ class Hrguru.Models.User extends Backbone.Model
     roles: true
     projects: true
     locations: true
+    abilities: true
 
   membership: null
 
@@ -26,10 +27,11 @@ class Hrguru.Models.User extends Backbone.Model
     @visibleBy.projects = @visibleByProjects(data.projects)
     @visibleBy.locations = @visibleByLocations(data.locations)
     @visibleBy.users = @visibleByUsers(data.users)
+    @visibleBy.abilities = @visibleByAbilities(data.abilities)
     @trigger 'toggle_visible', @isVisible()
 
   isVisible: ->
-    @visibleBy.roles && @visibleBy.projects && @visibleBy.users && @visibleBy.locations && @isActive()
+    @visibleBy.roles && @visibleBy.projects && @visibleBy.users && @visibleBy.locations && @visibleBy.abilities && @isActive()
 
   visibleByUsers: (users) ->
     return true if users.length < 1
@@ -51,8 +53,17 @@ class Hrguru.Models.User extends Backbone.Model
     return false unless @get('location')?
     @get('location')._id in locations
 
+  visibleByAbilities: (abilities) ->
+    return true if abilities.length < 1
+    return false unless @get('abilities')?
+    myAbilities = @myAbilities()
+    (_.difference myAbilities, abilities).length < myAbilities.length
+
   myProjects: ->
     _.map @get("projects"), (p) -> p.project._id
+
+  myAbilities: ->
+    _.map @get("abilities"), (a) -> a._id
 
   isActive: ->
     !@get('archived')

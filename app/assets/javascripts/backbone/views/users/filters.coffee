@@ -13,7 +13,7 @@ class Hrguru.Views.UsersFilters extends Marionette.View
     'change #show-archived' : 'showOnlyBy'
     'change #show-without-project' : 'showOnlyBy'
 
-  initialize: (@projects, @roles, @users, @locations) ->
+  initialize: (@projects, @roles, @users, @locations, @abilities) ->
     @listenTo(EventAggregator, 'UsersRow:toggleEnding', @toggleEndingTime)
     @listenTo(EventAggregator, 'UsersRow:showOnlyIfPotential', @toggleEndingTime)
     @initializeVariables()
@@ -23,6 +23,7 @@ class Hrguru.Views.UsersFilters extends Marionette.View
     @initializeRoleFilter()
     @initializeProjectFilter()
     @initializeLocationFilter()
+    @initializeAbilitiesFilter()
 
   initializeUserFilter: ->
     users_selectize = @$('input[name=users]').selectize
@@ -76,6 +77,19 @@ class Hrguru.Views.UsersFilters extends Marionette.View
       onItemRemove: @filterUsers
     @selectize.locations = locations_selectize[0].selectize.items
 
+  initializeAbilitiesFilter: ->
+    abilities_selectize = @$('input[name=abilities]').selectize
+      plugins: ['remove_button']
+      create: false
+      valueField: '_id'
+      labelField: 'name'
+      searchField: 'name'
+      sortField: 'name'
+      options: @abilities
+      onItemAdd: @filterUsers
+      onItemRemove: @filterUsers
+    @selectize.abilities = abilities_selectize[0].selectize.items
+
   filterUsers: =>
     EventAggregator.trigger('users:updateVisibility', @selectize)
     H.addUserIndex()
@@ -86,6 +100,7 @@ class Hrguru.Views.UsersFilters extends Marionette.View
       projects: []
       locations: []
       users: []
+      abilities: []
 
   highlightEndingUsers: (event) ->
     checkbox = event.currentTarget

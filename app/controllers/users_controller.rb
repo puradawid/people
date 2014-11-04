@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     gon.roles = roles
     gon.admin_role = admin_role
     gon.locations = locations
+    gon.abilities = Ability.all
 
     respond_to do |format|
       format.html
