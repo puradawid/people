@@ -28,16 +28,12 @@ class UsersController < ApplicationController
     user.attributes = user_params
     if user.save
       info = { notice: t('users.updated') }
-      json = user
-      status = 200
     else
       info = { alert: generate_errors }
-      json = { errors: user.errors.messages }
-      status = :unprocessable_entity
     end
     respond_to do |format|
       format.html { redirect_to user, info }
-      format.json { render json: json, status: status }
+      format.json
     end
   end
 

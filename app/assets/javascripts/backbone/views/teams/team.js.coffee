@@ -84,8 +84,8 @@ class Hrguru.Views.TeamMembers extends Backbone.Marionette.CollectionView
   itemViewOptions: ->
     roles: @roles
 
-  excludeMember: (member) =>
-    member.model.save team_id: null, leader_team_id: null,
+  excludeMember: (member_view) =>
+    member_view.model.save team_id: null, leader_team_id: null,
       wait: true
       success: @memberExcluded
       error: @memberError
