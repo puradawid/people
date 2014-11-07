@@ -43,8 +43,12 @@ describe 'team view', js: true do
     end
 
     it 'adds new team' do
+      expect(Team.count).to eq 1
       find('.js-new-team-form .form-control.name').set('teamX')
-      expect { find('a.new-team-submit').click }.to change { Team.count }.by(1)
+      find('a.new-team-submit').click
+      expect(page).to have_content 'teamX has been created'
+      expect(Team.count).to eq 2
+      page.save_screenshot('~/Desktop/sc1.png')
     end
   end
 
