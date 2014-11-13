@@ -8,6 +8,7 @@ class Membership
   field :billable, type: Mongoid::Boolean
   field :project_archived, type: Mongoid::Boolean, default: false
   field :project_potential, type: Mongoid::Boolean, default: true
+  field :project_internal, type: Mongoid::Boolean, default: true
   field :stays, type: Mongoid::Boolean, default: false
 
   belongs_to :user, index: true
@@ -100,8 +101,10 @@ class Membership
   private
 
   def check_fields
-    if project_potential != project.potential || project_archived != project.archived
-      self.update(project_potential: project.potential, project_archived: project.archived)
+    if project_potential != project.potential || project_archived != project.archived || project_internal != project.internal
+      self.update(project_potential: project.potential,
+                  project_archived: project.archived,
+                  project_internal: project.internal)
     end
   end
 

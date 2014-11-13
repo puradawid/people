@@ -18,6 +18,7 @@ class Project
   field :end_at, type: Time
   field :archived, type: Mongoid::Boolean, default: false
   field :potential, type: Mongoid::Boolean, default: false
+  field :internal, type: Mongoid::Boolean, default: false
   field :kickoff, type: Date
   field :project_type, default: POSSIBLE_TYPES.first
   field :colour
