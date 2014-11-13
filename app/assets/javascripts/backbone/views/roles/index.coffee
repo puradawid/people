@@ -34,10 +34,14 @@ class Hrguru.Views.RolesIndex extends Backbone.View
     $input = $('#name')
     $checkboxBillable = $('#billable')
     $checkboxTechnical = $('#technical')
+    $checkboxShowInTeam = $('#show-in-team')
     role = new Hrguru.Models.Role()
-    role.save(name: $input.val(), billable: $checkboxBillable.prop('checked'), technical: $checkboxTechnical.prop('checked'),
+    role.save(
+      name: $input.val(),
+      billable: $checkboxBillable.prop('checked'),
+      technical: $checkboxTechnical.prop('checked'),
+      show_in_team: $checkboxShowIn.prop('checked'),
       success: =>
         $input.val("")
         @rolesListView.collection.add role
     )
-

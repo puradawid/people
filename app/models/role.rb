@@ -15,6 +15,7 @@ class Role
   field :color, type: String
   field :billable, type: Mongoid::Boolean, default: false
   field :technical, type: Mongoid::Boolean, default: false
+  field :show_in_team, type: Mongoid::Boolean, default: true
 
   validates :name, presence: true, uniqueness: true
   validates :billable, inclusion: { in: [true, false] }

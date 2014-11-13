@@ -4,13 +4,16 @@ describe 'team view', js: true do
   let(:billable_role) { create(:role_billable) }
   let(:admin_role) { create(:admin_role) }
   let(:non_dev_role) { create(:role) }
+  let(:dev_role) { create(:role) }
+  let(:hidden_role) { create(:role, show_in_team: false)}
   let(:user) { create(:user, admin_role_id: admin_role.id) }
   let!(:dev_user) { create(:user, first_name: 'Developer Daisy', admin_role_id: admin_role.id, role_id: billable_role.id) }
   let!(:non_dev_user) { create(:user, first_name: 'Nondev Nigel', role_id: non_dev_role.id) }
   let!(:archived_user) { create(:user, first_name: 'Archived Arthur', archived: true) }
   let!(:no_role_user) { create(:user, first_name: 'Norole Nicola') }
+  let!(:hidden_user) { create(:user, first_name: 'Hidden Amanda', role_id: hidden_role.id, team_id: team.id) }
   let!(:team) { create(:team) }
-  let!(:team_user) { create(:user, first_name: 'Developer Dave', admin_role_id: admin_role.id, role_id: billable_role.id, team_id: team.id) }
+  let!(:team_user) { create(:user, first_name: 'Developer Dave', role_id: dev_role.id, team_id: team.id) }
 
   before(:each) do
     page.set_rack_session 'warden.user.user.key' => User.serialize_into_session(user).unshift('User')
@@ -30,6 +33,10 @@ describe 'team view', js: true do
       expect(page).to have_content dev_user.first_name
       expect(page).to have_content non_dev_user.first_name
       expect(page).not_to have_content no_role_user.first_name
+    end
+
+    it 'shows only users with roles chosen by admin' do
+      expect(page).not_to have_content hidden_user.first_name
     end
   end
 

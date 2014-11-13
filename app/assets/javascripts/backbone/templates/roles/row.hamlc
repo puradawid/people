@@ -13,6 +13,10 @@
       .checkbox
         %label
           %input.technical{ type: 'checkbox' }
+    .input-group-addon.show-in-team-row
+      .checkbox
+        %label
+          %input.show-in-team{ type: 'checkbox' }
   - else
     %input.name.form-control{ disabled: "disabled" }
   .input-group-btn

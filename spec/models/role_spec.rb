@@ -7,6 +7,7 @@ describe Role do
   it { should have_field(:name).of_type(String) }
   it { should have_field(:billable).of_type(Mongoid::Boolean).with_default_value_of(false) }
   it { should validate_inclusion_of(:billable).to_allow([true, false]) }
+  it { should have_field(:show_in_team).of_type(Mongoid::Boolean).with_default_value_of(true) }
 
   describe "#to_s" do
     it "returns name" do

@@ -14,17 +14,20 @@ class Hrguru.Views.TeamsIndex extends Marionette.Layout
     @teams = new Hrguru.Collections.Teams(gon.teams)
     @roles = new Hrguru.Collections.Roles(gon.roles)
     @base_users = new Hrguru.Collections.Users(gon.users)
-    @users_with_roles = @usersWithRoles(@base_users, @roles)
+    @visible_team_users = @visibleOnly()
     @no_team_users = @noTeamUsers()
     @render()
 
-  usersWithRoles: (users, roles) ->
-    filtered = users.filter (user) ->
-      user.get('role_id')
+  visibleOnly: ->
+    roles = @roles
+    visibleRoles = @roles.where show_in_team:true
+    filtered = @base_users.where(archived:false).filter (user) ->
+      role = roles.get(user.get('role_id'))
+      _.contains(visibleRoles, role)
     new Hrguru.Collections.Users(filtered)
 
   noTeamUsers: ->
-    filtered = @users_with_roles.where team_id: null, archived: false
+    filtered = @visible_team_users.where team_id:null, archived:false
     new Hrguru.Collections.Users(filtered)
 
   renderModalView: (model) ->
@@ -35,7 +38,7 @@ class Hrguru.Views.TeamsIndex extends Marionette.Layout
   onRender: ->
     @teams_view = new Hrguru.Views.Teams
       collection: @teams
-      users: @users_with_roles
+      users: @visible_team_users
       roles: @roles
 
     @buttons_view = new Hrguru.Views.TeamButtons
@@ -43,7 +46,7 @@ class Hrguru.Views.TeamsIndex extends Marionette.Layout
       roles: @roles
 
     @no_team_view = new Hrguru.Views.NoTeamUsers
-      team_users: @users_with_roles
+      team_users: @visible_team_users
       collection: @no_team_users
       roles: @roles
 
