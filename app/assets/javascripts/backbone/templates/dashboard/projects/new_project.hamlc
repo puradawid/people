@@ -13,7 +13,10 @@
       %input.form-control.slug{  placeholder: "Only small letters...", type: "text"  }
   .checkbox
     %label
-      %input.potential{ type: 'checkbox', checked: 'true' } Potential
+      %input.potential{ type: 'checkbox', checked: 'false' } Potential
+  .checkbox
+    %label
+      %input.internal{ type: 'checkbox', checked: 'false' } Internal
   .form-group
     .input-group
       %label.date_picker.required.control-label.input-group-addon

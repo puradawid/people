@@ -17,7 +17,7 @@ class Hrguru.Models.Project extends Backbone.AssociatedModel
     memberships: []
 
   isActive: ->
-    !(@get('potential') || @get('archived'))
+    !(@get('potential') || @get('archived') || @get('internal'))
 
   isPotential: ->
     @get('potential')
@@ -25,9 +25,13 @@ class Hrguru.Models.Project extends Backbone.AssociatedModel
   isArchived: ->
     @get('archived')
 
+  isInternal: ->
+    @get('internal')
+
   type: ->
     return 'potential' if @isPotential()
     return 'archived' if @isArchived()
+    return 'internal' if @isInternal()
     'active'
 
   daysToEnd: ->

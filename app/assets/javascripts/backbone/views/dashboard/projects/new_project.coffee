@@ -12,6 +12,7 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     slug:      '.slug'
     endAt:     '.endAt'
     potential: '.potential'
+    internal:  '.internal'
     kickoff:   '.kickoff'
     form:      '.new-project-form'
     add:       '.new-project-add'
@@ -30,6 +31,7 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
       slug: @ui.slug.val()
       end_at: @ui.endAt.val()
       potential: @ui.potential.prop('checked')
+      internal: @ui.internal.prop('checked')
       kickoff: @ui.kickoff.val()
     @collection.create attributes,
       wait: true
@@ -53,3 +55,4 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     @ui.endAt.val('')
     @ui.kickoff.val('')
     @ui.potential.prop('checked')
+    @ui.internal.prop('checked')

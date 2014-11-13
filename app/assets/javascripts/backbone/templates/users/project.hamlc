@@ -2,6 +2,8 @@
   - if @is_role_technical
     - if @project.potential
       %i.glyphicon.glyphicon-asterisk.potential.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Potential project' }
+    - if @project.internal
+      %i.glyphicon.glyphicon-cloud.internal.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Internal project' }
     - unless @membership.billable
       %i.glyphicon.glyphicon-exclamation-sign.notbillable.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Notbillable' }
   != @link_to @project.name, Routes.project_path(@project._id)

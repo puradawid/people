@@ -69,3 +69,5 @@ class Hrguru.Helper
 
   togglePotentialCheckbox: (type) ->
     $('.potential').prop('checked', type is 'potential')
+  toggleInternalCheckbox: (type) ->
+    $('.internal').prop('checked', type is 'internal')
