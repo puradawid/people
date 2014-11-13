@@ -8,8 +8,14 @@
         %span.icon-bar
       = link_to root_path, class: 'navbar-logo' do
         = image_tag 'logo.png', alt: "#{AppConfig.company_name} People"
-    .navbar-collapse.collapse
-      - if signed_in? && current_user.github_connected?
+    - if signed_in? && current_user.github_connected?
+      .navbar-collapse.collapse
+        %form.navbar-form.navbar-left
+          .input-group
+            %input.form-control.navbar-search-input{ type: 'text', placeholder: 'Search for project of folk' }
+              %span.input-group-btn
+                %button.btn.btn-default.navbar-search-button{ type: 'button' }
+                  %span.glyphicon.glyphicon-search
         %ul.nav.navbar-nav
           %li{ class: menu_class('users') }= link_to "Users", users_path
           %li{ class: menu_class('available_users') }= link_to "Available people", available_users_path
@@ -28,14 +34,14 @@
                 %li{ class: menu_class('positions') }= link_to "Positions", positions_path
                 %li{ class: menu_class('abilities') }= link_to "Abilities", abilities_path
                 %li{ class: menu_class('settings') }= link_to 'Settings', settings_path
-      - if signed_in?
-        %ul.nav.navbar-nav.navbar-right
-          %li.dropdown
-            %a#profile.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' } }
-              = current_user.gravatar_image size: :circle, class: 'img-circle'
-              = current_user.first_name
-              %b.caret
-            %ul.dropdown-menu
-              %li= link_to 'Profile', user_path(current_user)
-              %li
-                %a{ href: sign_out_path, data: { method: 'delete' } } Sign out
+        - if signed_in?
+          %ul.nav.navbar-nav.navbar-right
+            %li.dropdown
+              %a#profile.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' } }
+                = current_user.gravatar_image size: :circle, class: 'img-circle'
+                = current_user.first_name
+                %b.caret
+              %ul.dropdown-menu
+                %li= link_to 'Profile', user_path(current_user)
+                %li
+                  %a{ href: sign_out_path, data: { method: 'delete' } } Sign out

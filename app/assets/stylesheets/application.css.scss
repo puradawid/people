@@ -1,6 +1,8 @@
 @import 'vendor';
 @import 'netguru-theme';
+@import 'netguru-theme/apps/people';
 @import 'utilities/mixins';
+@import 'utilities/animate';
 @import 'controllers/*';
 @import 'components/*';
 @import 'shame';

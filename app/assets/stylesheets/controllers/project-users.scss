@@ -1,0 +1,264 @@
+#projects-users {
+  margin-top: 10px;
+  padding-bottom: 255px;
+  width: 100%;
+  overflow-x: hidden;
+  font-size: 0.9em;
+  float: left;
+  clear: both;
+
+  .project {
+    margin: 5px 0;
+    min-width: 100%;
+    min-height: 54px;
+    display: block;
+    clear: both;
+    background: $gray-project;
+
+    .new-project-note {
+      overflow: hidden;
+    }
+
+    &.left  {
+      background: $left-time-red;
+      color: white;
+
+      .project-name {
+        border-bottom: 2px solid $left-time-red;
+
+        a {
+          position: relative;
+          top: -5px;
+          color: white;
+        }
+
+        .info {
+          position: relative;
+          top: -5px;
+          color: white;
+          &:hover { color: $gray-background; }
+        }
+
+        .time {
+          margin: 0;
+          font-weight: 100;
+          text-align: center;
+          letter-spacing: 1px;
+          position: relative;
+          top: -5px;
+          left: -10px;
+        }
+      }
+    }
+
+    .memberships {
+      display: inline-block;
+      overflow: hidden;
+      float: left;
+    }
+
+    $project_height: 54px;
+    $project_name_width: 160px;
+    $project_cell_text_height: 15px;
+
+    .project-name {
+      height: $project_height;
+      font-weight: bold;
+      border-right: 1px solid #DDD;
+      border-bottom: 2px solid #DDD;
+      text-align: center;
+
+      .project-avatar {
+        height: $project_height;
+        width: $project_height;
+        float: left;
+        line-height: $project_height;
+        display: inline-block;
+
+        span.avatar-initials {
+          color: white;
+          text-align: center;
+          padding: auto;
+          font-size: 2em;
+        }
+      }
+
+      .actual {
+        height: inherit;
+        width: $project_name_width;
+        word-wrap: break-word;
+        position: relative;
+        line-height: $project_cell_text_height;
+        display: inline-block;
+
+        a {
+          width: 100%;
+          position: absolute;
+          top: 50%;
+          margin-right: 0%;
+          left: 0%;
+          transform: translate(0, -50%);
+        }
+      }
+
+      .billable_ratio {
+        float: right;
+      }
+
+      .archive {
+        display: inline-block;
+      }
+
+      .unarchive {
+        display: none;
+      }
+
+      .unarchive,
+      .archive,
+      .js-timeline-show,
+      .js-timeline-hide {
+        margin-left: 5px;
+        font-size: 15px;
+        line-height: 10px;
+        color: #428bca;
+        opacity: 0;
+
+        &:hover {
+          color: gray;
+          cursor: pointer;
+        }
+      }
+
+      &:hover {
+        .unarchive,
+        .archive,
+        .js-timeline-show,
+        .js-timeline-hide  {
+          opacity: 1;
+          margin-top: 5px;
+        }
+      }
+    }
+
+    &.archived {
+      .archive {
+        display: none;
+      }
+
+      .unarchive {
+        display: inline-block;
+        color: white;
+      }
+
+      .project-name {
+        background: $archived-project;
+
+        a {
+          color: white;
+        }
+      }
+    }
+
+    &.potential {
+      .project-name {
+        background: $potential-project;
+
+        a {
+          color: white;
+        }
+      }
+      .unarchive,
+      .archive {
+        display: none;
+      }
+    }
+
+    .membership,
+    .new-membership {
+      background: white;
+    }
+
+    .membership {
+      padding: 10px;
+      margin: 8px 4px;
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+
+      .remove {
+        cursor: pointer;
+      }
+
+      .edit,
+      .remove {
+        opacity: 0;
+      }
+
+      .name,
+      .remove,
+      .edit {
+        position: relative;
+        z-index: 5;
+      }
+
+      .time {
+        display: none;
+        font-size: 12px;
+      }
+
+      &[class*='left-'], &[class*='start-'] {
+        padding: 5px;
+        margin: 4px;
+        min-width: 150px;
+
+        .role-indicator {
+          display: none;
+        }
+
+        .time {
+          display: block;
+        }
+
+        .remove {
+          float: right;
+        }
+
+        .remove {
+          margin-right: 3px;
+        }
+      }
+
+      &.left-1 { background: $left-time-red; color: white; a { color: white; } }
+      &.left-7 { background: lighten($left-time-red, 20); color: white; a { color: white; } }
+      &.left-14 { background: lighten($left-time-red, 40); }
+      &.left-30 { background: lighten($left-time-red, 55); }
+
+      &.start-1 { background: lighten($start-time-green, 55);}
+      &.start-7 { background: lighten($start-time-green, 40);}
+      &.start-14 { background: lighten($start-time-green, 20);  color: white; }
+      &.start-30 { background: $start-time-green; color: white; a { color: white; } }
+
+      &.unstarted {
+        .time { display: block; }
+      }
+
+      &:hover {
+        .remove, .edit { opacity: 1; }
+      }
+    }
+
+    .new-membership {
+      color: white;
+    }
+
+    .role-indicator {
+      width: 100%;
+      height: 100%;
+      border: 1px solid transparent;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 0;
+    }
+  }
+}

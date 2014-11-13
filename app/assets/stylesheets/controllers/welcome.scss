@@ -1,8 +1,4 @@
-body.welcome {
-  &.index {
-    #main-container {
-      margin-top: 25px;
-      width: 100%;
-    }
-  }
+.hello {
+    -webkit-animation: bounce 1s;
+    animation: bounce 1s;
 }

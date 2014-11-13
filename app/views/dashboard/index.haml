@@ -1,33 +1,30 @@
-#filters
-  .projects-types
-    %h4 Projects
-    .radio-inline.active
-      %label
-        %input#toggle-by-type{ type: 'radio', name: 'projectType', checked: true, data:{ type: 'active' }} Active
-    .radio-inline.internal
-      %label
-        %input#toggle-by-type{ type: 'radio', name: 'projectType', data:{ type: 'internal' }} Internal
-    .radio-inline.potential
-      %label
-        %input#toggle-by-type{ type: 'radio', name: 'projectType', data:{ type: 'potential' }} Potential
-    .radio-inline.archived
-      %label
-        %input#toggle-by-type{ type: 'radio', name: 'projectType', data:{ type: 'archived' }} Archived
-  .checkboxes
-    .checkbox.info-left{title: 'People leaving the project soon are highlighted red.'}
-      %label
-        %input#highlight-ending{ type: 'checkbox' } Highlight ending
-    .checkbox.info-left{title: 'People joining the project soon are highlighted green.'}
-      %label
-        %input#show-next{ type: 'checkbox' } Show next
-    .checkbox.info-left{title: 'People for whom the Client does not pay are marked with "!".'}
-      %label
-        %input#highlight-not-billable{ type: 'checkbox' } Highlight not billable
-  .filters
+%aside#filters.filters-container
+  %h2 Projects
+  %ul.nav.nav-tabs.projects-types{ role: 'tablist' }
+    %li.active
+      %input#active-type.toggle-by-type{ type: 'radio', name: 'projectType', checked: true, data:{ type: 'active' }}
+      %label{ for: 'active-type' } Active
+    %li.archived
+      %input#archive-type.toggle-by-type{ type: 'radio', name: 'projectType', data:{ type: 'archived' }}
+      %label{ for: 'archive-type' } Archived
+    %li.potential
+      %input#potential-type.toggle-by-type{ type: 'radio', name: 'projectType', data:{ type: 'potential' }}
+      %label{ for: 'potential-type' } Potential
+  .filters-extended
     .roles
       %input{ type: 'text', name: 'roles', placeholder: 'Filter roles...' }
     .projects
       %input{ type: 'text', name: 'projects', placeholder: 'Filter projects...' }
+    .input-group.pull-right
+      %label.checkbox-inline
+        %span.info-top{ title: 'People leaving the project soon are highlighted red.' }
+          %input#highlight-ending{ type: 'checkbox' } Highlight ending
+      %label.checkbox-inline
+        %span.info-top{ title: 'People joining the project soon are highlighted green.' }
+          %input#show-next{ type: 'checkbox' } Show next
+      %label.checkbox-inline
+        %span.info-top{ title: 'People for whom the Client does not pay are marked with "!".' }
+          %input#highlight-not-billable{ type: 'checkbox' } Highlight not billable
 
 #projects-users
 

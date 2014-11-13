@@ -9,16 +9,10 @@ body.users {
     }
   }
   &.index {
-
     #filters {
       margin: 30px auto;
 
-      .selectize-input {
-        min-width: 180px;
-        min-height: 34px;
-      }
-
-      .roles, .projects, .users, .locations, .abilities {
+      .roles, .projects, .users, .locations, {
         width: 400px;
         display: table-cell;
       }
@@ -67,7 +61,6 @@ body.users {
         }
         i.potential { color: #D8A31D; }
         i.notbillable { color: #D81D1D; }
-        i.internal { color: #31ACFC }
       }
     }
 
@@ -97,9 +90,6 @@ body.users {
       }
     }
 
-    #main-container{
-      width: 100%;
-    }
     table {
       .intern_dates {
         width: 205px;
