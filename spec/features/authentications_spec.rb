@@ -29,7 +29,7 @@ describe 'Authentication' do
         click_link_or_button 'Sign up with Google'
       end
 
-      it { should have_content('John Now please connect your GitHub account.') }
+      it { should have_content('Now please connect your GitHub account.') }
 
       context 'and github account' do
         before do
