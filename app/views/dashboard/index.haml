@@ -4,12 +4,15 @@
     .radio-inline.active
       %label
         %input#toggle-by-type{ type: 'radio', name: 'projectType', checked: true, data:{ type: 'active' }} Active
-    .radio-inline.archived
+    .radio-inline.internal
       %label
-        %input#toggle-by-type{ type: 'radio', name: 'projectType', data:{ type: 'archived' }} Archived
+        %input#toggle-by-type{ type: 'radio', name: 'projectType', data:{ type: 'internal' }} Internal
     .radio-inline.potential
       %label
         %input#toggle-by-type{ type: 'radio', name: 'projectType', data:{ type: 'potential' }} Potential
+    .radio-inline.archived
+      %label
+        %input#toggle-by-type{ type: 'radio', name: 'projectType', data:{ type: 'archived' }} Archived
   .checkboxes
     .checkbox.info-left{title: 'People leaving the project soon are highlighted red.'}
       %label
