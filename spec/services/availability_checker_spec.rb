@@ -5,6 +5,7 @@ describe AvailabilityChecker do
   let!(:user) { create(:user, role: role, available: nil) }
   let(:role) { create(:role, technical: true) }
   let(:project) { create(:project) }
+  let(:internal_project) { create(:project, internal: true, potential: false) }
   let(:project_without_end_date) { create(:project, end_at: nil) }
   let(:project_ending) { create(:project, end_at: 27.days.from_now) }
   let(:project_ending_in_more_than_month) { create(:project, end_at: 40.days.from_now) }
@@ -146,6 +147,17 @@ describe AvailabilityChecker do
       end
 
       it 'changes user availability to true' do
+        expect(user.available).to be_true
+      end
+    end
+
+    context "when user has internal project" do
+      before do
+        create(:membership, ends_at: 1.month.from_now, user: user, project: internal_project)
+        subject.run!
+      end
+
+      it 'doesnt change user availablity to false' do
         expect(user.available).to be_true
       end
     end
