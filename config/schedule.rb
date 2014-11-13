@@ -16,5 +16,6 @@ every changes_digest_day, at: '8 am' do
 end
 
 every 1.day, at: '8 am' do
+  rake 'people:available_checker'
   rake 'people:gravatars_download'
 end
