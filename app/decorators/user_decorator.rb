@@ -10,7 +10,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def project_names
-    model.memberships.map { |m| m.project.name}.uniq
+    model.memberships.map { |m| m.project.name }.uniq
   end
 
   def name
@@ -59,9 +59,15 @@ class UserDecorator < Draper::Decorator
   end
 
   def info
-    pr = Membership.where(user_id: user.id).map {|m| m.project.name}.join(', ')
-    sk = skype.present? ? skype : 'No skype'
-    ph = phone.present? ? phone : 'No phone'
-    name + "\n" + ph + "\n" + email + "\n" + sk + "\n" + pr
+    projects = project_names.join(', ')
+    name + "\n" + phone_number + "\n" + email + "\n" + skype_nick + "\n" + projects
+  end
+
+  def skype_nick
+    @skype_nick ||= skype.presence || 'No skype'
+  end
+
+  def phone_number
+    @phone_number ||= phone.presence || 'No phone'
   end
 end
