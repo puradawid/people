@@ -57,9 +57,10 @@ body.dashboard {
           opacity: 0.8;
           cursor: pointer;
           &.potential { background-color: $potential-project; }
+          &.internal { background-color: #31acfc; }
           &.archived { background-color: $archived-project; }
           &.active { border: 1px solid $archived-project; }
-          &.archived, &.potential { label { color: white; } }
+          &.archived, &.potential, &.internal { label { color: white; } }
           &:hover {
             opacity: 1;
           }
@@ -229,6 +230,14 @@ body.dashboard {
         &.potential {
           .project-name {
             background: $potential-project;
+            a { color: white; }
+          }
+          .unarchive, .archive { display: none; }
+        }
+
+        &.internal {
+          .project-name {
+            background: #31acfc;
             a { color: white; }
           }
           .unarchive, .archive { display: none; }
