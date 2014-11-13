@@ -13,7 +13,7 @@
         %tr
           %td= user.gravatar_image(size: :thumb)
           %td
-            = link_to user.name, user_path(user)
+            = profile_link user
             .icons
               = mail_to user.email do
                 = tooltip user.email do

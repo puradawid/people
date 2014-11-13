@@ -37,6 +37,10 @@ module ApplicationHelper
       data: { toggle: 'tooltip', placement: 'top' }, class: "info", &block if block_given?
   end
 
+  def profile_link(user)
+    link_to user.name, user_path(user), data: { toggle: 'tooltip' }, title: user.info
+  end
+
   private
 
   def icon_generator(name, icon_class, options = {})

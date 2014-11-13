@@ -57,4 +57,11 @@ class UserDecorator < Draper::Decorator
   def last_membership_end_date
     last_membership.try(:ends_at)
   end
+
+  def info
+    pr = Membership.where(user_id: user.id).map {|m| m.project.name}.join(', ')
+    sk = skype.present? ? skype : 'No skype'
+    ph = phone.present? ? phone : 'No phone'
+    name + "\n" + ph + "\n" + email + "\n" + sk + "\n" + pr
+  end
 end

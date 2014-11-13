@@ -1,5 +1,5 @@
 .role-indicator{ style: "border-color: #{@color}" }
-%span.name!= @link_to @user.name, Routes.user_path(@user.id)
+%span.name!= @profile_link(@user, Routes.user_path(@user.id))
 %span.icon
 - if H.currentUserIsAdmin()
   %a.edit{ href: "##{@id}" }

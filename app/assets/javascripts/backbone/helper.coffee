@@ -37,6 +37,7 @@ class Hrguru.Helper
             x
           , {})
 
+      facadeCall 'profile_link', ['user', 'link']
       facadeCall 'link_to', ['name', 'link']
       facadeCall 'icon', ['name']
       globals
