@@ -25,12 +25,12 @@
     label {
       padding: 10px 0;
       margin: 0;
-      border-bottom: 3px solid #fff;
+      border-bottom: 3px solid $white;
       transition: border 0.25s, color 0.25s;
       cursor: pointer;
     }
 
-    input[type="radio"] {
+    input[type='radio'] {
       display: none;
 
       &:checked ~ label {

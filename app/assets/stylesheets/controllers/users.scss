@@ -3,16 +3,21 @@ body.users {
     .user-heading {
       margin-bottom: 30px;
     }
+
     .col-sm-12-with-margin {
       @extend .col-sm-12;
       padding-bottom: 4px;
     }
   }
+
   &.index {
     #filters {
       margin: 30px auto;
 
-      .roles, .projects, .users, .locations, {
+      .roles,
+      .projects,
+      .users,
+      .locations {
         width: 400px;
         display: table-cell;
       }
@@ -29,10 +34,11 @@ body.users {
         display: none;
         text-align: center;
       }
+
       tbody {
         @include highlight_ending_item(100);
-        .to_end {
 
+        .to_end {
           .ready {
             margin-top: 6px;
           }
@@ -56,11 +62,19 @@ body.users {
             letter-spacing: 1px;
           }
         }
-        i.potential, i.billable {
+
+        i.potential,
+        i.billable {
           font-size: 15px;
         }
-        i.potential { color: #D8A31D; }
-        i.notbillable { color: #D81D1D; }
+
+        i.potential {
+          color: #D8A31D;
+        }
+
+        i.notbillable {
+          color: #D81D1D;
+        }
       }
     }
 
@@ -76,8 +90,10 @@ body.users {
         margin-left: -1px;
       }
 
-      .up, .down {
+      .up,
+      .down {
         display: block;
+
         &:hover {
           color: gray;
           cursor: pointer;
@@ -94,28 +110,38 @@ body.users {
       .intern_dates {
         width: 205px;
       }
+
       a {
         text-decoration: none;
+
         i {
-          color: black;
-          &:hover { color: $gray-light; }
+          color: $black;
+
+          &:hover {
+            color: $gray-light;
+          }
         }
       }
 
       input {
         &.phone,
-        &.date_picker { width: 100px; }
+        &.date_picker {
+          width: 100px;
+        }
 
-        &.employment { width: 80px; }
+        &.employment {
+          width: 80px;
+        }
       }
     }
 
     .employment-container {
       display: table-cell;
 
-      .input-group-addon, .employment {
-        margin: 0;
+      .input-group-addon,
+      .employment {
         float: left;
+        margin: 0;
       }
 
       .input-group-addon p {

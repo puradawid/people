@@ -8,7 +8,8 @@ body.vacations {
         min-height: 34px;
       }
 
-      .starts_at, .ends_at, {
+      .starts_at,
+      .ends_at, {
         width: 400px;
         display: inline-table;
       }
@@ -23,13 +24,18 @@ body.vacations {
       margin-bottom: 25px;
     }
 
-    table#vacations {
-      a {
-        text-decoration: none;
-        i {
-          color: black;
-          &:hover { color: $gray-light; }
-        }
+  }
+}
+
+table#vacations {
+  a {
+    text-decoration: none;
+
+    i {
+      color: $black;
+
+      &:hover {
+        color: $gray-light;
       }
     }
   }

@@ -1,18 +1,18 @@
 #projects-users {
-  margin-top: 10px;
-  padding-bottom: 255px;
-  width: 100%;
   overflow-x: hidden;
-  font-size: 0.9em;
   float: left;
   clear: both;
+  width: 100%;
+  padding-bottom: 255px;
+  margin-top: 10px;
+  font-size: 0.9em;
 
   .project {
-    margin: 5px 0;
-    min-width: 100%;
-    min-height: 54px;
     display: block;
     clear: both;
+    min-width: 100%;
+    min-height: 54px;
+    margin: 5px 0;
     background: $gray-project;
 
     .new-project-note {
@@ -20,8 +20,8 @@
     }
 
     &.left  {
+      color: $white;
       background: $left-time-red;
-      color: white;
 
       .project-name {
         border-bottom: 2px solid $left-time-red;
@@ -29,14 +29,17 @@
         a {
           position: relative;
           top: -5px;
-          color: white;
+          color: $white;
         }
 
         .info {
           position: relative;
           top: -5px;
-          color: white;
-          &:hover { color: $gray-background; }
+          color: $white;
+
+          &:hover {
+            color: $gray-background;
+          }
         }
 
         .time {
@@ -63,40 +66,39 @@
 
     .project-name {
       height: $project_height;
-      font-weight: bold;
       border-right: 1px solid #DDD;
       border-bottom: 2px solid #DDD;
+      font-weight: bold;
       text-align: center;
 
       .project-avatar {
+        float: left;
         height: $project_height;
         width: $project_height;
-        float: left;
         line-height: $project_height;
-        display: inline-block;
 
         span.avatar-initials {
-          color: white;
-          text-align: center;
           padding: auto;
+          text-align: center;
           font-size: 2em;
+          color: $white;
         }
       }
 
       .actual {
+        display: inline-block;
         height: inherit;
         width: $project_name_width;
         word-wrap: break-word;
         position: relative;
         line-height: $project_cell_text_height;
-        display: inline-block;
 
         a {
-          width: 100%;
           position: absolute;
           top: 50%;
-          margin-right: 0%;
           left: 0%;
+          width: 100%;
+          margin-right: 0%;
           transform: translate(0, -50%);
         }
       }
@@ -147,14 +149,14 @@
 
       .unarchive {
         display: inline-block;
-        color: white;
+        color: $white;
       }
 
       .project-name {
         background: $archived-project;
 
         a {
-          color: white;
+          color: $white;
         }
       }
     }
@@ -164,9 +166,10 @@
         background: $potential-project;
 
         a {
-          color: white;
+          color: $white;
         }
       }
+
       .unarchive,
       .archive {
         display: none;
@@ -175,15 +178,15 @@
 
     .membership,
     .new-membership {
-      background: white;
+      background: $white;
     }
 
     .membership {
+      display: inline-block;
+      position: relative;
       padding: 10px;
       margin: 8px 4px;
-      display: inline-block;
       vertical-align: middle;
-      position: relative;
 
       .remove {
         cursor: pointer;
@@ -206,10 +209,11 @@
         font-size: 12px;
       }
 
-      &[class*='left-'], &[class*='start-'] {
+      &[class*='left-'],
+      &[class*='start-'] {
+        min-width: 150px;
         padding: 5px;
         margin: 4px;
-        min-width: 150px;
 
         .role-indicator {
           display: none;
@@ -228,27 +232,70 @@
         }
       }
 
-      &.left-1 { background: $left-time-red; color: white; a { color: white; } }
-      &.left-7 { background: lighten($left-time-red, 20); color: white; a { color: white; } }
-      &.left-14 { background: lighten($left-time-red, 40); }
-      &.left-30 { background: lighten($left-time-red, 55); }
+      &.left-1 {
+        color: $white;
+        background: $left-time-red;
 
-      &.start-1 { background: lighten($start-time-green, 55);}
-      &.start-7 { background: lighten($start-time-green, 40);}
-      &.start-14 { background: lighten($start-time-green, 20);  color: white; }
-      &.start-30 { background: $start-time-green; color: white; a { color: white; } }
+        a {
+          color: $white;
+        }
+      }
+
+      &.left-7 {
+        color: $white;
+        background: lighten($left-time-red, 20);
+
+        a {
+          color: $white;
+        }
+      }
+
+      &.left-14 {
+        background: lighten($left-time-red, 40);
+      }
+
+      &.left-30 {
+        background: lighten($left-time-red, 55);
+      }
+
+      &.start-1 {
+        background: lighten($start-time-green, 55);
+      }
+
+      &.start-7 {
+        background: lighten($start-time-green, 40);
+      }
+
+      &.start-14 {
+        color: $white;
+        background: lighten($start-time-green, 20);
+      }
+
+      &.start-30 {
+        color: $white;
+        background: $start-time-green;
+
+        a {
+          color: $white;
+        }
+      }
 
       &.unstarted {
-        .time { display: block; }
+        .time {
+          display: block;
+        }
       }
 
       &:hover {
-        .remove, .edit { opacity: 1; }
+        .remove,
+        .edit {
+          opacity: 1;
+        }
       }
     }
 
     .new-membership {
-      color: white;
+      color: $white;
     }
 
     .role-indicator {

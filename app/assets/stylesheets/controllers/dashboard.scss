@@ -12,12 +12,9 @@
       width: 45%;
     }
 
-    .checkbox {
+    .checkbox,
+    label {
       text-align: left;
-
-      label {
-        text-align: left;
-      }
     }
   }
 }
@@ -87,7 +84,7 @@
   text-align: center;
   border: 1px solid $brand-success;
 
-  &::before {
+  &:before {
     float: left;
   }
 
@@ -101,44 +98,45 @@
 
   &.clicked {
     border: 1px solid $brand-success;
-    background: white;
+    background: $white;
     color: $brand-success;
-    &:hover { background: #EEEEEE; }
+
+    &:hover {
+      background: #eee;
+    }
   }
 }
 
 .show-notes {
-  display: inline-block;
+  float: right;
   width: 40px;
   top: 6px;
-  float: right;
+  margin-bottom: 15px;
   border: none;
   border-radius: 5px;
-  margin-bottom: 15px;
 }
 
 .open-all-notes-button {
   position: relative;
   top: 2px;
   border-radius: 0px;
-  border: 1px solid #428BCA;
+  border: 1px solid #428bca;
   border-top: 0px;
 }
 
 .project-notes-wrapper {
-  min-height: 100px;
   clear: both;
+  min-height: 100px;
 
   .project-note {
-    width: 50%;
     float: left;
-    padding: 2px 30px 2px 0px;
     position: relative;
+    width: 50%;
+    padding: 2px 30px 2px 0px;
     color: #000;
   }
 
   .note-img {
-    display: inline-block;
     float: left;
     margin: 2px;
   }
@@ -149,7 +147,7 @@
     width: auto;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background: white;
+    background: $white;
   }
 
   .note-remove, .note-close {
@@ -173,14 +171,14 @@
   }
 
   .closed-note {
-    background-color: rgba(62, 167, 53, 0.6);
+    overflow: hidden;
     height: 100%;
     width: 100%;
     text-transform: uppercase;
     text-align: center;
     color: #3E7A39;
     font-size: 24px;
-    overflow: hidden;
+    background-color: rgba(62, 167, 53, 0.6);
   }
 
   .hide-overflow {
@@ -193,16 +191,16 @@
 }
 
 .new-project-form {
-  padding: 7px 15px 15px 15px;
-  width: 300px;
-  left: 0;
-  top: 44px;
   display: none;
   position: absolute;
-  z-index: 100;
-  background: $brand-success;
+  left: 0;
+  top: 44px;
+  width: 300px;
+  padding: 7px 15px 15px 15px;
+  color: $white;
   border: 1px solid $brand-success;
-  color: white;
+  background: $brand-success;
+  z-index: 100;
 
   .new-project-submit {
     float: right;
