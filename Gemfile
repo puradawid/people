@@ -53,6 +53,7 @@ gem 'gon'
 gem 'simple_form', '~> 3.1.0.rc2'
 gem 'selectize-rails'
 gem 'font-awesome-rails'
+gem 'animate-scss'
 gem 'messengerjs-rails'
 
 gem 'whenever', require: false
