@@ -9,7 +9,7 @@ body.available_users {
         text-decoration: none;
 
         i {
-          color: black;
+          color: $black;
 
           &:hover {
             color: $gray-light;
@@ -24,11 +24,11 @@ body.available_users {
       }
 
       i.potential {
-        color: #D8A31D;
+        color: #d8a31d;
       }
 
       i.notbillable {
-        color: #D81D1D;
+        color: #d81d1d;
       }
     }
 
@@ -55,7 +55,7 @@ body.available_users {
           min-height: 480px;
 
           .user {
-            border: 1px solid #000;
+            border: 1px solid $black;
             margin: 20px;
           }
 
@@ -67,7 +67,7 @@ body.available_users {
           .skills,
           .current_project,
           .hours {
-            border-top: 1px solid #000;
+            border-top: 1px solid $black;
             padding: 5px;
           }
 

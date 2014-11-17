@@ -13,7 +13,7 @@
     padding: 5px;
     width: auto;
     font-size: 53px;
-    color: #2C6CA3;
+    color: #2c6ca3;
   }
 
   .top {
@@ -54,7 +54,7 @@
     pointer-events: none;
     font-weight: 300;
     white-space: nowrap;
-    border-left: 1px dashed #DDDDDD;
+    border-left: 1px dashed grey;
     color: #969696;
     z-index: -2;
 
@@ -88,7 +88,7 @@
           display: inline-block;
           padding: 5px;
           color: rgb(40, 216, 96);
-          background: white;
+          background: $white;
           border: 1px solid rgb(40, 216, 96);
           font-weight: 200;
           left: -5px;
@@ -123,7 +123,7 @@
       display: inline-block;
       overflow: hidden;
       height: 0;
-      border: 4px solid #2C6CA3;
+      border: 4px solid #2c6ca3;
       border-radius: 4px;
       opacity: .7;
       position: relative;
@@ -138,7 +138,7 @@
     opacity: 0.6;
 
     .time {
-      border: 4px solid gray;
+      border: 4px solid $gray-light;
     }
 
     &:hover {

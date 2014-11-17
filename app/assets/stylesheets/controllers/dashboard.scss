@@ -57,7 +57,10 @@
   .selectize-dropdown {
     [data-selectable] {
       padding: 5px;
-      .name { margin: 5px 0 5px 35px; }
+
+      .name {
+        margin: 5px 0 5px 35px;
+      }
     }
   }
 }
