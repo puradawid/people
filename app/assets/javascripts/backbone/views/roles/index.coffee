@@ -37,11 +37,17 @@ class Hrguru.Views.RolesIndex extends Backbone.View
     $checkboxShowInTeam = $('#show-in-team')
     role = new Hrguru.Models.Role()
     role.save(
-      name: $input.val(),
-      billable: $checkboxBillable.prop('checked'),
-      technical: $checkboxTechnical.prop('checked'),
-      show_in_team: $checkboxShowInTeam.prop('checked'),
-      success: =>
-        $input.val("")
-        @rolesListView.collection.add role
+      {
+        name: $input.val(),
+        billable: $checkboxBillable.prop('checked'),
+        technical: $checkboxTechnical.prop('checked'),
+        show_in_team: $checkboxShowInTeam.prop('checked')
+      }
+      {
+        success: =>
+          $input.val("")
+          @rolesListView.collection.add role
+        error: =>
+          Messenger().error("Cannot create role")
+      }
     )
