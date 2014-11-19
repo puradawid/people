@@ -101,11 +101,15 @@ class Membership
   private
 
   def check_fields
-    if project_potential != project.potential || project_archived != project.archived || project_internal != project.internal
+    if project_state_changed?
       self.update(project_potential: project.potential,
                   project_archived: project.archived,
                   project_internal: project.internal)
     end
+  end
+
+  def project_state_changed?
+    project_potential != project.potential || project_archived != project.archived || project_internal != project.internal
   end
 
   def notify_added
