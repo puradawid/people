@@ -175,7 +175,7 @@ class User
   def memberships_by_project
     @project ||= Project.unscoped do
       memberships.includes(:project, :role).group_by(&:project_id).each_with_object({}) do |data, memo|
-        memberships = data[1].sort { |m1, m2| m2.starts_at <=> m1.starts_at }
+        memberships = data[1].sort { |m1, m2| (m2.ends_at || future) <=> (m1.ends_at || future) }
         project = memberships.first.project
         memo[project] = MembershipDecorator.decorate_collection memberships
       end
@@ -207,6 +207,10 @@ class User
   end
 
   private
+
+  def future
+    10.years.from_now
+  end
 
   def save_team_join_time
     if team_id_changed?
