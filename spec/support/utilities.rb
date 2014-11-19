@@ -2,7 +2,6 @@ include ApplicationHelper
 
 def sign_in(user)
   OmniAuth.config.test_mode = true
-  Capybara.default_driver = :selenium
   OmniAuth.config.add_mock(
     :google_oauth2,
     info: {

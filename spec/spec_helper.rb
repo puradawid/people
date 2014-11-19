@@ -8,6 +8,8 @@ require 'webmock/rspec'
 require 'sucker_punch/testing/inline'
 require 'capybara/rspec'
 require 'rack_session_access/capybara'
+require 'capybara/poltergeist'
+require 'phantomjs'
 
 Spork.prefork do
 
@@ -47,6 +49,20 @@ Spork.prefork do
     config.storage = :file
     config.enable_processing = false
   end
+
+  Capybara.register_driver :poltergeist do |app|
+    options = {
+      phantomjs: Phantomjs.path,
+      js_errors: false,
+      timeout: 120,
+      debug: false,
+      phantomjs_options: ['--load-images=no', '--disk-cache=false'],
+      inspector: false
+    }
+    Capybara::Poltergeist::Driver.new(app, options)
+  end
+
+  Capybara.javascript_driver = :poltergeist
 end
 
 Spork.each_run do

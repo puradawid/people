@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Profile page' do
+describe 'Profile page', js: true do
   subject { page }
   let(:user) { create(:user, first_name: 'Jack', last_name: 'Sparrow') }
   before { sign_in(user) }
