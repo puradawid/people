@@ -40,7 +40,7 @@ class Hrguru.Views.RolesIndex extends Backbone.View
       name: $input.val(),
       billable: $checkboxBillable.prop('checked'),
       technical: $checkboxTechnical.prop('checked'),
-      show_in_team: $checkboxShowIn.prop('checked'),
+      show_in_team: $checkboxShowInTeam.prop('checked'),
       success: =>
         $input.val("")
         @rolesListView.collection.add role
