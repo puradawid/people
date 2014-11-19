@@ -74,11 +74,11 @@ body.users {
         }
 
         i.potential {
-          color: #d8a31d;
+          color: #D8A31D;
         }
 
         i.notbillable {
-          color: #d81d1d;
+          color: #D81D1D;
         }
       }
     }
@@ -100,12 +100,12 @@ body.users {
         display: block;
 
         &:hover {
-          color: $gray;
+          color: gray;
           cursor: pointer;
         }
 
         &.active {
-          color: $blue;
+          color: blue;
           cursor: default;
         }
       }

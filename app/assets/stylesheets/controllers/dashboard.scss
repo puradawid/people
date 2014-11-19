@@ -57,10 +57,7 @@
   .selectize-dropdown {
     [data-selectable] {
       padding: 5px;
-
-      .name {
-        margin: 5px 0 5px 35px;
-      }
+      .name { margin: 5px 0 5px 35px; }
     }
   }
 }
@@ -105,7 +102,7 @@
     color: $brand-success;
 
     &:hover {
-      background: $gray;
+      background: #eee;
     }
   }
 }
@@ -148,7 +145,7 @@
     position: relative;
     height: 46px;
     width: auto;
-    border: 1px solid $gray;
+    border: 1px solid #ccc;
     border-radius: 4px;
     background: $white;
   }
@@ -179,7 +176,7 @@
     width: 100%;
     text-transform: uppercase;
     text-align: center;
-    color: #3e7a39;
+    color: #3E7A39;
     font-size: 24px;
     background-color: rgba(62, 167, 53, 0.6);
   }

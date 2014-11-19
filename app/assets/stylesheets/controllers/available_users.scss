@@ -9,7 +9,7 @@ body.available_users {
         text-decoration: none;
 
         i {
-          color: $black;
+          color: black;
 
           &:hover {
             color: $gray-light;
@@ -24,11 +24,11 @@ body.available_users {
       }
 
       i.potential {
-        color: #d8a31d;
+        color: #D8A31D;
       }
 
       i.notbillable {
-        color: #d81d1d;
+        color: #D81D1D;
       }
     }
 
@@ -55,7 +55,7 @@ body.available_users {
           min-height: 480px;
 
           .user {
-            border: 1px solid $black;
+            border: 1px solid #000;
             margin: 20px;
           }
 

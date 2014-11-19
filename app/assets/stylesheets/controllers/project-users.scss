@@ -66,8 +66,8 @@
 
     .project-name {
       height: $project_height;
-      border-right: 1px solid #ddd;
-      border-bottom: 2px solid #ddd;
+      border-right: 1px solid #DDD;
+      border-bottom: 2px solid #DDD;
       font-weight: bold;
       text-align: center;
 
@@ -126,7 +126,7 @@
         opacity: 0;
 
         &:hover {
-          color: $gray;
+          color: gray;
           cursor: pointer;
         }
       }
@@ -232,23 +232,22 @@
         }
       }
 
-      &.left-1,
-      &.left-7,
-      &.start-14,
-      &.start-30 {
+      &.left-1 {
         color: $white;
+        background: $left-time-red;
 
         a {
           color: $white;
         }
       }
 
-      &.left-1 {
-        background: $left-time-red;
-      }
-
       &.left-7 {
+        color: $white;
         background: lighten($left-time-red, 20);
+
+        a {
+          color: $white;
+        }
       }
 
       &.left-14 {
@@ -268,11 +267,17 @@
       }
 
       &.start-14 {
+        color: $white;
         background: lighten($start-time-green, 20);
       }
 
       &.start-30 {
+        color: $white;
         background: $start-time-green;
+
+        a {
+          color: $white;
+        }
       }
 
       &.unstarted {
