@@ -7,38 +7,26 @@ body.available_users {
     table#available_users {
       a {
         text-decoration: none;
-
         i {
           color: black;
-
-          &:hover {
-            color: $gray-light;
-          }
+          &:hover { color: $gray-light; }
         }
       }
 
       input {
-        &.employment {
-          width: 80px;
-        }
+        &.employment { width: 80px; }
       }
 
-      i.potential {
-        color: #D8A31D;
-      }
-
-      i.notbillable {
-        color: #D81D1D;
-      }
+      i.potential { color: #D8A31D; }
+      i.notbillable { color: #D81D1D; }
     }
 
     .employment-container {
       display: table-cell;
 
-      .input-group-addon,
-      .employment {
-        float: left;
+      .input-group-addon, .employment {
         margin: 0;
+        float: left;
       }
 
       .input-group-addon p {
@@ -46,14 +34,11 @@ body.available_users {
         margin: 0 0 0 -6px;
       }
     }
-
     .container {
       .row {
         clear: none;
-
         .col-md-3 {
           min-height: 480px;
-
           .user {
             border: 1px solid #000;
             margin: 20px;
@@ -79,7 +64,6 @@ body.available_users {
             }
           }
         }
-
         &:after {
           clear: none;
         }

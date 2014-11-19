@@ -1,13 +1,7 @@
-body.memberships,
-body.users {
-  &.new,
-  &.edit,
-  &.create,
-  &.update,
-  &.show {
+body.memberships, body.users {
+  &.new, &.edit, &.create, &.update, &.show {
     .checkbox{
       margin-top: 0px;
-
       input {
         &.boolean {
           width: 21px;

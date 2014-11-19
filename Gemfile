@@ -38,6 +38,7 @@ gem 'oj'
 gem 'sucker_punch', '~> 1.0'
 gem 'hipchat'
 gem 'netguru_theme'
+
 gem 'haml-rails'
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '~> 2.5.3'

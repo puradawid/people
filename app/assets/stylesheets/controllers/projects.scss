@@ -1,8 +1,6 @@
 body.projects {
   &.new {
-    .project_potential > * {
-      display: inline-block;
-    }
+    .project_potential > * { display: inline-block; }
 
     .project_potential {
 
@@ -20,5 +18,6 @@ body.projects {
     #project_potential {
       float: none;
     }
+
   }
 }

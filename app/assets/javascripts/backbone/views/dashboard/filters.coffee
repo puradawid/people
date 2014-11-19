@@ -79,7 +79,7 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
 
   retrive_radio_state: ->
     distype = null
-    @$('input.toggle-by-type').each ->
+    @$('input#toggle-by-type').each ->
       state = JSON.parse( localStorage.getItem('radio_'  + @getAttribute('data-type')) )
       if state?.checked
         @checked =  true
@@ -89,7 +89,7 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
     H.togglePotentialCheckbox(@displayedType)
 
   save_radio_state: ->
-    @$('input.toggle-by-type').each ->
+    @$('input#toggle-by-type').each ->
       localStorage.setItem(
         'radio_' + this.getAttribute('data-type'), JSON.stringify({checked: this.checked})
       )

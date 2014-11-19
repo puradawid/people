@@ -18,7 +18,6 @@
 
   .top {
     margin-left: 10px;
-
     .project-name {
       display: inline-block;
       font-size: 28px;
@@ -104,10 +103,7 @@
     vertical-align: middle;
     white-space: nowrap;
 
-    span {
-      color: #969696;
-      font-weight: 200;
-    }
+    span { color: #969696; font-weight: 200; }
 
     .billable {
       padding: 4px;
@@ -128,19 +124,12 @@
       opacity: .7;
       position: relative;
     }
-
-    &:hover .time {
-      opacity: .5;
-    }
+    &:hover .time { opacity: .5; }
   }
 
   .event-old {
     opacity: 0.6;
-
-    .time {
-      border: 4px solid gray;
-    }
-
+    .time { border: 4px solid gray; }
     &:hover {
       opacity: 1;
     }

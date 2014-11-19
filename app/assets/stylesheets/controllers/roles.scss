@@ -10,37 +10,28 @@ body.roles {
       &.billable-group {
         padding-right: 25px;
       }
-
-      &.billable-row,
-      &.admin-row {
+      &.billable-row, &.admin-row {
         padding-left: 11px;
         padding-right: 7px;
       }
-
-      &.admin-row,
-      &.admin-group {
+      &.admin-row, &.admin-group {
         background-color: $admin-checkbox;
       }
     }
-
     ul#roles {
       list-style-type: none;
       padding: 0;
       margin: 0;
-
       li {
         margin-bottom: 5px;
-
         .role-drag {
           i {
             cursor: move;
             margin-right: 5px;
           }
         }
-
         input {
-          &.priority,
-          &.color { padding: 0; }
+          &.priority, &.color { padding: 0; }
           &.priority { width: 40px; }
           &.color {
             width: 25px;
