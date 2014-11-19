@@ -107,5 +107,5 @@ group :test do
   gem 'webmock'
   gem 'rack_session_access'
   gem 'poltergeist'
-  gem 'phantomjs', :require => 'phantomjs/poltergeist'
+  gem 'phantomjs', require: 'phantomjs/poltergeist'
 end
