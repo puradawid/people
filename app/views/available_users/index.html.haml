@@ -25,11 +25,12 @@
                       hours: #{user.employment}h
                     .link_to_cv
                       = link_to 'link to profile pdf', '#'
-                    .last_projects
-                      last projects:
-                      %ul
-                        - user.memberships.each do |p|
-                          %li= link_to p.project_name, project_path(p.project)
+                    - if user.memberships.any?
+                      .last_projects
+                        last projects
+                        %ul
+                          - user.memberships.each do |p|
+                            %li= link_to p.project_name, project_path(p.project)
                     - if user.has_potential_projects?
                       .potential_projects
                         potential projects:
@@ -47,9 +48,12 @@
                               %span{ rel: 'tooltip', title: m.ends_at.to_date, data: { placement: 'right' } }
                                 = link_to m.project.name, project_path(m.project)
                     .current_project
-                      - if user.current_project.present?
-                        current project:
-                        = link_to user.current_project, project_path(user.current_project)
+                      - if user.current_projects.present?
+                        = 'current project'.pluralize(user.current_projects.count)
+                        %ul
+                          - user.current_projects.each do |project|
+                            %li
+                              = link_to project, project_path(project)
                       - else
                         There is no current project
                     .skills
@@ -92,8 +96,9 @@
               %td #{user.availability.present? ? user.availability.to_date : "since now"}
               %td #{user.employment}h
               %td
-                - if user.current_project.present?
-                  = link_to user.current_project, project_path(user.current_project)
+                - if user.current_projects.present?
+                  - user.current_projects.each do |project|
+                    = link_to project, project_path(project)
               %td
                 = render partial: 'membership', collection: user.last_membership
                 = 'Next:' if user.has_next_projects?
