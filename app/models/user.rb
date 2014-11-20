@@ -128,8 +128,12 @@ class User
     potential_memberships_by_ids @potential_project_ids
   end
 
-  def current_projects
+  def current_projects_with_memberships
     @current_projects ||= map_projects(current_memberships)
+  end
+
+  def current_projects
+    current_projects_with_memberships.map{ |p| p[:project] }
   end
 
   def current_memberships

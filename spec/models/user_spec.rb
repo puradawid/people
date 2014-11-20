@@ -71,7 +71,7 @@ describe User do
 
   end
 
-  describe '#current_projects' do
+  describe '#current_projects_with_memberships' do
     let!(:project) { create(:project, name: 'google') }
 
     before { Timecop.freeze(Time.local(2013, 12, 1)) }
@@ -83,19 +83,19 @@ describe User do
 
     it "returns projects list to include 'google' project" do
       create(:membership, starts_at: time(2013, 11, 1), ends_at: time(2014, 1, 1), user: subject, project: project)
-      expect(subject.current_projects.first[:project]).to eq project
+      expect(subject.current_projects_with_memberships.first[:project]).to eq project
     end
 
     it 'returns no projects' do
       create(:membership, starts_at: time(2012, 1, 1), ends_at: time(2013, 11, 30), user: subject)
-      expect(subject.current_projects).to be_empty
+      expect(subject.current_projects_with_memberships).to be_empty
     end
 
     it 'returns projects array to include 2 projects' do
       create(:membership, starts_at: time(2011, 1, 1), ends_at: time(2012, 1, 1), user: subject, role: create(:role, name: 'pm1'))
       create(:membership, starts_at: time(2012, 1, 1), ends_at: time(2014, 1, 1), user: subject, role: create(:role, name: 'pm2'))
       create(:membership_without_ends_at, starts_at: time(2013, 1, 1), user: subject, role: create(:role, name: 'pm3'))
-      expect(subject.current_projects.count).to eq 2
+      expect(subject.current_projects_with_memberships.count).to eq 2
     end
   end
 
