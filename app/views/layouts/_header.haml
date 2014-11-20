@@ -29,10 +29,10 @@
                 %li{ class: menu_class('abilities') }= link_to "Abilities", abilities_path
                 %li{ class: menu_class('settings') }= link_to 'Settings', settings_path
       - if signed_in?
-        %ul.nav.navbar-nav.navbar-right
+        %ul.nav.navbar-nav.navbar-right.user-profile
           %li.dropdown
-            %a#profile.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' } }
-              = current_user.gravatar_image size: :circle, class: 'img-circle'
+            %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' } }
+              = current_user.gravatar_image size: :circle, class: 'img-rectangle'
               = current_user.first_name
               %b.caret
             %ul.dropdown-menu
