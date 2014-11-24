@@ -21,10 +21,10 @@ class Role
   validates :billable, inclusion: { in: [true, false] }
   validates :technical, inclusion: { in: [true, false] }
 
-  default_scope asc(:priority)
-  scope :billable, where(billable: true)
-  scope :non_billable, where(billable: false)
-  scope :technical, where(technical: true)
+  default_scope -> { asc(:priority) }
+  scope :billable, -> { where(billable: true) }
+  scope :non_billable, -> { where(billable: false) }
+  scope :technical, -> { where(technical: true) }
 
   def to_s
     name
