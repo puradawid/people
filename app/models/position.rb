@@ -13,7 +13,7 @@ class Position
   validate :validate_chronology
   validate :validate_position
 
-  default_scope asc(:starts_at)
+  default_scope -> { asc(:starts_at) }
 
   def <=>(other)
     [user.last_name, user.first_name, starts_at] <=> [other.user.last_name,
