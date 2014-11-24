@@ -6,12 +6,12 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
     'change #highlight-ending' : 'highlightEndingChanged'
     'change #show-next' : 'showNextChanged'
     'change #highlight-not-billable' : 'highlightNotBillableChanged'
-    'change #toggle-by-type' : 'toggleByType'
+    'change .toggle-by-type' : 'toggleByType'
 
   initialize: (@projects, @roles) ->
-    $(window).on("unload",@save_radio_state)
+    $(window).on("unload",@saveRadioState)
     @displayedType = 'active'
-    @retrive_radio_state()
+    @retriveRadioState()
 
   render: ->
     @initializeRoleFilter()
@@ -74,12 +74,12 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
   toggleByType: (event) =>
     @displayedType = event.currentTarget.dataset.type
     H.togglePotentialCheckbox(@displayedType)
-    @refresh_project_selectize()
+    @refreshProjectSelectize()
     EventAggregator.trigger('projects:toggleByType', { type: @displayedType })
 
-  retrive_radio_state: ->
+  retriveRadioState: ->
     distype = null
-    @$('input#toggle-by-type').each ->
+    @$('input.toggle-by-type').each ->
       state = JSON.parse( localStorage.getItem('radio_'  + @getAttribute('data-type')) )
       if state?.checked
         @checked =  true
@@ -88,13 +88,13 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
     @displayedType = distype
     H.togglePotentialCheckbox(@displayedType)
 
-  save_radio_state: ->
-    @$('input#toggle-by-type').each ->
+  saveRadioState: ->
+    @$('input.toggle-by-type').each ->
       localStorage.setItem(
         'radio_' + this.getAttribute('data-type'), JSON.stringify({checked: this.checked})
       )
 
-  refresh_project_selectize: ->
+  refreshProjectSelectize: ->
     if @projects_selectize?
       @projects_selectize.clear()
       @filterProjects()
