@@ -1,7 +1,7 @@
 class DashboardController < ApplicationController
   expose(:projects) { Project.by_name }
   expose(:roles) { Role.all }
-  expose(:users) { User.all.decorate }
+  expose(:users) { User.includes(:memberships).all.decorate }
   expose(:memberships) { Membership.unfinished.decorate }
 
   def index
