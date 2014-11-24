@@ -12,7 +12,7 @@ gem 'konf'
 gem "heroku-mongo-backup", github: 'alexkravets/heroku-mongo-backup', branch: 'mongoid4'
 gem 'fog'
 
-gem 'mongoid', github: 'mongoid/mongoid', ref: '054825f'
+gem 'mongoid', github: 'mongoid/mongoid'
 gem 'mongoid-paranoia', github: 'simi/mongoid-paranoia'
 gem 'mongoid_orderable'
 gem 'bson'
