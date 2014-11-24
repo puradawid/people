@@ -104,10 +104,9 @@ body.dashboard {
 }
 
 .show-notes {
-  display: inline-block;
+  float: right;
   width: 40px;
   top: 6px;
-  float: right;
   border: none;
   border-radius: 5px;
   margin-bottom: 15px;
@@ -134,7 +133,6 @@ body.dashboard {
   }
 
   .note-img {
-    display: inline-block;
     float: left;
     margin: 2px;
   }
