@@ -13,21 +13,21 @@
     %li.archived
       %input#type-archived.toggle-by-type{ type: 'radio', name: 'projectType', data:{ type: 'archived' }}
       %label{ for: 'type-archived'} Archived
-  .checkboxes
-    .checkbox.info-left{title: 'People leaving the project soon are highlighted red.'}
-      %label
-        %input#highlight-ending{ type: 'checkbox' } Highlight ending
-    .checkbox.info-left{title: 'People joining the project soon are highlighted green.'}
-      %label
-        %input#show-next{ type: 'checkbox' } Show next
-    .checkbox.info-left{title: 'People for whom the Client does not pay are marked with "!".'}
-      %label
-        %input#highlight-not-billable{ type: 'checkbox' } Highlight not billable
   .filters
     .roles
       %input{ type: 'text', name: 'roles', placeholder: 'Filter roles...' }
     .projects
       %input{ type: 'text', name: 'projects', placeholder: 'Filter projects...' }
+  .checkboxes
+    .checkbox.info-top{title: 'People leaving the project soon are highlighted red.'}
+      %label
+        %input#highlight-ending{ type: 'checkbox' } Highlight ending
+    .checkbox.info-top{title: 'People joining the project soon are highlighted green.'}
+      %label
+        %input#show-next{ type: 'checkbox' } Show next
+    .checkbox.info-top{title: 'People for whom the Client does not pay are marked with "!".'}
+      %label
+        %input#highlight-not-billable{ type: 'checkbox' } Highlight not billable
 
 #projects-users
 
