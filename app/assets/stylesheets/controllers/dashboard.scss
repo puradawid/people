@@ -230,16 +230,30 @@ body.dashboard {
     vertical-align: top;
   }
 
+}
+
+.selectize-control {
+  &.multi {
+    .selectize-input {
+      &.has-items {
+        padding: 6px 0 2px 6px;
+      }
+    }
+  }
+
   .selectize-input {
     @include box-shadow(none);
-    padding: 4px 4px 0 4px;
+    padding: 5px 10px 0 10px;
     margin-top: 2px;
     margin-bottom: 0px;
-    min-width: 180px;
-    min-height: 34px;
+    min-width: 220px;
+    min-height: 38px;
+    border-radius: 2px;
+    border-color: lighten($gray-light, 5%);
 
     input  {
       font-size: 14px;
+      font-style: italic;
       vertical-align: sub;
     }
   }
@@ -267,6 +281,12 @@ body.dashboard {
       color: $brand-primary;
       border-bottom: 3px solid $brand-primary;
     }
+
+    &:checked ~ label {
+      .label-default {
+        background-color: $brand-primary;
+      }
+    }
   }
 
   label {
@@ -275,6 +295,13 @@ body.dashboard {
     margin: 0;
     cursor: pointer;
     border-bottom: 3px solid transparent;
+  }
+
+  .label-default {
+    padding: 1px 2px;
+    border-radius: 2px;
+    font-size: 12px;
+    background-color: lighten($gray, 20%);
   }
 }
 
