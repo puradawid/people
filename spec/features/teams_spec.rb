@@ -55,7 +55,6 @@ describe 'team view', js: true do
       find('a.new-team-submit').click
       expect(page).to have_content 'teamX has been created'
       expect(Team.count).to eq 2
-      page.save_screenshot('~/Desktop/sc1.png')
     end
   end
 
