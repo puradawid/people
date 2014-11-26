@@ -21,3 +21,288 @@ body.projects {
 
   }
 }
+
+$project-height: 45px;
+
+#projects-users {
+  width: 100%;
+  overflow-x: hidden;
+  padding-bottom: 255px;
+  margin-top: 10px;
+
+  .project {
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0 0 20px 0;
+
+    .new-project-note {
+      overflow: hidden;
+    }
+
+    &.left  {
+      background: $left-time-red;
+      color: $white;
+
+      .project-name {
+        border-bottom: 2px solid $left-time-red;
+
+        a {
+          position: relative;
+          top: -5px;
+          color: $white;
+        }
+
+        .info {
+          position: relative;
+          top: -5px;
+          color: $white;
+
+          &:hover {
+            color: $gray-background;
+          }
+        }
+
+        .time {
+          margin: 0;
+          font-weight: 100;
+          text-align: center;
+          letter-spacing: 1px;
+          position: relative;
+          top: -5px;
+          left: -10px;
+        }
+      }
+    }
+
+    .memberships {
+      float: left;
+    }
+
+    &.archived {
+      .archive {
+        display: none;
+      }
+
+      .unarchive {
+        display: inline-block;
+        color: $white;
+      }
+    }
+
+    &.potential {
+      .unarchive,
+      .archive {
+        display: none;
+      }
+    }
+
+    &.internal {
+      .unarchive,
+      .archive {
+        display: none;
+      }
+    }
+
+    .membership,
+    .new-membership {
+      background: $white;
+    }
+
+    .membership {
+      padding: 10px;
+      margin: 8px 4px;
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+
+      .remove {
+        cursor: pointer;
+      }
+
+      .edit,
+      .remove {
+        opacity: 0;
+      }
+
+      .name,
+      .remove,
+      .edit {
+        position: relative;
+        z-index: 5;
+      }
+
+      .time {
+        display: none;
+        font-size: 12px;
+      }
+
+      &[class*='left-'],
+      &[class*='start-'] {
+        padding: 5px;
+        margin: 4px;
+        min-width: 150px;
+
+        .role-indicator {
+          display: none;
+        }
+
+        .time {
+          display: block;
+        }
+
+        .remove {
+          float: right;
+        }
+
+        .remove {
+          margin-right: 3px;
+        }
+      }
+
+      &.left-1,
+      &.left-7,
+      &.start-14,
+      &.start-30 {
+        a {
+          color: $white;
+        }
+      }
+
+      &.left-1 {
+        background: $left-time-red;
+        color: $white;
+      }
+
+      &.left-7 {
+        background: lighten($left-time-red, 20);
+        color: $white;
+      }
+
+      &.left-14 {
+        background: lighten($left-time-red, 40);
+      }
+
+      &.left-30 {
+        background: lighten($left-time-red, 55);
+      }
+
+      &.start-1 {
+        background: lighten($start-time-green, 55);
+      }
+
+      &.start-7 {
+        background: lighten($start-time-green, 40);
+      }
+
+      &.start-14 {
+        background: lighten($start-time-green, 20);
+        color: $white;
+      }
+
+      &.start-30 {
+        background: $start-time-green;
+        color: $white;
+      }
+
+      &.unstarted {
+        .time {
+          display: block;
+        }
+      }
+
+      &:hover {
+        .remove,
+        .edit {
+          opacity: 1;
+        }
+      }
+
+    }
+
+    .new-membership {
+      color: $white;
+    }
+
+    .role-indicator {
+      width: 100%;
+      height: 100%;
+      border: 1px solid transparent;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 0;
+    }
+  }
+}
+
+.project-name {
+  position: relative;
+  width: 100%;
+  border: 1px solid $gray-light;
+
+  &:hover {
+    .action {
+      .glyphicon {
+        opacity: 1;
+      }
+    }
+  }
+
+  .project-avatar {
+    height: $project-height;
+    width: $project-height;
+    line-height: $project-height;
+    margin: -1px;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -1px;
+  }
+
+  .actual {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $project-height;
+    line-height: ($project-height - 1);
+    padding: 0 0 0 55px;
+    font-size: 20px;
+    font-weight: 300;
+
+    a {
+      display: inline-block;
+      max-width: 75%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      color: darken($gray, 15%);
+    }
+  }
+
+  .action {
+    display: inline-block;
+    color: $gray;
+    vertical-align: top;
+
+    .glyphicon {
+      display: inline-block;
+      font-size: 14px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+  }
+
+  .billable_ratio {
+    float: right;
+  }
+}
+
+.project-details {
+  min-height: $project-height;
+  margin-left: -(2 * $half-gutter-width + 1);
+  border: 1px solid $gray-light;
+}
