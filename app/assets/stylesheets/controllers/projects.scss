@@ -1,3 +1,9 @@
+.clearfix {
+  float: left;
+  width: 100%;
+  clear: both;
+}
+
 body.projects {
   &.new {
     .project_potential > * { display: inline-block; }
@@ -25,208 +31,74 @@ body.projects {
 $project-height: 45px;
 
 #projects-users {
-  width: 100%;
-  overflow-x: hidden;
+  @extend .clearfix;
   padding-bottom: 255px;
   margin-top: 10px;
+}
 
-  .project {
-    width: 100%;
-    overflow-x: hidden;
-    margin: 0 0 20px 0;
+.project {
+  @extend .clearfix;
+  margin: 0 0 20px 0;
 
-    .new-project-note {
-      overflow: hidden;
-    }
+  .new-project-note {
+    overflow: hidden;
+  }
 
-    &.left  {
-      background: $left-time-red;
-      color: $white;
+  &.left  {
+    background: $left-time-red;
+    color: $white;
 
-      .project-name {
-        border-bottom: 2px solid $left-time-red;
+    .project-name {
+      border-bottom: 2px solid $left-time-red;
 
-        a {
-          position: relative;
-          top: -5px;
-          color: $white;
-        }
-
-        .info {
-          position: relative;
-          top: -5px;
-          color: $white;
-
-          &:hover {
-            color: $gray-background;
-          }
-        }
-
-        .time {
-          margin: 0;
-          font-weight: 100;
-          text-align: center;
-          letter-spacing: 1px;
-          position: relative;
-          top: -5px;
-          left: -10px;
-        }
-      }
-    }
-
-    .memberships {
-      float: left;
-    }
-
-    &.archived {
-      .archive {
-        display: none;
-      }
-
-      .unarchive {
-        display: inline-block;
+      a {
+        position: relative;
+        top: -5px;
         color: $white;
       }
-    }
 
-    &.potential,
-    &.internal {
-      .unarchive,
-      .archive {
-        display: none;
-      }
-    }
-
-    .membership,
-    .new-membership {
-      background: $white;
-    }
-
-    .membership {
-      padding: 10px;
-      margin: 8px 4px;
-      display: inline-block;
-      vertical-align: middle;
-      position: relative;
-
-      .remove {
-        cursor: pointer;
-      }
-
-      .edit,
-      .remove {
-        opacity: 0;
-      }
-
-      .name,
-      .remove,
-      .edit {
+      .info {
         position: relative;
-        z-index: 5;
+        top: -5px;
+        color: $white;
+
+        &:hover {
+          color: $gray-background;
+        }
       }
 
       .time {
-        display: none;
-        font-size: 12px;
+        margin: 0;
+        font-weight: 100;
+        text-align: center;
+        letter-spacing: 1px;
+        position: relative;
+        top: -5px;
+        left: -10px;
       }
-
-      &[class*='left-'],
-      &[class*='start-'] {
-        padding: 5px;
-        margin: 4px;
-        min-width: 150px;
-
-        .role-indicator {
-          display: none;
-        }
-
-        .time {
-          display: block;
-        }
-
-        .remove {
-          float: right;
-        }
-
-        .remove {
-          margin-right: 3px;
-        }
-      }
-
-      &.left-1,
-      &.left-7,
-      &.start-14,
-      &.start-30 {
-        a {
-          color: $white;
-        }
-      }
-
-      &.left-1 {
-        background: $left-time-red;
-        color: $white;
-      }
-
-      &.left-7 {
-        background: lighten($left-time-red, 20);
-        color: $white;
-      }
-
-      &.left-14 {
-        background: lighten($left-time-red, 40);
-      }
-
-      &.left-30 {
-        background: lighten($left-time-red, 55);
-      }
-
-      &.start-1 {
-        background: lighten($start-time-green, 55);
-      }
-
-      &.start-7 {
-        background: lighten($start-time-green, 40);
-      }
-
-      &.start-14 {
-        background: lighten($start-time-green, 20);
-        color: $white;
-      }
-
-      &.start-30 {
-        background: $start-time-green;
-        color: $white;
-      }
-
-      &.unstarted {
-        .time {
-          display: block;
-        }
-      }
-
-      &:hover {
-        .remove,
-        .edit {
-          opacity: 1;
-        }
-      }
-
-    }
-
-    .new-membership {
-      color: $white;
-    }
-
-    .role-indicator {
-      width: 100%;
-      height: 100%;
-      border: 1px solid transparent;
-      position: absolute;
-      left: 0;
-      top: 0;
-      z-index: 0;
     }
   }
+
+  &.archived {
+    .archive {
+      display: none;
+    }
+
+    .unarchive {
+      display: inline-block;
+      color: $white;
+    }
+  }
+
+  &.potential,
+  &.internal {
+    .unarchive,
+    .archive {
+      display: none;
+    }
+  }
+
+
 }
 
 .project-name {
@@ -252,7 +124,7 @@ $project-height: 45px;
     letter-spacing: -1px;
   }
 
-  .actual {
+  .actual-name {
     position: absolute;
     top: 0;
     left: 0;
@@ -270,6 +142,10 @@ $project-height: 45px;
       text-overflow: ellipsis;
       overflow: hidden;
       color: darken($gray, 15%);
+
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 
@@ -293,7 +169,182 @@ $project-height: 45px;
 }
 
 .project-details {
+  @extend .clearfix;
   min-height: $project-height;
   margin-left: -(2 * $half-gutter-width + 1);
   border: 1px solid $gray-light;
+}
+
+.membership {
+  display: inline-block;
+  position: relative;
+  height: 43px;
+  margin: 0 10px 0;
+  padding: 0 0 0 40px;
+  vertical-align: middle;
+
+  .member-photo {
+    position: absolute;
+    top: 6px;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    background: #eee;
+  }
+
+  .member-details {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  a {
+    color: darken($gray, 10%);
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .name {
+    margin: 5px 0 0 0;
+    line-height: 1;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .remove {
+    cursor: pointer;
+  }
+
+  .edit,
+  .remove {
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .remove,
+  .edit {
+    position: relative;
+    z-index: 5;
+  }
+
+  .time {
+    padding: 1px 2px;
+    font-size: 11px;
+  }
+
+  &[class*='left-'],
+  &[class*='start-'] {
+    padding: 5px;
+    margin: 4px;
+    min-width: 150px;
+
+    .time {
+      display: block;
+    }
+
+    .remove {
+      float: right;
+    }
+
+    .remove {
+      margin-right: 3px;
+    }
+  }
+
+  &.left-1,
+  &.left-7,
+  &.start-14,
+  &.start-30 {
+    a {
+      color: $white;
+    }
+  }
+
+  &.left-1 {
+    background: $left-time-red;
+    color: $white;
+  }
+
+  &.left-7 {
+    background: lighten($left-time-red, 20);
+    color: $white;
+  }
+
+  &.left-14 {
+    background: lighten($left-time-red, 40);
+  }
+
+  &.left-30 {
+    background: lighten($left-time-red, 55);
+  }
+
+  &.start-1 {
+    background: lighten($start-time-green, 55);
+  }
+
+  &.start-7 {
+    background: lighten($start-time-green, 40);
+  }
+
+  &.start-14 {
+    background: lighten($start-time-green, 20);
+    color: $white;
+  }
+
+  &.start-30 {
+    background: $start-time-green;
+    color: $white;
+  }
+
+  &.unstarted {
+    .time {
+      display: block;
+    }
+  }
+
+  &:hover {
+    .remove,
+    .edit {
+      opacity: 1;
+    }
+  }
+}
+
+.admin-section {
+  position: absolute;
+  top: 2px;
+  left: -11px;
+  //width: 50px;
+  transition: all 0.25s;
+}
+
+.billable {
+  @extend .clearfix;
+  padding: 0 0 0 160px;
+  min-height: 43px;
+}
+
+.non-billable {
+  @extend .clearfix;
+  padding: 0 0 0 160px;
+
+  .memberships {
+    margin: 0 0 -1px 0;
+    border-top: 1px solid $gray-light;
+  }
+}
+
+.memberships {
+  border-left: 1px solid $gray-light;
+}
+
+.js-memberships-region {
+  @extend .clearfix;
+}
+
+.project-notes-wrapper {
+  min-height: 0;
+  padding: 15px;
 }

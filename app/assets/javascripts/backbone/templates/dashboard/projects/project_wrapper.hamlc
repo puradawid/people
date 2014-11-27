@@ -3,7 +3,7 @@
     .project-name
       .project-avatar{style: "background-color: #{@.colour}"}
         #{@.initials}
-      .actual
+      .actual-name
         != @link_to @name, Routes.project_path(@id)
 
         %span.action

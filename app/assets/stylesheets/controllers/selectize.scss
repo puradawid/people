@@ -1,0 +1,40 @@
+.selectize-control {
+  &.multi {
+    .selectize-input {
+      &.has-items {
+        padding: 6px 0 2px 6px;
+      }
+    }
+  }
+
+  .selectize-input {
+    @include box-shadow(none);
+    padding: 5px 10px 0 10px;
+    margin-top: 2px;
+    margin-bottom: 0px;
+    min-width: 220px;
+    min-height: 38px;
+    border-radius: 2px;
+    border-color: lighten($gray-light, 5%);
+
+    input  {
+      font-size: 14px;
+      font-style: italic;
+      vertical-align: sub;
+    }
+  }
+}
+
+.admin-section {
+  .selectize-input {
+    padding: 2px 8px 0 8px;
+    min-height: 34px;
+    min-width: 40px;
+    width: 140px;
+
+    input  {
+      font-size: 12px;
+      height: 33px;
+    }
+  }
+}
