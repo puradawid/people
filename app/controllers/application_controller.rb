@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   end
 
   def message_to_js
-    @flashMessage = { notice: [], alert: [] }
+    @flashMessage = { notice: [], alert: [] }.with_indifferent_access
     flash.each do |name, msg|
       @flashMessage[name] << msg
     end
