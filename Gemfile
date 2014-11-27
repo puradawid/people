@@ -1,8 +1,7 @@
 source 'https://rubygems.org'
-ruby "2.0.0"
+ruby "2.1.5"
 
-gem 'rails', '4.0.10'
-gem 'sprockets', '2.11.0'
+gem 'rails', '4.1.8'
 gem 'rollbar'
 gem 'google-analytics-rails'
 gem 'newrelic_rpm'
@@ -13,7 +12,7 @@ gem "heroku-mongo-backup", github: 'alexkravets/heroku-mongo-backup', branch: 'm
 gem 'fog'
 
 gem 'mongoid', github: 'mongoid/mongoid'
-gem 'mongoid-paranoia', github: 'simi/mongoid-paranoia'
+gem 'mongoid_paranoia', github: 'simi/mongoid_paranoia'
 gem 'mongoid_orderable'
 gem 'bson'
 gem 'bson_ext'
@@ -21,10 +20,9 @@ gem 'moped'
 gem 'mongoid-history'
 gem 'mongoid_userstamp'
 gem 'mongoid_rails_migrations'
-gem 'astrails-safe'
 
-gem "dotenv"
-gem "dotenv-deployment"
+gem 'dotenv'
+gem 'dotenv-deployment'
 gem 'decent_exposure'
 gem 'decent_decoration'
 gem 'lograge', '~> 0.3.0'
@@ -32,18 +30,19 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-google-oauth2'
-gem 'draper', '~> 1.3'
+gem 'draper'
 gem 'rabl'
 gem 'oj'
-gem 'sucker_punch', '~> 1.0'
+gem 'sucker_punch'
 gem 'hipchat'
 gem 'netguru_theme'
 
 gem 'haml-rails'
-gem 'sass-rails', '~> 4.0.0'
-gem 'uglifier', '~> 2.5.3'
-gem 'coffee-rails', '~> 4.0.0'
-gem 'therubyracer', '= 0.12.0'
+gem 'haml_coffee_assets', github: 'netzpirat/haml_coffee_assets'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'coffee-rails'
+gem 'therubyracer'
 gem 'render_anywhere', require: false
 
 gem 'jquery-rails'
@@ -88,7 +87,7 @@ end
 
 group :development, :test do
   gem 'pry'
-  gem 'pry-debugger'
+  gem 'pry-byebug'
   gem 'pry-rails'
   gem 'awesome_print'
   gem 'capistrano-rvm', require: false
@@ -103,7 +102,7 @@ group :test do
   gem 'faker'
   gem 'timecop'
   gem 'codeclimate-test-reporter', require: false
-  gem 'capybara', '~> 2.4.1'
+  gem 'capybara', '~> 2.4.4'
   gem 'webmock'
   gem 'rack_session_access'
   gem 'poltergeist'
