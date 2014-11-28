@@ -18,11 +18,10 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
     @listenTo(EventAggregator, 'membership:updated:billable', @updateCollections)
 
   getUsers: ->
-    roles = @roles.where(billable: true).map (role) -> role.get('id')
     billable = new Hrguru.Collections.Memberships
     non_billable = new Hrguru.Collections.Memberships
     @collection.each (user) ->
-      if _.contains(roles, user.get('role_id')) || user.get('billable')
+      if user.get('billable')
         billable.add(user)
       else
         non_billable.add(user)
