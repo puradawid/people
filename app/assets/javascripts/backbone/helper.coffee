@@ -6,7 +6,7 @@ class Hrguru.Helper
     @current_user = new Hrguru.Models.User(gon.current_user)
     @setMessengerOptions()
     @addViewHelpers()
-    moment().lang('pl')
+    moment().lang('en')
 
   currentTime: ->
     moment(@server_time).add(moment().diff(@time_now))

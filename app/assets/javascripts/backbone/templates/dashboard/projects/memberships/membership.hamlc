@@ -9,6 +9,6 @@
 - if @show_time
   .member-details
     %span.label.label-default.time-to
-      Do
+      Till
       %time= moment(@ends_at).format('LL')
     %span.label.label-default.role-indicator{ style: "border-color: #{@color}" }

@@ -4,5 +4,5 @@
   %span.icon
   .member-details
     %span.label.label-default.time-to
-      Od
+      Since
       %time= moment(@starts_at).format('LL')

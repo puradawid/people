@@ -12,7 +12,7 @@
 //= require js_stack
 //= require js_stack/plugins/underscore.string
 //= require js_stack/plugins/underscore.inflections
-//= require moment/pl.js
+//= require moment
 //= require backbone/hrguru
 //= require abilities/icon_preview
 //= require_tree .
