@@ -64,7 +64,7 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
 
   refreshSelectizeOptions: ->
     selected = _.compact(@collection.pluck('user_id'))
-    to_select = @users.select (model) -> !(model.get('id') in selected)
+    to_select = @users.withRole().select (model) -> !(model.get('id') in selected)
     @selectize_options = to_select.map (model) -> model.toJSON()
     if @selectize?
       @selectize.clearOptions()

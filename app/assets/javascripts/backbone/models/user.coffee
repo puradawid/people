@@ -68,6 +68,9 @@ class Hrguru.Models.User extends Backbone.Model
   isActive: ->
     !@get('archived')
 
+  hasRole: ->
+    @get('role_id') != null
+
   hasTechnicalRole: ->
     @get('role').technical
 
@@ -123,5 +126,11 @@ class Hrguru.Collections.Users extends Backbone.Collection
   active: ->
     filtered = @filter((user) ->
       user.isActive()
+    )
+    new Hrguru.Collections.Users(filtered)
+
+  withRole: ->
+    filtered = @filter((user) ->
+      user.hasRole()
     )
     new Hrguru.Collections.Users(filtered)
