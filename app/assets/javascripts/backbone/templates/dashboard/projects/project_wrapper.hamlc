@@ -12,10 +12,10 @@
             .archive.glyphicon.glyphicon-folder-close.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to archive project' }
             .js-timeline-show.glyphicon.glyphicon-time.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to show timeline' }
             .js-timeline-hide.glyphicon.glyphicon-time.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to hide timeline' }
-          - if @end_at
-            .time.hidden
-              Do
-              %time= moment(@end_at).format('LL')
+        - if @end_at
+          .time.hidden
+            Do
+            %time= moment(@end_at).format('LL')
 
     - if H.currentUserIsAdmin()
       .show-notes.js-open-project-notes.glyphicon.glyphicon-pencil.btn-primary

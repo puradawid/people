@@ -4,5 +4,5 @@
 }
 
 .welcome-title {
-  animation: bounce 1s 0.5s;
+  @include animation(bounce 1s 0.5s);
 }

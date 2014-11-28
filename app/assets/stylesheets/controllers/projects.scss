@@ -45,36 +45,15 @@ $project-height: 45px;
   }
 
   &.left  {
-    background: $left-time-red;
     color: $white;
 
     .project-name {
-      border-bottom: 2px solid $left-time-red;
+      background: $left-time-red;
+      border-color: $left-time-red;
 
-      a {
-        position: relative;
-        top: -5px;
-        color: $white;
-      }
-
+      a,
       .info {
-        position: relative;
-        top: -5px;
         color: $white;
-
-        &:hover {
-          color: $gray-background;
-        }
-      }
-
-      .time {
-        margin: 0;
-        font-weight: 100;
-        text-align: center;
-        letter-spacing: 1px;
-        position: relative;
-        top: -5px;
-        left: -10px;
       }
     }
   }
@@ -97,8 +76,6 @@ $project-height: 45px;
       display: none;
     }
   }
-
-
 }
 
 .project-name {
@@ -110,6 +87,13 @@ $project-height: 45px;
     .glyphicon {
       opacity: 1;
     }
+  }
+
+  .time {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1;
+    color: $gray;
   }
 
   .project-avatar {
@@ -160,7 +144,7 @@ $project-height: 45px;
     font-size: 14px;
     cursor: pointer;
     opacity: 0;
-    transition: opacity 0.25s;
+    @include transition(opacity 0.25s);
   }
 
   .billable_ratio {
@@ -182,10 +166,26 @@ $project-height: 45px;
   margin: 0 10px 0;
   padding: 0 0 0 40px;
   vertical-align: middle;
+  opacity: 1;
+  @include transition(opacity 0.5s 0.25s);
+
+  &.unstarted {
+    position: relative;
+    opacity: 1;
+
+    &.unvisible {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .time-to {
+      background: lighten($start-time-green, 20);
+    }
+  }
 
   .member-photo {
     position: absolute;
-    top: 6px;
+    top: 7px;
     left: 0;
     width: 30px;
     height: 30px;
@@ -220,7 +220,7 @@ $project-height: 45px;
   .edit,
   .remove {
     opacity: 0;
-    transition: opacity 0.25s;
+    @include transition(opacity 0.25s);
   }
 
   .remove,
@@ -229,79 +229,56 @@ $project-height: 45px;
     z-index: 5;
   }
 
-  .time {
+  .time-to,
+  .role-indicator {
     padding: 1px 2px;
+    margin-right: 5px;
     font-size: 11px;
-  }
-
-  &[class*='left-'],
-  &[class*='start-'] {
-    padding: 5px;
-    margin: 4px;
-    min-width: 150px;
-
-    .time {
-      display: block;
-    }
-
-    .remove {
-      float: right;
-    }
-
-    .remove {
-      margin-right: 3px;
-    }
+    background: $gray;
+    @include transition(background 1s);
   }
 
   &.left-1,
   &.left-7,
+  &.left-14,
+  &.left-30,
+  &.start-1,
+  &.start-7,
   &.start-14,
   &.start-30 {
-    a {
-      color: $white;
-    }
+    color: $white;
   }
 
-  &.left-1 {
+  &.left-1 .time-to {
     background: $left-time-red;
-    color: $white;
   }
 
-  &.left-7 {
+  &.left-7 .time-to {
     background: lighten($left-time-red, 20);
-    color: $white;
   }
 
-  &.left-14 {
+  &.left-14 .time-to {
     background: lighten($left-time-red, 40);
   }
 
-  &.left-30 {
+  &.left-30 .time-to {
     background: lighten($left-time-red, 55);
   }
 
-  &.start-1 {
+  &.start-1 .time-to {
     background: lighten($start-time-green, 55);
   }
 
-  &.start-7 {
+  &.start-7 .time-to {
     background: lighten($start-time-green, 40);
   }
 
-  &.start-14 {
+  &.start-14 .time-to {
     background: lighten($start-time-green, 20);
-    color: $white;
   }
 
-  &.start-30 {
+  &.start-30 .time-to {
     background: $start-time-green;
-    color: $white;
-  }
-
-  &.unstarted {
-    .time {
-      display: block;
-    }
   }
 
   &:hover {
@@ -316,14 +293,16 @@ $project-height: 45px;
   position: absolute;
   top: 2px;
   left: -11px;
-  //width: 50px;
-  transition: all 0.25s;
 }
 
 .billable {
   @extend .clearfix;
   padding: 0 0 0 160px;
   min-height: 43px;
+
+  .memberships {
+    min-height: 43px;
+  }
 }
 
 .non-billable {

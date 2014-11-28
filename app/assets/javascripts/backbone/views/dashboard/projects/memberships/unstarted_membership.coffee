@@ -1,6 +1,6 @@
 class Hrguru.Views.Dashboard.UnstartedMembership extends Hrguru.Views.Dashboard.BaseMembership
 
-  className: 'membership unstarted hide'
+  className: 'membership unstarted unvisible'
   template: JST['dashboard/projects/memberships/unstarted_membership']
 
   initialize: ->
@@ -14,15 +14,15 @@ class Hrguru.Views.Dashboard.UnstartedMembership extends Hrguru.Views.Dashboard.
   showNext: (state) ->
     @hidden_by_next = !state
     @highlightStarting(state)
-    @$el.toggleClass('hide', @hidden_by_next) unless @hidden_by_role
+    @$el.toggleClass('unvisible', @hidden_by_next) unless @hidden_by_role
 
   highlightStarting: (state)->
     start = _.find [1, 7, 14, 30], (day) => day >= @model.daysToStart()
-    @$el.toggleClass("start-#{start}", state) if start?
+    @$el.addClass("start-#{start}", state) if start?
 
   toggleVisibility: (ids) ->
     @hidden_by_role = ids.length > 0 && !(@model.get('role_id') in ids)
-    @$el.toggleClass('hide', @hidden_by_role) unless @hidden_by_next
+    @$el.toggleClass('unvisible', @hidden_by_role) unless @hidden_by_next
 
   highlightNotBillable: (state) ->
     return unless @showNotBillable()
