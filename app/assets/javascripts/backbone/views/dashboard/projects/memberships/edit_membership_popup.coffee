@@ -41,6 +41,7 @@ class Hrguru.Views.Dashboard.EditMembershipPopup extends Marionette.CompositeVie
 
   updateMembership: (event) ->
     return unless confirm("Are you sure?")
+    event.preventDefault()
     @hideErrors()
     @model.save({starts_at: @ui.input_starts_at.val(), ends_at: @ui.input_ends_at.val(), billable: @ui.billable.prop('checked')},
       patch: true
@@ -52,7 +53,7 @@ class Hrguru.Views.Dashboard.EditMembershipPopup extends Marionette.CompositeVie
     )
     if @model.changed.hasOwnProperty('billable')
       EventAggregator.trigger('membership:updated:billable', @model)
-      
+
   showError: (errorsJSON = {}) ->
     for attr, errors of errorsJSON
       $input = @$el.find(".#{attr}").parent().parent()
