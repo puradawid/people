@@ -1,7 +1,8 @@
 .member-photo
   %img.img-circle{ src: @user.gravatar }
 %p.name!= @profile_link(@user, Routes.user_path(@user.id))
-  %span.icon
+  %span.icons
+    %span.icon
     - if H.currentUserIsAdmin()
       %a.edit{ href: "##{@id}" }
         != @icon 'pencil-square-o'

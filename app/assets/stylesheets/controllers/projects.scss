@@ -82,6 +82,7 @@ $project-height: 45px;
   position: relative;
   width: 100%;
   border: 1px solid $gray-light;
+  @include transition(background-color 0.5s, border-color 0.5s);
 
   &:hover {
     .glyphicon {
@@ -167,14 +168,15 @@ $project-height: 45px;
   padding: 0 0 0 40px;
   vertical-align: middle;
   opacity: 1;
-  @include transition(opacity 0.25s 0.12s);
+  @include transition(opacity 0.5s);
 
   &.unstarted {
     position: relative;
     opacity: 1;
 
-    &.unvisible {
+    &.invisible {
       position: absolute;
+      visibility: visible;
       opacity: 0;
     }
 
@@ -207,10 +209,14 @@ $project-height: 45px;
   }
 
   .name {
-    margin: 5px 0 0 0;
+    margin: 6px 0 -1px 0;
     line-height: 1;
     font-size: 12px;
     font-weight: bold;
+  }
+
+  .icon {
+    font-size: 11px;
   }
 
   .remove {
