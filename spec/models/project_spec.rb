@@ -7,8 +7,9 @@ describe Project do
   it { should be_valid }
   it { should validate_presence_of :name }
   it { should validate_uniqueness_of(:name).case_insensitive }
+  it { should validate_uniqueness_of(:slug) }
   it { should validate_format_of(:slug).
-       to_allow('onlyletters').
+       to_allow('1ettersandnumber5').
        to_allow('').
        to_allow(nil).
        not_to_allow('ANYTHING-else07') }
