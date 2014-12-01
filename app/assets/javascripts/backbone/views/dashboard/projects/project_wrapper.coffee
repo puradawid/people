@@ -59,7 +59,6 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
     leftDays = 30
     leftDays >= @model.daysToEnd()
     @$el.toggleClass("left", state)
-    @ui.time.toggleClass('hidden', !state)
 
   showEndingTime: ->
     @model.daysToEnd()? && @model.isActive()

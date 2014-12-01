@@ -13,7 +13,7 @@
             .js-timeline-show.glyphicon.glyphicon-time.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to show timeline' }
             .js-timeline-hide.glyphicon.glyphicon-time.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to hide timeline' }
         - if @end_at
-          .time.hidden
+          .time
             Do
             %time= moment(@end_at).format('LL')
 

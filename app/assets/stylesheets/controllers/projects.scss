@@ -55,6 +55,19 @@ $project-height: 45px;
       .info {
         color: $white;
       }
+
+      a {
+        @include transform(translateY(-8px));
+      }
+    }
+
+    .time {
+      @include transform(translateY(0));
+      opacity: 1;
+    }
+
+    .project-details {
+      border-color: lighten($left-time-red, 20%);
     }
   }
 
@@ -91,10 +104,17 @@ $project-height: 45px;
   }
 
   .time {
-    margin: 0;
-    font-size: 12px;
+    position: absolute;
+    bottom: 7px;
+    left: 44px;
+    margin: 0 0 0 10px;
     line-height: 1;
-    color: $gray;
+    font-size: 11px;
+    font-weight: bold;
+    color: $white;
+    opacity: 0;
+    @include transition(transform 0.5s);
+    @include transform(translateY(10px));
   }
 
   .project-avatar {
@@ -127,6 +147,7 @@ $project-height: 45px;
       text-overflow: ellipsis;
       overflow: hidden;
       color: darken($gray, 15%);
+      @include transition(transform 0.5s);
 
       &:hover {
         text-decoration: none;
