@@ -48,8 +48,8 @@ $project-height: 45px;
     color: $white;
 
     .project-name {
-      background: $left-time-red;
-      border-color: $left-time-red;
+      background: lighten($left-time-red, 20%);
+      border-color: lighten($left-time-red, 20%);
 
       a,
       .info {
@@ -296,14 +296,11 @@ $project-height: 45px;
 }
 
 .admin-section {
-  position: absolute;
-  top: 2px;
-  left: -11px;
+  float: left;
 }
 
 .billable {
-  @extend .clearfix;
-  padding: 0 0 0 160px;
+  margin-left: -1px;
   min-height: 43px;
 
   .memberships {
@@ -312,8 +309,7 @@ $project-height: 45px;
 }
 
 .non-billable {
-  @extend .clearfix;
-  padding: 0 0 0 160px;
+  margin-left: -1px;
 
   .memberships {
     margin: 0 0 -1px 0;
