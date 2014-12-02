@@ -15,7 +15,7 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
     [@billable, @nonBillable] = @getUsers()
     @refreshSelectizeOptions()
     @listenTo(@model, 'membership:finished', @removeMembership)
-    @listenTo(EventAggregator, 'membership:updated:billable', @updateCollections)
+    @listenTo(@collection, 'membership:updated:billable', @updateCollections)
 
   getUsers: ->
     billable = new Hrguru.Collections.Memberships

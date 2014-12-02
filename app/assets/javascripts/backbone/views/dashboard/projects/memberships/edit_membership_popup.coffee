@@ -52,7 +52,7 @@ class Hrguru.Views.Dashboard.EditMembershipPopup extends Marionette.CompositeVie
         @showError(xhr.responseJSON.errors)
     )
     if @model.changed.hasOwnProperty('billable')
-      EventAggregator.trigger('membership:updated:billable', @model)
+      @model.trigger('membership:updated:billable', @model)
 
   showError: (errorsJSON = {}) ->
     for attr, errors of errorsJSON
