@@ -55,14 +55,10 @@ $project-height: 45px;
       .info {
         color: $white;
       }
-
-      a {
-        @include transform(translateY(-8px));
-      }
     }
 
     .time {
-      @include transform(translateY(0));
+      @include transform(translateX(0));
       opacity: 1;
     }
   }
@@ -91,7 +87,6 @@ $project-height: 45px;
   position: relative;
   width: 100%;
   border: 1px solid $gray-light;
-  @include transition(background-color 0.5s, border-color 0.5s);
 
   &:hover {
     .glyphicon {
@@ -101,16 +96,15 @@ $project-height: 45px;
 
   .time {
     position: absolute;
-    bottom: 7px;
-    left: 44px;
+    top: 0;
+    right: 10px;
     margin: 0 0 0 12px;
-    line-height: 1;
-    font-size: 11px;
+    font-size: 14px;
     font-weight: bold;
     color: $white;
     opacity: 0;
     @include transition(transform 0.5s);
-    @include transform(translateY(10px));
+    @include transform(translateX(10px));
   }
 
   .project-avatar {
