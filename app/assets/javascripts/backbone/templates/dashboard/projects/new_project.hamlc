@@ -1,32 +1,45 @@
-.glyphicon.glyphicon-plus.new-project-add.btn-success
-  %p New project
-.new-project-form
-  .form-group
-    .input-group
-      %label.control-label
-        %abbr{title: "required"} *
-        Project Name
-      %input.form-control.name{  placeholder: "Project name...", type: "text"  }
-    .input-group
-      %label.control-label
-        Project slug
-      %input.form-control.slug{  placeholder: "Only small letters...", type: "text"  }
-  .checkbox
-    %label
-      %input.potential{ type: 'checkbox', checked: 'false' } Potential
-  .checkbox
-    %label
-      %input.internal{ type: 'checkbox', checked: 'false' } Internal
-  .form-group
-    .input-group
-      %label.date_picker.required.control-label.input-group-addon
-        Kickoff
-      %input.form-control.date_picker.kickoff
-  .form-group
-    .input-group
-      %label.date_picker.required.control-label.input-group-addon
-        End at
-      %input.form-control.date_picker.endAt
-  .actions
-    %a.btn.btn-danger.new-project-close{ href: "#"} Close
-    %a.btn.btn-default.new-project-submit{href: "#"} Add Project
+%button.btn.btn-primary.new-project-add{ data: { toggle: 'modal', target: '.add-project-modal' } }
+  %span.glyphicon.glyphicon-plus
+  New Project
+
+.modal.fade.add-project-modal{ tabindex: '-1', role: 'dialog', aria: { labelledby: 'myModal', hidden: 'true' } }
+  .modal-dialog.modal-md
+    .modal-content
+      .modal-header
+        %button.close{ type: 'button', data: { dismiss: 'modal' } }
+          %span &times
+        %h3.modal-title Add new project
+      .modal-body
+        .new-project-form
+          .row
+            .col-md-6
+              .form-group
+                %label.control-label
+                  %abbr{title: "required"} *
+                  Project Name
+                %input.form-control.name{  placeholder: "Project name...", type: "text"  }
+            .col-md-6
+              .form-group
+                %label.control-label
+                  Project slug
+                %input.form-control.slug{  placeholder: "Only small letters...", type: "text"  }
+          .row
+            .col-md-6
+              .form-group
+                .input-group
+                  %label.date_picker.required.control-label.input-group-addon
+                    Kickoff
+                  %input.form-control.date_picker.kickoff
+            .col-md-6
+              .form-group
+                .input-group
+                  %label.date_picker.required.control-label.input-group-addon
+                    End at
+                  %input.form-control.date_picker.endAt
+          %label.checkbox-inline
+            %input.potential{ type: 'checkbox', checked: 'false' } Potential
+          %label.checkbox-inline
+            %input.internal{ type: 'checkbox', checked: 'false' } Internal
+      .modal-footer
+        %button.btn.btn-default.new-project-close{ type: 'button', data: { dismiss: 'modal' } } Close
+        %button.btn.btn-primary.new-project-submit{ type: 'button' } Add project

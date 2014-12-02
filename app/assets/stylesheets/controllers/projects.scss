@@ -24,8 +24,13 @@ body.projects {
     #project_potential {
       float: none;
     }
-
   }
+}
+
+
+.new-project {
+  float: left;
+  margin: 0 20px 20px 0;
 }
 
 $project-height: 45px;
@@ -104,7 +109,7 @@ $project-height: 45px;
     font-weight: bold;
     color: $white;
     opacity: 0;
-    @include transition(transform 0.5s);
+    @include transition(transform 0.5s, opacity 0.5s);
     @include transform(translateX(10px));
   }
 

@@ -21,8 +21,6 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     super()
 
   toggleFormClass: ->
-    @ui.form.stop().fadeToggle('fast')
-    @ui.add.toggleClass('clicked')
     @clearInputs()
 
   addProject: ->

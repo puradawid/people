@@ -30,19 +30,12 @@ body.dashboard {
   }
 }
 
-.new-project {
-  float: left;
-  position: relative;
-  margin-bottom: 7px;
-}
 
 .open-all-notes {
-  float: right;
+  float: left;
 }
 
-.new-project-add,
-.show-notes,
-.open-all-notes-button {
+.show-notes {
   padding: 12px;
   width: 300px;
   top: 2px;
@@ -82,14 +75,6 @@ body.dashboard {
   border: none;
   border-radius: 5px;
   margin-bottom: 15px;
-}
-
-.open-all-notes-button {
-  position: relative;
-  top: 2px;
-  border-radius: 0px;
-  border: 1px solid #428bca;
-  border-top: 0px;
 }
 
 .project-notes-wrapper {
@@ -155,27 +140,6 @@ body.dashboard {
 
   .scroll-overflow {
     overflow: scroll;
-  }
-}
-
-.new-project-form {
-  padding: 7px 15px 15px 15px;
-  width: 300px;
-  left: 0;
-  top: 44px;
-  display: none;
-  position: absolute;
-  z-index: 100;
-  background: $brand-success;
-  border: 1px solid $brand-success;
-  color: $white;
-
-  .new-project-submit {
-    float: right;
-  }
-
-  .new-project-close {
-    float: left;
   }
 }
 
