@@ -14,28 +14,28 @@
           .row
             .col-md-6
               .form-group
-                %label.control-label
-                  %abbr{title: "required"} *
+                %label.control-label{ for: 'project-name'}
                   Project Name
-                %input.form-control.name{  placeholder: "Project name...", type: "text"  }
+                  %abbr{title: 'Required'} *
+                %input#project-name.form-control.name{  placeholder: 'Project name...', type: 'text'  }
             .col-md-6
               .form-group
-                %label.control-label
+                %label.control-label{ for: 'project-slug' }
                   Project slug
-                %input.form-control.slug{  placeholder: "Only small letters...", type: "text"  }
+                %input#project-slug.form-control.slug{  placeholder: 'Only small letters...', type: 'text'  }
           .row
             .col-md-6
               .form-group
                 .input-group
-                  %label.date_picker.required.control-label.input-group-addon
+                  %label.date_picker.required.control-label.input-group-addon{ for: 'kickoff' }
                     Kickoff
-                  %input.form-control.date_picker.kickoff
+                  %input#kickoff.form-control.date_picker.kickoff
             .col-md-6
               .form-group
                 .input-group
-                  %label.date_picker.required.control-label.input-group-addon
+                  %label.date_picker.required.control-label.input-group-addon{ for: 'end-at' }
                     End at
-                  %input.form-control.date_picker.endAt
+                  %input#end-at.form-control.date_picker.endAt
           %label.checkbox-inline
             %input.potential{ type: 'checkbox', checked: 'false' } Potential
           %label.checkbox-inline
