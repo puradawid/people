@@ -87,6 +87,7 @@ $project-height: 45px;
   position: relative;
   width: 100%;
   border: 1px solid $gray-light;
+  @include transition(background-color 0.5s, border-color 0.5s);
 
   &:hover {
     .glyphicon {
