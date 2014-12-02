@@ -32,7 +32,8 @@ class Project
   accepts_nested_attributes_for :memberships
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
-  validates :slug, allow_blank: true, allow_nil: true, uniqueness: true, format: { with: /\A[a-z\d]+\Z/ }
+  validates :slug, allow_blank: true, allow_nil: true, uniqueness: true,
+    format: { with: /\A[a-z\d]+\Z/ }
   validates :archived, inclusion: { in: [true, false] }
   validates :potential, inclusion: { in: [true, false] }
   validates :project_type, inclusion: { in: POSSIBLE_TYPES }
