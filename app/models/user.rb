@@ -157,7 +157,8 @@ class User
   end
 
   def potential_memberships_by_ids(project_ids)
-    memberships_cached.select { |m| project_ids.include?(m.project_id) }
+    now = Time.now
+    memberships_cached.select { |m| project_ids.include?(m.project_id) && (m.ends_at.nil? || m.ends_at >= now) }
   end
 
   %w(current potential next).each do |type|

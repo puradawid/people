@@ -193,6 +193,17 @@ describe User do
         expect(subject.potential_projects.first[:project]).to eq project_potential
       end
     end
+
+    context 'when user used to belong to potential project' do
+      before do
+        create(:membership, starts_at: 10.days.ago, ends_at: 5.days.ago,
+                            user: subject, project: project_potential)
+      end
+
+      it "returns no potential project" do
+        expect(subject.potential_projects).to be_empty
+      end
+    end
   end
 
   describe '#get_from_api' do
