@@ -13,7 +13,7 @@ describe 'team view', js: true do
   let!(:no_role_user) { create(:user, first_name: 'Norole Nicola') }
   let!(:hidden_user) { create(:user, first_name: 'Hidden Amanda', role_id: hidden_role.id, team_id: team.id) }
   let!(:team) { create(:team) }
-  let!(:team_user) { create(:user, first_name: 'Developer Dave', role_id: dev_role.id, team_id: team.id) }
+  let!(:team_user) { create(:user, first_name: 'Developer Dave', role_id: billable_role.id, team_id: team.id) }
 
   before(:each) do
     page.set_rack_session 'warden.user.user.key' => User.serialize_into_session(user).unshift('User')
@@ -68,8 +68,8 @@ describe 'team view', js: true do
 
   describe '.js-promote-leader' do
     it 'promotes member to leader' do
-      find('.js-promote-leader').click
-      expect(page).to have_xpath('//ul[@id="leader-region"]/ul')
+      first('.js-promote-leader').click
+      expect(page).to have_xpath('//ul[@class="team-members filled" and @id="leader-region"]')
     end
   end
 
