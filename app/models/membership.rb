@@ -42,7 +42,7 @@ class Membership
    end
   scope :ending_soon, -> { between(ends_at: Time.now..1.week.from_now) }
   scope :billable, -> { where(billable: true) }
-  scope :only_active, -> { where(project_potential: false, project_archived: false).desc('starts_at').limit(3) }
+  scope :only_active, -> { where(project_potential: false, project_archived: false, booked: false).desc('starts_at').limit(3) }
   scope :leaving, ->(days) { between(ends_at: Time.now..days.days.from_now) }
   scope :joining, ->(days) { between(starts_at: Time.now..days.days.from_now) }
   scope :upcoming_changes, lambda { |days|
