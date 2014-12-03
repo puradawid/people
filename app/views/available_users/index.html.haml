@@ -77,6 +77,7 @@
           %th Current project
           %th Projects
           %th Booked
+          %th Notes
 
         %tbody
           - users.each do |user|
@@ -107,3 +108,8 @@
                 = render partial: 'membership', collection: user.potential_memberships
               %td
                 = render partial: 'membership', collection: user.booked_memberships
+              %td.user-notes
+                - unless user.user_notes.blank?
+                  = link_to 'View notes', '#', 'data-toggle' => 'modal',
+                    'data-target' => '.user-notes-modal', 'data-user-notes' => user.user_notes
+  = render partial: 'user_notes'

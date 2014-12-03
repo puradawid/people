@@ -8,6 +8,7 @@ class Hrguru.Views.AvailableUsersIndex extends Marionette.View
     $('table').tablesorter headers:
       3:
         sorter: 'available'
+    @setUserNotesModalHandlers()
 
   setSorterParser: ->
     $.tablesorter.addParser
@@ -17,3 +18,9 @@ class Hrguru.Views.AvailableUsersIndex extends Marionette.View
       format: (s) ->
         s.replace(/since now/, '0')
       type: 'date'
+
+  setUserNotesModalHandlers: ->
+    $('td.user-notes > a').click (e) ->
+      e.preventDefault()
+      user_notes = e.target.getAttribute('data-user-notes')
+      $('.user-notes-content').text(user_notes)
