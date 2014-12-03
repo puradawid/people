@@ -7,7 +7,7 @@ billable_roles = %w(senior developer)
 non_billable_roles = %w(junior praktykant pm junior\ pm qa junior\ qa)
 admin_roles = %w(senior pm)
 contract_types = %w(DG UoP UoD)
-locations = %w(Poznan Warsaw Gdansk Zielona\ Gora Remotely)
+locations = %w(Poznan Warsaw Gdansk Zielona\ Gora Krakow Remotely)
 
 billable_roles.each do |name|
   Role.find_or_create_by(name: name).update_attribute(:billable, true)
