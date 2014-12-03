@@ -109,7 +109,7 @@
               %td
                 = render partial: 'membership', collection: user.booked_memberships
               %td.user-notes
-                - unless user.user_notes.blank?
+                - if user.user_notes.present?
                   = link_to 'View notes', '#', 'data-toggle' => 'modal',
                     'data-target' => '.user-notes-modal', 'data-user-notes' => user.user_notes
   = render partial: 'user_notes'
