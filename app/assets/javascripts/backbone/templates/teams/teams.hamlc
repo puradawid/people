@@ -1,6 +1,1 @@
-%thead
-  %tr
-    %td Name
-    %td Leader
-    %td Members
-%tbody#teams-body
+%ul#teams-body.teams-list.row

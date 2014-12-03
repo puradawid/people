@@ -1,0 +1,137 @@
+.membership {
+  display: inline-block;
+  position: relative;
+  height: 43px;
+  margin: 0 10px 0 0;
+  padding: 0 0 0 40px;
+  vertical-align: middle;
+  opacity: 1;
+  @include transition(opacity 0.5s);
+
+  &.unstarted {
+    position: relative;
+    opacity: 1;
+
+    &.invisible {
+      position: absolute;
+      visibility: visible;
+      opacity: 0;
+    }
+
+    .time-to {
+      background: lighten($start-time-green, 20);
+    }
+  }
+
+  .member-photo {
+    position: absolute;
+    top: 7px;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    background: #eee;
+  }
+
+  .member-details {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  a {
+    color: darken($gray, 10%);
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .name {
+    margin: 6px 0 -1px 0;
+    line-height: 1;
+    font-size: 14px;
+    font-weight: bold;
+
+    .glyphicon-star {
+      font-size: 12px;
+      color: $brand-primary;
+    }
+  }
+
+  .icon {
+    font-size: 11px;
+  }
+
+  .remove {
+    cursor: pointer;
+  }
+
+  .edit,
+  .remove {
+    opacity: 0;
+    @include transition(opacity 0.25s);
+  }
+
+  .remove,
+  .edit {
+    position: relative;
+    z-index: 5;
+  }
+
+  .label {
+    padding: 1px 3px;
+    margin-right: 3px;
+    font-size: 11px;
+    @include transition(background 1s);
+  }
+
+  &.left-1,
+  &.left-7,
+  &.left-14,
+  &.left-30,
+  &.start-1,
+  &.start-7,
+  &.start-14,
+  &.start-30 {
+    color: $white;
+  }
+
+  &.left-1 .time-to {
+    background: $left-time-red;
+  }
+
+  &.left-7 .time-to {
+    background: lighten($left-time-red, 20);
+  }
+
+  &.left-14 .time-to {
+    background: lighten($left-time-red, 40);
+  }
+
+  &.left-30 .time-to {
+    background: lighten($left-time-red, 55);
+  }
+
+  &.start-1 .time-to {
+    background: lighten($start-time-green, 55);
+  }
+
+  &.start-7 .time-to {
+    background: lighten($start-time-green, 40);
+  }
+
+  &.start-14 .time-to {
+    background: lighten($start-time-green, 20);
+  }
+
+  &.start-30 .time-to {
+    background: $start-time-green;
+  }
+
+  &:hover {
+    .remove,
+    .edit {
+      opacity: 1;
+    }
+  }
+}

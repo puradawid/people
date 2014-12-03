@@ -1,8 +1,14 @@
-- if H.currentUserIsAdmin() and !@model.leader_team_id?
-  .js-promote-leader.glyphicon.glyphicon-star.info.pull-right{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Promote to team leader' }
-= @model.name
-.small= @role_name
-.small.js-number-of-days
-- if H.currentUserIsAdmin()
-  .js-exclude-member.btn.btn-xs.btn-danger.info.pull-right{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Exclude team member' }
-    x
+.membership
+  .member-photo
+  .name
+    = @model.name
+    - if @model.leader_team_id?
+      %span.glyphicon.glyphicon-star
+  .member-details
+    .label.label-default= @role_name
+    .label.label-info.js-number-of-days
+.actions
+  - if H.currentUserIsAdmin() and !@model.leader_team_id?
+    %span.js-promote-leader.glyphicon.glyphicon-star.info.make-leader{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Promote to team leader' }
+  - if H.currentUserIsAdmin()
+    %span.js-exclude-member.info.remove{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Exclude team member' } &times

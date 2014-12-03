@@ -1,9 +1,20 @@
-%td.warning
-  = @model.name
-  - if H.currentUserIsAdmin()
-    %span.js-add-member.glyphicon.glyphicon-plus.pull-right.info.{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to add team member' }
-    %span.js-edit-team.glyphicon.glyphicon-pencil.pull-right.info.{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to edit team' }
-  .js-team-member-new.pull-right
-    %input.name{ placeholder: 'Find a volunteer ...', type: "text" }
-%td#leader-region
-%td#members-region
+%article.team
+  %header
+    .team-avatar
+      TN
+    %h3
+      = @model.name
+    %p.devs-indicator
+      %span.devs 4
+      %span.jnrs 1
+    - if H.currentUserIsAdmin()
+      .admin-section
+        %span.js-edit-team.glyphicon.glyphicon-pencil.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to edit team' }
+
+
+  %ul#leader-region
+  #members-region
+
+  %footer
+    .js-team-member-new
+      %input.name{ placeholder: 'Add folk to team...', type: "text" }

@@ -1,9 +1,10 @@
 class Hrguru.Views.EmptyLeader extends Backbone.Marionette.ItemView
   template: JST['teams/empty_leader']
+  tagName: 'li'
 
 class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
   template: JST['teams/team_user']
-  tagName: 'td'
+  tagName: 'li'
 
   events:
     'click .js-exclude-member'  : 'onMembersExcludeClicked'
@@ -64,7 +65,8 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
 
 class Hrguru.Views.TeamMembers extends Backbone.Marionette.CollectionView
   itemView: Hrguru.Views.TeamUser
-  tagName: 'div'
+  tagName: 'ul'
+  className: 'team-members'
 
   events:
     'click .js-add-member': 'toggleMemberForm'
@@ -136,7 +138,8 @@ class Hrguru.Views.TeamMembers extends Backbone.Marionette.CollectionView
 class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
   template: JST['teams/team_layout']
   completionTemplate: JST['dashboard/projects/memberships/completion']
-  tagName: 'tr'
+  tagName: 'li'
+  className: 'col-md-3'
 
   regions:
     leaderRegion:   '#leader-region'
@@ -160,7 +163,6 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
     @membersView.on('leader_set', @setLeader)
 
   onRender: ->
-    @ui.form.hide()
     @initializeSelectize()
     @refreshSelectizeOptions()
     @renderMembersRegion()
@@ -176,11 +178,11 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
   renderLeaderRegion:() =>
     if @leaderView?
       @leaderView.options.leader_display = true
-      @highlight('success')
+      @highlight('team-members filled')
       @leaderRegion.show @leaderView
     else
       @leaderRegion.show(new Hrguru.Views.EmptyLeader)
-      @highlight('danger')
+      @highlight('team-members empty')
 
   setLeader: (leader) =>
     @leaderView = leader
@@ -188,9 +190,6 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
 
   serializeData: ->
     model: @model.toJSON()
-
-  toggleMemberForm: ->
-    @ui.form.fadeToggle('fast')
 
   addMember: (value, item) =>
     member = _.find @users.models, (u) ->
@@ -201,7 +200,6 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
       success: @memberAdded
       error: @memberError
     @selectize.clear()
-    @ui.form.fadeToggle('slow')
 
   memberAdded: (member) =>
     Messenger().success("We successfully added #{member.get('name')} to #{@model.get('name')}!")
