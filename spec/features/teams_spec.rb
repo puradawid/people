@@ -59,14 +59,7 @@ describe 'team view', js: true do
   end
 
   describe '.js-add-member' do
-
-    it 'shows selectize field' do
-      find('span.js-add-member').click
-      expect(page).to have_css('.js-team-member-new')
-    end
-
     it 'adds new member to the team' do
-      find('span.js-add-member').click
       find('.selectize-input input').set('Developer Daisy')
       find(:css, '.person .name').click
       expect(page).to have_content('Developer Daisy')
@@ -76,7 +69,7 @@ describe 'team view', js: true do
   describe '.js-promote-leader' do
     it 'promotes member to leader' do
       find('.js-promote-leader').click
-      expect(page).to have_xpath('//td[@id="leader-region"]/td')
+      expect(page).to have_xpath('//ul[@id="leader-region"]/ul')
     end
   end
 

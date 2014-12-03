@@ -46,7 +46,7 @@
     text-transform: uppercase;
     font-size: 24px;
     font-weight: bold;
-    color: #fff;
+    color: $white;
     background: $gray-lighter;
   }
 
@@ -56,15 +56,16 @@
     right: 15px;
 
     span {
+      $size: 32px;
       display: inline-block;
-      width: 32px;
-      height: 32px;
+      width: $size;
+      height: $size;
       line-height: 27px;
       text-align: center;
       font-size: 14px;
       font-weight: bold;
       border: 2px solid $gray-light;
-      border-radius: 32px;
+      border-radius: $size;
       color: $gray-light;
 
       &.devs {
@@ -82,7 +83,7 @@
   border-bottom: 1px solid $white;
 
   &.empty {
-    min-height: 53px;
+    min-height: 55px;
 
     li {
       &:hover {
@@ -98,28 +99,28 @@
   }
 
   li {
+    @include transition(background-color 0.5s);
     position: relative;
     padding: 5px 15px;
     font-size: 13px;
-    @include transition(background-color 0.5s);
 
     &:hover {
       //background-color: lighten($gray-light, 13%);
 
       .actions {
-        opacity: 1;
         @include transform(translateX(0));
+        opacity: 1;
       }
     }
   }
 
   .actions {
+    @include transform(translateX(20px));
+    @include transition(transform 0.5s, opacity 0.5s);
     position: absolute;
     top: 15px;
     right: 15px;
     opacity: 0;
-    @include transform(translateX(20px));
-    @include transition(transform 0.5s, opacity 0.5s);
 
     span {
       display: inline-block;
@@ -132,8 +133,8 @@
     }
 
     .make-leader {
-      font-size: 14px;
       @include transition(transform 0.5s, color 0.5s);
+      font-size: 14px;
 
       &:hover {
         @include transform(rotate(144deg));

@@ -2,8 +2,7 @@
   %header
     .team-avatar
       TN
-    %h3
-      = @model.name
+    %h3= @model.name
     %p.devs-indicator
       %span.devs 4
       %span.jnrs 1

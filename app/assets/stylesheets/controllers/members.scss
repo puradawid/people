@@ -1,4 +1,5 @@
 .membership {
+  @include transition(opacity 0.5s);
   display: inline-block;
   position: relative;
   height: 43px;
@@ -6,7 +7,6 @@
   padding: 0 0 0 40px;
   vertical-align: middle;
   opacity: 1;
-  @include transition(opacity 0.5s);
 
   &.unstarted {
     position: relative;
@@ -68,8 +68,8 @@
 
   .edit,
   .remove {
-    opacity: 0;
     @include transition(opacity 0.25s);
+    opacity: 0;
   }
 
   .remove,
@@ -79,10 +79,10 @@
   }
 
   .label {
+    @include transition(background 1s);
     padding: 1px 3px;
     margin-right: 3px;
     font-size: 11px;
-    @include transition(background 1s);
   }
 
   &.left-1,

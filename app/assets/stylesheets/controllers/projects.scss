@@ -89,10 +89,10 @@ $project-height: 45px;
 }
 
 .project-name {
+  @include transition(background-color 0.5s, border-color 0.5s);
   position: relative;
   width: 100%;
   border: 1px solid $gray-light;
-  @include transition(background-color 0.5s, border-color 0.5s);
 
   &:hover {
     .glyphicon {
@@ -101,6 +101,8 @@ $project-height: 45px;
   }
 
   .time {
+    @include transition(transform 0.5s, opacity 0.5s);
+    @include transform(translateX(10px));
     position: absolute;
     top: 0;
     right: 10px;
@@ -109,8 +111,6 @@ $project-height: 45px;
     font-weight: bold;
     color: $white;
     opacity: 0;
-    @include transition(transform 0.5s, opacity 0.5s);
-    @include transform(translateX(10px));
   }
 
   .project-avatar {
@@ -137,13 +137,13 @@ $project-height: 45px;
     font-weight: 300;
 
     a {
+      @include transition(transform 0.5s);
       display: inline-block;
       max-width: 75%;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
       color: darken($gray, 15%);
-      @include transition(transform 0.5s);
 
       &:hover {
         text-decoration: none;
@@ -158,11 +158,11 @@ $project-height: 45px;
   }
 
   .glyphicon {
+    @include transition(opacity 0.25s);
     display: inline-block;
     font-size: 14px;
     cursor: pointer;
     opacity: 0;
-    @include transition(opacity 0.25s);
   }
 
   .billable_ratio {
