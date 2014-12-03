@@ -17,6 +17,9 @@
             = glyphicon("info-sign")
           = f.input :abilities_names, as: :select, collection: abilities, input_html: { multiple: true, id: 'js-user_abilities'}, label: false
         .list-group-item
+          = f.label :user_notes, 'Notes'
+          = f.input :user_notes, as: :text, label: false, input_html: { rows: 5 }
+        .list-group-item
           %h4.list-group-item-heading= "Positions"
           .list-group
             - positions.each do |p|
