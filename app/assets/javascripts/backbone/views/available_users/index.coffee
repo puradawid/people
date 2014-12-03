@@ -20,7 +20,7 @@ class Hrguru.Views.AvailableUsersIndex extends Marionette.View
       type: 'date'
 
   setUserNotesModalHandlers: ->
-    $('td.user-notes > a').click (e) ->
+    $('a.user-notes').click (e) ->
       e.preventDefault()
       user_notes = e.target.getAttribute('data-user-notes')
       $('.user-notes-content').text(user_notes)

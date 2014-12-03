@@ -64,6 +64,9 @@
                             = user.abilities_names.join(" | ")
                       - else
                         This guy has no skills whatsoever.
+                    - if user.user_notes.present?
+                      .user_notes
+                        = render partial: 'user_notes_link', locals: { user: user }
 
 
     .tab-pane.active#table_view

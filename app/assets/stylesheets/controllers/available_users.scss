@@ -52,7 +52,8 @@ body.available_users {
           .skills,
           .current_project,
           .hours,
-          .booked {
+          .booked,
+          .user_notes {
             border-top: 1px solid $black;
             padding: 5px;
           }
