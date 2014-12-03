@@ -30,6 +30,7 @@ class User
   field :available, type: Mongoid::Boolean, default: true
   field :without_gh, type: Mongoid::Boolean, default: false
   field :uid, type: String
+  field :user_notes, type: String
 
   mount_uploader :gravatar, GravatarUploader
 
