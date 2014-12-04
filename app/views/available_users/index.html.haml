@@ -10,7 +10,7 @@
           .col-md-12
             %h3= role.name.capitalize
           .col-md-12
-            %p= "No candidates" if role.users.blank?
+            %p= 'No candidates' if role.users.blank?
             .row
               - role.users.each do |user|
                 .col-md-3
@@ -28,7 +28,7 @@
                         .col-md-6.text-center.border-right
                           .user-card-available
                             %strong
-                              #{user.availability.present? ? user.availability.to_date : "since now"}
+                              #{user.availability.present? ? user.availability.to_date : 'since now'}
                             .uppercase-heading available
                         .col-md-6.text-center
                           .user-card-hours
