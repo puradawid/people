@@ -34,41 +34,5 @@ body.available_users {
         margin: 0 0 0 -6px;
       }
     }
-    .container {
-      .row {
-        clear: none;
-        .col-md-3 {
-          min-height: 480px;
-          .user {
-            border: 1px solid #000;
-            margin: 20px;
-          }
-
-          .name,
-          .available_since,
-          .link_to_cv,
-          .last_projects,
-          .potential_projects,
-          .skills,
-          .current_project,
-          .hours,
-          .booked,
-          .user_notes {
-            border-top: 1px solid $black;
-            padding: 5px;
-          }
-
-          .skills {
-            ul {
-              list-style: none;
-              padding-left: 0;
-            }
-          }
-        }
-        &:after {
-          clear: none;
-        }
-      }
-    }
   }
 }

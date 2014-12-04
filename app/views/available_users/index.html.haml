@@ -2,11 +2,6 @@
   %ul.nav.nav-tabs
     %li.box__tab.active= link_to 'Table view', '#table_view', data: { toggle: 'tab' }
     %li.box__tab= link_to 'Cards view', '#cards_view', data: { toggle: 'tab' }
-  .row
-    .col-md-12
-      %form#show-devs-in-project{ action: available_users_path, method: :get }
-        Show developers, who are involved in the same project for more than
-        = select_tag 'months', options_for_select(months_options, selected_months)
 
   .tab-content
     .tab-pane#cards_view
@@ -15,64 +10,60 @@
           .col-md-12
             %h3= role.name.capitalize
           .col-md-12
-            = "no candidates" if role.users.blank?
-            - role.users.each do |user|
-              .row
+            %p= "No candidates" if role.users.blank?
+            .row
+              - role.users.each do |user|
                 .col-md-3
                   .user-card
-                    .avatar
-                      = user.gravatar_image
-                    .name
-                      = profile_link user
-                    .available_since
-                      available since:
-                      #{user.availability.present? ? user.availability.to_date : "since now"}
-                    .hours
-                      hours: #{user.employment}h
-                    .link_to_cv
-                      = link_to 'link to profile pdf', '#'
-                    - if user.memberships.any?
-                      .last_projects
-                        last projects
-                        %ul
-                          - user.memberships.each do |p|
-                            %li= link_to p.project_name, project_path(p.project)
-                    - if user.has_potential_projects?
-                      .potential_projects
-                        potential projects:
-                        %ul
-                          - user.potential_memberships.each do |p|
-                            %li
-                              %span{ rel: 'tooltip', title: p.potential_start, data: { placement: 'right' } }
-                                = link_to p.project.name, project_path(p.project)
-                    - if user.booked_memberships.present?
-                      .booked
-                        booked:
-                        %ul
-                          - user.booked_memberships.each do |m|
-                            %li
-                              %span{ rel: 'tooltip', title: m.ends_at.to_date, data: { placement: 'right' } }
-                                = link_to m.project.name, project_path(m.project)
-                    .current_project
-                      - if user.current_projects.present?
-                        = 'current project'.pluralize(user.current_projects.count)
-                        %ul
-                          - user.current_projects.each do |project|
-                            %li
-                              = link_to project, project_path(project)
-                      - else
-                        There is no current project
-                    .skills
-                      - if user.abilities.present?
-                        %ul
-                          skills:
-                          %li
-                            = user.abilities_names.join(" | ")
-                      - else
-                        This guy has no skills whatsoever.
-                    - if user.user_notes.present?
-                      .user_notes
-                        = render partial: 'user_notes_link', locals: { user: user }
+                    .user-card-header.row
+                      .col-md-3
+                        = user.gravatar_image class: 'user-card-avatar'
+                      .col-md-9
+                        .user-card-name
+                          = profile_link user
+                        %span.label.user-card-profession Developer
+
+                    .user-card-content
+                      .user-card-times.content-part.row
+                        .col-md-6.text-center.border-right
+                          .user-card-available
+                            %strong
+                              #{user.availability.present? ? user.availability.to_date : "since now"}
+                            .uppercase-heading available
+                        .col-md-6.text-center
+                          .user-card-hours
+                            %strong
+                              #{user.employment}h
+                            .uppercase-heading hours
+                      .user-card-projects.content-part.row
+                        .col-md-12
+                          %p.uppercase-heading last projects
+                          %ul.user-card-projects-list
+                            - user.memberships.each do |p|
+                              %li
+                                %span.intro
+                                %strong
+                                  = link_to p.project_name, project_path(p.project)
+                      .user-card-skills.content-part.row
+                        .col-md-12
+                          %p.uppercase-heading skills
+                          - if user.abilities.present?
+                            %span.label.label-skill
+                              = user.abilities_names
+                          - else
+                            %span
+                              This guy has no skills whatsoever.
+
+                    .user-card-current-project.row
+                      .col-md-12
+                        - if user.current_projects.present?
+                          = 'current project'.pluralize(user.current_projects.count)
+                          %ul
+                            - user.current_projects.each do |project|
+                              %li
+                                = link_to project, project_path(project)
+                        - else
+                          There is no current project
 
 
     .tab-pane.active#table_view
@@ -121,3 +112,14 @@
                 - if user.user_notes.present?
                   = render partial: 'user_notes_link', locals: { user: user }
   = render partial: 'user_notes'
+
+  .row
+    .col-md-12
+      %form#show-devs-in-project{ action: available_users_path, method: :get }
+        .form-group
+          .row
+            .col-md-12
+              %p Show developers, who are involved in the same project for more than
+          .row
+            .col-md-3
+              = select_tag 'months', options_for_select(months_options, selected_months), class: 'form-control'
