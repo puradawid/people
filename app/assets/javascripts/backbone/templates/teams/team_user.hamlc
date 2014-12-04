@@ -1,6 +1,6 @@
 .membership
   .member-photo
-  .name
+  .member-name
     = @model.name
     - if @model.leader_team_id?
       %span.glyphicon.glyphicon-star

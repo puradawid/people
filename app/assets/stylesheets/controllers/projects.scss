@@ -27,7 +27,6 @@ body.projects {
   }
 }
 
-
 .new-project {
   float: left;
   margin: 0 20px 20px 0;
@@ -213,4 +212,24 @@ $project-height: 45px;
 .project-notes-wrapper {
   min-height: 0;
   padding: 15px;
+}
+
+.new-project-members {
+  padding: 0 15px 0 15px;
+  margin: 0 -15px -15px -15px;
+  background-color: lighten($gray-light, 13%);
+
+  .team-members {
+    margin-top: -10px;
+    border: 0 none;
+  }
+
+  .row {
+    padding-top: 15px;
+    border-top: 1px solid lighten($gray-light, 5%);
+  }
+}
+
+.spacing-top {
+  padding-top: 30px;
 }

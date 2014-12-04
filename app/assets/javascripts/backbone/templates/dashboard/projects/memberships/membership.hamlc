@@ -1,6 +1,6 @@
 .member-photo
   %img.img-circle{ src: @user.gravatar }
-%p.name!= @profile_link(@user, Routes.user_path(@user.id))
+.member-name!= @profile_link(@user, Routes.user_path(@user.id))
   %span.icons
     %span.icon
     - if H.currentUserIsAdmin()

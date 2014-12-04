@@ -36,10 +36,81 @@
                   %label.date_picker.required.control-label.input-group-addon{ for: 'end-at' }
                     End at
                   %input#end-at.form-control.date_picker.endAt
-          %label.checkbox-inline
-            %input.potential{ type: 'checkbox', checked: 'false' } Potential
-          %label.checkbox-inline
-            %input.internal{ type: 'checkbox', checked: 'false' } Internal
+          .row
+            .col-md-6
+              .form-group
+                %label.control-label{ for: 'project-type' }
+                  Type
+                %select#project-type.form-control
+                  %option Maintanance
+            .col-md-6.spacing-top
+              %label.checkbox-inline
+                %input.potential{ type: 'checkbox', checked: 'false' } Potential
+              %label.checkbox-inline
+                %input.internal{ type: 'checkbox', checked: 'false' } Internal
+        .new-project-members
+          .row
+            .col-md-6
+              .form-group
+                .input-group
+                  .input-group-addon Dev
+                  %input.form-control
+            .col-md-6
+              .members
+                %ul.team-members
+                  %li
+                    .membership
+                      .member-photo
+                      .member-name
+                        %a Scarlet Johanson
+                      .member-details
+                        .label.label-default Developer
+                  %li
+                    .membership
+                      .member-photo
+                      .member-name
+                        %a Scarlet Johanson
+                      .member-details
+                        .label.label-default Developer
+                  %li
+                    .membership
+                      .member-photo
+                      .member-name
+                        %a Scarlet Johanson
+                      .member-details
+                        .label.label-default Developer
+          .row
+            .col-md-6
+              .form-group
+                .input-group
+                  .input-group-addon PM
+                  %input.form-control
+            .col-md-6
+              .members
+                %ul.team-members
+                  %li
+                    .membership
+                      .member-photo
+                      .member-name
+                        %a Scarlet Johanson
+                      .member-details
+                        .label.label-default Developer
+          .row
+            .col-md-6
+              .form-group
+                .input-group
+                  .input-group-addon QA
+                  %input.form-control
+            .col-md-6
+              .members
+                %ul.team-members
+                  %li
+                    .membership
+                      .member-photo
+                      .member-name
+                        %a Scarlet Johanson
+                      .member-details
+                        .label.label-default Developer
       .modal-footer
         %button.btn.btn-default.new-project-close{ type: 'button', data: { dismiss: 'modal' } } Close
         %button.btn.btn-primary.new-project-submit{ type: 'button' } Add project
