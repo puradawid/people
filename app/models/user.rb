@@ -66,6 +66,12 @@ class User
     ContractType.where(name: contract_type).first.try(:users)
   }
   scope :without_team, -> { where(team: nil) }
+  scope :in_a_project_for_over, lambda { |time|
+    project_ids = Project.where(potential: false, archived: false).only(:_id).map(&:_id)
+    user_ids = Membership.where(:starts_at.lt => time.try(:ago)).in(project_id: project_ids)
+      .only(:user_id).map(&:user_id)
+    User.in(_id: user_ids)
+  }
 
   before_save :end_memberships
   before_update :save_team_join_time
