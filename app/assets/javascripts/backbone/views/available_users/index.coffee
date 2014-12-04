@@ -8,6 +8,7 @@ class Hrguru.Views.AvailableUsersIndex extends Marionette.View
     $('table').tablesorter headers:
       3:
         sorter: 'available'
+    @setDevsInProjectFormHandler()
     @setUserNotesModalHandlers()
 
   setSorterParser: ->
@@ -18,6 +19,14 @@ class Hrguru.Views.AvailableUsersIndex extends Marionette.View
       format: (s) ->
         s.replace(/since now/, '0')
       type: 'date'
+
+  setDevsInProjectFormHandler: ->
+    $form = $('#show-devs-in-project')
+    $form.find('select').change (e) ->
+      if $(e.target).val() == '0'
+        window.location = Routes.available_users_path()
+      else
+        $form.submit()
 
   setUserNotesModalHandlers: ->
     $('a.user-notes').click (e) ->
