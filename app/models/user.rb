@@ -152,7 +152,7 @@ class User
 
   def current_memberships
     @nonpotential_project_ids ||= Project.where(potential: false, archived: false).only(:_id).map(&:_id)
-    memberships_by_project_ids @nonpotential_project_ids
+    current_memberships_by_project_ids @nonpotential_project_ids
   end
 
   def last_membership
@@ -163,6 +163,10 @@ class User
 
   def current_project
     memberships.active.current_active.present? ? memberships.active.current_active.first.project : nil
+  end
+
+  def current_memberships_by_project_ids(project_ids)
+    memberships_by_project_ids(project_ids).select { |m| m.starts_at <= Time.now }
   end
 
   def memberships_by_project_ids(project_ids)

@@ -56,12 +56,12 @@
 
                     .user-card-current-project.row
                       .col-md-12
-                        - if user.current_projects.present?
-                          = 'current project'.pluralize(user.current_projects.count)
+                        - if user.current_memberships.present?
+                          = 'current project'.pluralize(user.current_memberships.count)
                           %ul
-                            - user.current_projects.each do |project|
+                            - user.current_memberships.each do |membership|
                               %li
-                                = link_to project, project_path(project)
+                                = link_to membership, project_path(membership)
                         - else
                           There is no current project
 
