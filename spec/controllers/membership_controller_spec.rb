@@ -11,7 +11,7 @@ describe MembershipsController do
     render_views
 
     let!(:user) { create(:user, first_name: 'Tomek') }
-    let!(:project) { create(:project_deleted, name: 'hrguru') }
+    let!(:project) { create(:project, name: 'hrguru') }
     let!(:role_1) { create(:role, name: 'junior1') }
     let!(:role_2) { create(:role, name: 'junior2') }
 
