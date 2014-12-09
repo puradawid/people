@@ -51,6 +51,7 @@ class ProjectsController < ApplicationController
   def get_events
     project.memberships.map do |m|
       event = { text: m.user.decorate.name, startDate: m.starts_at.to_date }
+      event[:user] = m.user
       event[:endDate] = m.ends_at.to_date if m.ends_at
       event[:billable] = m.billable
       event

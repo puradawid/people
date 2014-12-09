@@ -61,7 +61,7 @@
         eventTitle = billable
         eventTitle += "<span>#{display('startDate')}"
         eventTitle += " - #{endDate()}" if event.startDate != event.endDate
-        eventTitle += "</span> #{event.text}&nbsp;&nbsp;"
+        eventTitle += "</span> <a href='#{Routes.user_path(event.user._id)}'>#{event.text}</a>&nbsp;&nbsp;"
 
       renderMonths: ->
         [html, width, days] = ["", 0, 0]
