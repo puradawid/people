@@ -13,7 +13,7 @@ class Hrguru.Views.UsersFilters extends Marionette.View
     'change #show-archived' : 'showOnlyBy'
     'change #show-without-project' : 'showOnlyBy'
 
-  initialize: (@projects, @roles, @users, @locations, @abilities) ->
+  initialize: (@projects, @roles, @users, @locations, @abilities, @months) ->
     @listenTo(EventAggregator, 'UsersRow:toggleEnding', @toggleEndingTime)
     @listenTo(EventAggregator, 'UsersRow:showOnlyIfPotential', @toggleEndingTime)
     @initializeVariables()
@@ -24,6 +24,7 @@ class Hrguru.Views.UsersFilters extends Marionette.View
     @initializeProjectFilter()
     @initializeLocationFilter()
     @initializeAbilitiesFilter()
+    @initializeMonthsInCurrentProjectFilter()
 
   initializeUserFilter: ->
     users_selectize = @$('input[name=users]').selectize
@@ -90,9 +91,23 @@ class Hrguru.Views.UsersFilters extends Marionette.View
       onItemRemove: @filterUsers
     @selectize.abilities = abilities_selectize[0].selectize.items
 
+  initializeMonthsInCurrentProjectFilter: ->
+    months_in_current_project_selectize = @$('select[name=months]').selectize
+      create: false
+      valueField: 'value'
+      sortField: 'value'
+      labelField: 'text'
+      options: @months
+    months_in_current_project_selectize.change @, @updateSelectizeMonths
+    @selectize.months = months_in_current_project_selectize[0].selectize.items[0]
+
   filterUsers: =>
     EventAggregator.trigger('users:updateVisibility', @selectize)
     H.addUserIndex()
+
+  updateSelectizeMonths: (e) =>
+    @selectize.months = $(e.target).first().val()
+    @filterUsers()
 
   initializeVariables: ->
     @selectize =
@@ -101,6 +116,7 @@ class Hrguru.Views.UsersFilters extends Marionette.View
       locations: []
       users: []
       abilities: []
+      months: []
 
   highlightEndingUsers: (event) ->
     checkbox = event.currentTarget
