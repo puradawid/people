@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     gon.admin_role = admin_role
     gon.locations = locations
     gon.abilities = Ability.all
+    gon.months = months
 
     respond_to do |format|
       format.html
@@ -81,5 +82,15 @@ class UsersController < ApplicationController
     errors = []
     errors << user.errors.messages.map { |key, value| "#{key}: #{value[0]}" }.first
     errors.join
+  end
+
+  def months
+    result = []
+    result << { value: 0, text: "Show all"}
+    (1..12).each do |n|
+      text = n == 1 ? "#{n} month" : "#{n} months"
+      result << { value: n , text: text }
+    end
+    result
   end
 end
