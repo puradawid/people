@@ -112,14 +112,3 @@
                 - if user.user_notes.present?
                   = render partial: 'user_notes_link', locals: { user: user }
   = render partial: 'user_notes'
-
-  .row
-    .col-md-12
-      %form#show-devs-in-project{ action: available_users_path, method: :get }
-        .form-group
-          .row
-            .col-md-12
-              %p Show developers, who are involved in the same project for more than
-          .row
-            .col-md-3
-              = select_tag 'months', options_for_select(months_options, selected_months), class: 'form-control'
