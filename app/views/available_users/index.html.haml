@@ -99,7 +99,8 @@
               %td
                 - if user.current_projects.present?
                   - user.current_projects.each do |project|
-                    = link_to project, project_path(project)
+                    .project
+                      = link_to project, project_path(project)
               %td
                 = render partial: 'membership', collection: user.last_membership
                 = 'Next:' if user.has_next_projects?
