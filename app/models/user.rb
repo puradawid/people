@@ -114,6 +114,13 @@ class User
     end
   end
 
+  def months_in_current_project
+    longest_current_membership = current_memberships.min_by { |m| m.starts_at }
+    return 0 if longest_current_membership.nil?
+    # 60 seconds * 60 minutes * 24 hours * 30.44 days in a month on average
+    (Time.now - longest_current_membership.starts_at) / (60*60*24*30.44)
+  end
+
   def github_connected?
     gh_nick.present? || without_gh == true
   end
