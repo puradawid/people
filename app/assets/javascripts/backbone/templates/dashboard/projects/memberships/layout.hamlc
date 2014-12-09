@@ -3,5 +3,11 @@
     .js-project-new-membership.new-membership
       %input{ type: 'button', placeholder: '+' }
 
+
+.count
+  = @billableCount if @billableCount
 .billable
+
+.count
+  = @nonBillableCount if @nonBillableCount
 .non-billable

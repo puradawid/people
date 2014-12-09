@@ -17,6 +17,9 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
     @listenTo(@model, 'membership:finished', @removeMembership)
     @listenTo(@collection, 'membership:updated:billable', @updateCollections)
 
+  serializeData: ->
+    $.extend(super, { billableCount: @billable.length, nonBillableCount: @nonBillable.length })
+
   getUsers: ->
     billable = new Hrguru.Collections.Memberships
     non_billable = new Hrguru.Collections.Memberships

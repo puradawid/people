@@ -179,6 +179,13 @@ $project-height: 45px;
   float: left;
 }
 
+.count {
+  float: left;
+  position: absolute;
+  line-height: 43px;
+  margin-left: 3px;
+}
+
 .billable,
 .non-billable {
   margin-left: -1px;
