@@ -1,1 +1,1 @@
-%a{ href: @link, data: { toggle: 'tooltip' }, title: @user.info } = @user.name
+%a{ href: @link } = @user.name

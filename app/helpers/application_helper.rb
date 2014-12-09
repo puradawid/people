@@ -38,7 +38,7 @@ module ApplicationHelper
   end
 
   def profile_link(user)
-    link_to user.name, user_path(user), data: { toggle: 'tooltip' }, title: user.info
+    link_to user.name, user_path(user)
   end
 
   private
