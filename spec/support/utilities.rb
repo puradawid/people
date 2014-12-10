@@ -18,3 +18,28 @@ def sign_in(user)
   visit new_user_session_path
   click_link_or_button 'Sign up with Google'
 end
+
+def selectize_click(id)
+  selectize_within(id) do
+    first('div.selectize-input').click
+  end
+end
+
+def select_option(id, text)
+  selectize_within(id) do
+    first('div.selectize-input').click
+    find('div.option', text: text).click
+  end
+end
+
+def set_text(id, text)
+  selectize_within(id) do
+    first('div.selectize-input input').set(text)
+  end
+end
+
+def selectize_within(id)
+  within(:xpath, "//input[@name='#{id}']/..") do
+    yield if block_given?
+  end
+end
