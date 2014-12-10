@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :membership do
-    starts_at { Time.now }
-    ends_at { starts_at + 1.month }
+    starts_at { Time.now - 5.weeks }
+    ends_at { Time.now + 1.month }
     user
     project
     role
