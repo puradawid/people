@@ -141,5 +141,8 @@ body.users {
 }
 
 .membership__item {
-  margin: 5px 0;
+  &:first-child {
+    margin: 5px 0;
+  }
+  margin: 30px 0;
 }
