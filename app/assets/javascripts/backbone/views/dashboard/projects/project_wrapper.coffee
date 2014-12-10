@@ -27,6 +27,7 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
     @listenTo(@model, 'members:change', @updateBillableInfo)
     @listenTo(EventAggregator, 'projects:toggleVisibility', @toggleVisibility)
     @listenTo(EventAggregator, 'projects:toggleByType', @toggleByType)
+    @listenTo(EventAggregator, 'projects:toggleByUsers', @toggleByUsers)
     @listenTo(EventAggregator, 'project:highlightEnding', @highlightEnding)
 
   onRender: ->
@@ -74,6 +75,12 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
 
   toggleVisibility: (ids) ->
     show = ids.length == 0 || @model.get('id') in ids
+    @$el.toggleClass('hide', !show)
+
+  toggleByUsers: (user_ids) ->
+    ids = @model.get('memberships').models.map (model) -> model.get('user_id')
+    contains = ids.map (id) -> id in user_ids
+    show = user_ids.length == 0 || true in contains
     @$el.toggleClass('hide', !show)
 
   toggleByType: (data) ->
