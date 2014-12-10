@@ -14,10 +14,12 @@
       %input#type-archived.toggle-by-type{ type: 'radio', name: 'projectType', data:{ type: 'archived' }}
       %label{ for: 'type-archived'} Archived
   .filters
-    .roles
+    .filter.roles
       %input{ type: 'text', name: 'roles', placeholder: 'Filter roles...' }
-    .projects
+    .filter.projects
       %input{ type: 'text', name: 'projects', placeholder: 'Filter projects...' }
+    .filter.users
+      %input{ type: 'text', name: 'users', placeholder: 'Filter users...' }
   .checkboxes
     .checkbox.info-top{title: 'People leaving the project soon are highlighted red.'}
       %label
