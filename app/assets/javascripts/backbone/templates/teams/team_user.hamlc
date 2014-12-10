@@ -1,7 +1,7 @@
 .membership
   .member-photo
   .member-name
-    = @model.name
+    != @profile_link(@model, Routes.user_path(@model.id))
     - if @model.leader_team_id?
       %span.glyphicon.glyphicon-star
   .member-details
