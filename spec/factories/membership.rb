@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :membership do
-    starts_at { Time.new(2002, 10, 1, 15, 2) }
+    starts_at { Time.now }
     ends_at { starts_at + 1.month }
     user
     project
