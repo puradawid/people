@@ -74,7 +74,7 @@ describe MembershipsController do
 
     context 'params starts_at Date picker' do
       it 'saves ends_at value as end of day' do
-        attributes = params.merge(ends_at: Date.new(2002, 10, 26))
+        attributes = params.merge(starts_at: Date.new(2002, 8, 12), ends_at: Date.new(2002, 10, 26))
         post :create, membership: attributes
         expect(Membership.last.ends_at.to_i).to eq Date.parse('2002-10-26').end_of_day.to_i
       end
