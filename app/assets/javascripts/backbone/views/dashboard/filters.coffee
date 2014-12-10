@@ -8,7 +8,7 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
     'change #highlight-not-billable' : 'highlightNotBillableChanged'
     'change .toggle-by-type' : 'toggleByType'
 
-  initialize: (@projects, @roles) ->
+  initialize: (@projects, @roles, @users) ->
     $(window).on("unload",@saveRadioState)
     @displayedType = 'active'
     @retriveRadioState()
@@ -16,6 +16,7 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
   render: ->
     @initializeRoleFilter()
     @initializeProjectFilter()
+    @initializeUserFilter()
     @setupForCheckboxStates()
 
   initializeProjectFilter: ->
@@ -44,6 +45,19 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
       onItemRemove: @filterRoles
     @roles_selectize = roles_selectize[0].selectize
 
+  initializeUserFilter: ->
+    users_selectize = @$('input[name=users]').selectize
+      plugins: ['remove_button']
+      create: false
+      valueField: 'id'
+      labelField: 'name'
+      searchField: 'name'
+      sortField: 'name'
+      options: @users.toJSON()
+      onItemAdd: @filterUsers
+      onItemRemove: @filterUsers
+    @users_selectize = users_selectize[0].selectize
+
   setupForCheckboxStates: ->
     $('#highlight-ending').trigger 'change'
     $('#show-next').trigger 'change'
@@ -58,8 +72,11 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
   filterProjects: =>
     EventAggregator.trigger('projects:toggleVisibility', @projects_selectize.items)
 
-  filterRoles: ->
+  filterRoles: =>
     EventAggregator.trigger('roles:toggleVisibility', @roles_selectize.items)
+
+  filterUsers: =>
+    EventAggregator.trigger('projects:toggleByUsers', @users_selectize.items)
 
   highlightEndingChanged: (event) ->
     EventAggregator.trigger('project:highlightEnding', event.currentTarget.checked)
