@@ -14,7 +14,8 @@
             .js-timeline-hide.glyphicon.glyphicon-time.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to hide timeline' }
         - if @end_at
           .time
-            %time= moment(@end_at).fromNow()
+            %time{style: "color: #{@.colour}"}
+              = moment(@end_at).fromNow()
 
     - if H.currentUserIsAdmin()
       .show-notes.js-open-project-notes.glyphicon.glyphicon-pencil.btn-primary
@@ -23,3 +24,5 @@
     .project-details
       .js-memberships-region
       .js-notes-region
+
+//SampleProject1 in 2 days
