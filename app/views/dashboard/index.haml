@@ -21,13 +21,13 @@
     .filter.users
       %input{ type: 'text', name: 'users', placeholder: 'Filter users...' }
   .checkboxes
-    .checkbox.info-top{title: 'People leaving the project soon are highlighted red.'}
+    .checkbox
       %label
         %input#highlight-ending{ type: 'checkbox' } Highlight ending
-    .checkbox.info-top{title: 'People joining the project soon are highlighted green.'}
+    .checkbox
       %label
         %input#show-next{ type: 'checkbox' } Show next
-    .checkbox.info-top{title: 'People for whom the Client does not pay are marked with "!".'}
+    .checkbox
       %label
         %input#highlight-not-billable{ type: 'checkbox' } Highlight not billable
 

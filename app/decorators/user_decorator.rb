@@ -32,7 +32,7 @@ class UserDecorator < Draper::Decorator
 
   def github_link(options = {})
     if github_connected?
-      h.link_to "https://github.com/#{gh_nick}", title: gh_nick do
+      h.link_to "https://github.com/#{gh_nick}" do
         options[:icon] ? h.fa_icon("github-alt") : gh_nick
       end
     end
@@ -40,7 +40,7 @@ class UserDecorator < Draper::Decorator
 
   def skype_link
     if skype?
-      h.link_to "skype:#{skype}?userinfo", title: skype do
+      h.link_to "skype:#{skype}?userinfo" do
         h.fa_icon("skype")
       end
     end

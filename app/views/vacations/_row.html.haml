@@ -16,10 +16,8 @@
             = profile_link user
             .icons
               = mail_to user.email do
-                = tooltip user.email do
-                  = icon 'envelope-o'
-              = tooltip user.skype do
-                = user.skype_link()
+                = icon 'envelope-o'
+              = user.skype_link()
           %td= user.role
           %td= user.vacation.starts_at.to_date
           %td= user.vacation.ends_at.to_date

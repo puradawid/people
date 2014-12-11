@@ -10,7 +10,7 @@
 %td
   != @profile_link(@, Routes.user_path(@id))
   .icons
-    %a{ href: "mailto:#{@email}", title: @email }
+    %a{ href: "mailto:#{@email}" }
       != @icon 'envelope-o'
     != @github
     != @skype

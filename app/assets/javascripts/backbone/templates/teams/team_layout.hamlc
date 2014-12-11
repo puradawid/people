@@ -8,7 +8,7 @@
       %span.jnrs 1
     - if H.currentUserIsAdmin()
       .admin-section
-        %span.js-edit-team.glyphicon.glyphicon-pencil.info{ data: { toggle: 'tooltip', placement: 'top' }, title: 'Click to edit team' }
+        %span.js-edit-team.glyphicon.glyphicon-pencil
 
 
   %ul#leader-region

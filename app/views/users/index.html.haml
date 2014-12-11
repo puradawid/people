@@ -1,12 +1,12 @@
 #filters
   .checkboxes
-    .checkbox.info{title: 'People leaving the project soon are highlighted red.'}
+    .checkbox
       %label
         %input#highlight-ending{ type: 'checkbox', data: { type: 'highlight' } } Highlight ending
-    .checkbox.info{title: 'People whose are archived.'}
+    .checkbox
       %label
         %input#show-archived{ type: 'checkbox', data: { type: 'archived' } } Show archived
-    .checkbox.info{title: "People whose aren't in any project."}
+    .checkbox
       %label
         %input#show-without-project{ type: 'checkbox', data: { type: 'has_project' } } Free people
   .filters
@@ -39,7 +39,7 @@
     %th= 'Admin Role' if current_user.admin?
     %th Role
     %th
-      %p.columnName.info{title: t('users.show.hours') } Per month
+      %p.columnName
       .sort
         .up.glyphicon.glyphicon-chevron-up{ data: { sort: 'employment' } }
         .down.glyphicon.glyphicon-chevron-down{ data: { sort: 'employment' } }

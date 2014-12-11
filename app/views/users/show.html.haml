@@ -13,8 +13,6 @@
           = f.input :role_id, collection: roles
         .list-group-item
           = f.label :abilities_names, 'Skills & technologies'
-          = tooltip "You can reorder skills by drag and drop tags" do
-            = glyphicon("info-sign")
           = f.input :abilities_names, as: :select, collection: abilities, input_html: { multiple: true, id: 'js-user_abilities'}, label: false
         .list-group-item
           = f.label :user_notes, 'Notes'
@@ -36,8 +34,7 @@
         .list-group-item
           .row
             .col-sm-12
-              .info{ title: t('.hours') }
-                = f.input :employment, wrapper: :prepend, label_html: { class: 'input-group-addon' }
+              = f.input :employment, wrapper: :prepend, label_html: { class: 'input-group-addon' }
         .list-group-item
           = f.input :location_id, collection: locations
         .list-group-item
