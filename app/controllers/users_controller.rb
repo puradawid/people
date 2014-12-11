@@ -55,7 +55,7 @@ class UsersController < ApplicationController
       if m.project.present?
         event = { text: m.project.name, startDate: m.starts_at.to_date }
         event[:endDate] = m.ends_at.to_date if m.ends_at
-        event[:user] = m.user
+        event[:user_id] = m.user.id.to_s
         event[:billable] = m.billable
         event
       end
