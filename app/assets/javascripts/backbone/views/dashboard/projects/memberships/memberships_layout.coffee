@@ -2,8 +2,8 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
   template: JST['dashboard/projects/memberships/layout']
 
   regions:
-    billableRegion: '.billable'
-    nonBillableRegion: '.non-billable'
+    billableRegion: '.billable-list'
+    nonBillableRegion: '.non-billable-list'
 
   collectionEvents:
     add: 'refreshView'
