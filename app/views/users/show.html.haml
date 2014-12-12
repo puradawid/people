@@ -66,7 +66,7 @@
             = f.button :submit, "Add to project", data: { confirm: I18n.t('confirm_question') }, class: 'btn-success'
 
     .list-group
-      - user.memberships_by_project.each do |project, memberships|
+      - user.memberships_by_project.sort_by {|project, memberships| memberships.first.starts_at}.each do |project, memberships|
         .list-group-item
           %h4.list-group-item-heading= link_to project, project_path(project)
           .list-group
