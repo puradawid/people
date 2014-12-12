@@ -32,11 +32,6 @@ module ApplicationHelper
     icon_generator(name, 'glyphicon glyphicon', options)
   end
 
-  def tooltip(name, options = {}, &block)
-    content_tag :span, nil, id: options[:id], title: name,
-      data: { toggle: 'tooltip', placement: 'top' }, class: "info", &block if block_given?
-  end
-
   def profile_link(user)
     link_to user.name, user_path(user)
   end

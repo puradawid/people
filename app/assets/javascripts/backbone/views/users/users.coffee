@@ -26,8 +26,6 @@ class Hrguru.Views.UsersCollectionView extends Marionette.CollectionView
   sort: (value) ->
     @collection.sortUsers(value)
     @render()
-    @$('.icons a').tooltip()
-    H.initTooltips()
 
   toggleClass: (target) ->
     @$('.active').removeClass('active')

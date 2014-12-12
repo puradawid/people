@@ -23,4 +23,3 @@ window.Hrguru =
 $ ->
   window.H = new Hrguru.Helper()
   Hrguru.init()
-  H.initTooltips()

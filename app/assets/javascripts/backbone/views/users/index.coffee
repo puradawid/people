@@ -4,7 +4,6 @@ class Hrguru.Views.UsersIndex extends Backbone.View
   initialize: ->
     @createCollections()
     @createViews()
-    @$('.icons a').tooltip()
 
   createCollections: ->
     @users = new Hrguru.Collections.Users(gon.users)
