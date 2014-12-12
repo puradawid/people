@@ -10,8 +10,12 @@ class MembershipDecorator < Draper::Decorator
   def duration_in_words
     if terminated?
       h.distance_of_time_in_words(starts_at, ends_at)
-    else
+    elsif booked?
       'booked'
+    elsif started?
+      'current'
+    else
+      'not started'
     end
   end
 
