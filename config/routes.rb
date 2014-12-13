@@ -21,7 +21,7 @@ Hrguru::Application.routes.draw do
 
       resources :users, only: [:index, :show, :contract_users]
       resources :projects, only: [:index]
-
+      resources :memberships, except: [:new, :edit]
     end
   end
 
