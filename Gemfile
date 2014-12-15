@@ -21,6 +21,8 @@ gem 'mongoid-history'
 gem 'mongoid_userstamp'
 gem 'mongoid_rails_migrations'
 
+gem 'pg', '~> 0.17.1'
+
 gem 'dotenv'
 gem 'dotenv-deployment'
 gem 'decent_exposure'

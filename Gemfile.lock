@@ -373,6 +373,7 @@ GEM
     optionable (0.2.0)
     origin (2.1.1)
     orm_adapter (0.5.0)
+    pg (0.17.1)
     phantomjs (1.9.7.1)
     poltergeist (1.5.1)
       capybara (~> 2.1)
@@ -592,6 +593,7 @@ DEPENDENCIES
   omniauth
   omniauth-github
   omniauth-google-oauth2
+  pg (~> 0.17.1)
   phantomjs
   poltergeist
   pry
