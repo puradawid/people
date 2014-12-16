@@ -65,23 +65,22 @@
           .actions
             = f.button :submit, "Add to project", data: { confirm: I18n.t('confirm_question') }, class: 'btn-success'
 
-    .list-group
-      - user.memberships_by_project.sort_by {|project, memberships| memberships.first.starts_at}.reverse.each do |project, memberships|
-        .list-group-item
-          %h4.list-group-item-heading= link_to project, project_path(project)
-          .list-group
-            - memberships.each do |m|
-              .membership__item
-                = link_to edit_membership_path(m), class: 'list-group-item' do
-                  = m.date_range
-                  %span.badge= m.duration_in_words
-                  = m.role.label
-                  - if m.project.archived?
-                    %strong archived
-                  - if m.project.potential?
-                    %strong potential
-                = link_to 'delete', m, method: :delete, data: { confirm: I18n.t('confirm_question') }, class: 'btn btn-xs btn-danger pull-right'
-                .clearfix
+    .tabpanel{ role: 'tabpanel' }
+      %ul.nav.nav-tabs{ role: 'tablist' }
+        %li.active{ role: 'presentation' }
+          = link_to 'Unarchived', '#unarchived', html_options = { 'aria-controls'=> 'unarchived', role: 'tab', 'data-toggle'=> 'tab' }
+        %li{ role: 'presentation' }
+          = link_to 'Archived', '#archived', html_options = { 'aria-controls'=> 'unarchived', role: 'tab', 'data-toggle'=> 'tab' }
+
+    .tab-content
+      .tab-pane.active#unarchived{ role: 'tabpanel' }
+        .list-group
+          - user.memberships_by_project.select{|project, membership| !project.archived?}.sort_by {|project, memberships| memberships.first.starts_at}.reverse_each do |project, memberships|
+            = render partial: 'projects', locals: { project: project, memberships: memberships }
+      .tab-pane#archived{ role: 'tabpanel' }
+        .list-group
+          - user.memberships_by_project.select{|project, membership| project.archived?}.sort_by {|project, memberships| memberships.first.starts_at}.reverse_each do |project, memberships|
+            = render partial: 'projects', locals: { project: project, memberships: memberships }
 
     .list-group
       - if user.vacation.present?

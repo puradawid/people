@@ -1,0 +1,15 @@
+.list-group-item
+  %h4.list-group-item-heading= link_to project, project_path(project)
+  .list-group
+    - memberships.each do |m|
+      .membership__item
+        = link_to edit_membership_path(m), class: 'list-group-item' do
+          = m.date_range
+          %span.badge= m.duration_in_words
+          = m.role.label
+          - if m.project.archived?
+            %strong archived
+          - if m.project.potential?
+            %strong potential
+        = link_to 'delete', m, method: :delete, data: { confirm: I18n.t('confirm_question') }, class: 'btn btn-xs btn-danger pull-right'
+        .clearfix
