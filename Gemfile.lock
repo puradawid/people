@@ -322,11 +322,6 @@ GEM
       rspec (>= 2.14)
     mongoid_orderable (4.0.0)
       mongoid
-    mongoid_rails_migrations (1.0.1)
-      activesupport (>= 3.2.0)
-      bundler (>= 1.0.0)
-      rails (>= 3.2.0)
-      railties (>= 3.2.0)
     mongoid_userstamp (0.3.2)
       mongoid (>= 3.0.4)
     moped (2.0.2)
@@ -584,7 +579,6 @@ DEPENDENCIES
   mongoid-rspec
   mongoid_orderable
   mongoid_paranoia!
-  mongoid_rails_migrations
   mongoid_userstamp
   moped
   netguru_theme

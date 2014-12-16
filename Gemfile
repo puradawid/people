@@ -19,7 +19,6 @@ gem 'bson_ext'
 gem 'moped'
 gem 'mongoid-history'
 gem 'mongoid_userstamp'
-gem 'mongoid_rails_migrations'
 
 gem 'pg', '~> 0.17.1'
 
