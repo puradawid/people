@@ -1,0 +1,11 @@
+development:
+  adapter: postgresql
+  database: people_dev
+  host: localhost
+  user: user
+
+test:
+  adapter: postgresql
+  database: people_test
+  host: localhost
+  user: user
