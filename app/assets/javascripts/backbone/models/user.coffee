@@ -79,7 +79,6 @@ class Hrguru.Models.User extends Backbone.Model
     @get('role_id') != null
 
   isInProjectForMoreThanMonths: (months) ->
-    console.log months
     return true if isNaN(months)
     @get('months_in_current_project') > months
 
