@@ -75,11 +75,11 @@
     .tab-content
       .tab-pane.active#unarchived{ role: 'tabpanel' }
         .list-group
-          - user.memberships_by_project.select{|project, membership| !project.archived?}.sort_by {|project, memberships| memberships.first.starts_at}.reverse_each do |project, memberships|
+          - user.unarchived_projects.reverse_each do |project, memberships|
             = render partial: 'projects', locals: { project: project, memberships: memberships }
       .tab-pane#archived{ role: 'tabpanel' }
         .list-group
-          - user.memberships_by_project.select{|project, membership| project.archived?}.sort_by {|project, memberships| memberships.first.starts_at}.reverse_each do |project, memberships|
+          - user.archived_projects.reverse_each do |project, memberships|
             = render partial: 'projects', locals: { project: project, memberships: memberships }
 
     .list-group

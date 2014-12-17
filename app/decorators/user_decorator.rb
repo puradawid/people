@@ -70,4 +70,14 @@ class UserDecorator < Draper::Decorator
   def phone_number
     @phone_number ||= phone.presence || 'No phone'
   end
+
+  def archived_projects
+    model.memberships_by_project.select{ |project, membership| project.archived? }.
+      sort_by { |project, memberships| memberships.first.starts_at }
+  end
+
+  def unarchived_projects
+    model.memberships_by_project.select{ |project, membership| !project.archived? }.
+      sort_by { |project, memberships| memberships.first.starts_at }
+  end
 end
