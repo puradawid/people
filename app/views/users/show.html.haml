@@ -93,4 +93,11 @@
                 = user.vacation.date_range
               = link_to 'delete', user_vacation_path(user), method: :delete, data: { confirm: I18n.t('confirm_question') }, class: 'btn btn-xs btn-danger pull-right'
               .clearfix
-  .timeline
+
+  .time-section
+    .timeline
+    .timeline-buttons
+      %button.btn.btn-success
+        Previous months
+      %button.btn.btn-success
+        Next months

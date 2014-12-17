@@ -28,6 +28,7 @@
 }
 
 .timeline {
+  width: 100%;
   cursor: -webkit-grab;
   cursor: -moz-grab;
   cursor: grab;
@@ -95,6 +96,22 @@
         }
       }
     }
+  }
+
+  .moveLeft {
+    width: 40px;
+    min-height: 30px;
+    left: 0px;
+    top: 135px;
+    position: absolute;
+  }
+
+  .moveRight {
+    width: 40px;
+    height: 30px;
+    right: 0px;
+    top: 135px;
+    position: absolute;
   }
 
   .event {

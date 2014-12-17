@@ -1,9 +1,23 @@
 (($, moment) ->
   $.fn.timeline = (events) ->
     $eventsTag = $("<div class='events'></div>").appendTo(this)
+    $buttonLeft = $("<div class='moveLeft'>
+                      <button type='button' class='btn btn-success btn-lg'>
+                        <span class='glyphicon glyphicon-arrow-left'>
+                        </span>
+                      </button>
+                    </div>").appendTo(this)
+    $buttonRight = $("<div class='moveRight'>
+                      <button type='button' class='btn btn-success btn-lg'>
+                        <span class='glyphicon glyphicon-arrow-right'>
+                        </span>
+                      </button>
+                    </div>").appendTo(this)
 
     timeline =
       $el: $eventsTag
+      $leftArrow: $buttonLeft
+      $rightArrow: $buttonRight
 
       config:
         dayLength: 7
@@ -11,7 +25,9 @@
       render: ->
         [firstDate, lastDate] = @getLimits()
         @setEnds(firstDate, lastDate)
+        @renderHtml()
 
+      renderHtml: ->
         html = @renderMonths()
         html += @renderToDay()
         html += @renderEvent(e) for e in events
@@ -30,9 +46,8 @@
         [firstDate, lastDate]
 
       setEnds: (firstDate, lastDate) ->
-        @startTimelineM = moment(firstDate)
-        @endTimelineM = moment(lastDate)
-
+        @endTimelineM = moment(lastDate).add(2, 'months')
+        @startTimelineM = moment(lastDate).subtract(3, 'months')
         @startTimelineM.startOf "month"
         @endTimelineM.endOf "month"
 
@@ -93,12 +108,30 @@
       eventWidth: (event) ->
         startDate = event.startDate
         endDate = event.endDate
-        daysDiff = if endDate then @daysDiff(moment(endDate), startDate) else @daysDiff(@endTimelineM, startDate) + 1
+        endTimelineMCopy = @endTimelineM.clone()
+        if endDate && moment(endDate).isBefore(@endTimelineM)
+          daysDiff = @daysDiff(moment(endDate), moment(startDate))
+        else
+          endDate = endTimelineMCopy.subtract(1, 'months')
+          daysDiff = @daysDiff(endDate, moment(startDate)) + 1
         @daysLength(daysDiff)
+
 
       daysLength: (days) -> (days * @config.dayLength).toFixed(2)
 
       daysDiff: (firstDateM, secondDate) -> firstDateM.diff(secondDate, 'days')
+
+      moveLeft: ->
+        @$leftArrow.click (event) =>
+          @endTimelineM = moment(@endTimelineM).subtract(3, 'months')
+          @startTimelineM = moment(@startTimelineM).subtract(3, 'months')
+          @renderHtml()
+
+      moveRight: ->
+        @$rightArrow.click (event) =>
+          @endTimelineM = moment(@endTimelineM).add(3, 'months')
+          @startTimelineM = moment(@startTimelineM).add(3, 'months')
+          @renderHtml()
 
     slider =
       $el: $eventsTag.parent()
@@ -126,6 +159,8 @@
         @$el.scrollTo(x, y)
 
     timeline.render()
+    timeline.moveLeft()
+    timeline.moveRight()
     slider.init()
     this
 ) jQuery, moment
