@@ -72,12 +72,12 @@ class UserDecorator < Draper::Decorator
   end
 
   def archived_projects
-    model.memberships_by_project.select{ |project, membership| project.archived? }.
-      sort_by { |project, memberships| memberships.first.starts_at }
+    model.memberships_by_project.select{ |project, _membership| project.archived? }
+      .sort_by { |_project, memberships| memberships.first.starts_at }
   end
 
   def unarchived_projects
-    model.memberships_by_project.select{ |project, membership| !project.archived? }.
-      sort_by { |project, memberships| memberships.first.starts_at }
+    model.memberships_by_project.select{ |project, _membership| !project.archived? }
+      .sort_by { |_project, memberships| memberships.first.starts_at }
   end
 end
