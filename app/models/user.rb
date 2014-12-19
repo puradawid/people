@@ -145,6 +145,10 @@ class User
     @potential_memberships ||= user_membership_repository.potential.not_ended.items
   end
 
+  def end_memberships
+    memberships.each(&:end_now!) if archived_change && archived_change.last
+  end
+
   def booked_memberships
     @booked_memberships ||= user_membership_repository.booked.with_end_date.items.asc(:ends_at)
   end
@@ -182,9 +186,7 @@ class User
     end
   end
 
-  def end_memberships
-    memberships.each do |m|
-      MembershipEnder.new(m).call!
-    end
+  def map_projects(membership)
+    membership.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
   end
 end

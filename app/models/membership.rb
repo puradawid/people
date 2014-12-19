@@ -96,6 +96,10 @@ class Membership
     end
   end
 
+  def end_now!
+    update(ends_at: Time.now)
+  end
+
   private
 
   def check_fields
