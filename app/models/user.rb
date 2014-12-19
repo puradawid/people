@@ -205,8 +205,6 @@ class User
     end
   end
 
-  def end_memberships
-    memberships.each(&:end_now!) if archived_change && archived_change.last
   end
 
   def admin?
@@ -247,5 +245,9 @@ class User
 
   def map_projects(membership)
     membership.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
+  def end_memberships
+    memberships.each do |m|
+      MembershipEnder.new(m).call!
+    end
   end
 end
