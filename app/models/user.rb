@@ -99,120 +99,12 @@ class User
     User.create!(attributes)
   end
 
-  def self.get_from_api(params)
-    User.where(id: params['id']).first || User.where(email: params['email']).first
-  end
-
-  def flat_memberships
-    membs_grouped = memberships.group_by { |m| m.project.api_slug }
-    membs_grouped.each do |slug, membs|
-      membs_grouped[slug] = {
-        starts_at: (membs.map(&:starts_at).include?(nil) ? nil : membs.map(&:starts_at).compact.min),
-        ends_at: (membs.map(&:ends_at).include?(nil) ? nil : membs.map(&:ends_at).compact.max),
-        role: (membs.map { |memb| memb.role.try(:name) }).last
-      }
-    end
-  end
-
-  def months_in_current_project
-    longest_current_membership = current_memberships.min_by { |m| m.starts_at }
-    return 0 if longest_current_membership.nil?
-    # 60 seconds * 60 minutes * 24 hours * 30.44 days in a month on average
-    (Time.now - longest_current_membership.starts_at) / (60*60*24*30.44)
-  end
-
   def github_connected?
     gh_nick.present? || without_gh == true
   end
 
-  def potential_projects
-    @potential_projects ||= map_projects(potential_memberships)
-  end
-
-  def memberships_cached
-    @memberships ||= memberships.to_a
-  end
-
-  def booked_memberships
-    memberships.select(&:booked).select(&:ends_at).sort_by(&:ends_at)
-  end
-
-  def potential_memberships
-    @potential_project_ids ||= Project.where(potential: true).only(:_id).map(&:_id)
-    potential_memberships_by_ids @potential_project_ids
-  end
-
-  def current_projects_with_memberships
-    @current_projects ||= map_projects(current_memberships)
-  end
-
-  def current_projects
-    current_projects_with_memberships.map{ |p| p[:project] }
-  end
-
-  def current_memberships
-    @nonpotential_project_ids ||= Project.where(potential: false, archived: false).only(:_id).map(&:_id)
-    current_memberships_by_project_ids @nonpotential_project_ids
-  end
-
-  def last_membership
-    without_date = current_memberships.reject(&:ends_at)
-    return without_date.last if without_date.present?
-    current_memberships.select(&:ends_at).sort_by(&:ends_at).last
-  end
-
-  def current_project
-    memberships.active.current_active.present? ? memberships.active.current_active.first.project : nil
-  end
-
-  def current_memberships_by_project_ids(project_ids)
-    memberships_by_project_ids(project_ids).select { |m| m.starts_at <= Time.now }
-  end
-
-  def memberships_by_project_ids(project_ids)
-    now = Time.now
-    memberships_cached.select { |m| project_ids.include?(m.project_id) && (m.ends_at.nil? || m.ends_at >= now) && !m.booked? }
-  end
-
-  def potential_memberships_by_ids(project_ids)
-    now = Time.now
-    memberships_cached.select { |m| project_ids.include?(m.project_id) && (m.ends_at.nil? || m.ends_at >= now) }
-  end
-
-  %w(current potential next).each do |type|
-    type += '_projects'
-    define_method("has_#{type}?") do
-      send(type).present?
-    end
-  end
-
-  def next_memberships
-    now = Time.now
-    memberships_cached.select { |m| m.starts_at >= now && (m.ends_at.nil? || m.ends_at >= now) && !m.project_potential? && !m.booked? }
-  end
-
-  def next_projects
-    @next_projects ||= map_projects(next_memberships)
-  end
-
-  def memberships_by_project
-    @project ||= Project.unscoped do
-      memberships.includes(:project, :role).sort(starts_at: -1).group_by(&:project_id).each_with_object({}) do |data, memo|
-        memberships = data[1].sort { |m1, m2| m2.starts_at <=> m1.starts_at }
-        project = memberships.first.project
-        memo[project] = MembershipDecorator.decorate_collection memberships
-      end
-    end
-  end
-
-  end
-
   def admin?
     admin_role.present?
-  end
-
-  def self.by_name
-    all.sort_by { |u| u.first_name.downcase }
   end
 
   def self.by_vacation_date
@@ -225,6 +117,53 @@ class User
 
   def abilities_names=(abilities_list)
     @abilities_list = abilities_list
+  end
+
+  def has_current_projects?
+    current_memberships.present?
+  end
+
+  def has_next_projects?
+    next_memberships.present?
+  end
+
+  def has_potential_projects?
+    potential_memberships.present?
+  end
+
+  def last_membership
+    without_date = user_membership_repository.current.without_end_date.items
+    return without_date.last if without_date.any?
+    user_membership_repository.current.with_end_date.items.asc(:ends_at).last
+  end
+
+  def next_memberships
+    @next_memberships ||= user_membership_repository.next.items
+  end
+
+  def potential_memberships
+    @potential_memberships ||= user_membership_repository.potential.not_ended.items
+  end
+
+  def booked_memberships
+    @booked_memberships ||= user_membership_repository.booked.with_end_date.items.asc(:ends_at)
+  end
+
+  def current_project
+    user_membership_repository.
+    memberships.active.current_active.present? ? memberships.active.current_active.first.project : nil
+  end
+
+  def current_memberships
+    @current_memberships ||= user_membership_repository.current.items
+  end
+
+  def user_project_repository
+    @user_project_repository ||= UserProjectRepository.new(self)
+  end
+
+  def user_membership_repository
+    @user_membership_repository ||= UserMembershipRepository.new(self)
   end
 
   private
@@ -243,8 +182,6 @@ class User
     end
   end
 
-  def map_projects(membership)
-    membership.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
   def end_memberships
     memberships.each do |m|
       MembershipEnder.new(m).call!

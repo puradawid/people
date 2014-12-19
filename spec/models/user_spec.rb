@@ -180,31 +180,31 @@ describe User do
     end
   end
 
-  describe '#potential_projects' do
-    let!(:project_potential) { create(:project, potential: true) }
+  # describe '#potential_projects' do
+  #   let!(:project_potential) { create(:project, potential: true) }
 
-    context 'when user belongs to potential project' do
-      before do
-        create(:membership, starts_at: 2.days.ago, ends_at: nil,
-                            user: subject, project: project_potential)
-      end
+  #   context 'when user belongs to potential project' do
+  #     before do
+  #       create(:membership, starts_at: 2.days.ago, ends_at: nil,
+  #                           user: subject, project: project_potential)
+  #     end
 
-      it 'returns potential project' do
-        expect(subject.potential_projects.first[:project]).to eq project_potential
-      end
-    end
+  #     it 'returns potential project' do
+  #       expect(subject.potential_projects.first[:project]).to eq project_potential
+  #     end
+  #   end
 
-    context 'when user used to belong to potential project' do
-      before do
-        create(:membership, starts_at: 10.days.ago, ends_at: 5.days.ago,
-                            user: subject, project: project_potential)
-      end
+  #   context 'when user used to belong to potential project' do
+  #     before do
+  #       create(:membership, starts_at: 10.days.ago, ends_at: 5.days.ago,
+  #                           user: subject, project: project_potential)
+  #     end
 
-      it "returns no potential project" do
-        expect(subject.potential_projects).to be_empty
-      end
-    end
-  end
+  #     it "returns no potential project" do
+  #       expect(subject.potential_projects).to be_empty
+  #     end
+  #   end
+  # end
 
   describe '#get_from_api' do
 

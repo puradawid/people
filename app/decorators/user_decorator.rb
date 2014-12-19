@@ -71,13 +71,66 @@ class UserDecorator < Draper::Decorator
     @phone_number ||= phone.presence || 'No phone'
   end
 
+  def abilities_names
+    abilities.map(&:name)
+  end
+
   def archived_projects
-    model.memberships_by_project.select{ |project, _membership| project.archived? }
+    memberships_by_project.select{ |project, _membership| project.archived? }
       .sort_by { |_project, memberships| memberships.first.starts_at }
   end
 
   def unarchived_projects
-    model.memberships_by_project.select{ |project, _membership| !project.archived? }
+    memberships_by_project.select{ |project, _membership| !project.archived? }
       .sort_by { |_project, memberships| memberships.first.starts_at }
   end
+
+  def memberships_by_project
+    user_membership_repository.items.by_starts_at.group_by(&:project_id).each_with_object({}) do
+      |data, memo|
+      memberships = data[1]
+      project = Project.find(data[0])
+      memo[project] = MembershipDecorator.decorate_collection memberships
+    end
+  end
+
+  def months_in_current_project
+    longest_current_membership = current_memberships.min_by { |m| m.starts_at }
+    return 0 if longest_current_membership.nil?
+    # 60 seconds * 60 minutes * 24 hours * 30.44 days in a month on average
+    (Time.now - longest_current_membership.starts_at) / (60*60*24*30.44)
+  end
+
+  def flat_memberships
+    membs_grouped = model.memberships.group_by { |m| m.project.api_slug }
+    membs_grouped.each do |slug, membs|
+      membs_grouped[slug] = {
+        starts_at: (membs.map(&:starts_at).include?(nil) ? nil : membs.map(&:starts_at).compact.min),
+        ends_at: (membs.map(&:ends_at).include?(nil) ? nil : membs.map(&:ends_at).compact.max),
+        role: (membs.map { |memb| memb.role.try(:name) }).last
+      }
+    end
+  end
+
+
+  def next_projects_json
+    @next_projects_json ||= projects_json(next_memberships)
+  end
+
+  def potential_projects_json
+    @potential_projects_json ||= projects_json(potential_memberships)
+  end
+
+  def current_projects_json
+    current_projects_with_memberships_json.map{ |p| p[:project] }
+  end
+
+  def current_projects_with_memberships_json
+    @current_projects_with_memberships_json ||= projects_json(current_memberships)
+  end
+
+  def projects_json(membership)
+    membership.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
+  end
+
 end
