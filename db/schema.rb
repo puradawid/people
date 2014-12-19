@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141216090437) do
+ActiveRecord::Schema.define(version: 20141219095745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20141216090437) do
     t.string   "icon"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mongo_id"
   end
 
   create_table "abilities_users", id: false, force: true do |t|
@@ -34,12 +35,14 @@ ActiveRecord::Schema.define(version: 20141216090437) do
   create_table "admin_roles", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mongo_id"
   end
 
   create_table "contract_types", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mongo_id"
   end
 
   create_table "features", force: true do |t|
@@ -47,12 +50,14 @@ ActiveRecord::Schema.define(version: 20141216090437) do
     t.boolean  "enabled"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mongo_id"
   end
 
   create_table "locations", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mongo_id"
   end
 
   create_table "memberships", force: true do |t|
@@ -69,6 +74,7 @@ ActiveRecord::Schema.define(version: 20141216090437) do
     t.boolean  "booked",            default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mongo_id"
   end
 
   add_index "memberships", ["project_id"], name: "index_memberships_on_project_id", using: :btree
@@ -82,6 +88,7 @@ ActiveRecord::Schema.define(version: 20141216090437) do
     t.boolean  "open",       default: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mongo_id"
   end
 
   add_index "notes", ["project_id"], name: "index_notes_on_project_id", using: :btree
@@ -93,6 +100,7 @@ ActiveRecord::Schema.define(version: 20141216090437) do
     t.datetime "starts_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mongo_id"
   end
 
   add_index "positions", ["role_id"], name: "index_positions_on_role_id", using: :btree
@@ -112,6 +120,7 @@ ActiveRecord::Schema.define(version: 20141216090437) do
     t.string   "toggl_bookmark"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mongo_id"
   end
 
   create_table "roles", force: true do |t|
@@ -122,18 +131,21 @@ ActiveRecord::Schema.define(version: 20141216090437) do
     t.boolean  "show_in_team", default: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mongo_id"
   end
 
   create_table "settings", force: true do |t|
     t.string   "notifications_email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mongo_id"
   end
 
   create_table "teams", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mongo_id"
   end
 
   create_table "users", force: true do |t|
@@ -167,6 +179,7 @@ ActiveRecord::Schema.define(version: 20141216090437) do
     t.integer  "leader_team_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mongo_id"
   end
 
   add_index "users", ["admin_role_id"], name: "index_users_on_admin_role_id", using: :btree
@@ -183,6 +196,7 @@ ActiveRecord::Schema.define(version: 20141216090437) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "mongo_id"
   end
 
   add_index "vacations", ["user_id"], name: "index_vacations_on_user_id", using: :btree
