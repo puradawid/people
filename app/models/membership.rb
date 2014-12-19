@@ -48,6 +48,7 @@ class Membership
   scope :upcoming_changes, lambda { |days|
     any_of(leaving(days).selector, joining(days).selector)
   }
+  scope :by_starts_at, -> { desc(:starts_at) }
 
   %w(user project role).each do |model|
     original_model = "original_#{model}"
