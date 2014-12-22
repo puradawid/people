@@ -36,7 +36,7 @@ class MembershipSearch < Searchlight::Search
   end
 
   def search_with_end_date
-    ends_at = with_end_date ? :ends_at : :ends_at.not
+    ends_at = with_end_date ? :ends_at.ne : :ends_at
     search.where(ends_at => nil)
   end
 end
