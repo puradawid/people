@@ -169,6 +169,10 @@ class User
     @user_membership_repository ||= UserMembershipRepository.new(self)
   end
 
+  def user_repository
+    @user_repository ||= UserRepository.new
+  end
+
   private
 
   def save_team_join_time
