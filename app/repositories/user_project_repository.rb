@@ -7,14 +7,17 @@ class UserProjectRepository
 
   def potential
     user_membership_repository.potential
+    self
   end
 
   def next
     user_membership_repository.next
+    self
   end
 
   def current
     user_membership_repository.current
+    self
   end
 
   def items

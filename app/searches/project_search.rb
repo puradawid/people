@@ -12,6 +12,6 @@ class ProjectSearch < Searchlight::Search
   end
 
   def search_memberships
-    Project.where(:membership_id.in => memberships.only(:_id).map(&:_id))
+    Project.where(:_id.in => memberships.map(&:project_id))
   end
 end
