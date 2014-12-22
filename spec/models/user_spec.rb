@@ -71,34 +71,6 @@ describe User do
 
   end
 
-  describe '#current_projects_with_memberships' do
-    let!(:project) { create(:project, name: 'google') }
-
-    before { Timecop.freeze(Time.local(2013, 12, 1)) }
-    after { Timecop.return }
-
-    def time(year, month, day)
-      Time.new(year, month, day)
-    end
-
-    it "returns projects list to include 'google' project" do
-      create(:membership, starts_at: time(2013, 11, 1), ends_at: time(2014, 1, 1), user: subject, project: project)
-      expect(subject.current_projects_with_memberships.first[:project]).to eq project
-    end
-
-    it 'returns no projects' do
-      create(:membership, starts_at: time(2012, 1, 1), ends_at: time(2013, 11, 30), user: subject)
-      expect(subject.current_projects_with_memberships).to be_empty
-    end
-
-    it 'returns projects array to include 2 projects' do
-      create(:membership, starts_at: time(2011, 1, 1), ends_at: time(2012, 1, 1), user: subject, role: create(:role, name: 'pm1'))
-      create(:membership, starts_at: time(2012, 1, 1), ends_at: time(2014, 1, 1), user: subject, role: create(:role, name: 'pm2'))
-      create(:membership_without_ends_at, starts_at: time(2013, 1, 1), user: subject, role: create(:role, name: 'pm3'))
-      expect(subject.current_projects_with_memberships.count).to eq 2
-    end
-  end
-
   describe '#end_memberships' do
     let!(:user_to_archive) { create(:user, archived: false) }
     let!(:project) { create(:project, name: 'google') }
@@ -155,64 +127,14 @@ describe User do
 
   end
 
-  describe '#next_projects' do
-    let!(:project_current) { create(:project, name: 'google') }
-    let!(:project_next) { create(:project, name: 'facebook') }
-
-    before { Timecop.freeze(Time.local(2013, 12, 1)) }
-    after { Timecop.return }
-
-    def time(year, month, day)
-      Time.new(year, month, day)
-    end
-
-    context 'when user has unstarted membership' do
-      before do
-        create(:membership, starts_at: time(2012, 1, 1), ends_at: nil,
-                            user: subject, project: project_current)
-        create(:membership, starts_at: time(2013, 12, 15), ends_at: nil,
-                            user: subject, project: project_next)
-      end
-
-      it 'returns next project' do
-        expect(subject.next_projects.first[:project].name).to eq project_next.name
-      end
-    end
-  end
-
-  # describe '#potential_projects' do
-  #   let!(:project_potential) { create(:project, potential: true) }
-
-  #   context 'when user belongs to potential project' do
-  #     before do
-  #       create(:membership, starts_at: 2.days.ago, ends_at: nil,
-  #                           user: subject, project: project_potential)
-  #     end
-
-  #     it 'returns potential project' do
-  #       expect(subject.potential_projects.first[:project]).to eq project_potential
-  #     end
-  #   end
-
-  #   context 'when user used to belong to potential project' do
-  #     before do
-  #       create(:membership, starts_at: 10.days.ago, ends_at: 5.days.ago,
-  #                           user: subject, project: project_potential)
-  #     end
-
-  #     it "returns no potential project" do
-  #       expect(subject.potential_projects).to be_empty
-  #     end
-  #   end
-  # end
-
   describe '#get_from_api' do
 
     context 'using id' do
       let(:params) { { 'id' => subject.id } }
+      let(:user_repository) { UserRepository.new }
 
       it 'finds the user' do
-        expect(User.get_from_api(params)).to eq subject
+        expect(subject.user_repository.from_api(params).items.first).to eq subject
       end
     end
 
@@ -220,7 +142,7 @@ describe User do
       let(:params) { { 'email' => subject.email } }
 
       it 'finds the user' do
-        expect(User.get_from_api(params)).to eq subject
+        expect(subject.user_repository.from_api(params).items.first).to eq subject
       end
     end
   end
@@ -290,7 +212,7 @@ describe User do
       end
 
       it "returns memberships in the right order" do
-        expect(subject.booked_memberships).to eq([first_memb, sec_memb])
+        expect(subject.booked_memberships.to_a).to eq([first_memb, sec_memb])
       end
     end
   end
