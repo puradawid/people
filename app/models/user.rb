@@ -133,7 +133,7 @@ class User
 
   def last_membership
     without_date = user_membership_repository.current.without_end_date.items
-    return without_date.last if without_date.any?
+    return without_date.last if without_date.present?
     user_membership_repository.current.with_end_date.items.asc(:ends_at).last
   end
 
