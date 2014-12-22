@@ -154,7 +154,6 @@ class User
   end
 
   def current_project
-    user_membership_repository.
     memberships.active.current_active.present? ? memberships.active.current_active.first.project : nil
   end
 
