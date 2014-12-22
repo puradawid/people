@@ -11,6 +11,9 @@ class DashboardController < ApplicationController
     gon.rabl template: 'app/views/dashboard/projects', as: 'projects'
     gon.currentTime = Time.now
 
+    gon.devs = User.all.select( |user| user.role.present? && user.role.name == 'developer')
+    gon.pms = User.all.select( |user| user.role.present? && user.role.name == 'pm') 
+
     if params[:cookie]
       cookies[:note_id] = params[:cookie]
     else

@@ -40,6 +40,12 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def new
+    gon.developers = get_developers
+    gon.quality_assurance = get_quality_assurance
+    gon.project_managers = get_project_managers
+  end
+
   private
 
   def project_params
@@ -56,5 +62,17 @@ class ProjectsController < ApplicationController
       event[:billable] = m.billable
       event
     end
+  end
+
+  def get_developers
+    User.all.select{ |user| user.role.present? && ( user.role.name == 'developer' || user.role.name == 'senior' )}
+  end
+
+  def get_quality_assurance
+    User.all.select{ |user| user.role.present? && user.role.name == 'qa' }
+  end
+
+  def get_project_managers
+    User.all.select{ |user| user.role.present? && user.role.name == 'pm' }
   end
 end
