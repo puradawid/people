@@ -35,7 +35,7 @@ class UserMembershipRepository
   end
 
   def current
-    not_potential.not_archived.started
+    not_potential.not_archived.started.not_ended
   end
 
   def items
