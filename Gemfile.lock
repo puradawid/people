@@ -61,6 +61,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    acts_as_orderable (0.1.4)
     addressable (2.3.5)
     animate-scss (0.0.5)
       sass
@@ -532,6 +533,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_orderable
   animate-scss
   awesome_print
   better_errors
