@@ -94,8 +94,8 @@
               %td #{user.availability.present? ? user.availability.to_date : "since now"}
               %td #{user.employment}h
               %td
-                - if user.current_projects.present?
-                  - user.current_projects.each do |project|
+                - if user.current_projects_json.present?
+                  - user.current_projects_json.each do |project|
                     .project
                       = link_to project, project_path(project)
               %td
