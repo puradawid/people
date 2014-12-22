@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe UserDecorator do
+  def time(year, month, day)
+    Time.new(year, month, day)
+  end
+
   let(:team) { create(:team) }
   let(:user) { create(:user, team: team, team_join_time: 6.days.ago) }
   let(:user_without_team) { create(:user) }
@@ -66,10 +70,6 @@ describe UserDecorator do
     before { Timecop.freeze(Time.local(2013, 12, 1)) }
     after { Timecop.return }
 
-    def time(year, month, day)
-      Time.new(year, month, day)
-    end
-
     context 'with membership end date' do
       it 'returns membership end date' do
         expect(subject.availability.to_s).to eql membership.ends_at.to_s
@@ -98,10 +98,6 @@ describe UserDecorator do
 
     before { Timecop.freeze(Time.local(2013, 12, 1)) }
     after { Timecop.return }
-
-    def time(year, month, day)
-      Time.new(year, month, day)
-    end
 
     it "returns projects list to include 'google' project" do
       create(:membership, starts_at: time(2013, 11, 1), ends_at: time(2014, 1, 1), user: subject, project: project)
@@ -153,10 +149,6 @@ describe UserDecorator do
 
     before { Timecop.freeze(Time.local(2013, 12, 1)) }
     after { Timecop.return }
-
-    def time(year, month, day)
-      Time.new(year, month, day)
-    end
 
     context 'when user has unstarted membership' do
       before do
