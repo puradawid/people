@@ -20,4 +20,3 @@ class Hrguru.Views.UsersShow extends Backbone.View
       create: (input) ->
         value: input
         text: input
-

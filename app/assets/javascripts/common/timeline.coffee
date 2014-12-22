@@ -26,6 +26,8 @@
         [firstDate, lastDate] = @getLimits()
         @setEnds(firstDate, lastDate)
         @renderHtml()
+        this.moveLeft()
+        this.moveRight()
 
       renderHtml: ->
         html = @renderMonths()
@@ -159,8 +161,6 @@
         @$el.scrollTo(x, y)
 
     timeline.render()
-    timeline.moveLeft()
-    timeline.moveRight()
     slider.init()
     this
 ) jQuery, moment
