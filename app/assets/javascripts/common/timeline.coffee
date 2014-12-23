@@ -26,8 +26,8 @@
         [firstDate, lastDate] = @getLimits()
         @setEnds(firstDate, lastDate)
         @renderHtml()
-        this.moveLeft()
-        this.moveRight()
+        @moveLeft()
+        @moveRight()
 
       renderHtml: ->
         html = @renderMonths()
