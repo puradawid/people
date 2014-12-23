@@ -7,10 +7,9 @@ module HipChat
     end
 
     def call!
-      if AppConfig.hipchat.active && membership.persisted? && membership.active?
-        msg = HipChat::MessageBuilder.membership_updated_message(membership, changes)
-        hipchat_notify(msg)
-      end
+      return if !AppConfig.hipchat.active || !membership.persisted? || !membership.active?
+      msg = HipChat::MessageBuilder.membership_updated_message(membership, changes)
+      hipchat_notify(msg)
     end
   end
 end
