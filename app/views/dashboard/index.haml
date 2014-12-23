@@ -4,6 +4,9 @@
     %li.active
       %input#type-active.toggle-by-type{ type: 'radio', name: 'projectType', checked: true, data:{ type: 'active' }}
       %label{ for: 'type-active' } Active
+    %li.internal
+      %input#type-internal.toggle-by-type{ type: 'radio', name: 'projectType', data:{ type: 'internal' }}
+      %label{ for: 'type-internal'} Internal
     %li.potential
       %input#type-potential.toggle-by-type{ type: 'radio', name: 'projectType', data:{ type: 'potential' }}
       %label{ for: 'type-potential'} Potential
