@@ -1,110 +1,43 @@
 .container
-  %ul.nav.nav-tabs
-    %li.box__tab.active= link_to 'Table view', '#table_view', data: { toggle: 'tab' }
-    %li.box__tab= link_to 'Cards view', '#cards_view', data: { toggle: 'tab' }
 
-  .tab-content
-    .tab-pane#cards_view
-      - roles.each do |role|
-        .row
-          .col-md-12
-            %h3= role.name.capitalize
-          .col-md-12
-            %p= 'No candidates' if role.users.blank?
-            .row
-              - role.users.each do |user|
-                .col-md-3
-                  .user-card
-                    .user-card-header.row
-                      .col-md-3
-                        = user.gravatar_image class: 'user-card-avatar'
-                      .col-md-9
-                        .user-card-name
-                          = profile_link user
-                        %span.label.user-card-profession Developer
+  %table.table.table-striped.table-hover#available_users
+    %thead
+      %th
+      %th User
+      %th Role
+      %th Available
+      %th Current project
+      %th Next Projects
+      %th Booked
+      %th Notes
 
-                    .user-card-content
-                      .user-card-times.content-part.row
-                        .col-md-6.text-center.border-right
-                          .user-card-available
-                            %strong
-                              #{user.availability.present? ? user.availability.to_date : 'since now'}
-                            .uppercase-heading available
-                        .col-md-6.text-center
-                          .user-card-hours
-                            %strong
-                              #{user.employment}h
-                            .uppercase-heading hours
-                      .user-card-projects.content-part.row
-                        .col-md-12
-                          %p.uppercase-heading last projects
-                          %ul.user-card-projects-list
-                            - user.memberships.each do |p|
-                              %li
-                                %span.intro
-                                %strong
-                                  = link_to p.project_name, project_path(p.project)
-                      .user-card-skills.content-part.row
-                        .col-md-12
-                          %p.uppercase-heading skills
-                          - if user.abilities.present?
-                            %span.label.label-skill
-                              = user.abilities_names
-                          - else
-                            %span
-                              This guy has no skills whatsoever.
-
-                    .user-card-current-project.row
-                      .col-md-12
-                        - if user.current_memberships.present?
-                          = 'current project'.pluralize(user.current_memberships.count)
-                          %ul
-                            - user.current_memberships.each do |membership|
-                              %li
-                                = link_to membership, project_path(membership)
-                        - else
-                          There is no current project
-
-
-    .tab-pane.active#table_view
-      %table.table.table-striped.table-hover#available_users
-        %thead
-          %th
-          %th User
-          %th Role
-          %th Available
-          %th Current project
-          %th Next Projects
-          %th Booked
-          %th Notes
-
-        %tbody
-          - users.each do |user|
-            %tr
-              %td= user.gravatar_image(size: :thumb)
-              %td
-                = profile_link user
-                .icons
-                  = mail_to user.email do
-                    = icon 'envelope-o'
-                  = user.github_link(icon: true)
-                  = user.skype_link()
-              %td= user.role
-              %td #{user.availability.present? ? user.availability.to_date : "since now"}
-              %td
-                - if user.current_projects_json.present?
-                  - user.current_projects_json.each do |project|
-                    .project
-                      = link_to project, project_path(project)
-              %td
-                = render partial: 'membership', collection: user.last_membership
-                = 'Next:' if user.has_next_projects?
-                = render partial: 'membership', collection: user.next_memberships
-                = 'Potential:' if user.has_potential_projects?
-                = render partial: 'membership', collection: user.potential_memberships
-              %td
-                = render partial: 'membership', collection: user.booked_memberships
-              %td.user-notes
-                - if user.user_notes.present?
-                  = render partial: 'user_notes_link', locals: { user: user }
+    %tbody
+      - users.each do |user|
+        %tr
+          %td= user.gravatar_image(size: :thumb)
+          %td
+            = profile_link user
+            .icons
+              = mail_to user.email do
+                = icon 'envelope-o'
+              = user.github_link(icon: true)
+              = user.skype_link()
+          %td= user.role
+          %td #{user.availability.present? ? user.availability.to_date : "since now"}
+          %td
+            - if user.current_projects_json.present?
+              - user.current_projects_json.each do |project|
+                .project
+                  = link_to project, project_path(project)
+          %td
+            = render partial: 'membership', collection: user.last_membership
+            = 'Next:' if user.has_next_projects?
+            = render partial: 'membership', collection: user.next_memberships
+            = 'Potential:' if user.has_potential_projects?
+            = render partial: 'membership', collection: user.potential_memberships
+          %td
+            = render partial: 'membership', collection: user.booked_memberships
+          %td.user-notes
+            - if user.user_notes.present?
+              = render partial: 'user_notes_link', locals: { user: user }
   = render partial: 'user_notes'
