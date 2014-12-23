@@ -9,20 +9,21 @@
     font-weight: 300;
   }
 
-  .glyphicon.glyphicon-time {
-    padding: 5px;
-    width: auto;
-    font-size: 53px;
-    color: #2C6CA3;
-  }
-
   .top {
     margin-left: 10px;
     .project-name {
-      display: inline-block;
+      display: inline;
+      vertical-align: middle;
       font-size: 28px;
       font-weight: 600;
       margin-right: 10px;
+    }
+    .glyphicon.glyphicon-time {
+      vertical-align: middle;
+      padding: 5px;
+      width: auto;
+      font-size: 53px;
+      color: #2C6CA3;
     }
   }
 }
