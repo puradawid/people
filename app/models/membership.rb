@@ -115,15 +115,28 @@ class Membership
   end
 
   def notify_added
-    HipChat::NotifyAdded.new(self).call!
+    if AppConfig.hipchat.active && active?
+      msg = HipChat::MessageBuilder.membership_added_message(self)
+      hipchat_notify(msg)
+    end
   end
 
   def notify_removed
-    HipChat::NotifyRemoved.new(self).call!
+    if AppConfig.hipchat.active && active?
+      msg = HipChat::MessageBuilder.membership_removed_message(self)
+      hipchat_notify(msg)
+    end
   end
 
   def notify_updated
-    HipChat::NotifyUpdated.new(self).call!
+    if AppConfig.hipchat.active && persisted? && active?
+      msg = HipChat::MessageBuilder.membership_updated_message(self, changes)
+      hipchat_notify(msg)
+    end
+  end
+
+  def hipchat_notify(msg)
+    HipChat::Notifier.new.send_notification(msg)
   end
 
   def validate_starts_at_ends_at
