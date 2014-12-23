@@ -118,4 +118,3 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
       @projects_selectize.clearOptions()
       @projects_selectize.load (callback) =>
         callback @filterSelectizeProjects()
-

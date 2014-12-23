@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include BeforeRender
   include Flip::ControllerFilters
 
-  protect_from_forgery with: :exception
+  #protect_from_forgery with: :exception
 
   before_filter :authenticate_user!
   before_filter :connect_github

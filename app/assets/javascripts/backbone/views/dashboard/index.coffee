@@ -23,7 +23,6 @@ class Hrguru.Views.DashboardIndex extends Marionette.View
         note.set { user: @users.get(note.get('user_id')) }
 
     @listenTo @projects, 'add', @addProject, this
-
     @render()
 
   render: ->
@@ -37,11 +36,13 @@ class Hrguru.Views.DashboardIndex extends Marionette.View
         model: project
         roles: @roles
         users: @users
+        memberships: @memberships
     $el = view.render().$el
     if project.isPotential()
       $el.addClass('potential')
       $el.hide() unless @filtersView.displayedType == project.type()
     $('.open-all-notes').after($el)
+
 
   fillTable: ->
     if H.currentUserIsAdmin()

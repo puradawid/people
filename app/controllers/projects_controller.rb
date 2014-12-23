@@ -12,6 +12,7 @@ class ProjectsController < ApplicationController
   expose(:projects)
   before_filter :authenticate_admin!, only: [:update, :create, :destroy, :new, :edit]
 
+
   def create
     if project.save
       respond_on_success project
@@ -41,9 +42,7 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    gon.developers = get_developers
-    gon.quality_assurance = get_quality_assurance
-    gon.project_managers = get_project_managers
+
   end
 
   private

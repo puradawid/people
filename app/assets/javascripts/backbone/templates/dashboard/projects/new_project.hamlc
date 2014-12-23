@@ -42,19 +42,23 @@
                 %label.control-label{ for: 'project-type' }
                   Type
                 %select#project-type.form-control
-                  %option Maintanance
+                  %option regular
+                  %option maintenance_support
+                  %option maintenance_development
             .col-md-6.spacing-top
               %label.checkbox-inline
-                %input.potential{ type: 'checkbox', checked: 'false' } Potential
+                %input.potential{ type: 'checkbox', checked: 'false' }
+                  Potential
               %label.checkbox-inline
-                %input.internal{ type: 'checkbox', checked: 'false' } Internal
+                %input.internal{ type: 'checkbox', checked: 'false' }
+                  Internal
         .new-project-members
           .row
             .col-md-6
               .form-group
                 .input-group
                   .input-group-addon Dev
-                  %input.form-control
+                  %input.devs{ type: 'text', name: 'devs', placeholder: 'Add developer...'}
             .col-md-6
               .members
                 %ul.team-members
@@ -84,7 +88,7 @@
               .form-group
                 .input-group
                   .input-group-addon PM
-                  %input.form-control
+                  %input.pms{ type: 'text', name: 'pms', placeholder: 'Add PM...' }
             .col-md-6
               .members
                 %ul.team-members
@@ -100,7 +104,7 @@
               .form-group
                 .input-group
                   .input-group-addon QA
-                  %input.form-control
+                  %input.qas{ type: 'text', name: 'qas', placeholder: 'Add QA...' }
             .col-md-6
               .members
                 %ul.team-members
