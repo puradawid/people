@@ -73,7 +73,6 @@
           %th User
           %th Role
           %th Available
-          %th Per month
           %th Current project
           %th Next Projects
           %th Booked
@@ -92,7 +91,6 @@
                   = user.skype_link()
               %td= user.role
               %td #{user.availability.present? ? user.availability.to_date : "since now"}
-              %td #{user.employment}h
               %td
                 - if user.current_projects_json.present?
                   - user.current_projects_json.each do |project|
