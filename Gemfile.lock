@@ -61,9 +61,6 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
-    acts_as_orderable (0.1.4)
-    acts_as_singleton (0.0.8)
-      activerecord (>= 3.1.0)
     addressable (2.3.5)
     animate-scss (0.0.5)
       sass
@@ -535,8 +532,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts_as_orderable
-  acts_as_singleton
   animate-scss
   awesome_print
   better_errors
