@@ -1,14 +1,4 @@
 #filters
-  .checkboxes
-    .checkbox
-      %label
-        %input#highlight-ending{ type: 'checkbox', data: { type: 'highlight' } } Highlight ending
-    .checkbox
-      %label
-        %input#show-archived{ type: 'checkbox', data: { type: 'archived' } } Show archived
-    .checkbox
-      %label
-        %input#show-without-project{ type: 'checkbox', data: { type: 'has_project' } } Free people
   .filters
     .users
       %input{ type: 'text', name: 'users', placeholder: 'Filter users...' }
@@ -20,7 +10,6 @@
       %input{ type: 'text', name: 'abilities', placeholder: 'Filter abilities...' }
     .period_in_project
       %select{ name: 'months', placeholder: 'Only show users in a project for over...'}
-
 
 #csv_button= link_to "Download CSV", users_path(format: "csv"), class: 'btn btn-default'
 

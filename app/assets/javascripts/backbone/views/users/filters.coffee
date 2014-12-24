@@ -2,19 +2,12 @@ class Hrguru.Views.UsersFilters extends Marionette.View
 
   el: '#filters'
 
-  ui:
-    checkboxes:
-      highlight: '#highlight-ending'
-      archived: '#show-archived'
-      has_project: '#show-without-project'
-
   events:
     'change #highlight-ending' : 'highlightEndingUsers'
     'change #show-archived' : 'showOnlyBy'
     'change #show-without-project' : 'showOnlyBy'
 
   initialize: (@projects, @roles, @users, @locations, @abilities, @months) ->
-    @listenTo(EventAggregator, 'UsersRow:toggleEnding', @toggleEndingTime)
     @listenTo(EventAggregator, 'UsersRow:showOnlyIfPotential', @toggleEndingTime)
     @initializeVariables()
 
@@ -99,19 +92,9 @@ class Hrguru.Views.UsersFilters extends Marionette.View
     @selectize =
       roles: []
       projects: []
-      locations: []
       users: []
       abilities: []
       months: []
-
-  highlightEndingUsers: (event) ->
-    checkbox = event.currentTarget
-    state = checkbox.checked
-    type = checkbox.dataset.type
-    @hideFiltersAndSorts(state)
-    @toggleCheckboxes(type, state)
-    EventAggregator.trigger('user:sortAndHighlightEnding', state)
-    H.addUserIndex()
 
   showOnlyBy: (event) ->
     checkbox = event.currentTarget
@@ -123,22 +106,9 @@ class Hrguru.Views.UsersFilters extends Marionette.View
     @showOnlyByPotential(state) if type == 'has_project'
     H.addUserIndex()
 
-  showOnlyByArchive: (state) ->
-    EventAggregator.trigger('UsersRow:showOnlyIfArchived', state)
-
   showOnlyByPotential: (state) ->
     EventAggregator.trigger('user:sortBeforePotential', state)
 
   hideFiltersAndSorts: (state) ->
     @$el.find('.filters').stop().slideToggle(state)
     $('.sort').stop().fadeToggle(state)
-
-  toggleCheckboxes: (type, state) ->
-    _.each @ui.checkboxes, (checkbox, key) =>
-      $(checkbox).attr(disabled: state) unless type == key
-
-  toggleEndingTime: (state) ->
-    if state
-      $('.to_end').show "fade"
-    else
-      $('.to_end').hide "fade", 100
