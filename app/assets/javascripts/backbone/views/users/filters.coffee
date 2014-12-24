@@ -22,7 +22,6 @@ class Hrguru.Views.UsersFilters extends Marionette.View
     @initializeUserFilter()
     @initializeRoleFilter()
     @initializeProjectFilter()
-    @initializeLocationFilter()
     @initializeAbilitiesFilter()
     @initializeMonthsInCurrentProjectFilter()
 
@@ -64,19 +63,6 @@ class Hrguru.Views.UsersFilters extends Marionette.View
       onItemAdd: @filterUsers
       onItemRemove: @filterUsers
     @selectize.projects = projects_selectize[0].selectize.items
-
-  initializeLocationFilter: ->
-    locations_selectize = @$('input[name=locations]').selectize
-      plugins: ['remove_button']
-      create: false
-      valueField: '_id'
-      labelField: 'name'
-      searchField: 'name'
-      sortField: 'name'
-      options: @locations
-      onItemAdd: @filterUsers
-      onItemRemove: @filterUsers
-    @selectize.locations = locations_selectize[0].selectize.items
 
   initializeAbilitiesFilter: ->
     abilities_selectize = @$('input[name=abilities]').selectize
