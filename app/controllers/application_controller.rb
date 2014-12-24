@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include BeforeRender
   include Flip::ControllerFilters
 
-  #protect_from_forgery with: :exception
+  protect_from_forgery with: :exception
 
   before_filter :authenticate_user!
   before_filter :connect_github
@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   private
 
   def authenticate_admin!
-    redirect_to root_url, alert: 'Permission denied! You have no rights to do this.'  unless current_user.admin?
+    redirect_to root_path, alert: 'Permission denied! You have no rights to do this.'  unless current_user.admin?
   end
 
   def set_gon_data
