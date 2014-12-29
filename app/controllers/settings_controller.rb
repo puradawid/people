@@ -15,4 +15,3 @@ class SettingsController < ApplicationController
     params.require(:settings).permit(:notifications_email)
   end
 end
-

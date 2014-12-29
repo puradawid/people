@@ -27,4 +27,3 @@ namespace :db do
     convert!(relations: true)
   end
 end
-

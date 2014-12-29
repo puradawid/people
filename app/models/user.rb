@@ -39,7 +39,6 @@ class User
   has_many :memberships, dependent: :destroy
   has_many :notes
   has_many :positions
-  has_one :vacation, inverse_of: :user
   belongs_to :admin_role
   belongs_to :role
   belongs_to :contract_type
@@ -105,10 +104,6 @@ class User
 
   def admin?
     admin_role.present?
-  end
-
-  def self.by_vacation_date
-    all.decorate.select { |u| u.vacation.present? }.sort_by { |u| u.vacation.starts_at }
   end
 
   def abilities_names

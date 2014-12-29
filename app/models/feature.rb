@@ -12,6 +12,4 @@ class Feature
   field :key, type: String
   field :enabled, type: Boolean
 
-  feature :vacations, default: true
-
 end

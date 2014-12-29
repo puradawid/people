@@ -9,15 +9,9 @@ class AvailabilityChecker
 
   private
 
-  def on_vacation
-    if @user.vacation.present?
-      (@user.vacation.starts_at.to_date <= Time.now) && (@user.vacation.ends_at.to_date >= Time.now)
-    end
-  end
-
   def available?
     bilable_count = billable_memberships
-    (bilable_count == 0 || bilable_count <= finishing_work) && !on_vacation
+    (bilable_count == 0 || bilable_count <= finishing_work)
   end
 
   def billable_memberships

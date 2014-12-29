@@ -112,45 +112,6 @@ describe AvailabilityChecker do
       end
     end
 
-    context 'when user is on vacation' do
-      let(:user) { build(:user) }
-      vacation = { starts_at: Time.now - 1.day, ends_at: Time.now + 7.days }
-      before do
-        user.build_vacation(vacation)
-        subject.run!
-      end
-
-      it 'changes user availability to false' do
-        expect(user.available).to be_false
-      end
-    end
-
-    context 'when user is before vacation' do
-      let(:user) { build(:user) }
-      vacation = { starts_at: Time.now + 7.days, ends_at: Time.now + 14.days }
-      before do
-        user.build_vacation(vacation)
-        subject.run!
-      end
-
-      it 'changes user availability to true' do
-        expect(user.available).to be_true
-      end
-    end
-
-    context 'when user was on vacation' do
-      let(:user) { build(:user) }
-      vacation = { starts_at: Time.now - 14.days, ends_at: Time.now - 7.days }
-      before do
-        user.build_vacation(vacation)
-        subject.run!
-      end
-
-      it 'changes user availability to true' do
-        expect(user.available).to be_true
-      end
-    end
-
     context "when user has internal project" do
       before do
         create(:membership, ends_at: 1.month.from_now, user: user, project: internal_project)
