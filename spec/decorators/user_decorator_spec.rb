@@ -87,7 +87,7 @@ describe UserDecorator do
         before { project.update_attribute(:end_at, nil) }
 
         it 'returns Time.now' do
-          expect(subject.availability).to eq "since now"
+          expect(subject.availability).to eq Time.now
         end
       end
     end
