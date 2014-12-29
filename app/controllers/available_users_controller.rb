@@ -9,6 +9,6 @@ class AvailableUsersController < ApplicationController
 
   def available_users
     @roles = Role.technical.to_a
-    User.active.available.roles(@roles)
+    User.active.available.roles(@roles).decorate.sort_by{ |u| u.availability }
   end
 end

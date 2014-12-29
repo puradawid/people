@@ -47,7 +47,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def availability
-    last_membership_end_date || current_project_end_date
+    last_membership_end_date || current_project_end_date || Time.now
   end
 
   def current_project_end_date
