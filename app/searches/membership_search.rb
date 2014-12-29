@@ -1,5 +1,4 @@
 class MembershipSearch < Searchlight::Search
-
   search_on Membership.includes(:project, :user)
 
   searches :user, :archived, :booked, :ends_later_than, :with_end_date, :potential,
@@ -20,7 +19,7 @@ class MembershipSearch < Searchlight::Search
   end
 
   def search_ends_later_than
-    search.any_of({:ends_at.gte => ends_later_than}, {ends_at: nil})
+    search.any_of({:ends_at.gte => ends_later_than}, { ends_at: nil })
   end
 
   def search_starts_earlier_than
