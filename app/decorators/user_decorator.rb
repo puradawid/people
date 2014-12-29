@@ -46,6 +46,10 @@ class UserDecorator < Draper::Decorator
     end
   end
 
+  def availability_string
+    availability.to_date != Time.now.to_date ? availability.to_date : "since now"
+  end
+
   def availability
     last_membership_end_date || current_project_end_date || Time.now
   end

@@ -23,7 +23,7 @@
               = user.github_link(icon: true)
               = user.skype_link()
           %td= user.role
-          %td #{user.availability.to_date != Time.now.to_date ? user.availability.to_date : "since now"}
+          %td= user.availability_string
           %td
             - if user.current_projects_json.present?
               - user.current_projects_json.each do |project|
