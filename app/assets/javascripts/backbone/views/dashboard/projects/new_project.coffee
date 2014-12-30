@@ -25,7 +25,7 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
   initialize: ->
     @developers = new Hrguru.Collections.Users(gon.developers)
     @project_managers = new Hrguru.Collections.Users(gon.project_managers)
-    @qality_assurance = new Hrguru.Collections.Users(gon.quality_assurance)
+    @quality_assurance = new Hrguru.Collections.Users(gon.quality_assurance)
     super()
 
   initSelectize: ->
@@ -115,7 +115,7 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
       labelField: 'name'
       searchField: 'name'
       sortField: 'name'
-      options: @qality_assurance.toJSON()
+      options: @quality_assurance.toJSON()
     @qas_selectize = qas_selectize[0].selectize
 
   initializeProjectManagerSelectize: ->

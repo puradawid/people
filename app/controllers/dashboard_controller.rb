@@ -23,15 +23,16 @@ class DashboardController < ApplicationController
   end
 
   private
+
   def developers
-    User.all.decorate.select{ |u| u.available? && u.role.present? && u.role.technical? }
+    User.all.decorate.select{ |u| u.role.present? && u.role.technical? }
   end
 
   def project_managers
-    User.all.decorate.select{ |u| u.available? && u.role.present? && ( u.role.name == 'pm' || u.role.name == 'junior pm' )}
+    User.all.decorate.select{ |u| u.role.present? && ( u.role.name == 'pm' || u.role.name == 'junior pm' )}
   end
 
   def quality_assurance
-    User.all.decorate.select{ |u| u.available? && u.role.present? && ( u.role.name == 'qa' || u.role.name == 'junior qa' )}
+    User.all.decorate.select{ |u| u.role.present? && ( u.role.name == 'qa' || u.role.name == 'junior qa' )}
   end
 end
