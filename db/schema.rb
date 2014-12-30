@@ -190,16 +190,4 @@ ActiveRecord::Schema.define(version: 20141222105942) do
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
   add_index "users", ["team_id"], name: "index_users_on_team_id", using: :btree
 
-  create_table "vacations", force: true do |t|
-    t.datetime "starts_at"
-    t.datetime "ends_at"
-    t.string   "eventid"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "mongo_id"
-  end
-
-  add_index "vacations", ["user_id"], name: "index_vacations_on_user_id", using: :btree
-
 end

@@ -3,7 +3,7 @@ namespace :db do
   task convert: :environment do
 
     def convert!(options = {})
-      models = %w(ability admin_role contract_type feature location membership note position project role team user vacation)
+      models = %w(ability admin_role contract_type feature location membership note position project role team user)
       converter = Sql::ConvertsFromMongo.new
 
       models.each do |model|
