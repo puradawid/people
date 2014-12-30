@@ -13,10 +13,33 @@ The main table shows the current teams in each project, but you can also add peo
 ![People_View](https://netguruco-production.s3.amazonaws.com/uploads/1401956759-1401228321-people_main.jpg)
 
 ## System Setup
-You need MongoDB and ImageMagick installed on your system, using homebrew:
+You need MongoDB and ImageMagick installed on your system, on OS X this is a simple as:
 ```shell
   brew update && brew install mongodb imagemagick
 ```
+
+On other systems check out the official [ImageMagick](http://www.imagemagick.org/script/binary-releases.php) and [MongoDB documentation](http://docs.mongodb.org/manual/installation/)
+
+## Project setup
+
+ * ```cd``` into project and ```bundle install``` to install all of the gem dependencies
+ * run ```rake db:create``` & ```rake db:seed``` - it will create your database and populate it with sample data
+ * this app uses Google Auth. In order to configure it, checkout section **Dev auth setup** and **Local settings**.
+ * once you have authentication credentials go to config/config.yml and update your google_client_id, google_secret, google_domain, github_client_id, github_secret accordingly
+
+### Local settings
+
+All the required app settings are located in `config/config.yml` file.
+You should put your local settings in `config/sec_config.yml` file which is not checked in version control.
+
+Take a note that emails->internal: in `config/config.yml` should be domain used to login users eg. example.com not test@example.com
+
+Get started: https://devcenter.heroku.com/articles/getting-started-with-rails4
+
+### Additional Info
+ * after logging in, go to your Profile's settings and update your role to 'senior' or 'pm'
+ * by default only 'pm' and 'senior' roles have admin privilages - creating new projects, managing privileges, memberships etc.
+ * optionally update your emails and company_name
 
 ## Dev auth setup
 
@@ -35,22 +58,6 @@ You need MongoDB and ImageMagick installed on your system, using homebrew:
 ### Github Auth
 
   * do the same for github account (callback address is `http://localhost:3000/users/auth/github/callback`)
-
-### Initial setup
-
- * run rake db:seed
- * by default only 'pm' and 'senior' roles have admin privilages - creating new projects, managing privileges, memberships etc.
- * after logging in, goto your Profile's settings and update your role to 'senior' or 'pm' * goto config/config.yml and update your google_client_id, google_secret, google_domain, github_client_id, github_secret accordingly
- * optionally update your emails and company_name 
-
-### Local settings
-
-All the required app settings are located in `config/config.yml` file.
-You should put your local settings in `config/sec_config.yml` file which is not checked in version control.
-
-Take a note that emails->internal: in `config/config.yml` should be domain used to login users eg. example.com not test@example.com
-
-Get started: https://devcenter.heroku.com/articles/getting-started-with-rails4
 
 ### Feature flags
 
