@@ -35,7 +35,7 @@ describe OmniauthCallbacksController do
 
       it 'redirects to root path' do
         callback
-        expect(response).to redirect_to available_users_path
+        expect(response).to redirect_to root_path
       end
     end
 
@@ -78,7 +78,7 @@ describe OmniauthCallbacksController do
 
       it 'redirects to root path' do
         callback
-        expect(response).to redirect_to available_users_path
+        expect(response).to redirect_to root_path
       end
     end
 

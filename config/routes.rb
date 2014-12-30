@@ -13,7 +13,7 @@ Hrguru::Application.routes.draw do
   end
 
   authenticated :user do
-    root 'dashboard#index', as: 'dashboard'
+    root 'available_users#index', as: 'available'
   end
 
   namespace :api do
@@ -26,7 +26,7 @@ Hrguru::Application.routes.draw do
   end
 
   resources :users, only: [:index, :show, :update]
-  resources :available_users, only: [:index], path: "available"
+  resources :dashboard, only: [:index], path: "dashboard"
   resources :projects
   resources :memberships, except: [:show]
   resources :teams

@@ -7,13 +7,13 @@ class OmniauthCallbacksController <  ApplicationController
   def google_oauth2
     user = User.create_from_google!(request.env['omniauth.auth'])
     sign_in(user)
-    redirect_to available_users_path
+    redirect_to root_path
   end
 
   def github
     github_nickname = request.env['omniauth.auth'][:info][:nickname]
     current_user.update_attributes(gh_nick: github_nickname)
-    redirect_to available_users_path
+    redirect_to root_path
   end
 
   private
