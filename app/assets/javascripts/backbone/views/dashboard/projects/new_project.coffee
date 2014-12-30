@@ -26,6 +26,8 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     @developers = new Hrguru.Collections.Users(gon.developers)
     @project_managers = new Hrguru.Collections.Users(gon.project_managers)
     @quality_assurance = new Hrguru.Collections.Users(gon.quality_assurance)
+    @all_users = new Hrguru.Collections.Users(gon.users)
+    @roles = new Hrguru.Collections.Roles(gon.roles)
     super()
 
   initSelectize: ->
@@ -52,7 +54,6 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
        success: @projectCreated
        error: @projectError
 
-
   projectCreated: (project) =>
     @createMemberships(project)
     project_name = project.get('name')
@@ -60,20 +61,23 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     @toggleFormClass()
     location.reload()
 
+  selectizeUsers: =>
+    @developers_selectize.getValue() + ',' + @qas_selectize.getValue() + ',' + @pms_selectize.getValue()
+
   createMemberships: (project) ->
-    _.each @developers_selectize.getValue().split(","), (developer) ->
+    _.each @selectizeUsers().split(","), (developer) ->
       @['this'].addToProject(@['project'], developer)
     , { this: @, project: project }
 
-
   addToProject: (project, user) ->
+    role_id = @all_users.get(user).attributes.role_id
     attributes =
       membership :
         starts_at: Date()
         user_id: user
         project_id: project.id
-        role_id: @developers.get(user).attributes.role_id
-        billable: true
+        role_id: role_id
+        billable: @roles.get(role_id).attributes.billable
     @collection.get(project).attributes.memberships.create(attributes)
 
   removeFromSelectize: (user) ->
