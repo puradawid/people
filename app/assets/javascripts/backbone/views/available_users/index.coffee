@@ -3,13 +3,14 @@ class Hrguru.Views.AvailableUsersIndex extends Marionette.View
   el: '#main-container'
 
   initialize: ->
+    debugger
     @setSorterParser()
     $('table').tablesorter
       headers:
         3:
           sorter: 'available'
-      sortList:
-        [[2,0]]
+      sortList: [[3,0]]
+    debugger
     @setUserNotesModalHandlers()
 
   setSorterParser: ->
