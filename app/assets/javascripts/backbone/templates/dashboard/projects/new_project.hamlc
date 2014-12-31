@@ -49,9 +49,6 @@
               %label.checkbox-inline
                 %input.potential{ type: 'checkbox', checked: 'false' }
                   Potential
-              %label.checkbox-inline
-                %input.internal{ type: 'checkbox', checked: 'false' }
-                  Internal
         .new-project-members
           .row
             .col-md-6

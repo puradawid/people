@@ -13,7 +13,6 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     slug:      '.slug'
     endAt:     '.endAt'
     potential: '.potential'
-    internal:  '.internal'
     kickoff:   '.kickoff'
     project_type: '#project-type'
     form:      '.new-project-form'
@@ -45,7 +44,7 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
         slug: @ui.slug.val()
         end_at: @ui.endAt.val()
         potential: @ui.potential.prop('checked')
-        internal: @ui.internal.prop('checked')
+        internal: false
         kickoff: @ui.kickoff.val()
         archived: false
         project_type: @ui.project_type.val()
@@ -97,7 +96,6 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     @ui.endAt.val('')
     @ui.kickoff.val('')
     @ui.potential.prop('checked')
-    @ui.internal.prop('checked')
     @developers_selectize.clear()
     @qas_selectize.clear()
     @pms_selectize.clear()
