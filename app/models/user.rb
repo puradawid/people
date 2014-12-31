@@ -1,5 +1,3 @@
-require 'csv'
-
 class User
   include Mongoid::Document
   devise :database_authenticatable, :registerable,

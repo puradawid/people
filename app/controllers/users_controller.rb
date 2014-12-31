@@ -19,11 +19,6 @@ class UsersController < ApplicationController
     gon.locations = locations
     gon.abilities = Ability.all
     gon.months = months
-
-    respond_to do |format|
-      format.html
-      format.csv
-    end
   end
 
   def update
