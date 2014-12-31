@@ -54,7 +54,7 @@ class UserDecorator < Draper::Decorator
        last_membership_end_date + 1.days < next_membership_start_date
       last_membership_end_date || current_project_end_date || Time.now
     else
-      next_membership_end_date || current_project_end_date || Time.now
+      next_membership_end_date || last_membership_end_date || current_project_end_date || Time.now
     end
   end
 
