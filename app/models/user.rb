@@ -131,7 +131,7 @@ class User
   end
 
   def next_memberships
-    @next_memberships ||= user_membership_repository.next.items
+    @next_memberships ||= user_membership_repository.next.items.asc(:starts_at)
   end
 
   def potential_memberships
