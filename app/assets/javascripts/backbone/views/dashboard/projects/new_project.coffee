@@ -64,8 +64,9 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     @developers_selectize.getValue() + ',' + @qas_selectize.getValue() + ',' + @pms_selectize.getValue()
 
   createMemberships: (project) ->
-    _.each @selectizeUsers().split(","), (developer) ->
-      @['this'].addToProject(@['project'], developer)
+    _.each @selectizeUsers().split(","), (user) ->
+      return if user.length < 1
+      @['this'].addToProject(@['project'], user)
     , { this: @, project: project }
 
   addToProject: (project, user) ->
