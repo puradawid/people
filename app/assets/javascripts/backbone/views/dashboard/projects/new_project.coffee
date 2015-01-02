@@ -77,7 +77,7 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
         user_id: user
         project_id: project.id
         role_id: role_id
-        billable: @roles.get(role_id).attributes.billable
+        billable: @roles.get(role_id).get('billable')
     @collection.get(project).attributes.memberships.create(attributes)
 
   removeFromSelectize: (user) ->
