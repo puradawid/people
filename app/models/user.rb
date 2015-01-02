@@ -151,7 +151,7 @@ class User
   end
 
   def current_memberships
-    @current_memberships ||= user_membership_repository.current.items
+    @current_memberships ||= user_membership_repository.current.items.asc(:ends_at)
   end
 
   def user_project_repository

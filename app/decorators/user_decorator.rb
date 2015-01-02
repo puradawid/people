@@ -50,16 +50,32 @@ class UserDecorator < Draper::Decorator
   end
 
   def availability
-    if last_membership_end_date.present? && next_membership_start_date.present? &&
-       last_membership_end_date + 1.days < next_membership_start_date
-      last_membership_end_date || current_project_end_date || Time.now
+    if check_next_membership_date
+      current_membership_end_date || last_membership_end_date || Time.now
     else
-      next_membership_end_date || last_membership_end_date || current_project_end_date || Time.now
+      check_current_membership_date
     end
+  end
+
+  def check_current_membership_date
+    if next_membership_end_date.present? && next_membership_end_date < current_membership_end_date
+      current_membership_end_date || last_membership_end_date || Time.now
+    else
+      next_membership_end_date || last_membership_end_date || current_project_end_date ||Time.now
+    end
+  end
+
+  def check_next_membership_date
+    last_membership_end_date.present? && next_membership_start_date.present? &&
+      last_membership_end_date + 1.days < next_membership_start_date
   end
 
   def current_project_end_date
     current_project.try(:end_at)
+  end
+
+  def current_membership_end_date
+    current_memberships.last.try(:ends_at)
   end
 
   def next_membership_end_date
