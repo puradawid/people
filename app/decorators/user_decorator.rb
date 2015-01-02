@@ -50,24 +50,19 @@ class UserDecorator < Draper::Decorator
   end
 
   def availability
-    if check_next_membership_date
-      current_membership_end_date || last_membership_end_date || Time.now
-    else
-      check_current_membership_date
-    end
+    date =
+      if proper_dates
+        last_membership_end_date
+      elsif check_current_membership_date
+        current_membership_end_date
+      else
+        next_membership_end_date || current_project_end_date || Time.now
+      end
+    date < Time.now ? Time.now : date
   end
 
   def check_current_membership_date
-    if next_membership_end_date.present? && next_membership_end_date < current_membership_end_date
-      current_membership_end_date || last_membership_end_date || Time.now
-    else
-      next_membership_end_date || last_membership_end_date || current_project_end_date ||Time.now
-    end
-  end
-
-  def check_next_membership_date
-    last_membership_end_date.present? && next_membership_start_date.present? &&
-      last_membership_end_date + 1.days < next_membership_start_date
+    next_membership_end_date.present? && next_membership_end_date < current_membership_end_date
   end
 
   def current_project_end_date
@@ -109,12 +104,12 @@ class UserDecorator < Draper::Decorator
 
   def archived_projects
     memberships_by_project.select{ |project, _membership| project.archived? }
-      .sort_by { |_project, memberships| memberships.first.starts_at }
+    .sort_by { |_project, memberships| memberships.first.starts_at }
   end
 
   def unarchived_projects
     memberships_by_project.select{ |project, _membership| !project.archived? }
-      .sort_by { |_project, memberships| memberships.first.starts_at }
+    .sort_by { |_project, memberships| memberships.first.starts_at }
   end
 
   def memberships_by_project
@@ -163,6 +158,13 @@ class UserDecorator < Draper::Decorator
 
   def projects_json(membership)
     membership.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
+  end
+
+  private
+
+  def proper_dates
+    last_membership_end_date.present? && next_membership_start_date.present? &&
+    last_membership_end_date + 1.days < next_membership_start_date
   end
 
 end

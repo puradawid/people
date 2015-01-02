@@ -11,15 +11,15 @@ class AvailabilityChecker
 
   def available?
     bilable_count = billable_memberships.count
-    ((bilable_count == 0 || bilable_count <= finishing_work) && next_memberships_checker)
+    ((bilable_count.zero? || bilable_count <= finishing_work) && next_memberships_checker)
   end
 
   def billable_memberships
-    @user.current_memberships.asc(:ends_at).select { |m| m.billable == true }
+    @user.current_memberships.asc(:ends_at).where(billable: true)
   end
 
   def next_billable_memberships
-    @user.next_memberships.select { |m| m.billable == true }
+    @user.next_memberships.where(billable: true)
   end
 
   def finishing_work
@@ -43,6 +43,6 @@ class AvailabilityChecker
   end
 
   def current_projects
-    @user.current_memberships.select { |m| m.billable == true }.map(&:project)
+    @user.current_memberships.where(billable: true).map(&:project)
   end
 end
