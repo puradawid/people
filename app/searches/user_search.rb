@@ -2,7 +2,7 @@ class UserSearch < Searchlight::Search
 
   search_on User
 
-  searches :id, :email, :id_or_email
+  searches :id, :email, :id_or_email, :pm, :qa, :developer
 
   def search_id
     search.where(id: id)
@@ -15,5 +15,25 @@ class UserSearch < Searchlight::Search
   def search_id_or_email
     by_id = search.where(id: id_or_email['id'])
     by_id.count > 0 ? by_id : search.where(email: id_or_email['email'])
+  end
+
+  def search_pm
+    search_role_by_names(%w(pm junior_pm))
+  end
+
+  def search_qa
+    search_role_by_names(%w(qa junior_qa))
+  end
+
+  def search_developer
+    role_ids = Role.where(technical: true).pluck(:_id)
+    search.where(:role_id.in => role_ids)
+  end
+
+  private
+
+  def search_role_by_names(names)
+    role_ids = Role.where(:name.in => names).pluck(:_id)
+    search.where(:role_id.in => role_ids)
   end
 end

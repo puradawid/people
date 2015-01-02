@@ -1,3 +1,2 @@
-collection memberships
+collection decorated_memberships
 extends 'memberships/base'
-

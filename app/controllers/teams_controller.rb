@@ -2,7 +2,7 @@ class TeamsController < ApplicationController
   include Shared::RespondsController
   expose(:team, attributes: :team_params)
   expose(:teams) { Team.all }
-  expose(:users) { User.all.decorate }
+  expose_decorated(:users) { User.all }
   expose(:roles) { Role.all }
 
   before_action :authenticate_admin!, only: [:update, :create, :destroy, :new, :edit]

@@ -1,2 +1,2 @@
-collection developers
+collection decorated_developers
 extends 'dashboard/users'

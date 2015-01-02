@@ -1,8 +1,11 @@
 class DashboardController < ApplicationController
   expose(:projects) { Project.by_name }
   expose(:roles) { Role.all }
-  expose(:users) { User.includes(:memberships).all.decorate }
-  expose(:memberships) { Membership.unfinished.decorate }
+  expose_decorated(:users) { User.includes(:memberships).all }
+  expose_decorated(:developers, decorator: UserDecorator) { find_developers }
+  expose_decorated(:project_managers, decorator: UserDecorator) { find_pms }
+  expose_decorated(:quality_assurances, decorator: UserDecorator) { find_qas }
+  expose_decorated(:memberships) { Membership.unfinished }
 
   def index
     gon.rabl template: 'app/views/dashboard/users', as: 'users'
@@ -24,15 +27,15 @@ class DashboardController < ApplicationController
 
   private
 
-  def developers
-    User.all.decorate.select{ |u| u.role.present? && u.role.technical? }
+  def find_developers
+    UserSearch.new(developer: true).results
   end
 
-  def project_managers
-    User.all.decorate.select{ |u| u.role.present? && ( u.role.name == 'pm' || u.role.name == 'junior pm' )}
+  def find_pms
+    UserSearch.new(pm: true).results
   end
 
-  def quality_assurance
-    User.all.decorate.select{ |u| u.role.present? && ( u.role.name == 'qa' || u.role.name == 'junior qa' )}
+  def find_qas
+    UserSearch.new(qa: true).results
   end
 end
