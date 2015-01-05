@@ -16,7 +16,7 @@ class ProjectSearch < Searchlight::Search
   end
 
   def search_end_at
-    Project.where(:end_at.gte => end_at)
+    Project.or({:end_at.gte => end_at}, {:end_at => nil})
   end
 
 end

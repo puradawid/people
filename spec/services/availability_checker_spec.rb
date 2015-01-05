@@ -57,7 +57,7 @@ describe AvailabilityChecker do
 
     context 'when user membership ending more than one month from now' do
       before do
-        create(:membership_billable, ends_at: 32.days.from_now, user: user, project: project_without_end_date)
+        create(:membership_billable, ends_at: 35.days.from_now, user: user, project: project_without_end_date)
         subject.run!
       end
 

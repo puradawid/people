@@ -35,11 +35,11 @@ class UserMembershipRepository
   end
 
   def not_ended_project
-    search(project_end_time: Date.today)
+    search(project_end_time: Time.now)
   end
 
   def current
-    not_ended_project.not_potential.not_archived.started.not_ended
+    not_potential.not_archived.started.not_ended.not_ended_project
   end
 
   def items
@@ -49,7 +49,7 @@ class UserMembershipRepository
   end
 
   def next
-    not_ended_project.not_started.not_ended.not_potential.not_booked
+    not_started.not_ended.not_potential.not_booked.not_ended_project
   end
 
   private
