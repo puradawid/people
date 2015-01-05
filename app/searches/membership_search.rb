@@ -2,7 +2,7 @@ class MembershipSearch < Searchlight::Search
   search_on Membership.includes(:project, :user)
 
   searches :user, :archived, :booked, :ends_later_than, :with_end_date, :potential,
-    :starts_earlier_than, :starts_later_than
+    :starts_earlier_than, :starts_later_than, :project_end_time
 
   def search_user
     search.where(user_id: user.id)
@@ -24,6 +24,11 @@ class MembershipSearch < Searchlight::Search
 
   def search_starts_earlier_than
     search.where(:starts_at.lte => starts_earlier_than)
+  end
+
+  def search_project_end_time
+    project_ids = ProjectSearch.new(end_at: project_end_time).results.only(:_id).map(&:_id)
+    search.where(:project_id.in => project_ids)
   end
 
   def search_starts_later_than
