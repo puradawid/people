@@ -64,7 +64,7 @@ describe UserDecorator do
   end
 
   describe '#availability' do
-    let!(:project) { create(:project, name: 'google') }
+    let!(:project) { create(:project, name: 'google', end_at: time(2013, 12, 20)) }
     let!(:membership) { create(:membership, starts_at: time(2013, 11, 1), ends_at: time(2014, 1, 1), user: subject, project: project) }
 
     before { Timecop.freeze(Time.local(2013, 12, 1)) }
@@ -80,9 +80,7 @@ describe UserDecorator do
       before { membership.update_attribute(:ends_at, nil) }
 
       it 'returns project end date' do
-        puts "Subject: #{subject.availability.to_s}"
-        puts "Project: #{project.end_at.to_s}"
-        expect(subject.availability.to_s).to eq project.end_at.to_s
+        expect(subject.availability.to_s).to eq project.end_at.to_date.to_s
       end
 
       context 'without project end date' do
