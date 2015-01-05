@@ -32,8 +32,8 @@ describe MembershipSearch do
   end
 
   describe '#search_ends_later_than' do
-    let!(:later_membership) { create(:membership, ends_at: Time.local(2014, 12, 30)) }
-    let!(:earlier_membership) { create(:membership, ends_at: Time.local(2014, 11, 30)) }
+    let!(:later_membership) { create(:membership, ends_at: Time.local(2014, 12, 30), starts_at: Time.local(2014, 11, 29)) }
+    let!(:earlier_membership) { create(:membership, ends_at: Time.local(2014, 11, 30), starts_at: Time.local(2014, 11, 29)) }
 
     before { Timecop.freeze(Time.local(2014, 12, 1)) }
 
