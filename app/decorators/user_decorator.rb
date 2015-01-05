@@ -50,15 +50,10 @@ class UserDecorator < Draper::Decorator
   end
 
   def availability
-    date =
-      if proper_dates
-        last_membership_end_date
-      elsif check_current_membership_date
-        current_membership_end_date
-      else
-        next_membership_end_date || current_project_end_date || Time.now
-      end
-    date < Time.now ? Time.now : date
+    dates = current_memberships.map do |membership|
+      dates_check(membership.ends_at.to_date) if membership.ends_at.present?
+    end
+    dates.compact.sort.last || project_end_date || Time.now
   end
 
   def check_current_membership_date
@@ -66,7 +61,8 @@ class UserDecorator < Draper::Decorator
   end
 
   def current_project_end_date
-    current_project.try(:end_at)
+    return unless current_project_end = current_project.try(:end_at)
+    current_project_end.to_date
   end
 
   def current_membership_end_date
@@ -78,11 +74,12 @@ class UserDecorator < Draper::Decorator
   end
 
   def next_membership_start_date
-    next_memberships.first.try(:starts_at)
+    next_memberships.last.try(:starts_at)
   end
 
   def last_membership_end_date
-    last_membership.try(:ends_at)
+    return unless last_membership_end = last_membership.try(:ends_at)
+    last_membership_end.to_date
   end
 
   def info
@@ -162,9 +159,31 @@ class UserDecorator < Draper::Decorator
 
   private
 
-  def proper_dates
-    last_membership_end_date.present? && next_membership_start_date.present? &&
-    last_membership_end_date + 1.days < next_membership_start_date
+  def proper_date(date)
+    date.present? && date.to_date < 4.weeks.from_now
+  end
+
+  def oncoming_membership_date_check(date)
+    return unless date.present?
+    next_day = date + 1.days
+    oncoming_membership = next_memberships.where(starts_at: next_day).asc(:ends_at).last
+    return date if oncoming_membership.present? && !proper_date(oncoming_membership.ends_at)
+    oncoming_membership_date = oncoming_membership.ends_at.to_date if oncoming_membership.present?
+    oncoming_membership_date_check(oncoming_membership_date) || oncoming_membership_date
+  end
+
+  def dates_check(date)
+    oncoming_membership_end_date = oncoming_membership_date_check( date )
+    if proper_date(oncoming_membership_end_date)
+      oncoming_membership_end_date
+    else
+      date
+    end
+  end
+
+  def project_end_date
+    return current_project_end_date if proper_date(current_project_end_date) &&
+      current_project_end_date >= Time.now
   end
 
 end
