@@ -21,7 +21,7 @@ describe UserProjectRepository do
         user: user, starts_at: Time.local(2014, 12, 30), ends_at: Time.local(2015, 1, 30),
         project: next_project)
     end
-    let!(:not_next_membership) { create(:membership, user: user) }
+    let!(:not_next_membership) { create(:membership, user: user, starts_at: Time.local(2014, 10, 10)) }
 
     before { Timecop.freeze(2014, 12, 1) }
 
