@@ -86,9 +86,10 @@ describe ProjectsController do
   end
 
   describe '#update' do
+    let(:time) { Time.now }
     let!(:project) { create(:project, name: 'hrguru') }
-    let(:actual_membership) { create(:membership, starts_at: 1.week.ago, ends_at: 1.week.from_now, stays: true, project: new_project) }
-    let(:old_membership) { create(:membership, starts_at: 2.weeks.ago, ends_at: 1.week.ago, stays: false, project: new_project) }
+    let(:actual_membership) { create(:membership, starts_at: time - 1.week, ends_at: time + 1.week, stays: true, project: new_project) }
+    let(:old_membership) { create(:membership, starts_at: time - 2.weeks, ends_at: time - 1.week, stays: false, project: new_project) }
 
     context 'changes potential from true to false' do
       let!(:new_project) { create(:project, potential: true) }
@@ -104,15 +105,11 @@ describe ProjectsController do
       end
 
       it 'deletes unnecessary memberships' do
-        Timecop.freeze(Time.now) do
-          expect(new_project.memberships).not_to include old_membership
-        end
+        expect(new_project.memberships).not_to include old_membership
       end
 
       it 'changes starts_at' do
-        Timecop.freeze(Time.now) do
-          expect(new_project.memberships.first.starts_at).to eq Time.zone.parse(Time.now.to_s)
-        end
+        expect(new_project.memberships.first.starts_at).to eq time.to_s
       end
     end
 
