@@ -68,9 +68,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def current_project_end_date
-    current_project_end = current_project.try(:end_at)
-    return unless current_project_end.present?
-    current_project_end.to_date
+    current_project.try(:end_at).to_date if current_project.try(:end_at).present?
   end
 
   def current_membership_end_date
@@ -86,8 +84,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def last_membership_end_date
-    return unless last_membership_end == last_membership.try(:ends_at)
-    last_membership_end.to_date
+    last_membership.try(:ends_at).to_date if last_membership.try(:ends_at).present?
   end
 
   def info
