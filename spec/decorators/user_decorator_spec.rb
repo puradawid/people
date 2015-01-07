@@ -63,36 +63,6 @@ describe UserDecorator do
     it { expect(subject.skype_link).to include('skype_login') }
   end
 
-  describe '#availability' do
-    let!(:project) { create(:project, name: 'google', end_at: time(2013, 12, 20)) }
-    let!(:membership) { create(:membership, starts_at: time(2013, 11, 1), ends_at: time(2014, 1, 1), user: subject, project: project) }
-
-    before { Timecop.freeze(Time.local(2013, 12, 1)) }
-    after { Timecop.return }
-
-    context 'with membership end date' do
-      it 'returns membership end date' do
-        expect(subject.availability).to eq membership.ends_at.to_date
-      end
-    end
-
-    context 'without membership end date' do
-      before { membership.update_attribute(:ends_at, nil) }
-
-      it 'returns project end date' do
-        expect(subject.availability).to eq project.end_at.to_date
-      end
-
-      context 'without project end date' do
-        before { project.update_attribute(:end_at, nil) }
-
-        it 'returns Date.today' do
-          expect(subject.availability).to eq Date.today
-        end
-      end
-    end
-  end
-
   describe '#current_projects_with_memberships_json' do
     let!(:project) { create(:project, name: 'google') }
 
