@@ -72,7 +72,7 @@ describe UserDecorator do
 
     context 'with membership end date' do
       it 'returns membership end date' do
-        expect(subject.availability.to_s).to eq membership.ends_at.to_date.to_s
+        expect(subject.availability).to eq membership.ends_at.to_date
       end
     end
 
@@ -80,7 +80,7 @@ describe UserDecorator do
       before { membership.update_attribute(:ends_at, nil) }
 
       it 'returns project end date' do
-        expect(subject.availability.to_s).to eq project.end_at.to_date.to_s
+        expect(subject.availability).to eq project.end_at.to_date
       end
 
       context 'without project end date' do

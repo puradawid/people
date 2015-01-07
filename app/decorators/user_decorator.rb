@@ -56,20 +56,11 @@ class UserDecorator < Draper::Decorator
     end
     first_pick_date = dates.compact.sort.last || project_end_date || date || Date.today
     first_pick_date.to_date
-    check_dates_overlap(first_pick_date)
-  end
-
-  def check_dates_overlap(date)
-    next_memberships.each do |membership|
-      if check_overlapping(date, membership)
-        return membership.ends_at.to_date
-      end
-    end
-    date
   end
 
   def check_overlapping(date, membership)
     return false unless membership.starts_at.present? && membership.ends_at.present?
+    binding.pry if membership.starts_at.to_date == Date.new(2015, 01, 15)
     membership.starts_at.to_date <= date && membership.ends_at.to_date > date
   end
 
@@ -78,7 +69,8 @@ class UserDecorator < Draper::Decorator
   end
 
   def current_project_end_date
-    return unless current_project_end = current_project.try(:end_at)
+    current_project_end = current_project.try(:end_at)
+    return unless current_project_end.present?
     current_project_end.to_date
   end
 
@@ -95,7 +87,7 @@ class UserDecorator < Draper::Decorator
   end
 
   def last_membership_end_date
-    return unless last_membership_end = last_membership.try(:ends_at)
+    return unless last_membership_end == last_membership.try(:ends_at)
     last_membership_end.to_date
   end
 
@@ -118,12 +110,12 @@ class UserDecorator < Draper::Decorator
 
   def archived_projects
     memberships_by_project.select{ |project, _membership| project.archived? }
-    .sort_by { |_project, memberships| memberships.first.starts_at }
+      .sort_by { |_project, memberships| memberships.first.starts_at }
   end
 
   def unarchived_projects
     memberships_by_project.select{ |project, _membership| !project.archived? }
-    .sort_by { |_project, memberships| memberships.first.starts_at }
+      .sort_by { |_project, memberships| memberships.first.starts_at }
   end
 
   def memberships_by_project
@@ -184,13 +176,16 @@ class UserDecorator < Draper::Decorator
     return unless date.present?
     next_day = date + 1.days
     oncoming_membership = next_memberships.where(starts_at: next_day).asc(:ends_at).last
+    unless oncoming_membership.present?
+      oncoming_membership = next_memberships.where(starts_at: date).last
+    end
     return date if oncoming_membership.present? && !proper_date(oncoming_membership.ends_at)
     oncoming_membership_date = oncoming_membership.ends_at.to_date if oncoming_membership.present?
     oncoming_membership_date_check(oncoming_membership_date) || oncoming_membership_date
   end
 
   def dates_check(date)
-    oncoming_membership_end_date = oncoming_membership_date_check( date )
+    oncoming_membership_end_date = oncoming_membership_date_check(date)
     if proper_date(oncoming_membership_end_date)
       oncoming_membership_end_date
     else
