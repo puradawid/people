@@ -91,7 +91,7 @@ describe ProjectsController do
     let(:old_membership) { create(:membership, starts_at: 2.weeks.ago, ends_at: 1.week.ago, stays: false, project: new_project) }
 
     context 'changes potential from true to false' do
-      let!(:new_project) { create(:project, potential: true) }
+      let(:new_project) { create(:project, potential: true) }
 
       before do
         new_project.memberships << [actual_membership, old_membership]
