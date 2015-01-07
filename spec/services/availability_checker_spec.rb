@@ -56,7 +56,7 @@ describe AvailabilityChecker do
 
       it 'changes user availability to true' do
         expect(user.available).to be_true
-        expect(user.available_since).to eq(project_ending.end_at)
+        expect(user.available_since).to eq(project_ending.end_at.to_date)
       end
     end
 
@@ -70,7 +70,7 @@ describe AvailabilityChecker do
 
         it 'changes user availability to true' do
           expect(user.available).to be_true
-          expect(user.available_since).to eq(project_ending.end_at)
+          expect(user.available_since).to eq(project_ending.end_at.to_date)
         end
       end
     end
@@ -93,7 +93,7 @@ describe AvailabilityChecker do
 
       it 'changes user availability to true' do
         expect(user.available).to be_true
-        expect(user.available_since).to eq(project_ending_in_more_than_month.end_at)
+        expect(user.available_since).to eq(project_ending_in_more_than_month.end_at.to_date)
       end
     end
 
