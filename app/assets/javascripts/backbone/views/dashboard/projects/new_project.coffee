@@ -14,7 +14,7 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     endAt:     '.endAt'
     potential: '.potential'
     kickoff:   '.kickoff'
-    project_type: '#project-type'
+    project_type_select: '#project-type'
     form:      '.new-project-form'
     add:       '.new-project-add'
     devs:      '.devs'
@@ -38,6 +38,11 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     @clearInputs()
 
   addProject: ->
+    project_type =
+      switch(@ui.project_type_select.val())
+        when 'Regular' then 'regular'
+        when 'Maintenance - development' then 'maintenance_development'
+        when 'Maintenance - support' then 'maintenance_support'
     attributes =
       project:
         name: @ui.name.val()
@@ -47,7 +52,7 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
         internal: false
         kickoff: @ui.kickoff.val()
         archived: false
-        project_type: @ui.project_type.val()
+        project_type: project_type
     @collection.create attributes,
        wait: true
        success: @projectCreated

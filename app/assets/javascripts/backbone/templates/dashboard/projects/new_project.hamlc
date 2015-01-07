@@ -42,9 +42,9 @@
                 %label.control-label{ for: 'project-type' }
                   Type
                 %select#project-type.form-control
-                  %option regular
-                  %option maintenance_support
-                  %option maintenance_development
+                  %option Regular
+                  %option Maintenance - support
+                  %option Maintenance - development
             .col-md-6.spacing-top
               %label.checkbox-inline
                 %input.potential{ type: 'checkbox', checked: 'false' }
