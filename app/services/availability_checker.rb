@@ -14,10 +14,9 @@ class AvailabilityChecker
   private
 
   def available?
-    return true if has_no_memberships?
-    return true if has_non_billable_membership?
-    return true if has_memberships_or_projects_with_end_date?
-    false
+    has_no_memberships? ||
+      has_non_billable_membership? ||
+      has_memberships_or_projects_with_end_date?
   end
 
   def has_no_memberships?
@@ -37,7 +36,7 @@ class AvailabilityChecker
     projects = current_projects_with_end
     available_by_project = projects.first.try(:end_at)
 
-    dates = [available_by_membership, available_by_project].reject{ |date| date.blank? }
+    dates = [available_by_membership, available_by_project].reject(&:blank?)
 
     @available_since = dates.min
     memberships.present? || projects.present?
