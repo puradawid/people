@@ -4,52 +4,71 @@ class AvailabilityChecker
   end
 
   def run!
-    @user.update_attributes available: available?
+    available = available?
+    available_since =
+      available.present? ? @available_since : nil
+
+    @user.update_attributes(available: available, available_since: available_since)
   end
 
   private
 
   def available?
-    bilable_count = billable_memberships.count
-    ((bilable_count.zero? || bilable_count <= finishing_work) && next_memberships_checker)
+    return true if has_no_memberships?
+    return true if has_non_billable_membership?
+    return true if has_memberships_or_projects_with_end_date?
+    false
   end
 
-  def billable_memberships
-    @user.current_memberships.asc(:ends_at).where(billable: true)
+  def has_no_memberships?
+    @available_since = Date.today
+    current_memberships.empty?
   end
 
-  def next_billable_memberships
-    @user.next_memberships.where(billable: true)
+  def has_non_billable_membership?
+    @available_since = Date.today
+    current_memberships.where(billable: false).present?
   end
 
-  def finishing_work
-    uniquee_projects = ( ending_projects + ending_memberships.map(&:project)).uniq
-    uniquee_projects.count
+  def has_memberships_or_projects_with_end_date?
+    memberships = current_memberships_without_continuation
+    available_by_membership = memberships.first.try(:ends_at)
+
+    projects = current_projects_with_end
+    available_by_project = projects.first.try(:end_at)
+
+    dates = [available_by_membership, available_by_project].reject{ |date| date.blank? }
+
+    @available_since = dates.min
+     memberships.present? || projects.present?
   end
 
-  def ending_memberships
-    @user.current_memberships.select { |p| p.billable == true && p.ends_at < 4.week.from_now if p.ends_at.present? }
+  def current_memberships_with_end
+    @current_memberships_with_end ||= current_memberships.where(:ends_at.ne => nil)
   end
 
-  def next_memberships_checker
-    return true unless next_billable_memberships.present?
-    return true unless billable_memberships.present? && billable_memberships.last.ends_at.present?
-    current_membership_end = billable_memberships.last.ends_at.to_date
-    next_membership_kickoff = next_billable_memberships.first.starts_at.to_date
-    proper_dates(current_membership_end, next_membership_kickoff)
+  def current_memberships
+    @current_memberships ||= @user.current_memberships.asc(:ends_at)
   end
 
-  def proper_dates(current_membership_end, next_membership_kickoff)
-    (current_membership_end + 1.days == next_membership_kickoff &&
-        next_membership_kickoff < 4.weeks.from_now) ||
-      current_membership_end + 1.days != next_membership_kickoff
+  def current_memberships_without_continuation
+    current_memberships_with_end.to_a.reject do |membership|
+      starts_at = next_memberships.pluck(:starts_at).map(&:to_date)
+      starts_at_next = starts_at.map{ |date| date - 1 }
+      (starts_at + starts_at_next).include?(membership.ends_at.to_date)
+    end
   end
 
-  def ending_projects
-    current_projects.select { |p| p.end_at < 4.week.from_now if p.end_at.present? }
+  def next_memberships
+   @next_memberships ||= @user.next_memberships.where(billable: true)
   end
 
   def current_projects
-    @user.current_memberships.where(billable: true).map(&:project)
+    @project_ids ||= current_memberships.where(billable: true).pluck(:project_id)
+    @current_projects ||= Project.where(:_id.in => @project_ids)
+  end
+
+  def current_projects_with_end
+    @current_projects_with_end ||= current_projects.where(:end_at.ne => nil).asc(:end_at)
   end
 end
