@@ -40,7 +40,7 @@ class AvailabilityChecker
     dates = [available_by_membership, available_by_project].reject{ |date| date.blank? }
 
     @available_since = dates.min
-     memberships.present? || projects.present?
+    memberships.present? || projects.present?
   end
 
   def current_memberships_with_end
@@ -60,7 +60,7 @@ class AvailabilityChecker
   end
 
   def next_memberships
-   @next_memberships ||= @user.next_memberships.where(billable: true)
+    @next_memberships ||= @user.next_memberships.where(billable: true)
   end
 
   def current_projects
