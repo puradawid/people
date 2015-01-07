@@ -46,14 +46,31 @@ class UserDecorator < Draper::Decorator
   end
 
   def availability_string
-    availability.to_date != Time.now.to_date ? availability.to_date : "since now"
+    availability.to_date != Date.today ? availability.to_date : "since now"
   end
 
   def availability
+    date = dates_check(Date.today) unless current_memberships.present?
     dates = current_memberships.map do |membership|
       dates_check(membership.ends_at.to_date) if membership.ends_at.present?
     end
-    dates.compact.sort.last || project_end_date || Time.now
+    first_pick_date = dates.compact.sort.last || project_end_date || date || Date.today
+    first_pick_date.to_date
+    check_dates_overlap(first_pick_date)
+  end
+
+  def check_dates_overlap(date)
+    next_memberships.each do |membership|
+      if check_overlapping(date, membership)
+        return membership.ends_at.to_date
+      end
+    end
+    date
+  end
+
+  def check_overlapping(date, membership)
+    return false unless membership.starts_at.present? && membership.ends_at.present?
+    membership.starts_at.to_date <= date && membership.ends_at.to_date > date
   end
 
   def check_current_membership_date

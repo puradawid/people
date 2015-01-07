@@ -86,8 +86,8 @@ describe UserDecorator do
       context 'without project end date' do
         before { project.update_attribute(:end_at, nil) }
 
-        it 'returns Time.now' do
-          expect(subject.availability).to eq Time.now
+        it 'returns Date.today' do
+          expect(subject.availability).to eq Date.today
         end
       end
     end

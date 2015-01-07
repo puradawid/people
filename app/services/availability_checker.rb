@@ -33,9 +33,16 @@ class AvailabilityChecker
 
   def next_memberships_checker
     return true unless next_billable_memberships.present?
-    current_membership_end = billable_memberships.last.ends_at
-    next_membership_kickoff = next_billable_memberships.first.starts_at
-    current_membership_end + 1.days == next_membership_kickoff && next_membership_kickoff < 4.weeks.from_now
+    return true unless billable_memberships.present? && billable_memberships.last.ends_at.present?
+    current_membership_end = billable_memberships.last.ends_at.to_date
+    next_membership_kickoff = next_billable_memberships.first.starts_at.to_date
+    proper_dates(current_membership_end, next_membership_kickoff)
+  end
+
+  def proper_dates(current_membership_end, next_membership_kickoff)
+    (current_membership_end + 1.days == next_membership_kickoff &&
+        next_membership_kickoff < 4.weeks.from_now) ||
+      current_membership_end + 1.days != next_membership_kickoff
   end
 
   def ending_projects
