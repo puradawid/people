@@ -26,6 +26,7 @@ class User
   field :phone
   field :archived, type: Mongoid::Boolean, default: false
   field :available, type: Mongoid::Boolean, default: true
+  field :available_since, type: Date
   field :without_gh, type: Mongoid::Boolean, default: false
   field :uid, type: String
   field :user_notes, type: String
