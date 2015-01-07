@@ -60,7 +60,6 @@ class UserDecorator < Draper::Decorator
 
   def check_overlapping(date, membership)
     return false unless membership.starts_at.present? && membership.ends_at.present?
-    binding.pry if membership.starts_at.to_date == Date.new(2015, 01, 15)
     membership.starts_at.to_date <= date && membership.ends_at.to_date > date
   end
 
