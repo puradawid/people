@@ -15,7 +15,7 @@ class Project
 
   field :name
   field :slug
-  field :end_at, type: Time
+  field :end_at, type: Date
   field :archived, type: Mongoid::Boolean, default: false
   field :potential, type: Mongoid::Boolean, default: false
   field :internal, type: Mongoid::Boolean, default: false
@@ -130,7 +130,7 @@ class Project
   def set_proper_membership_dates
     memberships.each do |membership|
       if membership.stays
-        membership.update(starts_at: Time.now)
+        membership.update(starts_at: Date.today)
       else
         membership.destroy
       end

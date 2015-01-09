@@ -118,7 +118,7 @@ class UserDecorator < Draper::Decorator
     longest_current_membership = current_memberships.min_by { |m| m.starts_at }
     return 0 if longest_current_membership.nil?
     # 60 seconds * 60 minutes * 24 hours * 30.44 days in a month on average
-    (Time.now - longest_current_membership.starts_at) / (60*60*24*30.44)
+    (Time.now - longest_current_membership.starts_at.to_time) / (60*60*24*30.44)
   end
 
   def flat_memberships

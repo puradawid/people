@@ -76,7 +76,7 @@ describe MembershipsController do
       it 'saves ends_at value as end of day' do
         attributes = params.merge(starts_at: Date.new(2002, 8, 12), ends_at: Date.new(2002, 10, 26))
         post :create, membership: attributes
-        expect(Membership.last.ends_at.to_i).to eq Date.parse('2002-10-26').end_of_day.to_i
+        expect(Membership.last.ends_at).to eq Date.parse('2002-10-26')
       end
     end
 
@@ -94,7 +94,7 @@ describe MembershipsController do
             expect(json_response[key]).to eql params[key]
           end
           %w(starts_at ends_at).each do |key|
-            expect(Time.parse(json_response[key])).to eql Time.parse(params[key])
+            expect(Date.parse(json_response[key])).to eql Date.parse(params[key])
           end
         end
       end
@@ -153,7 +153,7 @@ describe MembershipsController do
         attributes = { ends_at: Date.new(2002, 10, 26) }
         put :update, id: membership, membership: attributes
         membership.reload
-        expect(membership.ends_at.to_i).to eq Date.parse('2002-10-26').end_of_day.to_i
+        expect(membership.ends_at).to eq Date.parse('2002-10-26')
       end
     end
 
@@ -163,12 +163,12 @@ describe MembershipsController do
       before { put :update, id: membership, membership: params, format: :json }
 
       context 'valid params' do
-        let(:params) { { ends_at: Time.new(2002, 10, 26, 15, 2).to_s } }
+        let(:params) { { ends_at: Date.new(2002, 10, 26).to_s } }
 
         its(:status) { should be 200 }
 
         it 'returns json' do
-          expect(Time.parse(json_response['ends_at']).to_s).to eql params[:ends_at]
+          expect(Date.parse(json_response['ends_at']).to_s).to eql params[:ends_at]
         end
       end
 

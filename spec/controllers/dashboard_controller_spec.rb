@@ -6,8 +6,8 @@ describe DashboardController do
   end
 
   describe "#index" do
-    let!(:old_membership) { create(:membership, ends_at: 1.hour.ago) }
-    let!(:new_membership) { create(:membership, ends_at: 1.hour.from_now) }
+    let!(:old_membership) { create(:membership, ends_at: 1.day.ago) }
+    let!(:new_membership) { create(:membership, ends_at: 1.day.from_now) }
 
     before { get :index }
 

@@ -3,8 +3,8 @@ class Membership
   include Mongoid::Timestamps
   include Membership::UserAvailability
 
-  field :starts_at, type: Time
-  field :ends_at, type: Time
+  field :starts_at, type: Date
+  field :ends_at, type: Date
   field :billable, type: Mongoid::Boolean
   field :project_archived, type: Mongoid::Boolean, default: false
   field :project_potential, type: Mongoid::Boolean, default: true
@@ -60,7 +60,7 @@ class Membership
   end
 
   def started?
-    starts_at < Time.now
+    starts_at < Date.today
   end
 
   def terminated?
@@ -75,29 +75,8 @@ class Membership
     (project.kickoff || starts_at).to_date
   end
 
-  def ends_at=(new_date)
-    if new_date.present?
-      ends_at_time = Time.zone.parse(new_date.to_s)
-      ends_at_time = ends_at_time.end_of_day if ends_at_time == ends_at_time.beginning_of_day
-      write_attribute(:ends_at, ends_at_time)
-    else
-      write_attribute(:ends_at, nil)
-    end
-  end
-
-  def starts_at=(new_date)
-    if new_date.present?
-      starts_at_time = Time.zone.parse(new_date.to_s)
-      if starts_at? && starts_at_time == starts_at.beginning_of_day
-        write_attribute(:starts_at, starts_at)
-      else
-        write_attribute(:starts_at, starts_at_time)
-      end
-    end
-  end
-
   def end_now!
-    update(ends_at: Time.now)
+    update(ends_at: Date.today)
   end
 
   private
