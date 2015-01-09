@@ -140,6 +140,20 @@ describe AvailabilityChecker do
       end
     end
 
+    context 'when user has gap between 2 memberships' do
+      let!(:membership) { create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project_without_end_date) }
+      before do
+        create(:membership_billable, starts_at: 4.days.from_now, ends_at: nil, user: user, project: project_without_end_date2)
+        subject.run!
+      end
+
+      it 'changes user availability to true' do
+        expect(user.available).to be_true
+        expect(user.available_since).to eq membership.ends_at.to_date
+      end
+    end
+
+
     context 'when user has internal project' do
       let!(:membership) { create(:membership, ends_at: 1.month.from_now, user: user, project: internal_project) }
       before { subject.run! }
