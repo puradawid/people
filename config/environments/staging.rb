@@ -10,10 +10,9 @@ Hrguru::Application.configure do
   config.assets.compile = false
   config.assets.digest = true
   config.assets.version = '1.0'
-  config.log_level = :info
+  config.log_level = :debug
   config.i18n.fallbacks = true
   config.active_support.deprecation = :notify
-  config.log_formatter = ::Logger::Formatter.new
   config.action_mailer.default_url_options = { host: AppConfig.domain }
   GA.tracker = 'UA-35395053-13'
 
