@@ -30,7 +30,7 @@ class AvailabilityChecker
   end
 
   def has_memberships_or_projects_with_end_date?
-    memberships = current_memberships_without_continuation
+    memberships = memberships_without_continuation
     available_by_membership = memberships.first.try(:ends_at)
 
     projects = current_projects_with_end
@@ -50,11 +50,15 @@ class AvailabilityChecker
     @current_memberships ||= @user.current_memberships.asc(:ends_at)
   end
 
-  def current_memberships_without_continuation
-    current_memberships_with_end.to_a.reject do |membership|
+  def current_billable_memberships
+    current_memberships.where(billable: true)
+  end
+
+  def memberships_without_continuation(memberships = current_memberships_with_end)
+    memberships.to_a.reject do |membership|
       starts_at = next_memberships.pluck(:starts_at).map(&:to_date)
       starts_at_next = starts_at.map{ |date| date - 1 }
-      (starts_at + starts_at_next).include?(membership.ends_at.to_date)
+      (starts_at + starts_at_next).include?(membership.ends_at.try(:to_date))
     end
   end
 
@@ -63,7 +67,8 @@ class AvailabilityChecker
   end
 
   def current_projects
-    @project_ids ||= current_memberships.where(billable: true).pluck(:project_id)
+    @project_ids ||= memberships_without_continuation(current_memberships)
+      .map(&:project_id)
     @current_projects ||= Project.where(:_id.in => @project_ids)
   end
 
