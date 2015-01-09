@@ -113,6 +113,20 @@ describe AvailabilityChecker do
       end
     end
 
+    context 'when user has 2 billable memberships one after another' do
+      context 'and project is ending' do
+        before do
+          create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project_ending)
+          create(:membership_billable, ends_at: nil, starts_at: 3.days.from_now, user: user, project: project_without_end_date)
+          subject.run!
+        end
+        it 'changes user availability to false' do
+          expect(user.available).to be_false
+          expect(user.available_since).to eq(nil)
+        end
+      end
+    end
+
     context 'when user has no gap between 2 memberships' do
       before do
         create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project_without_end_date)
