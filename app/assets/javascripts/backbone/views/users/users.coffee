@@ -9,8 +9,6 @@ class Hrguru.Views.UsersCollectionView extends Marionette.CollectionView
     "click .sort .down" : "decreasingDirection"
 
   initialize: (@collection) ->
-    @listenTo(EventAggregator, 'user:sortAndHighlightEnding', @sortEnding)
-    @listenTo(EventAggregator, 'user:sortBeforePotential', @sortByPotential)
     @on('collection:rendered', H.addUserIndex)
 
   incressingDirection: (e) ->

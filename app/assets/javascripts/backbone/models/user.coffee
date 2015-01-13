@@ -6,6 +6,7 @@ class Hrguru.Models.User extends Backbone.Model
     projects: true
     abilities: true
     months_in_current_project: true
+    availabilityTime: true
 
   membership: null
 
@@ -23,6 +24,7 @@ class Hrguru.Models.User extends Backbone.Model
       @set('daysToEndMembership', @membership.daysToEnd())
 
   updateVisibility: (data) ->
+    @visibleBy.availabilityTime = @visibleByAvailabilityTime(parseInt(data.availability_time))
     @visibleBy.roles = @visibleByRoles(data.roles)
     @visibleBy.projects = @visibleByProjects(data.projects)
     @visibleBy.users = @visibleByUsers(data.users)
@@ -31,31 +33,37 @@ class Hrguru.Models.User extends Backbone.Model
     @trigger 'toggle_visible', @isVisible()
 
   isVisible: ->
-    @visibleBy.roles && @visibleBy.projects && @visibleBy.users &&
+    @visibleBy.availabilityTime && @visibleBy.roles && @visibleBy.projects && @visibleBy.users &&
       @visibleBy.abilities && @isActive() && @visibleBy.months_in_current_project
 
-  visibleByUsers: (users) ->
+  visibleByUsers: (users = '') ->
     return true if users.length < 1
     @id in users
 
-  visibleByRoles: (roles) ->
+  visibleByRoles: (roles = '') ->
     return true if roles.length < 1
     return false unless @get('role')?
     @get('role')._id in roles
 
-  visibleByProjects: (projects) ->
+  visibleByProjects: (projects = '') ->
     return true if projects.length < 1
     return false unless @get('projects')?
     myProjects = @myProjects()
     (_.difference myProjects, projects).length < myProjects.length
 
-  visibleByAbilities: (abilities) ->
+  visibleByAbilities: (abilities = '') ->
     return true if abilities.length < 1
     return false unless @get('abilities')?
     myAbilities = @myAbilities()
     (_.difference myAbilities, abilities).length < myAbilities.length
 
-  visibleByMonthsInCurrentProject: (months) ->
+  visibleByAvailabilityTime: (availability_time) ->
+    return true if availability_time == 0
+    return false unless @get('daysToEndMembership')?
+    return true if isNaN(availability_time)
+    @get('daysToEndMembership') <= availability_time
+
+  visibleByMonthsInCurrentProject: (months = '') ->
     return true if months == 0
     @isInProjectForMoreThanMonths(months)
 
@@ -107,10 +115,10 @@ class Hrguru.Collections.Users extends Backbone.Collection
   model: Hrguru.Models.User
   url: Routes.users_path()
 
-  sortAttribute: 'name'
+  sortAttribute: 'available_since'
   sortDirection: 1
 
-  sortUsers: (attr, direction = 1) ->
+  sortUsers: (attr, direction) ->
     @sortAttribute = attr
     @sortDirection = direction
     @sort()
@@ -119,13 +127,39 @@ class Hrguru.Collections.Users extends Backbone.Collection
   comparator: (a, b) ->
     a = a.get(@sortAttribute)
     b = b.get(@sortAttribute)
+
     a = '' unless a
     b = '' unless b
 
+    if isNaN(a) && isNaN(b)
+      @compareStrings(a, b)
+    else
+      @compareNumbers(a, b)
+
+  compareStrings: (a, b) ->
     if @sortDirection is 1
       a.localeCompare(b)
     else
-      b.localeCompare(a)
+      -a.localeCompare(b)
+
+  compareNumbers: (a, b) ->
+    result = 0
+    if a >= b
+      result = 1
+    else
+      result = -1
+    if @sortDirection is 1
+      result
+    else
+      -result
+
+
+  numbers_comparator: (a, b) ->
+    if a >= b
+      1
+    else
+      -1
+
 
   active: ->
     filtered = @filter((user) ->

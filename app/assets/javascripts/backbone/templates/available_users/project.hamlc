@@ -1,0 +1,22 @@
+%div.inline.project{ class: "#{'potential' if @project.potential}" }
+  - if @is_role_technical
+    - if @project.potential
+      %i.glyphicon.glyphicon-asterisk.potential
+    - if @project.internal
+      %i.glyphicon.glyphicon-cloud.internal
+    - unless @membership.billable
+      %i.glyphicon.glyphicon-exclamation-sign.notbillable
+  != @link_to @project.name, Routes.project_path(@project._id)
+  - if @show_dates
+    = moment(@membership.starts_at).format 'YYYY-MM-DD'
+  - if @show_start_date && @show_end_date && @membership.ends_at
+    %time
+      = moment(@membership.starts_at).format 'YYYY-MM-DD'
+      = "..."
+      = moment(@membership.ends_at).format 'YYYY-MM-DD'
+  - else if @show_start_date
+    %time
+      = moment(@membership.starts_at).format 'YYYY-MM-DD'
+  - else if @show_end_date && @membership.ends_at
+    %time
+      = moment(@membership.ends_at).format 'YYYY-MM-DD'

@@ -1,27 +1,22 @@
-class Hrguru.Views.AvailableUsersIndex extends Marionette.View
-
+class Hrguru.Views.AvailableUsersIndex extends Backbone.View
   el: '#main-container'
 
   initialize: ->
-    @setSorterParser()
-    $('table').tablesorter
-      headers:
-        3:
-          sorter: 'available'
-      sortList: [[3,0]]
-    @setUserNotesModalHandlers()
+    @createCollections()
+    @createViews()
+    @defaultSorting()
 
-  setSorterParser: ->
-    $.tablesorter.addParser
-      id: 'available'
-      is: (s) ->
-        false
-      format: (s) ->
-        s.replace(/since now/, '0')
-      type: 'date'
+  createCollections: ->
+    @users = new Hrguru.Collections.Users(gon.users)
+    @active_users = @users.active()
+    @projects = new Hrguru.Collections.Projects(gon.projects)
+    @roles = new Hrguru.Collections.Roles(gon.roles)
 
-  setUserNotesModalHandlers: ->
-    $('a.user-notes').click (e) ->
-      e.preventDefault()
-      user_notes = e.target.getAttribute('data-user-notes')
-      $('.user-notes-content').text(user_notes)
+  createViews: ->
+    @filters_view = new Hrguru.Views.AvailableUsersFilters(gon.availability_time)
+    @filters_view.render()
+    @tbodyView = new Hrguru.Views.AvailableUsersCollectionView(@users)
+    @tbodyView.render()
+
+  defaultSorting: ->
+    $('.default').click()

@@ -19,6 +19,32 @@ body.available_users {
 
       i.potential { color: #D8A31D; }
       i.notbillable { color: #D81D1D; }
+
+      p.columnName {
+        float: left;
+        margin: 5px 5px 0px 5px;
+      }
+
+      .sort {
+        float: left;
+
+        .down {
+          margin-left: -1px;
+        }
+
+        .up, .down {
+          display: block;
+          &:hover {
+            color: gray;
+            cursor: pointer;
+          }
+
+          &.active {
+            color: blue;
+            cursor: default;
+          }
+        }
+      }
     }
 
     .employment-container {

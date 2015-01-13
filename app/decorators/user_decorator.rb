@@ -137,6 +137,10 @@ class UserDecorator < Draper::Decorator
     @next_projects_json ||= projects_json(next_memberships)
   end
 
+  def booked_projects_json
+    @booked_projects_json ||= projects_json(booked_memberships)
+  end
+
   def potential_projects_json
     @potential_projects_json ||= projects_json(potential_memberships)
   end

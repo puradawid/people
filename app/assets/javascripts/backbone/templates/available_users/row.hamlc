@@ -1,0 +1,27 @@
+%td
+  %img{ src: @gravatar }
+%td
+  != @profile_link(@, Routes.user_path(@id))
+  .icons
+    %a{ href: "mailto:#{@email}" }
+      != @icon 'envelope-o'
+    != @github
+    != @skype
+%td
+  != @role.name if @role
+%td
+  - if @daysToEndMembership < 0
+    %p.ready.btn-success.img-thumbnail Ready
+  - else
+    .number_days.img-circle!= @daysToEndMembership
+    %p.lowercase= _.pluralize "Day", @daysToEndMembership, showNumber: false
+%td
+  .projects-region
+%td
+  .next_projects-region
+%td
+  .booked_projects-region
+%td.user-notes
+  - if @notes
+    %button.btn.btn-primary.user-notes{ data: { toggle: 'modal', target: '.user-notes-modal', 'user-notes': @notes} }
+      Show notes

@@ -1,43 +1,26 @@
-.container
+#filters
+  .filters
+    .availability_time
+      %select{ name: 'availability_time', placeholder: 'Only show users available in...'}
 
-  %table.table.table-striped.table-hover#available_users
-    %thead
-      %th
-      %th User
-      %th Role
-      %th Available
-      %th Current project
-      %th Next Projects
-      %th Booked
-      %th Notes
+%table.table.table-striped.table-hover#available_users
+  %thead
+    %th
+    %th
+      %p.columnName User
+      .sort
+        .up.glyphicon.glyphicon-chevron-up{ data: { sort: 'name' } }
+        .down.glyphicon.glyphicon-chevron-down{ data: { sort: 'name' } }
+    %th Role
+    %th
+      %p.columnName
+        Available
+        .sort
+          .up.glyphicon.glyphicon-chevron-up.active.default{ data: { sort: 'daysToEndMembership' } }
+          .down.glyphicon.glyphicon-chevron-down{ data: { sort: 'daysToEndMembership' } }
+    %th Current project
+    %th Next Projects
+    %th Booked
+    %th Notes
 
-    %tbody
-      - users.each do |user|
-        %tr
-          %td= user.gravatar_image(size: :thumb)
-          %td
-            = profile_link user
-            .icons
-              = mail_to user.email do
-                = icon 'envelope-o'
-              = user.github_link(icon: true)
-              = user.skype_link()
-          %td= user.role
-          %td= user.availability_string
-          %td
-            - if user.current_projects_json.present?
-              - user.current_projects_json.each do |project|
-                .project
-                  = link_to project, project_path(project)
-          %td
-            = render partial: 'membership', collection: user.last_membership
-            = 'Next:' if user.has_next_projects?
-            = render partial: 'membership', collection: user.next_memberships
-            = 'Potential:' if user.has_potential_projects?
-            = render partial: 'membership', collection: user.potential_memberships
-          %td
-            = render partial: 'membership', collection: user.booked_memberships
-          %td.user-notes
-            - if user.user_notes.present?
-              = render partial: 'user_notes_link', locals: { user: user }
-  = render partial: 'user_notes'
+= render partial: 'user_notes'
