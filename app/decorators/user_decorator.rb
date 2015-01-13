@@ -96,12 +96,12 @@ class UserDecorator < Draper::Decorator
   end
 
   def archived_projects
-    memberships_by_project.select{ |project, _membership| project.archived? }
+    memberships_by_project.select{ |project, _membership| project.archived?}
       .sort_by { |_project, memberships| memberships.first.starts_at }
   end
 
   def unarchived_projects
-    memberships_by_project.select{ |project, _membership| !project.archived? }
+    memberships_by_project.select{ |project, _membership| !project.archived? && actual(project) }
       .sort_by { |_project, memberships| memberships.first.starts_at }
   end
 
@@ -187,6 +187,11 @@ class UserDecorator < Draper::Decorator
   def project_end_date
     return current_project_end_date if proper_date(current_project_end_date) &&
       current_project_end_date >= Time.now
+  end
+
+  def actual(project)
+    return true unless project.end_at.present?
+    project.end_at > Time.now
   end
 
 end
