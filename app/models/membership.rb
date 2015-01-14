@@ -60,7 +60,7 @@ class Membership
   end
 
   def started?
-    starts_at < Date.today
+    starts_at <= Date.today
   end
 
   def terminated?

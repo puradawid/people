@@ -55,6 +55,7 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
         kickoff: @ui.kickoff.val()
         archived: false
         project_type: project_type
+        memberships_attributes: membershipsArray
       memberships: membershipsArray
     @collection.create attributes,
        wait: true
@@ -69,7 +70,6 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     , { this: @, membershipsArray: membershipsArray }
     membershipsArray
 
-
   newMembership: (user, membershipsArray) ->
     role_id =  @all_users.get(user).attributes.role_id
     membership_attribute =
@@ -80,30 +80,12 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     membershipsArray.push(membership_attribute)
 
   projectCreated: (project) =>
-    #@createMemberships(project)
     project_name = project.get('name')
     Messenger().success("#{project_name} has been created")
     @toggleFormClass()
 
   selectizeUsers: =>
     @developers_selectize.getValue() + ',' + @qas_selectize.getValue() + ',' + @pms_selectize.getValue()
-
-  createMemberships: (project) ->
-    _.each @selectizeUsers().split(","), (user) ->
-      return if user.length < 1
-      @['this'].addToProject(@['project'], user)
-    , { this: @, project: project }
-
-  addToProject: (project, user) ->
-    role_id = @all_users.get(user).attributes.role_id
-    attributes =
-      membership :
-        starts_at: Date()
-        user_id: user
-        project_id: project.id
-        role_id: role_id
-        billable: @roles.get(role_id).get('billable')
-    @collection.get(project).attributes.memberships.create(attributes)
 
   removeFromSelectize: (user) ->
     @developers_selectize.removeOption(user)
