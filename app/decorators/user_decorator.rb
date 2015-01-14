@@ -1,5 +1,8 @@
 class UserDecorator < Draper::Decorator
 
+  # 60 seconds * 60 minutes * 24 hours * 30.44 days in a month on average
+  DAYS_IN_MONTH = 60 * 60 * 24 * 30.44
+
   decorates :user
   decorates_association :memberships, scope: :only_active
   delegate_all
@@ -157,9 +160,6 @@ class UserDecorator < Draper::Decorator
   end
 
   private
-
-  # 60 seconds * 60 minutes * 24 hours * 30.44 days in a month on average
-  DAYS_IN_MONTH = 60 * 60 * 24 * 30.44
 
   def proper_date(date)
     date.present? && date.to_date < 4.weeks.from_now

@@ -1,7 +1,6 @@
 class ProjectsController < ApplicationController
   include Shared::RespondsController
 
-
   expose(:project, attributes: :project_params)
   expose(:projects_sorted) do
     if params[:search].present?
