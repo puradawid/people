@@ -31,12 +31,12 @@ class AvailableUsersController < ApplicationController
   def availability_time
     result = []
     result << { value: 0, text: "Now" }
-    result << { value: 7, text: "1 week" }
-    result << { value: 14, text: "2 weeks" }
-    result << { value: 28, text: "4 weeks" }
-    result << { value: 31, text: "1 month" }
-    result << { value: 61, text: "2 months" }
-    result << { value: 92, text: "3 months" }
+    result << { value: (1.week.from_now.to_date - Date.today).to_i, text: "1 week" }
+    result << { value: (2.weeks.from_now.to_date - Date.today).to_i, text: "2 weeks" }
+    result << { value: (4.weeks.from_now.to_date - Date.today).to_i, text: "4 weeks" }
+    result << { value: (1.month.from_now.to_date - Date.today).to_i, text: "1 month" }
+    result << { value: (2.months.from_now.to_date - Date.today).to_i, text: "2 months" }
+    result << { value: (3.months.from_now.to_date - Date.today).to_i, text: "3 months" }
     result
   end
 end

@@ -37,22 +37,22 @@ class Hrguru.Models.User extends Backbone.Model
       @visibleBy.abilities && @isActive() && @visibleBy.months_in_current_project
 
   visibleByUsers: (users = '') ->
-    return true if users.length < 1
+    return true if users.length == 0
     @id in users
 
   visibleByRoles: (roles = '') ->
-    return true if roles.length < 1
+    return true if roles.length == 0
     return false unless @get('role')?
     @get('role')._id in roles
 
   visibleByProjects: (projects = '') ->
-    return true if projects.length < 1
+    return true if projects.length == 0
     return false unless @get('projects')?
     myProjects = @myProjects()
     (_.difference myProjects, projects).length < myProjects.length
 
   visibleByAbilities: (abilities = '') ->
-    return true if abilities.length < 1
+    return true if abilities.length == 0
     return false unless @get('abilities')?
     myAbilities = @myAbilities()
     (_.difference myAbilities, abilities).length < myAbilities.length
