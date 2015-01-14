@@ -117,8 +117,7 @@ class UserDecorator < Draper::Decorator
   def months_in_current_project
     longest_current_membership = current_memberships.min_by { |m| m.starts_at }
     return 0 if longest_current_membership.nil?
-    # 60 seconds * 60 minutes * 24 hours * 30.44 days in a month on average
-    (Time.now - longest_current_membership.starts_at.to_time) / (60*60*24*30.44)
+    (Time.now - longest_current_membership.starts_at.to_time) / @@days_in_month
   end
 
   def flat_memberships
@@ -159,6 +158,9 @@ class UserDecorator < Draper::Decorator
 
   private
 
+  # 60 seconds * 60 minutes * 24 hours * 30.44 days in a month on average
+  @@days_in_month = 60*60*24*30.44
+
   def proper_date(date)
     date.present? && date.to_date < 4.weeks.from_now
   end
@@ -193,5 +195,9 @@ class UserDecorator < Draper::Decorator
     return true unless project.end_at.present?
     project.end_at > Time.now
   end
+
+  #def days_in_month
+  #  60*60*24*30.44
+  #end
 
 end
