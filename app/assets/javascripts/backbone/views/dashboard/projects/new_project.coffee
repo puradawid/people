@@ -38,6 +38,8 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     @clearInputs()
 
   addProject: ->
+    membershipsArray = []
+    membershipsArray = @membershipsAsArray()
     project_type =
       switch(@ui.project_type_select.val())
         when 'Regular' then 'regular'
@@ -53,17 +55,35 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
         kickoff: @ui.kickoff.val()
         archived: false
         project_type: project_type
+      memberships: membershipsArray
     @collection.create attributes,
        wait: true
        success: @projectCreated
        error: @projectError
 
+  membershipsAsArray: () ->
+    membershipsArray = []
+    _.each @selectizeUsers().split(","), (user) ->
+      return if user.length < 1
+      @['this'].newMembership(user, membershipsArray)
+    , { this: @, membershipsArray: membershipsArray }
+    membershipsArray
+
+
+  newMembership: (user, membershipsArray) ->
+    role_id =  @all_users.get(user).attributes.role_id
+    membership_attribute =
+      starts_at: Date()
+      user_id: user
+      role_id: role_id
+      billable: @roles.get(role_id).get('billable')
+    membershipsArray.push(membership_attribute)
+
   projectCreated: (project) =>
-    @createMemberships(project)
+    #@createMemberships(project)
     project_name = project.get('name')
     Messenger().success("#{project_name} has been created")
     @toggleFormClass()
-    location.reload()
 
   selectizeUsers: =>
     @developers_selectize.getValue() + ',' + @qas_selectize.getValue() + ',' + @pms_selectize.getValue()

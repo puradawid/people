@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   include Shared::RespondsController
 
+
   expose(:project, attributes: :project_params)
   expose(:projects_sorted) do
     if params[:search].present?
@@ -50,7 +51,7 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:name, :slug, :end_at, :archived, :potential,
       :kickoff, :project_type, :toggl_bookmark, :internal,
-      memberships_attributes: [:id, :stays])
+      memberships_attributes: [:id, :stays, :user_id, :role_id, :starts_at, :billable])
   end
 
   def get_events
