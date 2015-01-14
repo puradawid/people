@@ -196,8 +196,4 @@ class UserDecorator < Draper::Decorator
     project.end_at > Time.now
   end
 
-  #def days_in_month
-  #  60*60*24*30.44
-  #end
-
 end
