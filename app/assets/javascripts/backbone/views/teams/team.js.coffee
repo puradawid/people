@@ -20,7 +20,10 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
       observe: 'team_join_time'
       update: ($el, val, model, options) ->
         val = if val then val else 0
-        days_count = Math.floor((new Date() - Date.parse(val)) / 86400000)
+        if val == 0
+          days_count = 0
+        else
+          days_count = Math.floor((new Date() - Date.parse(val)) / 86400000)
         duration = switch
           when 60 > days_count > 30 then "1 month"
           when days_count >= 60 then "#{Math.floor(days_count / 30)} months"
@@ -93,7 +96,7 @@ class Hrguru.Views.TeamMembers extends Backbone.Marionette.CollectionView
       error: @memberError
 
   memberExcluded: (member) =>
-    Messenger().success("We successfully exluded #{member.get('name')} from #{@model.get('name')}!")
+    Messenger().success("We successfully excluded #{member.get('name')} from #{@model.get('name')}!")
     @refreshTeamUsers()
     @updateNoTeamUsers(member)
     @trigger('leader_set', @children.findByModel(member)) if member._previousAttributes.leader_team_id?
@@ -147,6 +150,8 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
 
   ui:
     form: '.js-team-member-new'
+    devsCounter: '.devs'
+    juniorsCounter: '.jnrs'
 
   events:
     'click .js-add-member': 'toggleMemberForm'
@@ -154,6 +159,9 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
 
   modelEvents:
     'change:name' : 'render'
+
+  devs: 0
+  juniors: 0
 
   initialize: (options) ->
     @users = options.users
@@ -167,6 +175,31 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
     @refreshSelectizeOptions()
     @renderMembersRegion()
     @renderLeaderRegion()
+
+  countDevsAndJuniors: ->
+    team_members = _.filter @users.models, (user) =>
+      user.get('team_id') is @model.id
+    @devs = @countDevs(team_members)
+    @juniors = @countJuniors(team_members)
+
+  countDevs: (team_members) ->
+    dev_role_id = (_.filter @roles.models, (role) =>
+      role.get('name') is 'developer')[0].id
+    senior_role_id = (_.filter @roles.models, (role) =>
+      role.get('name') is 'senior')[0].id
+    devs_array = _.filter team_members, (user) =>
+      user.get('role_id') is dev_role_id or
+      user.get('role_id') is senior_role_id
+    @ui.devsCounter.text(devs_array.length)
+    devs_array.length
+
+  countJuniors: (team_members) ->
+    junior_role_id = (_.filter @roles.models, (role) =>
+      role.get('name') is 'junior')[0].id
+    juniors_array = _.filter team_members, (user) =>
+      user.get('role_id') is junior_role_id
+    @ui.juniorsCounter.text(juniors_array.length)
+    juniors_array.length
 
   highlight: (class_name) ->
     leader_cell = $(@leaderRegion.$el)
@@ -194,7 +227,6 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
   addMember: (value, item) =>
     member = _.find @users.models, (u) ->
       u.get('id') is value
-
     member.save team_id: @model.id,
       wait: true
       success: @memberAdded
@@ -210,6 +242,7 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
     Messenger().error(xhr.responseJSON.errors)
 
   refreshSelectizeOptions: ->
+    @countDevsAndJuniors()
     selected = _.compact(@membersView.collection.pluck('id'))
     to_select = @users.select (model) -> !(model.get('team_id')?)
     @selectize_options = to_select.map (model) -> model.toJSON()
