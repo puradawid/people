@@ -1,11 +1,11 @@
 %article.team
   %header
-    .team-avatar
-      TN
+    .team-avatar{style: "background-color: #{@model.colour}"}
+      = @model.initials
     %h3= @model.name
     %p.devs-indicator
-      %span.devs= @devs
-      %span.jnrs= @jnrs
+      %span.devs
+      %span.jnrs
     - if H.currentUserIsAdmin()
       .admin-section
         %span.js-edit-team.glyphicon.glyphicon-pencil

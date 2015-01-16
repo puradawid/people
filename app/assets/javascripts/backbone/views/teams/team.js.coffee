@@ -160,9 +160,6 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
   modelEvents:
     'change:name' : 'render'
 
-  devs: 0
-  juniors: 0
-
   initialize: (options) ->
     @users = options.users
     @roles = options.roles
@@ -179,8 +176,8 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
   countDevsAndJuniors: ->
     team_members = _.filter @users.models, (user) =>
       user.get('team_id') is @model.id
-    @devs = @countDevs(team_members)
-    @juniors = @countJuniors(team_members)
+    @countDevs(team_members)
+    @countJuniors(team_members)
 
   countDevs: (team_members) ->
     dev_role_id = (_.filter @roles.models, (role) =>
@@ -191,7 +188,6 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
       user.get('role_id') is dev_role_id or
       user.get('role_id') is senior_role_id
     @ui.devsCounter.text(devs_array.length)
-    devs_array.length
 
   countJuniors: (team_members) ->
     junior_role_id = (_.filter @roles.models, (role) =>
@@ -199,7 +195,6 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
     juniors_array = _.filter team_members, (user) =>
       user.get('role_id') is junior_role_id
     @ui.juniorsCounter.text(juniors_array.length)
-    juniors_array.length
 
   highlight: (class_name) ->
     leader_cell = $(@leaderRegion.$el)
