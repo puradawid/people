@@ -11,6 +11,7 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
     sync: 'refreshView'
 
   initialize: (options) ->
+    @showAddMembership = !@collection.parents[0].attributes.archived
     { @users, @roles, @model, @collection } = options
     [@billable, @nonBillable] = @getUsers()
     @refreshSelectizeOptions()
@@ -18,7 +19,8 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
     @listenTo(@collection, 'membership:updated:billable', @updateCollections)
 
   serializeData: ->
-    $.extend(super, { billableCount: @billable.length, nonBillableCount: @nonBillable.length })
+    $.extend(super, { billableCount: @billable.length, nonBillableCount: @nonBillable.length,
+    showAddMembership: @showAddMembership })
 
   getUsers: ->
     billable = new Hrguru.Collections.Memberships
@@ -31,6 +33,7 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
     [billable, non_billable]
 
   refreshView: ->
+    @showAddMembership = !@collection.parents[0].attributes.archived
     @.render()
     @refreshSelectizeOptions()
     @model.trigger('members:change', @model)
@@ -54,7 +57,7 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
   onRender: ->
     @renderBillableRegion()
     @renderNonBillableRegion()
-    return unless H.currentUserIsAdmin()
+    return unless H.currentUserIsAdmin() && @showAddMembership
     selectize = @$('.new-membership input').selectize
       create: false
       valueField: 'id'
@@ -62,6 +65,8 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
       searchField: 'name'
       options: @selectize_options
       onItemAdd: (value, item) => @newMembership(value, item)
+    if selectize[0] == undefined
+      debugger
     @selectize = selectize[0].selectize
     @fillEditPopups()
 

@@ -29,6 +29,7 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
     @listenTo(EventAggregator, 'projects:toggleByType', @toggleByType)
     @listenTo(EventAggregator, 'projects:toggleByUsers', @toggleByUsers)
     @listenTo(EventAggregator, 'project:highlightEnding', @highlightEnding)
+    debugger
 
   onRender: ->
     @renderNotesRegion()
@@ -103,6 +104,7 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
         if value
           _.each @model.get('memberships').unFinished().models, (membership) ->
             membership.trigger('membership:ended')
+        @renderMembershipsRegion()
         Messenger().success("Project has been #{message}")
         @$el.toggleClass('archived', value)
         @$el.hide()

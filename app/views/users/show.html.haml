@@ -53,7 +53,7 @@
           .row
             .col-sm-6
               = f.input :starts_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
-              = f.association :project, collection: projects, include_blank: false
+              = f.association :project, collection: unarchived_projects, include_blank: false
             .col-sm-6
               = f.input :ends_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
               = f.association :role, collection: roles, include_blank: false
