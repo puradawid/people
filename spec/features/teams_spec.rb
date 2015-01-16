@@ -3,10 +3,11 @@ require 'spec_helper'
 describe 'team view', js: true do
   let(:billable_role) { create(:role_billable) }
   let(:admin_role) { create(:admin_role) }
-  let(:non_dev_role) { create(:role) }
-  let(:dev_role) { create(:role) }
+  let(:non_dev_role) { create(:role, name: 'junior qa') }
   let(:hidden_role) { create(:role, show_in_team: false)}
   let(:user) { create(:user, admin_role_id: admin_role.id) }
+  let!(:dev_role) { create(:role, name: 'developer') }
+  let!(:junior_role) { create(:role, name: 'junior') }
   let!(:dev_user) { create(:user, first_name: 'Developer Daisy', admin_role_id: admin_role.id, role_id: billable_role.id) }
   let!(:non_dev_user) { create(:user, first_name: 'Nondev Nigel', role_id: non_dev_role.id) }
   let!(:archived_user) { create(:user, first_name: 'Archived Arthur', archived: true) }

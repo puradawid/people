@@ -8,7 +8,7 @@ FactoryGirl.define do
     end
 
     factory :role_billable do
-      name { %w(senior developer).sample }
+      name 'senior'
       billable 1
       technical true
     end
