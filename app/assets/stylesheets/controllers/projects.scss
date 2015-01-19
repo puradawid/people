@@ -153,6 +153,8 @@ $project-height: 45px;
     display: inline-block;
     color: $gray;
     vertical-align: top;
+    position: absolute;
+    z-index: 2;
   }
 
   .glyphicon {
