@@ -33,7 +33,7 @@ describe Api::V1::UsersController do
     end
 
     it 'contains current user fields' do
-      expect(@json_response.first.keys).to eq(user_keys)
+      expect(@json_response.first.keys.sort).to eq(user_keys.sort)
     end
 
     context 'in each membership' do
@@ -59,7 +59,7 @@ describe Api::V1::UsersController do
       end
 
       it "contains current_week fields" do
-        expect(@json_response.keys).to eq(user_keys)
+        expect(@json_response.keys.sort).to eq(user_keys.sort)
       end
     end
   end
