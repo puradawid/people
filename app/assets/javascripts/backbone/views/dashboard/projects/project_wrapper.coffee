@@ -29,7 +29,6 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
     @listenTo(EventAggregator, 'projects:toggleByType', @toggleByType)
     @listenTo(EventAggregator, 'projects:toggleByUsers', @toggleByUsers)
     @listenTo(EventAggregator, 'project:highlightEnding', @highlightEnding)
-    debugger
 
   onRender: ->
     @renderNotesRegion()

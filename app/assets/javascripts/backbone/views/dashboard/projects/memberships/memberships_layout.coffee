@@ -65,8 +65,6 @@ class Hrguru.Views.Dashboard.MembershipsLayout extends Marionette.Layout
       searchField: 'name'
       options: @selectize_options
       onItemAdd: (value, item) => @newMembership(value, item)
-    if selectize[0] == undefined
-      debugger
     @selectize = selectize[0].selectize
     @fillEditPopups()
 
