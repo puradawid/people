@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   before_filter :authenticate_admin!, only: [:update], unless: -> { current_user? }
 
   def index
-    gon.rabl as: 'users'
+    gon.users = Rabl.render(users, 'users/index', view_path: 'app/views', format: :hash)
     gon.rabl template: 'app/views/users/projects', as: 'projects'
     gon.roles = roles
     gon.admin_role = admin_role

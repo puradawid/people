@@ -12,7 +12,7 @@ class AvailableUsersController < ApplicationController
   expose(:positions) { PositionDecorator.decorate_collection(user.positions) }
 
   def index
-    gon.rabl as: 'users'
+    gon.users = Rabl.render(users, 'available_users/index', view_path: 'app/views', format: :hash)
     gon.rabl template: 'app/views/users/projects', as: 'projects'
     gon.roles = roles
     gon.admin_role = admin_role
