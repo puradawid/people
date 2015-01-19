@@ -97,6 +97,10 @@ class User
     User.create!(attributes)
   end
 
+  def self.cache_key
+    self.max(:updated_at)
+  end
+
   def github_connected?
     gh_nick.present? || without_gh == true
   end
