@@ -40,6 +40,7 @@ Get started: https://devcenter.heroku.com/articles/getting-started-with-rails4
  * after logging in, go to your Profile's settings and update your role to 'senior' or 'pm'
  * by default only 'pm' and 'senior' roles have admin privilages - creating new projects, managing privileges, memberships etc.
  * optionally update your emails and company_name
+ * after deploy run `rake team:set_fields` - it sets avatars and team colors.
 
 ## Dev auth setup
 
