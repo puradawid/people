@@ -8,10 +8,10 @@
 
         %span.action
           - if H.currentUserIsAdmin()
-            %span.unarchive.glyphicon.glyphicon-folder-open
-            %span.archive.glyphicon.glyphicon-folder-close
-            %span.js-timeline-show.glyphicon.glyphicon-time
-            %span.js-timeline-hide.glyphicon.glyphicon-time
+            .unarchive.glyphicon.glyphicon-folder-open
+            .archive.glyphicon.glyphicon-folder-close
+            .js-timeline-show.glyphicon.glyphicon-time
+            .js-timeline-hide.glyphicon.glyphicon-time
         - if @end_at
           .time
             %time= moment(@end_at).fromNow()
