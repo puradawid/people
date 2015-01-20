@@ -12,7 +12,7 @@ class AvailableUsersController < ApplicationController
   expose(:positions) { PositionDecorator.decorate_collection(user.positions) }
 
   def index
-    gon.users = Rabl.render(users, 'available_users/index', view_path: 'app/views', format: :hash)
+    gon.users = Rabl.render(available_users, 'available_users/index', view_path: 'app/views', format: :hash)
     gon.rabl template: 'app/views/users/projects', as: 'projects'
     gon.roles = roles
     gon.admin_role = admin_role
@@ -30,7 +30,7 @@ class AvailableUsersController < ApplicationController
 
   def availability_time
     result = []
-    result << { value: 0, text: "Now" }
+    result << { value: 0, text: "From now" }
     result << { value: (1.week.from_now.to_date - Date.today).to_i, text: "1 week" }
     result << { value: (2.weeks.from_now.to_date - Date.today).to_i, text: "2 weeks" }
     result << { value: (4.weeks.from_now.to_date - Date.today).to_i, text: "4 weeks" }

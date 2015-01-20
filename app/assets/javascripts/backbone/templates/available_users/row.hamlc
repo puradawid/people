@@ -11,10 +11,9 @@
   != @role.name if @role
 %td
   - if @daysToEndMembership < 0
-    %p.ready.btn-success.img-thumbnail Ready
+    %p.ready Now
   - else
-    .number_days.img-circle!= @daysToEndMembership
-    %p.lowercase= _.pluralize "Day", @daysToEndMembership, showNumber: false
+    != @available_since
 %td
   .projects-region
 %td
