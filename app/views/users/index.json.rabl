@@ -1,6 +1,6 @@
 collection @users
 
-cache User.cache_key, @users
+cache "users_#{User.cache_key}", @users
 
 extends "users/base"
 
