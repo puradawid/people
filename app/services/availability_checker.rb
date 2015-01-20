@@ -15,7 +15,7 @@ class AvailabilityChecker
 
   def available?
     has_no_memberships? ||
-      has_non_billable_membership? ||
+      ( has_non_billable_membership? && has_not_billable_membership? ) ||
       has_memberships_or_projects_with_end_date?
   end
 
@@ -27,6 +27,15 @@ class AvailabilityChecker
   def has_non_billable_membership?
     @available_since = Date.today
     current_memberships.where(billable: false).present?
+  end
+
+  def has_not_billable_membership?
+    # it also checks if user has billable membership with end date
+
+    billable = current_memberships.where(billable: true)
+    billable_with_end_date = current_memberships.where(billable: true, :ends_at.ne => nil)
+
+    billable.empty? || billable_with_end_date.present?
   end
 
   def has_memberships_or_projects_with_end_date?
