@@ -25,8 +25,20 @@ class AvailabilityChecker
   end
 
   def has_non_billable_membership?
-    @available_since = Date.today
-    current_memberships.where(billable: false).present?
+    memberships = current_memberships.where(billable: false)
+
+    if memberships.present?
+      ends_at_max = memberships.pluck(:ends_at).max
+      if ends_at_max.present?
+        @available_since = ends_at_max
+      else
+        @available_since = Date.today
+      end
+    else
+      @available_since = Date.today
+    end
+
+    memberships.present?
   end
 
   def has_not_billable_membership?
