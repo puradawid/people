@@ -52,12 +52,15 @@ class AvailabilityChecker
 
   def has_memberships_or_projects_with_end_date?
     memberships = memberships_without_continuation
-    available_by_membership = memberships.first.try(:ends_at)
+    available_by_membership = memberships.map(&:ends_at)
 
     projects = current_projects_with_end
-    available_by_project = projects.first.try(:end_at)
+    available_by_project = projects.map(&:end_at)
 
-    dates = [available_by_membership, available_by_project].reject(&:blank?)
+    next_memberships = @next_memberships.map(&:ends_at)
+
+
+    dates = (available_by_membership + available_by_project + next_memberships).reject(&:blank?)
 
     @available_since = dates.max
     memberships.present? || projects.present?

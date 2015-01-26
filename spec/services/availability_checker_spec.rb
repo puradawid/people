@@ -132,7 +132,7 @@ describe AvailabilityChecker do
 
         it 'changes user availability to true' do
           expect(user.available).to be_true
-          expect(user.available_since).to eq(project_ending.end_at)
+          expect(user.available_since).to eq(project.end_at)
         end
       end
     end
@@ -172,6 +172,19 @@ describe AvailabilityChecker do
       end
 
       it 'changes user availability to true' do
+        expect(user.available).to be_true
+        expect(user.available_since).to eq membership.ends_at.to_date
+      end
+    end
+
+    context 'when user has next project' do
+      let!(:membership) { create(:membership_billable, starts_at: 3.days.from_now, ends_at: 2.months.from_now, user: user, project: project_without_end_date) }
+      before do
+        create(:membership_billable, ends_at: 1.day.from_now, user: user, project: project_without_end_date2)
+        subject.run!
+      end
+
+      it 'changes user available since to last possible date' do
         expect(user.available).to be_true
         expect(user.available_since).to eq membership.ends_at.to_date
       end
