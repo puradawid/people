@@ -59,7 +59,7 @@ class AvailabilityChecker
 
     dates = [available_by_membership, available_by_project].reject(&:blank?)
 
-    @available_since = dates.min
+    @available_since = dates.max
     memberships.present? || projects.present?
   end
 
