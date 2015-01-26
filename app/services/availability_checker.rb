@@ -28,7 +28,7 @@ class AvailabilityChecker
     memberships = current_memberships.where(billable: false)
 
     if memberships.present?
-      ends_at_max = memberships.pluck(:ends_at).max
+      ends_at_max = memberships.pluck(:ends_at).compact.max
       if ends_at_max.present?
         @available_since = ends_at_max
       else
