@@ -67,7 +67,7 @@ class AvailabilityChecker
   end
 
   def current_memberships_with_end
-    @current_memberships_with_end ||= current_memberships.where(:ends_at.ne => nil)
+    @current_memberships_with_end ||= current_memberships.where(billable: true, :ends_at.ne => nil)
   end
 
   def current_memberships
@@ -91,7 +91,7 @@ class AvailabilityChecker
   end
 
   def current_projects
-    @project_ids ||= memberships_without_continuation(current_memberships)
+    @project_ids ||= memberships_without_continuation(current_billable_memberships)
       .map(&:project_id)
     @current_projects ||= Project.where(:_id.in => @project_ids)
   end

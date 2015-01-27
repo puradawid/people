@@ -86,13 +86,17 @@ describe AvailabilityChecker do
     end
 
     context 'when user has nonbillable membership and billable membership without end date' do
-      before do
-        create(:membership, ends_at: nil, user: user, project: project_without_end_date)
-        create(:membership_billable, ends_at: nil, user: user, project: project_without_end_date2)
-        subject.run!
-      end
+      let!(:membership) { create(:membership, ends_at: nil, user: user, project: project_without_end_date) }
+      let!(:membership_billable) { create(:membership_billable, ends_at: nil, user: user, project: project_without_end_date2) }
 
       it 'changes user availability to false' do
+        subject.run!
+        expect(user.available).to be_false
+      end
+
+      it 'changes user availability to false if nonbillable project is with end date' do
+        membership.project.update_attributes(end_at: 2.months.from_now)
+        subject.run!
         expect(user.available).to be_false
       end
     end
