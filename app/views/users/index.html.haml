@@ -19,7 +19,7 @@
     %th
       %p.columnName User
       .sort
-        .up.glyphicon.glyphicon-chevron-up.active{ data: { sort: 'name' } }
+        .up.glyphicon.glyphicon-chevron-up.active.default{ data: { sort: 'name' } }
         .down.glyphicon.glyphicon-chevron-down{ data: { sort: 'name' } }
     %th= 'Admin Role' if current_user.admin?
     %th Role

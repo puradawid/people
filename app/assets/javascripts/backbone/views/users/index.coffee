@@ -4,6 +4,7 @@ class Hrguru.Views.UsersIndex extends Backbone.View
   initialize: ->
     @createCollections()
     @createViews()
+    @defaultSorting()
 
   createCollections: ->
     @users = new Hrguru.Collections.Users(gon.users)
@@ -17,3 +18,6 @@ class Hrguru.Views.UsersIndex extends Backbone.View
     @filters_view.render()
     @tbodyView = new Hrguru.Views.UsersCollectionView(@users)
     @tbodyView.render()
+
+  defaultSorting: ->
+    $('.default').click()

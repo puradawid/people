@@ -153,13 +153,11 @@ class Hrguru.Collections.Users extends Backbone.Collection
     else
       -result
 
-
   numbers_comparator: (a, b) ->
     if a >= b
       1
     else
       -1
-
 
   active: ->
     filtered = @filter((user) ->

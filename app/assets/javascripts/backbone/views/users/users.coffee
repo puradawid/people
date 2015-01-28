@@ -14,15 +14,15 @@ class Hrguru.Views.UsersCollectionView extends Marionette.CollectionView
   incressingDirection: (e) ->
     @toggleClass(e.target)
     @collection.sortDirection = 1
-    @sort(e.target.dataset.sort)
+    @sort(e.target.dataset.sort, @collection.sortDirection)
 
   decreasingDirection: (e) ->
     @toggleClass(e.target)
     @collection.sortDirection = 0
-    @sort(e.target.dataset.sort)
+    @sort(e.target.dataset.sort, @collection.sortDirection)
 
-  sort: (value) ->
-    @collection.sortUsers(value)
+  sort: (value = 'name', direction = 1) ->
+    @collection.sortUsers(value, direction)
     @render()
 
   toggleClass: (target) ->
