@@ -2,3 +2,4 @@ attributes :id, :name, :email, :role, :admin_role, :employment, :phone, :locatio
            :next_memberships, :current_memberships, :booked_memberships, :available_since
 node(:info) { |user| user.info }
 node(:notes) { |user| user.user_notes }
+node(:role_name) { |user| user.role.name }

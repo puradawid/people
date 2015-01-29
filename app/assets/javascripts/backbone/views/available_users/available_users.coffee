@@ -11,7 +11,6 @@ class Hrguru.Views.AvailableUsersCollectionView extends Marionette.CollectionVie
   initialize: (@collection) ->
     @on('collection:rendered', H.addUserIndex)
 
-
   incressingDirection: (e) ->
     @toggleClass(e.target)
     @collection.sortDirection = 1
