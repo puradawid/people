@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   expose(:locations) { Location.all }
   expose(:projects) { Project.includes(:notes).all }
   expose(:unarchived_projects) { Project.where(archived: false) }
+  expose(:sorted_unarchived_projects) { Project.where(archived: false).order('name ASC') }
   expose(:abilities) { fetch_abilities }
   expose(:contractTypes) { ContractType.all }
   expose(:positions) { PositionDecorator.decorate_collection(user.positions) }
