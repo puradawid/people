@@ -79,18 +79,8 @@ describe UserMembershipRepository do
   end
 
   context 'with_end_date' do
-    let(:membership_with_end_date) do
-      create(:membership, user: user, ends_at: Time.local(2014, 12, 30))
-    end
-    let(:membership_without_end_date) { create(:membership, user: user, ends_at: nil) }
-
-    before do
-      membership_with_end_date # lazy load
-      membership_without_end_date # lazy load
-      Timecop.freeze(Time.local(2014, 12, 1))
-    end
-
-    after { Timecop.return }
+    let!(:membership_with_end_date) { create(:membership, user: user) }
+    let!(:membership_without_end_date) { create(:membership_without_ends_at, user: user) }
 
     describe '#with_end_date' do
       it 'returns with_end_date memberships' do

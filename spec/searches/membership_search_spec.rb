@@ -76,8 +76,8 @@ describe MembershipSearch do
   end
 
   describe '#search_with_end_date' do
-    let!(:membership_with_end_date) { create(:membership, ends_at: Time.local(2014, 12, 30)) }
-    let!(:membership_without_end_date) { create(:membership, ends_at: nil) }
+    let!(:membership_with_end_date) { create(:membership) }
+    let!(:membership_without_end_date) { create(:membership_without_ends_at) }
 
     it 'when true it returns memberships with end date' do
       expect(described_class.new(with_end_date: true).results.to_a).to eq [membership_with_end_date]
