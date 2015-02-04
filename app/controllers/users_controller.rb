@@ -84,10 +84,10 @@ class UsersController < ApplicationController
 
   def months
     result = []
-    result << { value: 0, text: "Show all"}
-    (1..12).each do |n|
-      text = n == 1 ? "#{n} month" : "#{n} months"
-      result << { value: n , text: text }
+    result << { value: 0, text: 'Show all'}
+    result << { value: 1, text: '1 month'}
+    (2..12).each do |n|
+      result << { value: n, text: "#{n} months" }
     end
     result
   end
