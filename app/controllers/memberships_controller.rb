@@ -50,6 +50,4 @@ class MembershipsController < ApplicationController
   def set_users_gon
     gon.rabl template: 'app/views/memberships/users', as: 'users'
   end
-
-
 end
