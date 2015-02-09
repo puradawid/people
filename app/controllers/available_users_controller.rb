@@ -1,8 +1,5 @@
 class AvailableUsersController < ApplicationController
-
   expose_decorated(:users) { available_users }
-  expose_decorated(:roles) { Role.technical }
-
   expose(:roles) { Role.all }
   expose(:admin_role) { [AdminRole.first_or_create] }
   expose(:locations) { Location.all }
