@@ -47,16 +47,16 @@ describe AvailabilityChecker do
       end
     end
 
-    context 'when user has billable membership and is in project with end date' do
+    context 'when user has billable membership without end date in project with end date' do
       before do
         create(:membership_billable, ends_at: nil, user: user, project: project_without_end_date)
         create(:membership_billable, ends_at: nil, user: user, project: project_ending)
         subject.run!
       end
 
-      it 'changes user availability to true' do
-        expect(user.available).to be_true
-        expect(user.available_since).to eq(project_ending.end_at.to_date)
+      it 'changes user availability to false' do
+        expect(user.available).to be_false
+        expect(user.available_since).to eq(nil)
       end
     end
 
@@ -119,25 +119,25 @@ describe AvailabilityChecker do
         subject.run!
       end
 
-      it 'changes user availability to true' do
-        expect(user.available).to be_true
-        expect(user.available_since).to eq(project_ending_in_more_than_month.end_at.to_date)
+      it 'changes user availability to false' do
+        expect(user.available).to be_false
+        expect(user.available_since).to eq(nil)
       end
     end
 
-    context 'when user has billable membership without end' do
-      context 'with memberships with end date' do
-        let!(:membership) { create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project) }
-        before do
-          create(:membership_billable, ends_at: nil, user: user, project: project_ending)
-          create(:membership_billable, ends_at: nil, user: user, project: project_without_end_date)
-          subject.run!
-        end
+    context 'when user has billable memberships with and without end date' do
+      let!(:membership) { create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project) }
+      let!(:membership2) { create(:membership_billable, ends_at: nil, user: user, project: project_ending) }
+      let!(:membership3) { create(:membership_billable, ends_at: nil, user: user, project: project_without_end_date) }
 
-        it 'changes user availability to true' do
-          expect(user.available).to be_true
-          expect(user.available_since).to eq(project.end_at)
-        end
+      before do
+        subject.run!
+      end
+
+      it 'changes user availability to false' do
+        pending "requires more changes which will be performed in further commits"
+        expect(user.available).to be_false
+        expect(user.available_since).to eq(nil)
       end
     end
 

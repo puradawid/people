@@ -15,8 +15,8 @@ class AvailabilityChecker
 
   def available?
     has_no_memberships? ||
-      ( has_non_billable_membership? && has_not_billable_membership? ) ||
-      has_memberships_or_projects_with_end_date?
+      (has_non_billable_membership? && has_not_billable_membership?) ||
+      has_memberships_with_end_date?
   end
 
   def has_no_memberships?
@@ -50,20 +50,18 @@ class AvailabilityChecker
     billable.empty? || billable_with_end_date.present?
   end
 
-  def has_memberships_or_projects_with_end_date?
+  def has_memberships_with_end_date?
     memberships = memberships_without_continuation
     available_by_membership = memberships.map(&:ends_at)
 
-    projects = current_projects_with_end
-    available_by_project = projects.map(&:end_at)
+    current_projects
 
-    next_memberships = @next_memberships.map(&:ends_at)
+    next_memberships_ends_dates = next_memberships.map(&:ends_at)
 
-
-    dates = (available_by_membership + available_by_project + next_memberships).reject(&:blank?)
+    dates = (available_by_membership + next_memberships_ends_dates).reject(&:blank?)
 
     @available_since = dates.max
-    memberships.present? || projects.present?
+    memberships.present?
   end
 
   def current_memberships_with_end
@@ -94,9 +92,5 @@ class AvailabilityChecker
     @project_ids ||= memberships_without_continuation(current_billable_memberships)
       .map(&:project_id)
     @current_projects ||= Project.where(:_id.in => @project_ids)
-  end
-
-  def current_projects_with_end
-    @current_projects_with_end ||= current_projects.where(:end_at.ne => nil).asc(:end_at)
   end
 end
