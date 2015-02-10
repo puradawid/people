@@ -159,10 +159,6 @@ class User
     @current_memberships ||= user_membership_repository.current.items.asc(:ends_at)
   end
 
-  def current_memberships_billable
-    @current_memberships_billable ||= current_memberships.where(billable: true, :ends_at.ne => nil)
-  end
-
   def user_project_repository
     @user_project_repository ||= UserProjectRepository.new(self)
   end
