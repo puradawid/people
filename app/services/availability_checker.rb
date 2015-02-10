@@ -67,7 +67,7 @@ class AvailabilityChecker
   end
 
   def current_memberships_with_end
-    @current_memberships_with_end ||= current_memberships.where(billable: true, :ends_at.ne => nil)
+    @current_memberships_with_end ||= current_memberships_billable
   end
 
   def current_memberships
