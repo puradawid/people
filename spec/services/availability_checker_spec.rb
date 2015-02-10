@@ -40,7 +40,7 @@ describe AvailabilityChecker do
         let!(:membership) { create(:membership, ends_at: 1.month.from_now, user: user, project: internal_project) }
         before { subject.run! }
 
-        it 'changes user availablity to true' do
+        it 'changes user availability to true' do
           expect(user.available).to be_true
           expect(user.available_since).to eq(membership.ends_at)
         end
