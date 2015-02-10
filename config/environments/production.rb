@@ -12,7 +12,6 @@ Hrguru::Application.configure do
   config.log_level = :info
   config.i18n.fallbacks = true
   config.active_support.deprecation = :notify
-  config.log_formatter = ::Logger::Formatter.new
   config.action_mailer.default_url_options = { host: AppConfig.domain }
 
   ActionMailer::Base.smtp_settings = {
