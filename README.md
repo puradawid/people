@@ -10,8 +10,6 @@ The main purpose of the app is to manage people within the projects.
 
 The main table shows the current teams in each project, but you can also add people who will start working on the project in the future, and see the people who are going to join or leave the project team by clicking “highlight ending” and “highlight next”. The app also gathers the information about a team member, like role, telephone number, github nick, or the city in which we work.
 
-![People_View](https://netguruco-production.s3.amazonaws.com/uploads/1401956759-1401228321-people_main.jpg)
-
 ## System Setup
 You need MongoDB and ImageMagick installed on your system, on OS X this is a simple as:
 ```shell
