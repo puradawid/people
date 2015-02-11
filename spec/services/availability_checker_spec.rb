@@ -14,9 +14,7 @@ describe AvailabilityChecker do
   describe '#run!' do
     context 'when user has' do
       context 'no membership' do
-        before do
-          subject.run!
-        end
+        before { subject.run! }
 
         it 'changes user availability to true' do
           expect(user.available).to be_true
@@ -42,7 +40,7 @@ describe AvailabilityChecker do
 
         it 'changes user availability to true' do
           expect(user.available).to be_true
-          expect(user.available_since).to eq(membership.ends_at)
+          expect(user.available_since).to eq(Date.today)
         end
       end
 
@@ -53,7 +51,7 @@ describe AvailabilityChecker do
 
           it 'changes user availability to true' do
             expect(user.available).to be_true
-            expect(user.available_since).to eq(membership.ends_at.to_date)
+            expect(user.available_since).to eq(membership.ends_at)
           end
         end
 
@@ -82,36 +80,47 @@ describe AvailabilityChecker do
         end
       end
 
-      context 'nonbillable and billable membership' do
-        context 'with end date' do
-          before do
-            create(:membership, ends_at: nil, user: user, project: project_without_end_date)
+      context 'nonbillable and billable memberships' do
+        context 'billable with end date, nonbillable without end' do
+          let!(:billable) do
             create(:membership_billable, ends_at: 2.months.from_now, user: user, project: project_without_end_date2)
-            subject.run!
           end
+          let!(:nonbillable) { create(:membership, ends_at: nil, user: user, project: project_without_end_date) }
+
+          before { subject.run! }
 
           it 'changes user availability to true' do
             expect(user.available).to be_true
           end
-          it 'sets right available_since' do
-            pending 'needs implementation tweak; right now it returns incorrect value'
-            expect(user.available_since).to eq(2.months.from_now)
+
+          it 'is available when billable is done' do
+            expect(user.available_since).to eq(billable.ends_at)
           end
         end
 
-        context 'without end date' do
+        context 'billable without end, nonbillable with end date' do
+          let!(:billable) do
+            create(:membership_billable, ends_at: nil, user: user, project: project_without_end_date2)
+          end
+          let!(:nonbillable) { create(:membership, ends_at: 2.weeks.from_now, user: user, project: project_without_end_date) }
+
+          before { subject.run! }
+
+          it 'changes user availability to false' do
+            expect(user.available).to be_false
+            expect(user.available_since).to eq(nil)
+          end
+        end
+
+        context 'both without end date' do
           let!(:membership) { create(:membership, ends_at: nil, user: user, project: project_without_end_date) }
           let!(:membership_billable) { create(:membership_billable, ends_at: nil, user: user, project: project_without_end_date2) }
 
-          it 'changes user availability to false' do
-            subject.run!
-            expect(user.available).to be_false
-          end
+          before { subject.run! }
 
-          it 'changes user availability to false if nonbillable project is with end date' do
-            membership.project.update_attributes(end_at: 2.months.from_now)
-            subject.run!
+          it 'changes user availability to false' do
             expect(user.available).to be_false
+            expect(user.available_since).to eq(nil)
           end
         end
       end
@@ -124,7 +133,7 @@ describe AvailabilityChecker do
 
           it 'changes user available since to last possible date' do
             expect(user.available).to be_true
-            expect(user.available_since).to eq membership.ends_at.to_date
+            expect(user.available_since).to eq(membership2.ends_at.to_date)
           end
         end
 
@@ -140,16 +149,19 @@ describe AvailabilityChecker do
           end
         end
 
-        context 'with gap between them' do
-          let!(:membership) { create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project_without_end_date) }
-          before do
-            create(:membership_billable, starts_at: 4.days.from_now, ends_at: nil, user: user, project: project_without_end_date2)
-            subject.run!
+        context 'with at least 1 day gap between them' do
+          let!(:first_membership) do
+            create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project_without_end_date)
           end
+          let!(:second_membership) do
+            create(:membership_billable, starts_at: 4.days.from_now, ends_at: nil, user: user, project: project_without_end_date2)
+          end
+
+          before { subject.run! }
 
           it 'changes user availability to true' do
             expect(user.available).to be_true
-            expect(user.available_since).to eq membership.ends_at.to_date
+            expect(user.available_since).to eq(first_membership.ends_at)
           end
         end
 
@@ -162,22 +174,19 @@ describe AvailabilityChecker do
 
           it 'changes user availability to false' do
             expect(user.available).to be_false
-            expect(user.available_since).to be nil
+            expect(user.available_since).to eq(nil)
           end
         end
       end
 
-      context 'mix of may memberships' do
+      context 'mix of many memberships' do
         let!(:membership) { create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project) }
         let!(:membership2) { create(:membership_billable, ends_at: nil, user: user, project: project_ending) }
         let!(:membership3) { create(:membership_billable, ends_at: nil, user: user, project: project_without_end_date) }
 
-        before do
-          subject.run!
-        end
+        before { subject.run! }
 
         it 'changes user availability to false' do
-          pending "requires more changes which will be performed in further commits"
           expect(user.available).to be_false
           expect(user.available_since).to eq(nil)
         end

@@ -4,93 +4,68 @@ class AvailabilityChecker
   end
 
   def run!
-    available = available?
-    available_since =
-      available.present? ? @available_since : nil
-
-    @user.update_attributes(available: available, available_since: available_since)
+    @user.update_attributes(available: available?, available_since: available_since)
   end
 
   private
 
   def available?
     has_no_memberships? ||
-      (has_non_billable_membership? && has_not_billable_membership?) ||
-      has_memberships_with_end_date?
+      has_only_non_billable_memberships? ||
+      has_only_memberships_with_end_date? ||
+      has_memberships_with_gaps?
+  end
+
+  def available_since
+    return unless available?
+
+    if current_memberships.billable.present?
+      return current_memberships.billable.first.try(:ends_at).try(:to_date)
+    end
+
+    Date.today
   end
 
   def has_no_memberships?
-    @available_since = Date.today
     current_memberships.empty?
   end
 
-  def has_non_billable_membership?
-    memberships = current_memberships.where(billable: false)
+  def has_only_non_billable_memberships?
+    current_memberships.billable.blank?
+  end
 
-    if memberships.present?
-      ends_at_max = memberships.pluck(:ends_at).compact.max
-      if ends_at_max.present?
-        @available_since = ends_at_max
-      else
-        @available_since = Date.today
+  def has_only_memberships_with_end_date?
+    current_memberships_without_end.blank?
+  end
+
+  def has_memberships_with_gaps?
+    memberships_with_gaps = []
+    memberships_dates = @user
+      .memberships
+      .billable
+      .asc(:starts_at)
+      .map{ |membership| { starts: membership.starts_at, ends: membership.ends_at } }
+
+    memberships_dates.each_with_index do |range, i|
+      break if range[:ends].nil?
+      break if i == memberships_dates.size - 1 # skip last run
+
+      ends_with_buffer = range[:ends] + 1
+      next_starts = memberships_dates[i + 1][:starts]
+
+      if ends_with_buffer < next_starts
+        memberships_with_gaps << range
       end
-    else
-      @available_since = Date.today
     end
 
-    memberships.present?
+    memberships_with_gaps.any?
   end
 
-  def has_not_billable_membership?
-    # it also checks if user has billable membership with end date
-
-    billable = current_memberships.where(billable: true)
-    billable_with_end_date = current_memberships.where(billable: true, :ends_at.ne => nil)
-
-    billable.empty? || billable_with_end_date.present?
-  end
-
-  def has_memberships_with_end_date?
-    memberships = memberships_without_continuation
-    available_by_membership = memberships.map(&:ends_at)
-
-    current_projects
-
-    next_memberships_ends_dates = next_memberships.map(&:ends_at)
-
-    dates = (available_by_membership + next_memberships_ends_dates).reject(&:blank?)
-
-    @available_since = dates.max
-    memberships.present?
-  end
-
-  def current_memberships_with_end
-    @current_memberships_with_end ||= current_memberships.where(billable: true, :ends_at.ne => nil)
+  def current_memberships_without_end
+    @current_memberships_without_end ||= @user.memberships.billable.where(ends_at: nil)
   end
 
   def current_memberships
     @current_memberships ||= @user.current_memberships.asc(:ends_at)
-  end
-
-  def current_billable_memberships
-    current_memberships.where(billable: true)
-  end
-
-  def memberships_without_continuation(memberships = current_memberships_with_end)
-    memberships.to_a.reject do |membership|
-      starts_at = next_memberships.pluck(:starts_at).map(&:to_date)
-      starts_at_next = starts_at.map{ |date| date - 1 }
-      (starts_at + starts_at_next).include?(membership.ends_at.try(:to_date))
-    end
-  end
-
-  def next_memberships
-    @next_memberships ||= @user.next_memberships.where(billable: true)
-  end
-
-  def current_projects
-    @project_ids ||= memberships_without_continuation(current_billable_memberships)
-      .map(&:project_id)
-    @current_projects ||= Project.where(:_id.in => @project_ids)
   end
 end
