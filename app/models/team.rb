@@ -25,6 +25,6 @@ class Team
   end
 
   def set_color
-    self.colour ||= TeamColor.new.as_rgb
+    self.colour ||= AvatarColor.new.as_rgb
   end
 end

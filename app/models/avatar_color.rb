@@ -1,4 +1,4 @@
-class TeamColor
+class AvatarColor
   GOLDEN_RATIO_CONJUGATE = 0.618033988749895
 
   def as_rgb
