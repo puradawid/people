@@ -38,7 +38,7 @@ class UsersController < ApplicationController
 
   def show
     if current_user? || current_user.admin?
-      @membership = Membership.new(user: user, role: user.role)
+      @membership = Membership.new(user: user, role: user.roles.first)
       gon.events = fetch_events
     else
       redirect_to users_path, alert: 'Permission denied! You have no rights to do this.'
@@ -62,7 +62,7 @@ class UsersController < ApplicationController
 
   def fetch_users
     @users ||= User
-      .includes(:role, :admin_role, :location, :contract_type, :memberships, :abilities)
+      .includes(:roles, :admin_role, :location, :contract_type, :memberships, :abilities)
       .all.by_last_name.decorate
   end
 
