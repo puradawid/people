@@ -152,10 +152,10 @@ describe User do
       let(:contract_uop) { create(:contract_type, name: 'UoP') }
       let(:senior_role) { create(:role, name: 'senior', technical: true) }
       let!(:user_with_uop) do
-        create(:user, role_id: senior_role.id,
+        create(:user, primary_role_id: senior_role.id,
                       contract_type_id: contract_uop.id)
       end
-      let!(:user_without_uop) { create(:user, role_id: senior_role.id) }
+      let!(:user_without_uop) { create(:user, primary_role_id: senior_role.id) }
 
       it 'return user with UoP contract' do
         expect(User.contract_users('UoP').to_a).to include user_with_uop
