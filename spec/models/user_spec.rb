@@ -6,7 +6,7 @@ describe User do
   it { should have_many :memberships }
   it { should have_many :notes }
   it { should have_many :positions }
-  it { should belong_to :role }
+  it { should have_many :roles }
   it { should belong_to :contract_type }
   it { should belong_to :location }
   it { should belong_to :team }
