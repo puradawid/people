@@ -40,7 +40,6 @@ class User
   has_many :positions
   has_many :roles
   belongs_to :admin_role
-  # belongs_to :role
   belongs_to :contract_type
   belongs_to :location
   belongs_to :team, inverse_of: :user
