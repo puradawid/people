@@ -179,16 +179,58 @@ describe AvailabilityChecker do
         end
       end
 
-      context 'mix of many memberships' do
-        let!(:membership) { create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project) }
-        let!(:membership2) { create(:membership_billable, ends_at: nil, user: user, project: project_ending) }
-        let!(:membership3) { create(:membership_billable, ends_at: nil, user: user, project: project_without_end_date) }
+      context 'many memberships' do
+        context 'all billable and overlapping' do
+          let!(:membership) { create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project) }
+          let!(:membership2) { create(:membership_billable, ends_at: nil, user: user, project: project_ending) }
+          let!(:membership3) { create(:membership_billable, ends_at: nil, user: user, project: project_without_end_date) }
 
-        before { subject.run! }
+          before { subject.run! }
 
-        it 'changes user availability to false' do
-          expect(user.available).to be_false
-          expect(user.available_since).to eq(nil)
+          it 'changes user availability to false' do
+            expect(user.available).to be_false
+            expect(user.available_since).to eq(nil)
+          end
+        end
+
+        context 'many memberships in the past, one without end right now' do
+          let!(:first) do
+            create(:membership_billable, starts_at: '2015-02-10',
+                                         ends_at: nil,
+                                         user: user,
+                                         project: project)
+          end
+          let!(:second) do
+            create(:membership_billable, starts_at: '2014-12-29',
+                                         ends_at: '2015-01-21',
+                                         user: user,
+                                         project: project)
+          end
+          let!(:third) do
+            create(:membership_billable, starts_at: '2014-10-26',
+                                         ends_at: '2014-11-18',
+                                         user: user,
+                                         project: project)
+          end
+          let!(:fourth) do
+            create(:membership_billable, starts_at: '2014-08-31',
+                                         ends_at: '2014-09-27',
+                                         user: user,
+                                         project: project)
+          end
+          let!(:fifth) do
+            create(:membership_billable, starts_at: '2014-05-09',
+                                         ends_at: '2014-05-23',
+                                         user: user,
+                                         project: project)
+          end
+
+          before { subject.run! }
+
+          it 'changes user availability to false' do
+            expect(user.available).to be_false
+            expect(user.available_since).to eq(nil)
+          end
         end
       end
     end

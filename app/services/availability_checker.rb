@@ -42,6 +42,7 @@ class AvailabilityChecker
     memberships_with_gaps = []
     memberships_dates = @user
       .memberships
+      .unfinished
       .billable
       .asc(:starts_at)
       .map{ |membership| { starts: membership.starts_at, ends: membership.ends_at } }
