@@ -8,7 +8,7 @@ class UserDecorator < Draper::Decorator
   delegate_all
 
   def as_row
-    [model.last_name, model.first_name, model.role, model.location]
+    [model.last_name, model.first_name, model.roles.first, model.location]
   end
 
   def project_names

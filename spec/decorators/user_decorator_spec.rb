@@ -22,7 +22,7 @@ describe UserDecorator do
   end
 
   describe '#as_row' do
-    it { expect(subject.as_row).to eq [user.last_name, user.first_name, user.role, user.location] }
+    it { expect(subject.as_row).to eq [user.last_name, user.first_name, user.roles.first, user.location] }
   end
 
   describe '#project_names' do
