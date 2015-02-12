@@ -1,5 +1,5 @@
 class AvailableUsersController < ApplicationController
-  expose_decorated(:users) { available_users }
+  expose(:users) { fetch_available_users }
   expose(:roles) { Role.all }
   expose(:admin_role) { [AdminRole.first_or_create] }
   expose(:locations) { Location.all }
@@ -9,7 +9,7 @@ class AvailableUsersController < ApplicationController
   expose(:positions) { PositionDecorator.decorate_collection(user.positions) }
 
   def index
-    gon.users = Rabl.render(available_users, 'available_users/index', view_path: 'app/views', format: :hash)
+    gon.users = Rabl.render(users, 'available_users/index', view_path: 'app/views', format: :hash)
     gon.rabl template: 'app/views/users/projects', as: 'projects'
     gon.roles = roles
     gon.admin_role = admin_role
@@ -20,9 +20,10 @@ class AvailableUsersController < ApplicationController
 
   private
 
-  def available_users
-    @roles = Role.technical.to_a
-    User.active.available.roles(@roles).decorate
+  def fetch_available_users
+    @users ||= User
+      .includes(:roles, :admin_role, :location, :contract_type, :memberships, :abilities)
+      .active.available.by_last_name.decorate
   end
 
   def availability_time
