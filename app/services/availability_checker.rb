@@ -24,7 +24,7 @@ class AvailabilityChecker
 
     if has_memberships_with_gaps?
       return first_gap_in_memberships
-    elsif !has_memberships_with_gaps?
+    else
       return memberships.last.try(:ends_at).try(:to_date) + 1
     end
 
