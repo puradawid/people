@@ -51,7 +51,7 @@ describe AvailabilityChecker do
 
           it 'changes user availability to true' do
             expect(user.available).to be_true
-            expect(user.available_since).to eq(membership.ends_at)
+            expect(user.available_since).to eq(membership.ends_at + 1)
           end
         end
 
@@ -94,7 +94,7 @@ describe AvailabilityChecker do
           end
 
           it 'is available when billable is done' do
-            expect(user.available_since).to eq(billable.ends_at)
+            expect(user.available_since).to eq(billable.ends_at + 1)
           end
         end
 
@@ -133,7 +133,7 @@ describe AvailabilityChecker do
 
           it 'changes user available since to last possible date' do
             expect(user.available).to be_true
-            expect(user.available_since).to eq(membership2.ends_at.to_date)
+            expect(user.available_since).to eq(membership2.ends_at + 1)
           end
         end
 
@@ -161,7 +161,7 @@ describe AvailabilityChecker do
 
           it 'changes user availability to true' do
             expect(user.available).to be_true
-            expect(user.available_since).to eq(first_membership.ends_at)
+            expect(user.available_since).to eq(first_membership.ends_at + 1)
           end
         end
 

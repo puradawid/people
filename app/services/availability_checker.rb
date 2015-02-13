@@ -20,7 +20,7 @@ class AvailabilityChecker
     return unless available?
 
     if current_memberships.billable.present?
-      return current_memberships.billable.first.try(:ends_at).try(:to_date)
+      return current_memberships.billable.first.try(:ends_at).try(:to_date) + 1
     end
 
     Date.today
