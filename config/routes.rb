@@ -1,5 +1,4 @@
 Hrguru::Application.routes.draw do
-
   devise_for :users,
     controllers: {
       omniauth_callbacks: 'omniauth_callbacks',
@@ -18,7 +17,6 @@ Hrguru::Application.routes.draw do
 
   namespace :api do
     scope module: :v1 do
-
       resources :users, only: [:index, :show, :contract_users]
       resources :projects, only: [:index]
       resources :memberships, except: [:new, :edit]
@@ -26,7 +24,7 @@ Hrguru::Application.routes.draw do
   end
 
   resources :users, only: [:index, :show, :update]
-  resources :dashboard, only: [:index], path: "dashboard"
+  resources :dashboard, only: [:index], path: 'dashboard'
   resources :projects
   resources :memberships, except: [:show]
   resources :teams
@@ -46,9 +44,9 @@ Hrguru::Application.routes.draw do
     get '/components', to: 'pages#components'
   end
 
-  resources :features, only: [ :index ] do
-    resources :strategies, only: [ :update, :destroy ]
+  resources :features, only: [:index] do
+    resources :strategies, only: [:update, :destroy]
   end
-  mount Flip::Engine => "/features"
 
+  mount Flip::Engine => '/features'
 end
