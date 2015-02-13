@@ -11,7 +11,7 @@ class AvailabilityChecker
   private
 
   def available?
-    is_free_right_now? ||
+    free_right_now? ||
       has_no_memberships? ||
       has_only_non_billable_memberships? ||
       has_only_memberships_with_end_date? ||
@@ -20,7 +20,7 @@ class AvailabilityChecker
 
   def available_since
     return unless available?
-    return Date.today if is_free_right_now? || has_no_memberships?
+    return Date.today if free_right_now? || has_no_memberships?
 
     if has_memberships_with_gaps?
       return first_gap_in_memberships
@@ -54,7 +54,7 @@ class AvailabilityChecker
     memberships.empty?
   end
 
-  def is_free_right_now?
+  def free_right_now?
     memberships.any? && memberships.reorder(starts_at: :asc).first.starts_at > Date.today
   end
 
