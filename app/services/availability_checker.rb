@@ -20,11 +20,11 @@ class AvailabilityChecker
 
   def available_since
     return unless available?
-    return Date.today if is_free_right_now?
+    return Date.today if is_free_right_now? || has_no_memberships?
 
-    if memberships.present? && has_memberships_with_gaps?
+    if has_memberships_with_gaps?
       return first_gap_in_memberships
-    elsif memberships.present? && !has_memberships_with_gaps?
+    elsif !has_memberships_with_gaps?
       return memberships.last.try(:ends_at).try(:to_date) + 1
     end
 
@@ -51,7 +51,7 @@ class AvailabilityChecker
   end
 
   def has_no_memberships?
-    current_memberships.empty?
+    memberships.empty?
   end
 
   def is_free_right_now?
