@@ -42,6 +42,7 @@ class Membership
    end
   scope :ending_soon, -> { between(ends_at: Time.now..1.week.from_now) }
   scope :billable, -> { where(billable: true) }
+  scope :without_bookings, -> { where(booked: false) }
   scope :only_active, -> { where(project_potential: false, project_archived: false, booked: false).desc('starts_at').limit(3) }
   scope :leaving, ->(days) { between(ends_at: Time.now..days.days.from_now) }
   scope :joining, ->(days) { between(starts_at: Time.now..days.days.from_now) }
@@ -49,7 +50,7 @@ class Membership
     any_of(leaving(days).selector, joining(days).selector)
   }
   scope :by_starts_at, -> { desc(:starts_at) }
-  scope :for_availability, -> { unfinished.billable.asc(:ends_at) }
+  scope :for_availability, -> { unfinished.without_bookings.billable.asc(:ends_at) }
 
   %w(user project role).each do |model|
     original_model = "original_#{model}"
