@@ -14,5 +14,9 @@ FactoryGirl.define do
     factory :membership_billable do
       billable 1
     end
+
+    trait :without_end do
+      ends_at nil
+    end
   end
 end

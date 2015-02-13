@@ -35,7 +35,7 @@ describe AvailabilityChecker do
       end
 
       context 'only internal project' do
-        let!(:membership) { create(:membership, ends_at: 1.month.from_now, user: user, project: internal_project) }
+        let!(:membership) { create(:membership, user: user, project: internal_project) }
         before { subject.run! }
 
         it 'changes user availability to true' do
@@ -46,7 +46,9 @@ describe AvailabilityChecker do
 
       context 'billable membership' do
         context 'with end date' do
-          let!(:membership) { create(:membership_billable, ends_at: 35.days.from_now, user: user, project: project_without_end_date) }
+          let!(:membership) do
+            create(:membership_billable, user: user, project: project_without_end_date)
+          end
           before { subject.run! }
 
           it 'changes user availability to true' do
@@ -56,10 +58,13 @@ describe AvailabilityChecker do
         end
 
         context 'without end date' do
-          before do
-            create(:membership_billable, ends_at: nil, user: user, project: project_without_end_date)
-            subject.run!
+          let!(:membership) do
+            create(:membership_billable, :without_end,
+                                         user: user,
+                                         project: project_without_end_date)
           end
+
+          before { subject.run! }
 
           it 'changes user availability to false' do
             expect(user.available).to be_false
@@ -69,7 +74,7 @@ describe AvailabilityChecker do
 
         context 'without end date in project with end date' do
           before do
-            create(:membership_billable, ends_at: nil, user: user, project: project_ending)
+            create(:membership_billable, :without_end, user: user, project: project_ending)
             subject.run!
           end
 
@@ -81,7 +86,10 @@ describe AvailabilityChecker do
 
         context 'starting in the future (dev is free right now)' do
           before do
-            create(:membership_billable, starts_at: 3.days.from_now, ends_at: nil, user: user, project: project_ending)
+            create(:membership_billable, :without_end,
+                                         starts_at: 3.days.from_now,
+                                         user: user,
+                                         project: project_ending)
             subject.run!
           end
 
@@ -95,9 +103,11 @@ describe AvailabilityChecker do
       context 'nonbillable and billable memberships' do
         context 'billable with end date, nonbillable without end' do
           let!(:billable) do
-            create(:membership_billable, ends_at: 2.months.from_now, user: user, project: project_without_end_date2)
+            create(:membership_billable, user: user, project: project_without_end_date2)
           end
-          let!(:nonbillable) { create(:membership, ends_at: nil, user: user, project: project_without_end_date) }
+          let!(:nonbillable) do
+            create(:membership, :without_end, user: user, project: project_without_end_date)
+          end
 
           before { subject.run! }
 
@@ -112,9 +122,11 @@ describe AvailabilityChecker do
 
         context 'billable without end, nonbillable with end date' do
           let!(:billable) do
-            create(:membership_billable, ends_at: nil, user: user, project: project_without_end_date2)
+            create(:membership_billable, :without_end,
+                                         user: user,
+                                         project: project_without_end_date2)
           end
-          let!(:nonbillable) { create(:membership, ends_at: 2.weeks.from_now, user: user, project: project_without_end_date) }
+          let!(:nonbillable) { create(:membership, user: user, project: project_without_end_date) }
 
           before { subject.run! }
 
@@ -125,8 +137,14 @@ describe AvailabilityChecker do
         end
 
         context 'both without end date' do
-          let!(:membership) { create(:membership, ends_at: nil, user: user, project: project_without_end_date) }
-          let!(:membership_billable) { create(:membership_billable, ends_at: nil, user: user, project: project_without_end_date2) }
+          let!(:membership) do
+            create(:membership, :without_end, user: user, project: project_without_end_date)
+          end
+          let!(:membership_billable) do
+            create(:membership_billable, :without_end,
+                                         user: user,
+                                         project: project_without_end_date2)
+          end
 
           before { subject.run! }
 
@@ -141,10 +159,15 @@ describe AvailabilityChecker do
         context 'with gap between them' do
           context 'both with end dates' do
             let!(:first) do
-              create(:membership_billable, ends_at: 1.day.from_now, user: user, project: project_without_end_date2)
+              create(:membership_billable, ends_at: 1.day.from_now,
+                                           user: user,
+                                           project: project_without_end_date2)
             end
             let!(:second) do
-              create(:membership_billable, starts_at: 3.days.from_now, ends_at: 2.months.from_now, user: user, project: project_without_end_date)
+              create(:membership_billable, starts_at: 3.days.from_now,
+                                           ends_at: 2.months.from_now,
+                                           user: user,
+                                           project: project_without_end_date)
             end
 
             before { subject.run! }
@@ -157,11 +180,15 @@ describe AvailabilityChecker do
 
           context 'second without end date' do
             let!(:first) do
-              create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project_ending)
+              create(:membership_billable, ends_at: 2.days.from_now,
+                                           user: user,
+                                           project: project_ending)
             end
 
             let!(:second) do
-              create(:membership_billable, starts_at: 4.days.from_now, user: user, project: project_without_end_date)
+              create(:membership_billable, starts_at: 4.days.from_now,
+                                           user: user,
+                                           project: project_without_end_date)
             end
 
             before { subject.run! }
@@ -176,11 +203,15 @@ describe AvailabilityChecker do
         context 'without gap between them' do
           context 'both with end dates' do
             let!(:first) do
-              create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project_ending)
+              create(:membership_billable, ends_at: 2.days.from_now,
+                                           user: user,
+                                           project: project_ending)
             end
 
             let!(:second) do
-              create(:membership_billable, ends_at: 2.weeks.from_now, starts_at: 3.days.from_now, user: user, project: project_without_end_date)
+              create(:membership_billable, starts_at: 3.days.from_now,
+                                           user: user,
+                                           project: project_without_end_date)
             end
 
             before { subject.run! }
@@ -193,10 +224,15 @@ describe AvailabilityChecker do
 
           context 'second without end date' do
             let!(:first) do
-              create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project_ending)
+              create(:membership_billable, ends_at: 2.days.from_now,
+                                           user: user,
+                                           project: project_ending)
             end
             let!(:second) do
-              create(:membership_billable, ends_at: nil, starts_at: 3.days.from_now, user: user, project: project_without_end_date)
+              create(:membership_billable, :without_end,
+                                           starts_at: 3.days.from_now,
+                                           user: user,
+                                           project: project_without_end_date)
             end
 
             before { subject.run! }
@@ -211,9 +247,17 @@ describe AvailabilityChecker do
 
       context 'many memberships' do
         context 'all billable and overlapping' do
-          let!(:membership) { create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project) }
-          let!(:membership2) { create(:membership_billable, ends_at: nil, user: user, project: project_ending) }
-          let!(:membership3) { create(:membership_billable, ends_at: nil, user: user, project: project_without_end_date) }
+          let!(:membership) do
+            create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project)
+          end
+          let!(:membership2) do
+            create(:membership_billable, :without_end, user: user, project: project_ending)
+          end
+          let!(:membership3) do
+            create(:membership_billable, :without_end,
+                                         user: user,
+                                         project: project_without_end_date)
+          end
 
           before { subject.run! }
 
