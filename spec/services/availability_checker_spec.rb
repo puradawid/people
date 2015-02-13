@@ -180,11 +180,15 @@ describe AvailabilityChecker do
           end
 
           context 'second without end date' do
-            before do
+            let!(:first) do
               create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project_ending)
-              create(:membership_billable, ends_at: nil, starts_at: 3.days.from_now, user: user, project: project_without_end_date)
-              subject.run!
             end
+            let!(:second) do
+              create(:membership_billable, ends_at: nil, starts_at: 3.days.from_now, user: user, project: project_without_end_date)
+            end
+
+            before { subject.run! }
+
             it 'changes user availability to false' do
               expect(user.available).to be_false
               expect(user.available_since).to eq(nil)
