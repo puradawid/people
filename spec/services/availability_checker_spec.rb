@@ -78,6 +78,18 @@ describe AvailabilityChecker do
             expect(user.available_since).to eq(nil)
           end
         end
+
+        context 'starting in the future (dev is free right now)' do
+          before do
+            create(:membership_billable, starts_at: 3.days.from_now, ends_at: nil, user: user, project: project_ending)
+            subject.run!
+          end
+
+          it 'changes user availability to true' do
+            expect(user.available).to be_true
+            expect(user.available_since).to eq(Date.today)
+          end
+        end
       end
 
       context 'nonbillable and billable memberships' do
