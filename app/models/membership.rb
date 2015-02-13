@@ -49,6 +49,7 @@ class Membership
     any_of(leaving(days).selector, joining(days).selector)
   }
   scope :by_starts_at, -> { desc(:starts_at) }
+  scope :for_availability, -> { unfinished.billable.asc(:ends_at) }
 
   %w(user project role).each do |model|
     original_model = "original_#{model}"

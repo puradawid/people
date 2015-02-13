@@ -126,55 +126,69 @@ describe AvailabilityChecker do
       end
 
       context '2 billable memberships' do
-        context 'one after another, second with end date' do
-          let!(:membership) { create(:membership_billable, starts_at: 3.days.from_now, ends_at: 2.months.from_now, user: user, project: project_without_end_date) }
-          let!(:membership2) { create(:membership_billable, ends_at: 1.day.from_now, user: user, project: project_without_end_date2) }
-          before { subject.run! }
+        context 'with gap between them' do
+          context 'both with end dates' do
+            let!(:first) do
+              create(:membership_billable, ends_at: 1.day.from_now, user: user, project: project_without_end_date2)
+            end
+            let!(:second) do
+              create(:membership_billable, starts_at: 3.days.from_now, ends_at: 2.months.from_now, user: user, project: project_without_end_date)
+            end
 
-          it 'changes user available since to last possible date' do
-            expect(user.available).to be_true
-            expect(user.available_since).to eq(membership2.ends_at + 1)
+            before { subject.run! }
+
+            it 'changes user available since to last possible date' do
+              expect(user.available).to be_true
+              expect(user.available_since).to eq(first.ends_at + 1)
+            end
+          end
+
+          context 'second without end date' do
+            let!(:first) do
+              create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project_ending)
+            end
+
+            let!(:second) do
+              create(:membership_billable, starts_at: 4.days.from_now, user: user, project: project_without_end_date)
+            end
+
+            before { subject.run! }
+
+            it 'changes user availability to true' do
+              expect(user.available).to be_true
+              expect(user.available_since).to eq(first.ends_at + 1)
+            end
           end
         end
 
-        context 'one after another, second without end date' do
-          before do
-            create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project_ending)
-            create(:membership_billable, ends_at: nil, starts_at: 3.days.from_now, user: user, project: project_without_end_date)
-            subject.run!
-          end
-          it 'changes user availability to false' do
-            expect(user.available).to be_false
-            expect(user.available_since).to eq(nil)
-          end
-        end
+        context 'without gap between them' do
+          context 'both with end dates' do
+            let!(:first) do
+              create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project_ending)
+            end
 
-        context 'with at least 1 day gap between them' do
-          let!(:first_membership) do
-            create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project_without_end_date)
-          end
-          let!(:second_membership) do
-            create(:membership_billable, starts_at: 4.days.from_now, ends_at: nil, user: user, project: project_without_end_date2)
+            let!(:second) do
+              create(:membership_billable, ends_at: 2.weeks.from_now, starts_at: 3.days.from_now, user: user, project: project_without_end_date)
+            end
+
+            before { subject.run! }
+
+            it 'changes user availability to true' do
+              expect(user.available).to be_true
+              expect(user.available_since).to eq(second.ends_at + 1)
+            end
           end
 
-          before { subject.run! }
-
-          it 'changes user availability to true' do
-            expect(user.available).to be_true
-            expect(user.available_since).to eq(first_membership.ends_at + 1)
-          end
-        end
-
-        context 'with no gap between them' do
-          before do
-            create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project_without_end_date)
-            create(:membership_billable, starts_at: 3.days.from_now, ends_at: nil, user: user, project: project_without_end_date2)
-            subject.run!
-          end
-
-          it 'changes user availability to false' do
-            expect(user.available).to be_false
-            expect(user.available_since).to eq(nil)
+          context 'second without end date' do
+            before do
+              create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project_ending)
+              create(:membership_billable, ends_at: nil, starts_at: 3.days.from_now, user: user, project: project_without_end_date)
+              subject.run!
+            end
+            it 'changes user availability to false' do
+              expect(user.available).to be_false
+              expect(user.available_since).to eq(nil)
+            end
           end
         end
       end

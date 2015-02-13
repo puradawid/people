@@ -4,6 +4,7 @@ class AvailabilityChecker
   end
 
   def run!
+    find_memberships_gaps
     @user.update_attributes(available: available?, available_since: available_since)
   end
 
@@ -19,11 +20,32 @@ class AvailabilityChecker
   def available_since
     return unless available?
 
-    if current_memberships.billable.present?
-      return current_memberships.billable.first.try(:ends_at).try(:to_date) + 1
+    if memberships.present? && has_memberships_with_gaps?
+      return first_gap_in_memberships
+    elsif memberships.present? && !has_memberships_with_gaps?
+      return memberships.last.try(:ends_at).try(:to_date) + 1
     end
 
     Date.today
+  end
+
+  def find_memberships_gaps
+    @memberships_with_gaps = []
+    memberships_dates = memberships
+      .asc(:starts_at)
+      .map{ |membership| { starts: membership.starts_at, ends: membership.ends_at } }
+
+    memberships_dates.each_with_index do |range, i|
+      break if range[:ends].nil?
+      break if i == memberships_dates.size - 1 # skip last run
+
+      ends_with_buffer = range[:ends] + 1
+      next_starts = memberships_dates[i + 1][:starts]
+
+      if ends_with_buffer < next_starts
+        @memberships_with_gaps << range
+      end
+    end
   end
 
   def has_no_memberships?
@@ -39,27 +61,11 @@ class AvailabilityChecker
   end
 
   def has_memberships_with_gaps?
-    memberships_with_gaps = []
-    memberships_dates = @user
-      .memberships
-      .unfinished
-      .billable
-      .asc(:starts_at)
-      .map{ |membership| { starts: membership.starts_at, ends: membership.ends_at } }
+    @memberships_with_gaps.any?
+  end
 
-    memberships_dates.each_with_index do |range, i|
-      break if range[:ends].nil?
-      break if i == memberships_dates.size - 1 # skip last run
-
-      ends_with_buffer = range[:ends] + 1
-      next_starts = memberships_dates[i + 1][:starts]
-
-      if ends_with_buffer < next_starts
-        memberships_with_gaps << range
-      end
-    end
-
-    memberships_with_gaps.any?
+  def first_gap_in_memberships
+    @memberships_with_gaps.first[:ends] + 1
   end
 
   def current_memberships_without_end
@@ -68,5 +74,9 @@ class AvailabilityChecker
 
   def current_memberships
     @current_memberships ||= @user.current_memberships.asc(:ends_at)
+  end
+
+  def memberships
+    @user.memberships.for_availability
   end
 end
