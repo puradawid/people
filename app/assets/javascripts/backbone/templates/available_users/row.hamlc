@@ -10,7 +10,7 @@
 %td
   != @role.name if @role
 %td
-  - if @daysToEndMembership < 0
+  - if @daysToEndMembership <= 0
     %p.ready Now
   - else
     != @available_since
