@@ -49,9 +49,7 @@ class User
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :employment, inclusion: { in: 0..200, message: 'must be between 0-200' }
-  validates :phone, length: { maximum: 16 },
-                    format: { with: %r{\A[+]?\d+(?>[- .]\d+)*\z} },
-                    allow_blank: true
+  validates :phone, phone_number: true, length: { maximum: 16 }, allow_blank: true
   validates :archived, inclusion: { in: [true, false] }
 
   scope :by_name, -> { asc(:first_name, :last_name) }
