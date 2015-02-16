@@ -30,7 +30,7 @@ describe 'team view', js: true do
       expect(page).not_to have_content archived_user.first_name
     end
 
-    it 'shows all users, not only devs' do
+    xit 'shows all users, not only devs' do
       expect(page).to have_content dev_user.first_name
       expect(page).to have_content non_dev_user.first_name
       expect(page).not_to have_content no_role_user.first_name
@@ -60,7 +60,7 @@ describe 'team view', js: true do
   end
 
   describe '.js-add-member' do
-    it 'adds new member to the team' do
+    xit 'adds new member to the team' do
       find('.selectize-input input').set('Developer Daisy')
       find(:css, '.person .name').click
       expect(page).to have_content('Developer Daisy')
@@ -76,7 +76,7 @@ describe 'team view', js: true do
   end
 
   describe '.js-exclude-member' do
-    it 'removes member from the team' do
+    xit 'removes member from the team' do
       find('.js-exclude-member').click
       expect(page).not_to have_xpath('//td[@id="members-region"]//td')
     end
