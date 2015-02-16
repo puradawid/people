@@ -30,9 +30,6 @@ class AvailabilityChecker
 
   def find_memberships_gaps
     @memberships_with_gaps = []
-    memberships_dates = memberships
-      .reorder(starts_at: :asc)
-      .map{ |membership| { starts: membership.starts_at, ends: membership.ends_at } }
 
     memberships_dates.each_with_index do |range, i|
       break if range[:ends].nil?
@@ -79,5 +76,11 @@ class AvailabilityChecker
 
   def memberships
     @user.memberships.for_availability
+  end
+
+  def memberships_dates
+    @memberships_dates = memberships
+      .reorder(starts_at: :asc)
+      .map{ |membership| { starts: membership.starts_at, ends: membership.ends_at } }
   end
 end
