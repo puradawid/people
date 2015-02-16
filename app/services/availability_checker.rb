@@ -51,6 +51,10 @@ class AvailabilityChecker
   def free_right_now?
     return true if has_no_memberships?
 
+    first_membership_starts_after_today?
+  end
+
+  def first_membership_starts_after_today?
     memberships.reorder(starts_at: :asc).first.starts_at > Date.today
   end
 
