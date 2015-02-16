@@ -23,10 +23,11 @@ describe AvailabilityChecker do
       end
 
       context 'only nonbillable membership' do
-        before do
+        let!(:nonbillable_membership) do
           create(:membership, ends_at: nil, user: user, project: project)
-          subject.run!
         end
+
+        before { subject.run! }
 
         it 'changes user availability to true' do
           expect(user.available).to be_true
@@ -73,10 +74,11 @@ describe AvailabilityChecker do
         end
 
         context 'without end date in project with end date' do
-          before do
+          let!(:billable_membership) do
             create(:membership_billable, :without_end, user: user, project: project_ending)
-            subject.run!
           end
+
+          before { subject.run! }
 
           it 'changes user availability to false' do
             expect(user.available).to be_false
@@ -85,13 +87,14 @@ describe AvailabilityChecker do
         end
 
         context 'starting in the future (dev is free right now)' do
-          before do
+          let!(:billable_membership) do
             create(:membership_billable, :without_end,
                                          starts_at: 3.days.from_now,
                                          user: user,
                                          project: project_ending)
-            subject.run!
           end
+
+          before { subject.run! }
 
           it 'changes user availability to true' do
             expect(user.available).to be_true
