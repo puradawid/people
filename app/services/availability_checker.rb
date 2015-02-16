@@ -60,7 +60,7 @@ class AvailabilityChecker
   end
 
   def has_only_memberships_with_end_date?
-    current_memberships_without_end.blank?
+    current_memberships_without_end_date.blank?
   end
 
   def has_memberships_with_gaps?
@@ -71,8 +71,8 @@ class AvailabilityChecker
     @memberships_with_gaps.first[:ends] + 1
   end
 
-  def current_memberships_without_end
-    @current_memberships_without_end ||= memberships.where(ends_at: nil)
+  def current_memberships_without_end_date
+    @current_memberships_without_end_date ||= memberships.where(ends_at: nil)
   end
 
   def current_memberships
