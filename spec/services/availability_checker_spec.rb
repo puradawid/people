@@ -247,13 +247,13 @@ describe AvailabilityChecker do
 
       context 'many memberships' do
         context 'all billable and overlapping' do
-          let!(:membership) do
+          let!(:first) do
             create(:membership_billable, ends_at: 2.days.from_now, user: user, project: project)
           end
-          let!(:membership2) do
+          let!(:second) do
             create(:membership_billable, :without_end, user: user, project: project_ending)
           end
-          let!(:membership3) do
+          let!(:third) do
             create(:membership_billable, :without_end,
                                          user: user,
                                          project: project_without_end_date)
