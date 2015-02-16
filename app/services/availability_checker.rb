@@ -22,12 +22,10 @@ class AvailabilityChecker
     return Date.today if free_right_now? || has_no_memberships?
 
     if has_memberships_with_gaps?
-      return first_gap_in_memberships
+      first_gap_in_memberships
     else
-      return memberships.last.try(:ends_at).try(:to_date) + 1
+      memberships.last.try(:ends_at).try(:to_date) + 1
     end
-
-    Date.today
   end
 
   def find_memberships_gaps
