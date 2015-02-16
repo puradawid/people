@@ -4,8 +4,8 @@ class AvailabilityCheckerJob
   def perform(user_id)
     user = User.where(id: user_id).first
 
-    if user.present?
-      AvailabilityChecker.new(user).run!
-    end
+    return unless user.present?
+
+    AvailabilityChecker.new(user).run!
   end
 end
