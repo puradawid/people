@@ -11,7 +11,7 @@ describe PositionsController do
 
     before do
       role = create(:role, name: 'developer')
-      user = create(:user, role_id: role.id)
+      user = create(:user, primary_role_id: role.id)
       position = create(:position, user: user, role: role)
       jun_role = create(:role, name: 'junior')
       create(:position, user: user, starts_at: position.starts_at - 2.days, role: jun_role)
@@ -49,7 +49,7 @@ describe PositionsController do
 
   describe '#create' do
     let(:role) { create(:role, name: 'junior1', technical: true) }
-    let(:user) { create(:user, role_id: role.id) }
+    let(:user) { create(:user, primary_role_id: role.id) }
     let!(:params) { attributes_for(:position, user_id: user._id, role_id: role._id) }
 
     context 'with valid attributes' do
@@ -69,7 +69,7 @@ describe PositionsController do
 
   describe '#update' do
     let(:role) { create(:role, name: 'junior1', technical: true) }
-    let(:user) { create(:user, role_id: role.id) }
+    let(:user) { create(:user, primary_role_id: role.id) }
     let!(:position) { create(:position, user: user, role: role) }
 
     it 'exposes positions' do
@@ -98,7 +98,7 @@ describe PositionsController do
 
   describe '#destroy' do
     let(:intern_role) { create(:role, name: 'intern', technical: true) }
-    let(:user) { create(:user, role_id: intern_role.id) }
+    let(:user) { create(:user, primary_role_id: intern_role.id) }
     let!(:position) { create(:position, user: user, role: intern_role) }
 
     it 'deletes the position' do
