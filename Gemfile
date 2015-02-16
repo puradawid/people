@@ -70,12 +70,7 @@ gem 'capistrano-rails'
 gem 'capistrano-bundler'
 gem 'capistrano-passenger'
 
-
 gem 'rack-mini-profiler', '~> 0.9.2', require: false
-
-group :staging, :production do
-  gem 'rails_12factor'
-end
 
 group :development do
   gem 'better_errors'
