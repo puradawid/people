@@ -42,6 +42,10 @@ class UserMembershipRepository
     not_potential.not_archived.started.not_ended.not_ended_project
   end
 
+  def currently_booked
+    search(ends_later_than: Time.now).booked
+  end
+
   def items
     search = MembershipSearch.new(search_params)
     clear_search

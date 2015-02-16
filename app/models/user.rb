@@ -148,7 +148,11 @@ class User
   end
 
   def booked_memberships
-    @booked_memberships ||= user_membership_repository.booked.with_end_date.items.asc(:ends_at)
+    @booked_memberships ||= user_membership_repository
+      .currently_booked
+      .with_end_date
+      .items
+      .asc(:ends_at)
   end
 
   def current_project
