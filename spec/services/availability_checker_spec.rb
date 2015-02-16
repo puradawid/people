@@ -80,7 +80,7 @@ describe AvailabilityChecker do
 
           it 'changes user availability to false' do
             expect(user.available).to be_false
-            expect(user.available_since).to eq(nil)
+            expect(user.available_since).to be_nil
           end
         end
 
@@ -132,7 +132,7 @@ describe AvailabilityChecker do
 
           it 'changes user availability to false' do
             expect(user.available).to be_false
-            expect(user.available_since).to eq(nil)
+            expect(user.available_since).to be_nil
           end
         end
 
@@ -150,7 +150,7 @@ describe AvailabilityChecker do
 
           it 'changes user availability to false' do
             expect(user.available).to be_false
-            expect(user.available_since).to eq(nil)
+            expect(user.available_since).to be_nil
           end
         end
       end
@@ -239,7 +239,7 @@ describe AvailabilityChecker do
 
             it 'changes user availability to false' do
               expect(user.available).to be_false
-              expect(user.available_since).to eq(nil)
+              expect(user.available_since).to be_nil
             end
           end
         end
@@ -263,7 +263,7 @@ describe AvailabilityChecker do
 
           it 'changes user availability to false' do
             expect(user.available).to be_false
-            expect(user.available_since).to eq(nil)
+            expect(user.available_since).to be_nil
           end
         end
 
@@ -303,7 +303,7 @@ describe AvailabilityChecker do
 
           it 'changes user availability to false' do
             expect(user.available).to be_false
-            expect(user.available_since).to eq(nil)
+            expect(user.available_since).to be_nil
           end
         end
       end
