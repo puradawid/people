@@ -2,6 +2,9 @@ class Hrguru.Views.AvailableUsersRow extends Backbone.Marionette.Layout
   tagName: 'tr'
   template: JST['available_users/row']
 
+  events:
+    'click .user-notes': 'showUserNote'
+
   regions:
     projectsRegion: '.projects-region'
     nextProjectsRegion: '.next_projects-region'
@@ -15,6 +18,10 @@ class Hrguru.Views.AvailableUsersRow extends Backbone.Marionette.Layout
 
   initVisibilitytListeners: ->
     @listenTo(@model, 'toggle_visible', @toggleVisibility)
+
+  showUserNote: (event) ->
+    note = $(event.target).data('user-notes')
+    $('.user-notes-content').html(note)
 
   onRender: ->
     @stickit()
