@@ -2,7 +2,7 @@ class AvatarColor
   GOLDEN_RATIO_CONJUGATE = 0.618033988749895
 
   def as_rgb
-    "#" + hsv_to_rgb(hue, 0.5, 0.95).join
+    "##{hsv_to_rgb(hue, 0.5, 0.95).join}"
   end
 
   private
