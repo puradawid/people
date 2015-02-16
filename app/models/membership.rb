@@ -12,7 +12,7 @@ class Membership
   field :stays, type: Mongoid::Boolean, default: false
   field :booked, type: Mongoid::Boolean, default: false
 
-  belongs_to :user, index: true
+  belongs_to :user, index: true, touch: true
   belongs_to :project, index: true
   belongs_to :role
 
