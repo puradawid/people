@@ -1,6 +1,6 @@
 class AbilitiesController < ApplicationController
   expose(:ability, attributes: :ability_params)
-  expose(:abilities) { Ability.all.sort_by { |a| a.name.downcase } }
+  expose(:abilities) { Ability.all.asc(:name) }
 
   before_filter :authenticate_admin!
 
