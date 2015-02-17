@@ -7,7 +7,7 @@ class Role
   after_create :move_to_bottom
 
   has_many :memberships
-  has_many :users
+  has_many :users, inverse_of: :roles
   has_many :positions
 
   orderable column: :priority
