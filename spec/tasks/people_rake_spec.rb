@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'rake'
 
 describe AvailabilityChecker do
-  let!(:user) { create(:user, role: role, available: nil) }
+  let!(:user) { create(:user, primary_role_id: role.id, available: nil) }
   let(:role) { create(:role, technical: true) }
 
   describe 'people namespace rake task' do
