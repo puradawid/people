@@ -14,9 +14,6 @@
       != @icon 'envelope-o'
     != @github
     != @skype
-%td
-  - if H.currentUserIsAdmin()
-    %select.form-control.admin_role.role_id
 - if H.currentUserIsAdmin() || H.currentUserIdIs(@id)
   %td
     %select.form-control.roles.role_id
@@ -29,10 +26,6 @@
     .projects-region
     .next_projects-region
     .potential_projects-region
-  %td
-    %input.form-control.phone{ maxlength: 12 }
-  %td
-    %select.form-control.locations.location_id
 - else
   %td
     != @role.name if @role
@@ -42,7 +35,6 @@
     .projects-region
     .next_projects-region
     .potential_projects-region
+- if H.currentUserIsAdmin()
   %td
-    != @phone
-  %td
-    != @location.name if @location
+    %input.form-control.admin_role.role_id{ type: 'checkbox', value: _.first(gon.admin_role)._id }

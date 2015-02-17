@@ -21,13 +21,11 @@
       .sort
         .up.glyphicon.glyphicon-chevron-up.active.default{ data: { sort: 'name' } }
         .down.glyphicon.glyphicon-chevron-down{ data: { sort: 'name' } }
-    %th= 'Admin Role' if current_user.admin?
-    %th Role
     %th
-      %p.columnName
+      %p.columnName Role
       .sort
-        .up.glyphicon.glyphicon-chevron-up{ data: { sort: 'employment' } }
-        .down.glyphicon.glyphicon-chevron-down{ data: { sort: 'employment' } }
+        .up.glyphicon.glyphicon-chevron-up{ data: { sort: 'role' } }
+        .down.glyphicon.glyphicon-chevron-down{ data: { sort: 'role' } }
+    %th Employment
     %th Projects
-    %th Phone
-    %th Location
+    %th= 'Admin Role' if current_user.admin?
