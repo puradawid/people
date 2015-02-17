@@ -18,5 +18,9 @@ FactoryGirl.define do
     trait :without_end do
       ends_at nil
     end
+
+    trait :booked do
+      booked true
+    end
   end
 end

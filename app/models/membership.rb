@@ -124,13 +124,6 @@ class Membership
   end
 
   def validate_duplicate_project
-    memberships = Membership.with_user(user).not_in(:_id => [id]).where(project_id: project.try(:id))
-    if ends_at.present?
-      duplicate = memberships.or({ :starts_at.lte => ends_at, :ends_at.gte => starts_at }, { :starts_at.lte => ends_at, :ends_at => nil })
-    else
-      duplicate = memberships.or({ ends_at: nil }, { :ends_at.gte => starts_at })
-    end
-
-    errors.add(:project, "user is not available at given time for this project") if duplicate.exists?
+    MembershipCollision.new(self).call!
   end
 end

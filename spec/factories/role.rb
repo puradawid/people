@@ -17,5 +17,9 @@ FactoryGirl.define do
       name 'senior'
       admin true
     end
+
+    factory :junior_role do
+      name 'junior'
+    end
   end
 end
