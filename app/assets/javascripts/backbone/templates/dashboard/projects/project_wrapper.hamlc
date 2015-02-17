@@ -8,10 +8,14 @@
 
         %span.action
           - if H.currentUserIsAdmin()
-            .unarchive.glyphicon.glyphicon-folder-open
-            .archive.glyphicon.glyphicon-folder-close
-            .js-timeline-show.glyphicon.glyphicon-time
-            .js-timeline-hide.glyphicon.glyphicon-time
+            %a.unarchive.info{ data: { toggle: 'tooltip' }, title: 'Unarchive Project' }
+              %span.glyphicon.glyphicon-folder-open
+            %a.archive.info{ data: { toggle: 'tooltip' }, title: 'Archive Project' }
+              %span.glyphicon.glyphicon-folder-close
+            %a.js-timeline-hide.info{ data: { toggle: 'tooltip' }, title: 'Hide Timeline' }
+              %span.glyphicon.glyphicon-time
+            %a.js-timeline-show.info{ data: { toggle: 'tooltip' }, title: 'Show Timeline' }
+              %span.glyphicon.glyphicon-time
         - if @end_at
           .time
             %time= moment(@end_at).fromNow()

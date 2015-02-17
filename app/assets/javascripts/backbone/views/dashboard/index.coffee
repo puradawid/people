@@ -30,6 +30,7 @@ class Hrguru.Views.DashboardIndex extends Marionette.View
     @fillTable()
     @filtersView = new Hrguru.Views.Dashboard.Filters(@projects, @roles, @users)
     @filtersView.render()
+    $('.info').tooltip()
 
   addProject: (project) ->
     view = new Hrguru.Views.Dashboard.ProjectWrapper
@@ -42,7 +43,6 @@ class Hrguru.Views.DashboardIndex extends Marionette.View
       $el.addClass('potential')
       $el.hide() unless @filtersView.displayedType == project.type()
     $('.open-all-notes').after($el)
-
 
   fillTable: ->
     if H.currentUserIsAdmin()

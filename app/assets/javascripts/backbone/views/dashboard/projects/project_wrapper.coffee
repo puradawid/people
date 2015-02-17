@@ -6,6 +6,7 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
   ui:
     billable_ratio: '.billable_ratio'
     archive: '.archive'
+    unarchive: '.unarchive'
     time: '.time'
     timeline_show: '.js-timeline-show'
     timeline_hide: '.js-timeline-hide'
@@ -35,6 +36,7 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
     @renderMembershipsRegion()
     @renderTimelineRegion()
     @updateBillableInfo()
+    @setArchiveButtonsVisibility()
 
   renderTimelineRegion: ->
     @ui.timeline_hide.css('color', 'red')
@@ -107,6 +109,7 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
         Messenger().success("Project has been #{message}")
         @$el.toggleClass('archived', value)
         @$el.hide()
+        @setArchiveButtonsVisibility()
       error: (model, xhr) =>
         Messenger().error(xhr.responseJSON.errors)
     )
@@ -114,3 +117,8 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
   toggleTimeline: ->
     @ui.timeline_show.toggle()
     @ui.timeline_hide.toggle()
+
+  setArchiveButtonsVisibility: ->
+    is_archived = @model.get('archived')
+    @ui.archive.toggle(not is_archived)
+    @ui.unarchive.toggle(is_archived)
