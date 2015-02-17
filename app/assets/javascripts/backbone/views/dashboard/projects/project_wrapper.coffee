@@ -98,7 +98,9 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
     @updateProjectArchive(false, 'unarchived')
 
   updateProjectArchive: (value, message) ->
-    return unless confirm("Are you sure?")
+    msg = if value then 'Archive project?' else 'Unarchive project?'
+    return unless confirm(msg)
+
     @model.save({ archived: value },
       patch: true
       success: (model, response, options) =>
