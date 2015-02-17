@@ -51,67 +51,23 @@
                   Potential
         .new-project-members
           .row
-            .col-md-6
+            .col-md-12
               .form-group
                 .input-group
                   .input-group-addon Dev
                   %input.devs{ type: 'text', name: 'devs', placeholder: 'Add developer...'}
-            .col-md-6
-              .members
-                %ul.team-members
-                  %li
-                    .membership
-                      .member-photo
-                      .member-name
-                        %a Scarlet Johanson
-                      .member-details
-                        .label.label-default Developer
-                  %li
-                    .membership
-                      .member-photo
-                      .member-name
-                        %a Scarlet Johanson
-                      .member-details
-                        .label.label-default Developer
-                  %li
-                    .membership
-                      .member-photo
-                      .member-name
-                        %a Scarlet Johanson
-                      .member-details
-                        .label.label-default Developer
           .row
-            .col-md-6
+            .col-md-12
               .form-group
                 .input-group
                   .input-group-addon PM
                   %input.pms{ type: 'text', name: 'pms', placeholder: 'Add PM...' }
-            .col-md-6
-              .members
-                %ul.team-members
-                  %li
-                    .membership
-                      .member-photo
-                      .member-name
-                        %a Scarlet Johanson
-                      .member-details
-                        .label.label-default Developer
           .row
-            .col-md-6
+            .col-md-12
               .form-group
                 .input-group
                   .input-group-addon QA
                   %input.qas{ type: 'text', name: 'qas', placeholder: 'Add QA...' }
-            .col-md-6
-              .members
-                %ul.team-members
-                  %li
-                    .membership
-                      .member-photo
-                      .member-name
-                        %a Scarlet Johanson
-                      .member-details
-                        .label.label-default Developer
       .modal-footer
         %button.btn.btn-default.new-project-close{ type: 'button', data: { dismiss: 'modal' } } Close
         %button.btn.btn-primary.new-project-submit{ type: 'button' } Add project
