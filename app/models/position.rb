@@ -33,7 +33,7 @@ class Position
   private
 
   def validate_chronology
-    return if self.errors.count > 0
+    return if errors.count > 0
 
     positions = user.positions.sort_by!(&:starts_at).map(&:role).map(&:name)
     is_valid = positions == Role.in(name: positions).sort_by(&:priority).map(&:name).reverse!
