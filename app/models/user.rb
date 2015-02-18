@@ -60,7 +60,7 @@ class User
   scope :available, -> { where(available: true) }
   scope :active, -> { where(archived: false) }
   scope :technical_active, -> { where(archived: false, available: true) }
-  scope :roles, -> (roles) { where(:role.in => roles) }
+  scope :roles, -> (roles) { where(:primary_role.in => roles) }
   scope :contract_users, ->(contract_type) {
     ContractType.where(name: contract_type).first.try(:users)
   }
