@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe AvailabilityChecker do
   subject { AvailabilityChecker.new(user) }
-  let!(:user) { create(:user, primary_role_id: role.id, available: nil) }
+  let!(:user) { create(:user, primary_role: role, available: nil) }
   let(:role) { create(:role, technical: true) }
   let(:project) { create(:project) }
   let(:internal_project) { create(:project, internal: true, potential: false) }
