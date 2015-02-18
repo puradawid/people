@@ -10,7 +10,7 @@ describe Position do
   describe '#available roles' do
     let(:juniorRole) { create(:role, name: 'junior', technical: true) }
     let!(:seniorRole) { create(:role, name: 'senior', technical: true) }
-    let!(:user) { create(:user, primary_role_id: juniorRole.id) }
+    let!(:user) { create(:user, primary_role: juniorRole) }
 
     context 'available roles' do
 
@@ -32,7 +32,7 @@ describe Position do
   describe '#validate chronology' do
     let(:juniorRole) { create(:role, name: 'junior', technical: true) }
     let!(:seniorRole) { create(:role, name: 'senior', technical: true) }
-    let!(:user) { create(:user, primary_role_id: juniorRole.id) }
+    let!(:user) { create(:user, primary_role: juniorRole) }
     let!(:juniorPos) { create(:position, user: user, role: juniorRole, starts_at: Date.new(2014, 5, 14)) }
     context 'validate chronology' do
 
@@ -64,8 +64,8 @@ describe Position do
       end
       context 'sorts positions' do
         let(:new_role) { build(:role, name: 'new', technical: true) }
-        let(:first_user) { build(:user, first_name: 'Andrew', last_name: 'Snow', primary_role_id: new_role.id) }
-        let(:second_user) { build(:user, first_name: 'Tony', last_name: 'Second', primary_role_id: new_role.id) }
+        let(:first_user) { build(:user, first_name: 'Andrew', last_name: 'Snow', primary_role: new_role) }
+        let(:second_user) { build(:user, first_name: 'Tony', last_name: 'Second', primary_role: new_role) }
         let(:first_pos) do
           build(:position, user: first_user, role: new_role,
           starts_at: Date.new(2014, 7, 14))
