@@ -1,12 +1,14 @@
 %td
-  %img{ src: @gravatar }
-%td
-  != @profile_link(@, Routes.user_path(@id))
-  .icons
-    %a{ href: "mailto:#{@email}" }
-      != @icon 'envelope-o'
-    != @github
-    != @skype
+  .avatar
+    %img{ src: @gravatar }
+  .profile
+    %span.name
+      != @profile_link(@, Routes.user_path(@id))
+    .icons
+      %a{ href: "mailto:#{@email}" }
+        != @icon 'envelope-o'
+      != @github
+      != @skype
 %td
   != @role.name if @role
 %td

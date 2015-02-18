@@ -10,48 +10,7 @@ body.available_users {
       width: 100%;
     }
 
-    table#available_users {
-      a {
-        text-decoration: none;
-        i {
-          color: black;
-          &:hover { color: $gray-light; }
-        }
-      }
 
-      input {
-        &.employment { width: 80px; }
-      }
-
-      i.potential { color: #D8A31D; }
-      i.notbillable { color: #D81D1D; }
-
-      p.columnName {
-        float: left;
-        margin: 5px 5px 0px 5px;
-      }
-
-      .sort {
-        float: left;
-
-        .down {
-          margin-left: -1px;
-        }
-
-        .up, .down {
-          display: block;
-          &:hover {
-            color: gray;
-            cursor: pointer;
-          }
-
-          &.active {
-            color: blue;
-            cursor: default;
-          }
-        }
-      }
-    }
 
     .employment-container {
       display: table-cell;
@@ -64,6 +23,95 @@ body.available_users {
       .input-group-addon p {
         padding: 3px 0 3px 0;
         margin: 0 0 0 -6px;
+      }
+    }
+  }
+}
+
+.available-users.table {
+  thead {
+    tr {
+      th {
+        padding: 15px;
+        border-bottom: 0 none;
+      }
+    }
+  }
+
+  tbody {
+    tr:nth-child(2n+1) {
+      background-color: lighten($gray-lighter, 3%);
+    }
+
+    td {
+      padding: 15px;
+      border: 1px solid $table-border-color;
+      border-left: 0 none;
+      border-right: 0 none;
+
+      &:first-child {
+        border-left: 1px solid $table-border-color;
+      }
+
+      &:last-child {
+        border-right: 1px solid $table-border-color;
+      }
+    }
+  }
+
+  .avatar {
+    display: inline-block;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+    vertical-align: middle;
+    border-radius: 40px;
+  }
+
+  .profile {
+    display: inline-block;
+    vertical-align: middle;
+
+    .name {
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+
+  a {
+    color: darken($gray, 10%);
+  }
+
+  input {
+    &.employment { width: 80px; }
+  }
+
+  i.potential { color: #D8A31D; }
+  i.notbillable { color: #D81D1D; }
+
+  p.columnName {
+    float: left;
+    margin: 5px 5px 0px 5px;
+  }
+
+  .sort {
+    float: left;
+
+    .down {
+      margin-left: -1px;
+    }
+
+    .up, .down {
+      display: block;
+      &:hover {
+        color: gray;
+        cursor: pointer;
+      }
+
+      &.active {
+        color: blue;
+        cursor: default;
       }
     }
   }
