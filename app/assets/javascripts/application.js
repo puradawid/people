@@ -4,6 +4,7 @@
 //= require jquery-tablesorter
 //= require jquery_ujs
 //= require jquery.cookie
+//= require select2
 //= require netguru_theme
 //= require messenger
 //= require messenger-theme-flat
