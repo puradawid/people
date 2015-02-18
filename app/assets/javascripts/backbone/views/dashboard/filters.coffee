@@ -8,6 +8,11 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
     'change #highlight-not-billable' : 'highlightNotBillableChanged'
     'change .toggle-by-type' : 'toggleByType'
 
+  availableCheckboxes:
+    'active' : ['highlight-ending', 'show-next', 'highlight-not-billable']
+    'potential' : ['show-next', 'highlight-not-billable']
+    'archived' : ['highlight-not-billable']
+
   initialize: (@projects, @roles, @users) ->
     $(window).on("unload",@saveRadioState)
     @displayedType = 'active'
@@ -92,6 +97,7 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
     @displayedType = event.currentTarget.dataset.type
     H.togglePotentialCheckbox(@displayedType)
     @refreshProjectSelectize()
+    @refreshFilterCheckboxes()
     EventAggregator.trigger('projects:toggleByType', { type: @displayedType })
 
   retriveRadioState: ->
@@ -103,6 +109,7 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
         distype = @getAttribute('data-type')
         EventAggregator.trigger('projects:toggleByType', { type: @getAttribute('data-type') })
     @displayedType = distype
+    @refreshFilterCheckboxes()
     H.togglePotentialCheckbox(@displayedType)
 
   saveRadioState: ->
@@ -118,3 +125,8 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
       @projects_selectize.clearOptions()
       @projects_selectize.load (callback) =>
         callback @filterSelectizeProjects()
+
+  refreshFilterCheckboxes: ->
+    $('.checkboxes .checkbox').hide()
+    _.each @availableCheckboxes[@displayedType], (type) ->
+      $("##{type}").parents('.checkbox').show()
