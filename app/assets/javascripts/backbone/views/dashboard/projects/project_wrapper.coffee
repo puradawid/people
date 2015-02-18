@@ -122,5 +122,5 @@ class Hrguru.Views.Dashboard.ProjectWrapper extends Marionette.Layout
 
   setArchiveButtonsVisibility: ->
     is_archived = @model.get('archived')
-    @ui.archive.toggle(not is_archived)
-    @ui.unarchive.toggle(is_archived)
+    @ui.archive.toggleClass('hidden', is_archived)
+    @ui.unarchive.toggleClass('hidden', not is_archived)
