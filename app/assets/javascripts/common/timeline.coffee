@@ -94,7 +94,7 @@
         html
 
       renderToDay: ->
-        offset = this.daysDiff(moment(new Date()), this.startTimelineM)
+        offset = @daysDiff(moment(new Date()), @startTimelineM)
         toDay = moment(new Date()).format "D MMM"
         "<section class='month today' style='left: #{@daysLength(offset)}px'>
           <div class='today-inline'>
