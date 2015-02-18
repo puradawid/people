@@ -55,7 +55,7 @@ class Hrguru.Models.User extends Backbone.Model
     return true if abilities.length == 0
     return false unless @get('abilities')?
     myAbilities = @myAbilities()
-    (_.difference myAbilities, abilities).length < myAbilities.length
+    (_.union myAbilities, abilities).length == myAbilities.length
 
   visibleByAvailabilityTime: (availability_time) ->
     return true if availability_time == 0
