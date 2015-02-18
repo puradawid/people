@@ -22,7 +22,7 @@ class MembershipCollision
   end
 
   def junior_dev?
-    membership.user.primary_role.name == 'junior'
+    membership.user.primary_role.try(:name) == 'junior'
   end
 
   def booking?
