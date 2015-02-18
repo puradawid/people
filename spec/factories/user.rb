@@ -15,5 +15,10 @@ FactoryGirl.define do
     factory :user_deleted do
       deleted_at Time.now
     end
+
+    trait :available do
+      available true
+      available_since { Date.today }
+    end
   end
 end

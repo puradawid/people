@@ -2,6 +2,8 @@
   .filters
     .availability_time
       %select{ name: 'availability_time', placeholder: 'Only show users available in...'}
+    .abilities
+      %input{ type: 'text', name: 'abilities', placeholder: 'Filter abilities…' }
 
 %table.table.table-striped.table-hover#available_users
   %thead

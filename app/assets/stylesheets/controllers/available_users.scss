@@ -1,5 +1,11 @@
 body.available_users {
   &.index {
+
+    .availability_time,
+    .abilities {
+      display: table-cell;
+    }
+
     #main-container{
       width: 100%;
     }
