@@ -4,6 +4,7 @@ class Hrguru.Views.UsersShow extends Backbone.View
   initialize: ->
     @removeFormControlClass()
     @initializeAbilities()
+    @initializeRoles()
     elTimeline = @$('.timeline')
     @timeline = elTimeline.timeline(gon.events)
     elTimeline.scrollTo(elTimeline[0].scrollWidth, 0)

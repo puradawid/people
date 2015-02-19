@@ -72,9 +72,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :primary_role_id,
-      :role_ids, :admin_role_id, :team_id, :leader_team_id,
+      :admin_role_id, :team_id, :leader_team_id,
       :employment, :phone, :location_id, :contract_type_id, :user_notes,
-      :archived, :skype, abilities_names: [])
+      :archived, :skype, abilities_names: [], role_ids: [])
   end
 
   def generate_errors

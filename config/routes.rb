@@ -19,6 +19,7 @@ Hrguru::Application.routes.draw do
     scope module: :v1 do
       resources :users, only: [:index, :show, :contract_users]
       resources :projects, only: [:index]
+      resources :roles, only: [:index]
       resources :memberships, except: [:new, :edit]
     end
   end
