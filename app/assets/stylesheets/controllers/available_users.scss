@@ -14,7 +14,8 @@ body.available_users {
     .employment-container {
       display: table-cell;
 
-      .input-group-addon, .employment {
+      .input-group-addon,
+      .employment {
         margin: 0;
         float: left;
       }
@@ -28,42 +29,47 @@ body.available_users {
 }
 
 .available-users.table {
-  thead {
-    tr {
-      th {
-        padding: 15px;
-        vertical-align: top;
-        border-bottom: 0 none;
-      }
-    }
+  th {
+    padding: 15px;
+    vertical-align: top;
+    border-bottom: 0 none;
   }
 
   tbody {
     tr:nth-child(2n+1) {
       background-color: lighten($gray-lighter, 3%);
     }
+  }
 
-    td {
-      padding: 15px;
-      border: 1px solid $table-border-color;
-      border-left: 0 none;
-      border-right: 0 none;
+  td {
+    padding: 15px;
+    border: 1px solid $table-border-color;
+    border-left: 0 none;
+    border-right: 0 none;
 
-      &:first-child {
-        border-left: 1px solid $table-border-color;
-      }
+    &:first-child {
+      border-left: 1px solid $table-border-color;
+    }
 
-      &:last-child {
-        border-right: 1px solid $table-border-color;
-      }
+    &:last-child {
+      border-right: 1px solid $table-border-color;
+    }
+  }
+
+  a {
+    color: darken($gray, 10%);
+  }
+
+  input {
+    &.employment {
+      width: 80px;
     }
   }
 
   .avatar {
+    @include size(40px, 40px);
     display: inline-block;
     overflow: hidden;
-    width: 40px;
-    height: 40px;
     margin-right: 15px;
     vertical-align: middle;
     border-radius: 40px;
@@ -83,18 +89,7 @@ body.available_users {
     }
   }
 
-  a {
-    color: darken($gray, 10%);
-  }
-
-  input {
-    &.employment { width: 80px; }
-  }
-
-  i.potential { color: #D8A31D; }
-  i.notbillable { color: #D81D1D; }
-
-  p.columnName {
+  .column-name {
     float: left;
     margin: 0 10px 0 0;
   }
@@ -106,15 +101,17 @@ body.available_users {
       margin-left: -1px;
     }
 
-    .up, .down {
+    .up,
+    .down {
       display: block;
+
       &:hover {
-        color: gray;
+        color: $gray;
         cursor: pointer;
       }
 
       &.active {
-        color: blue;
+        color: $blue;
         cursor: default;
       }
     }
