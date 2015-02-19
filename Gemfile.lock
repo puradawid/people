@@ -600,7 +600,6 @@ DEPENDENCIES
   rvm1-capistrano3
   sass-rails
   searchlight
-  select2-rails (= 3.5.9.3)
   selectize-rails
   simple_form (~> 3.1.0.rc2)
   spork-rails
