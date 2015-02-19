@@ -21,3 +21,12 @@ class Hrguru.Views.UsersShow extends Backbone.View
       create: (input) ->
         value: input
         text: input
+
+  initializeRoles: ->
+    @$('#js-user_roles').selectize
+      plugins: ['remove_button', 'drag_drop']
+      delimiter: ','
+      persist: false
+      create: (input) ->
+        value: input
+        text: input
