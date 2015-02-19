@@ -98,6 +98,10 @@ class UserDecorator < Draper::Decorator
     abilities.map(&:name)
   end
 
+  def roles_names
+    roles.map(&:name)
+  end
+
   def archived_projects
     memberships_by_project.select{ |project, _membership| project.archived? }
       .sort_by { |_project, memberships| memberships.first.starts_at }

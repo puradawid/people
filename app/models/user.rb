@@ -118,6 +118,14 @@ class User
     @abilities_list = abilities_list
   end
 
+  def roles_names
+    roles.map(&:name)
+  end
+
+  def roles_names=(roles_list)
+    @roles_list = roles_list
+  end
+
   def has_current_projects?
     current_memberships.present?
   end
