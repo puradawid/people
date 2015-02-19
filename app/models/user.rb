@@ -75,6 +75,7 @@ class User
   before_save :end_memberships
   before_update :save_team_join_time
   before_validation :assign_abilities
+  before_validation :assign_roles
 
   def self.create_from_google!(params)
     user = User.where(uid: params['uid']).first
@@ -197,6 +198,13 @@ class User
     if @abilities_list.present?
       @abilities_list.reject!(&:empty?)
       self.abilities = @abilities_list.map { |name| Ability.find_or_initialize_by(name: name) }
+    end
+  end
+
+  def assign_roles
+    if @roles_list.present?
+      @roles_list.reject!(&:empty?)
+      self.roles = @roles_list.map { |name| Role.find_or_initialize_by(name: name) }
     end
   end
 
