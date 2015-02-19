@@ -12,6 +12,7 @@ class Hrguru.Views.UsersShow extends Backbone.View
 
   removeFormControlClass: ->
     @$('#js-user_abilities').removeClass('form-control')
+    @$('#js-user_roles').removeClass('form-control')
 
   initializeAbilities: ->
     @$('#js-user_abilities').selectize
