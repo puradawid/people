@@ -198,8 +198,8 @@ describe User do
         sec_memb.update_attribute(:booked, true)
       end
 
-      it "returns an empty array" do
-        expect(subject.booked_memberships).to eq([])
+      it "returns memberships in the right order" do
+        expect(subject.booked_memberships.to_a).to eq([first_memb, sec_memb])
       end
     end
 

@@ -160,7 +160,6 @@ class User
   def booked_memberships
     @booked_memberships ||= user_membership_repository
       .currently_booked
-      .with_end_date
       .items
       .asc(:ends_at)
   end
