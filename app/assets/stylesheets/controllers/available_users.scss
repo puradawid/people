@@ -11,8 +11,6 @@ body.available_users {
       width: 100%;
     }
 
-
-
     .employment-container {
       display: table-cell;
 
@@ -78,6 +76,10 @@ body.available_users {
     .name {
       font-size: 14px;
       font-weight: bold;
+    }
+
+    .icons {
+      display: none;
     }
   }
 
