@@ -3,7 +3,8 @@ body.available_users {
 
     .availability_time,
     .abilities {
-      display: table-cell;
+      display: inline-block;
+      margin-right: 15px;
     }
 
     #main-container{
@@ -33,6 +34,7 @@ body.available_users {
     tr {
       th {
         padding: 15px;
+        vertical-align: top;
         border-bottom: 0 none;
       }
     }
@@ -92,7 +94,7 @@ body.available_users {
 
   p.columnName {
     float: left;
-    margin: 5px 5px 0px 5px;
+    margin: 0 10px 0 0;
   }
 
   .sort {
