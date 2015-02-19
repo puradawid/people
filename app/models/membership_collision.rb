@@ -47,7 +47,7 @@ class MembershipCollision
   def memberships
     Membership
       .with_user(membership.user)
-      .not_in(:_id => [membership.id])
+      .not_in(_id: [membership.id])
       .where(project_id: membership.project.try(:id))
   end
 end
