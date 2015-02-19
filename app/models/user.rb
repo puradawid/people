@@ -38,13 +38,13 @@ class User
   has_many :memberships, dependent: :destroy
   has_many :notes
   has_many :positions
-  has_many :roles
   belongs_to :admin_role
   belongs_to :contract_type
   belongs_to :location
   belongs_to :team, inverse_of: :user
   belongs_to :leader_team, class_name: 'Team', inverse_of: :leader
   belongs_to :primary_role, class_name: 'Role'
+  has_and_belongs_to_many :roles
   has_and_belongs_to_many :abilities
 
   validates :first_name, :last_name, presence: true

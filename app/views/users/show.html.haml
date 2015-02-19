@@ -12,8 +12,12 @@
         .list-group-item
           = f.input :primary_role_id, collection: roles, label: 'Primary role:'
         .list-group-item
-          = f.label :roles, 'Other roles:'
-          = f.input :roles_names, as: :select, collection: roles, input_html: { multiple: true, id: 'js-user_roles'}, label: false
+          = f.label :roles_ids, 'Other Roles'
+          = f.input :role_ids,
+            as: :select,
+            collection: roles,
+            input_html: { multiple: true, id: 'js-user_roles'},
+            label: false
         .list-group-item
           = f.label :abilities_names, 'Skills & technologies'
           = f.input :abilities_names, as: :select, collection: abilities, input_html: { multiple: true, id: 'js-user_abilities'}, label: false
