@@ -56,7 +56,6 @@ gem 'selectize-rails'
 gem 'font-awesome-rails'
 gem 'animate-scss'
 gem 'messengerjs-rails'
-gem 'select2-rails', '3.5.9.3'
 
 gem 'whenever', require: false
 gem 'versionist'
