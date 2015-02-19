@@ -6,7 +6,7 @@ describe MembershipCollision do
     let!(:user) { create(:user, primary_role: role) }
     let(:project) { create(:project) }
     let!(:first_membership) { create(:membership_billable, user: user, project: project) }
-    let!(:second_membership) { build(:membership_billable, user: user, project: project) }
+    let(:second_membership) { build(:membership_billable, user: user, project: project) }
 
     before { described_class.new(second_membership).call! }
 
@@ -22,7 +22,7 @@ describe MembershipCollision do
     let!(:user) { create(:user, primary_role: junior_role) }
     let(:project) { create(:project) }
     let!(:first_membership) { create(:membership, user: user, project: project) }
-    let!(:second_membership) { build(:membership_billable, :booked, user: user, project: project) }
+    let(:second_membership) { build(:membership_billable, :booked, user: user, project: project) }
 
     before { described_class.new(second_membership).call! }
 
