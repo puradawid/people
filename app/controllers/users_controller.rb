@@ -67,14 +67,14 @@ class UsersController < ApplicationController
   end
 
   def fetch_abilities
-    @abilities ||= Ability.ordered_by_user_abilities(user).map(&:name)
+    Ability.ordered_by_user_abilities(user)
   end
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :primary_role_id,
       :admin_role_id, :team_id, :leader_team_id,
       :employment, :phone, :location_id, :contract_type_id, :user_notes,
-      :archived, :skype, abilities_names: [], role_ids: [])
+      :archived, :skype, ability_ids: [], role_ids: [])
   end
 
   def generate_errors

@@ -19,8 +19,8 @@
             input_html: { multiple: true, id: 'js-user_roles'},
             label: false
         .list-group-item
-          = f.label :abilities_names, 'Skills & technologies'
-          = f.input :abilities_names,
+          = f.label :ability_ids, 'Skills & technologies'
+          = f.input :ability_ids,
             as: :select,
             collection: abilities,
             input_html: { multiple: true, id: 'js-user_abilities'},
