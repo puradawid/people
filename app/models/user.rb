@@ -74,8 +74,6 @@ class User
 
   before_save :end_memberships
   before_update :save_team_join_time
-  before_validation :assign_abilities
-  before_validation :assign_roles
 
   def self.create_from_google!(params)
     user = User.where(uid: params['uid']).first
@@ -109,22 +107,6 @@ class User
 
   def admin?
     admin_role.present?
-  end
-
-  def abilities_names
-    abilities.map(&:name)
-  end
-
-  def abilities_names=(abilities_list)
-    @abilities_list = abilities_list
-  end
-
-  def roles_names
-    roles.map(&:name)
-  end
-
-  def roles_names=(roles_list)
-    @roles_list = roles_list
   end
 
   def has_current_projects?
@@ -197,13 +179,6 @@ class User
     if @abilities_list.present?
       @abilities_list.reject!(&:empty?)
       self.abilities = @abilities_list.map { |name| Ability.find_or_initialize_by(name: name) }
-    end
-  end
-
-  def assign_roles
-    if @roles_list.present?
-      @roles_list.reject!(&:empty?)
-      self.roles = @roles_list.map { |name| Role.find_or_initialize_by(name: name) }
     end
   end
 
