@@ -123,13 +123,17 @@ $project-height: 45px;
     font-size: 20px;
     font-weight: 300;
 
+    &>a {
+      max-width: 75%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     a {
       @include transition(transform 0.5s);
       display: inline-block;
       max-width: 75%;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
       color: darken($gray, 15%);
 
       &:hover {
