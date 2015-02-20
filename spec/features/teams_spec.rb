@@ -30,12 +30,6 @@ describe 'team view', js: true do
       expect(page).not_to have_content archived_user.first_name
     end
 
-    xit 'shows all users, not only devs' do
-      expect(page).to have_content dev_user.first_name
-      expect(page).to have_content non_dev_user.first_name
-      expect(page).not_to have_content no_role_user.first_name
-    end
-
     it 'shows only users with roles chosen by admin' do
       expect(page).not_to have_content hidden_user.first_name
     end
@@ -59,26 +53,11 @@ describe 'team view', js: true do
     end
   end
 
-  describe '.js-add-member' do
-    xit 'adds new member to the team' do
-      find('.selectize-input input').set('Developer Daisy')
-      find(:css, '.person .name').click
-      expect(page).to have_content('Developer Daisy')
-    end
-  end
-
   describe '.js-promote-leader' do
     # Skip temporarily
     xit 'promotes member to leader' do
       first('.js-promote-leader').click
       expect(page).to have_xpath('//ul[@class="team-members filled" and @id="leader-region"]')
-    end
-  end
-
-  describe '.js-exclude-member' do
-    xit 'removes member from the team' do
-      find('.js-exclude-member').click
-      expect(page).not_to have_xpath('//td[@id="members-region"]//td')
     end
   end
 
