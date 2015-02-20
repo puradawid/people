@@ -8,8 +8,9 @@ describe 'Dashboard filters', js: true do
   let!(:membership) { create(:membership, user: dev_user, project: project_test, role: role) }
   let!(:project_zztop) { create(:project, name: 'zztop') }
   let!(:project_test) { create(:project, name: 'test') }
+
   before(:each) do
-    page.set_rack_session 'warden.user.user.key' => User.serialize_into_session(user).unshift('User')
+    sign_in(user)
     visit '/dashboard'
   end
 
@@ -17,7 +18,7 @@ describe 'Dashboard filters', js: true do
     it 'returns only matched projects when user name provided' do
       select_option('users', 'Developer Daisy')
       expect(page).to have_text('test')
-      page.should have_no_content('zztop')
+      expect(page).to_not have_text('zztop')
     end
 
     it 'returns all projects when no selectize provided' do
