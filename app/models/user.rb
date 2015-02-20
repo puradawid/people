@@ -44,6 +44,7 @@ class User
   belongs_to :team, inverse_of: :user
   belongs_to :leader_team, class_name: 'Team', inverse_of: :leader
   belongs_to :primary_role, class_name: 'Role'
+  belongs_to :role
   has_and_belongs_to_many :roles
   has_and_belongs_to_many :abilities
 

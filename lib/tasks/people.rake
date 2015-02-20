@@ -13,4 +13,12 @@ namespace :people do
       GravatarDownloaderJob.new.perform(user_id)
     end
   end
+
+  desc "Update_primary role"
+  task primary_role_update: :environment do
+    User.each do |user|
+      user.primary_role = user.role
+      user.save
+    end
+  end
 end
