@@ -24,6 +24,10 @@ class Hrguru.Models.User extends Backbone.Model
     @visibleBy.months_in_current_project = @visibleByMonthsInCurrentProject(parseInt(data.months))
     @trigger 'toggle_visible', @isVisible()
 
+  daysToAvailable: ->
+    return null unless @get('available_since')?
+    moment(@get('available_since')).diff(H.currentTime(), 'days')
+
   isVisible: ->
     @visibleBy.availabilityTime && @visibleBy.roles && @visibleBy.projects && @visibleBy.users &&
       @visibleBy.abilities && @isActive() && @visibleBy.months_in_current_project
