@@ -1,3 +1,4 @@
+cache ["extra_info", root_object]
 node(:gravatar) { |user| user.gravatar_url(:thumb) }
 node(:github) { |user| user.github_link(icon: true) }
 node(:skype) { |user| user.skype_link }
