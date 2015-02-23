@@ -1,10 +1,5 @@
 %td
 %td.to_end
-  - if @daysToEndMembership < 0
-    %p.ready.btn-success.img-thumbnail Ready
-  - else
-    .number_days.img-circle!= @daysToEndMembership
-    %p.lowercase= _.pluralize "Day", @daysToEndMembership, showNumber: false
 %td
   %img{ src: @gravatar }
 %td

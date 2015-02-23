@@ -100,7 +100,6 @@ class Hrguru.Views.AvailableUsersRow extends Backbone.Marionette.Layout
     H.isNumber(event.keyCode)
 
   highlightEnding: (state) ->
-    daysToEnd = @model.get('daysToEndMembership')
     unless state
       return @$el.show() unless @model.get('archived')
     if daysToEnd >= 0

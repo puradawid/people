@@ -30,9 +30,7 @@ class Hrguru.Views.UsersCollectionView extends Marionette.CollectionView
     $(target).addClass('active')
 
   sortEnding: (flag) ->
-    if flag then @sort('daysToEndMembership') else @sort('name')
     EventAggregator.trigger 'UsersRow:toggleEnding', flag
 
   sortByPotential: (state) ->
-    if state then @sort('daysToEndMembership') else @sort('name')
     EventAggregator.trigger 'UsersRow:showOnlyIfPotential', state

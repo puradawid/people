@@ -12,16 +12,8 @@ class Hrguru.Models.User extends Backbone.Model
 
   initialize: ->
     super
-    @set('daysToEndMembership', -1)
     @next_projects = new Hrguru.Models.Project(@get('next_projects'))
-    @initMembership()
     @listenTo(EventAggregator, 'users:updateVisibility', @updateVisibility)
-
-  initMembership: ->
-    return unless @get('membership')
-    @membership = new Hrguru.Models.Membership(@get('membership'))
-    if @membership.started && @membership.hasEndDate()
-      @set('daysToEndMembership', @membership.daysToEnd())
 
   updateVisibility: (data) ->
     @visibleBy.availabilityTime = @visibleByAvailabilityTime(parseInt(data.availability_time))
