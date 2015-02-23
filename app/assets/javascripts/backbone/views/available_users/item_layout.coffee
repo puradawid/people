@@ -31,6 +31,10 @@ class Hrguru.Views.AvailableUsersRow extends Backbone.Marionette.Layout
     @renderNextProjectsRegion()
     @renderBookedProjectsRegion()
 
+  serializeData: ->
+    _.extend super,
+      available_now: @model.isAvailableNow()
+
   renderProjectsRegion: ->
     collectProjects = new Backbone.Collection @model.get('projects')
     projectsView = new Hrguru.Views.AvailableUsersProjects
