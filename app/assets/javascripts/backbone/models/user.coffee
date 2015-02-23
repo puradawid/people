@@ -55,9 +55,9 @@ class Hrguru.Models.User extends Backbone.Model
 
   visibleByAvailabilityTime: (availability_time) ->
     return true if availability_time == 0
-    return false unless @get('daysToEndMembership')?
+    return false unless @daysToAvailable()?
     return true if isNaN(availability_time)
-    @get('daysToEndMembership') <= availability_time
+    @daysToAvailable() <= availability_time
 
   visibleByMonthsInCurrentProject: (months = '') ->
     return true if months == 0
@@ -85,7 +85,7 @@ class Hrguru.Models.User extends Backbone.Model
   isPotential: ->
     return false unless @hasTechnicalRole()
     if @get('has_project') && !@hasProjectsOnlyPotentialOrNotbillable()
-      return false unless @get('daysToEndMembership') < 30 && @membership.hasEndDate()
+      return false unless @daysToAvailable()? < 30 && @membership.hasEndDate()
     (!@hasNextProjects() || @nextProjectsOnlyPotentialOrNotbillable())
 
   hasNextProjects: ->
