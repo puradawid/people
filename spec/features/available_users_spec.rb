@@ -24,5 +24,9 @@ describe 'Available users page', js: true do
     it 'displays users' do
       expect(page).to have_content user.first_name
     end
+
+    it 'displays now if available_since is today' do
+      expect(page).to have_content 'Now'
+    end
   end
 end
