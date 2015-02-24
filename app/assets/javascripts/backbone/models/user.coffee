@@ -57,7 +57,6 @@ class Hrguru.Models.User extends Backbone.Model
     (_.union myAbilities, abilities).length == myAbilities.length
 
   visibleByAvailabilityTime: (availability_time) ->
-    return true if availability_time == 0
     return false unless @daysToAvailable()?
     return true if isNaN(availability_time)
     @daysToAvailable() <= availability_time
