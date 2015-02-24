@@ -28,7 +28,7 @@ class Hrguru.Models.User extends Backbone.Model
     H.currentTime() > moment(@get('available_since'))
 
   daysToAvailable: ->
-    return null unless @get('available_since')?
+    return -1 unless @get('available_since')?
     moment(@get('available_since')).diff(H.currentTime(), 'days')
 
   isVisible: ->
