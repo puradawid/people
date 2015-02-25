@@ -35,6 +35,21 @@ describe AvailabilityChecker do
         end
       end
 
+      context 'not technical role' do
+        let!(:nonbillable_membership) do
+          create(:membership, ends_at: nil, user: user, project: project)
+        end
+
+        before do
+          user.primary_role.update_attribute(:technical, false)
+          subject.run!
+        end
+
+        it "doesn't check availability" do
+          expect(user.available).to be_nil
+        end
+      end
+
       context 'only internal project' do
         let!(:membership) { create(:membership, user: user, project: internal_project) }
         before { subject.run! }
