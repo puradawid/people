@@ -17,7 +17,6 @@ class DashboardController < ApplicationController
     gon.rabl template: 'app/views/dashboard/quality_assurance', as: 'quality_assurance'
     gon.currentTime = Time.now
 
-
     if params[:cookie]
       cookies[:note_id] = params[:cookie]
     else

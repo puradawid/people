@@ -21,7 +21,7 @@ class AvailableUsersController < ApplicationController
   private
 
   def fetch_available_users
-    @users ||= User
+    User
       .includes(:roles, :admin_role, :location, :contract_type, :memberships, :abilities)
       .active.available.by_last_name.decorate
   end
