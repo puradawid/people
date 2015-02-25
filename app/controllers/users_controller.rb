@@ -62,9 +62,8 @@ class UsersController < ApplicationController
 
   def fetch_users
     @users ||= User
-      .active
       .includes(:roles, :admin_role, :location, :contract_type, :memberships, :abilities)
-      .all.by_last_name.decorate
+      .active.by_last_name.decorate
   end
 
   def fetch_abilities

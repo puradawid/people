@@ -7,6 +7,7 @@ describe UsersController do
     before do
       sign_in create(:user, first_name: 'Marian')
       create(:user, first_name: 'Tomek')
+      create(:user, first_name: 'Anna', archived: true)
     end
 
     it 'responds successfully with an HTTP 200 status code' do
@@ -24,6 +25,7 @@ describe UsersController do
       get :index
       expect(response.body).to match(/Marian/)
       expect(response.body).to match(/Tomek/)
+      expect(response.body).not_to match(/Anna/)
     end
   end
 
