@@ -4,6 +4,7 @@ class AvailabilityChecker
   end
 
   def run!
+    return unless @user.primary_role.technical?
     find_memberships_gaps
     @user.update_attributes(available: available?, available_since: available_since)
   end
