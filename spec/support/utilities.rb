@@ -39,7 +39,14 @@ def set_text(id, text)
 end
 
 def selectize_within(id)
-  within(:xpath, "//input[@name='#{id}']/..") do
+  type =
+    if all(:xpath, "//select[@name='#{id}']/..").present?
+      'select'
+    else
+      'input'
+    end
+
+  within(:xpath, "//#{type}[@name='#{id}']/..") do
     yield if block_given?
   end
 end
