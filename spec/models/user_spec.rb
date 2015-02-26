@@ -201,10 +201,11 @@ describe User do
       before do
         first_memb.update_attribute(:booked, true)
         sec_memb.update_attribute(:booked, true)
+        third_memb.update_attribute(:booked, true)
       end
 
       it "returns memberships in the right order" do
-        expect(subject.booked_memberships.to_a).to eq([first_memb, sec_memb, third_memb])
+        expect(subject.booked_memberships.to_a).to eq([first_memb, third_memb, sec_memb])
       end
     end
 
