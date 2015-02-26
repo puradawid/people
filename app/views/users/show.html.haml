@@ -17,14 +17,14 @@
           = f.input :role_ids,
             as: :select,
             collection: roles,
-            input_html: { multiple: true, id: 'js-user_roles'},
+            input_html: { multiple: true, id: 'js-user-roles'},
             label: false
         .list-group-item
           = f.label :ability_ids, 'Skills & technologies'
           = f.input :ability_ids,
             as: :select,
             collection: abilities,
-            input_html: { multiple: true, id: 'js-user_abilities'},
+            input_html: { multiple: true, id: 'js-user-abilities'},
             label: false
         .list-group-item
           = f.label :user_notes, 'Notes'

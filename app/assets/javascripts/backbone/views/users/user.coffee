@@ -11,11 +11,11 @@ class Hrguru.Views.UsersShow extends Backbone.View
     @$el.after @timeline
 
   removeFormControlClass: ->
-    @$('#js-user_abilities').removeClass('form-control')
-    @$('#js-user_roles').removeClass('form-control')
+    @$('#js-user-abilities').removeClass('form-control')
+    @$('#js-user-roles').removeClass('form-control')
 
   initializeAbilities: ->
-    @$('#js-user_abilities').selectize
+    @$('#js-user-abilities').selectize
       plugins: ['remove_button', 'drag_drop']
       delimiter: ','
       persist: false
@@ -24,7 +24,7 @@ class Hrguru.Views.UsersShow extends Backbone.View
         text: input
 
   initializeRoles: ->
-    @$('#js-user_roles').selectize
+    @$('#js-user-roles').selectize
       plugins: ['remove_button', 'drag_drop']
       delimiter: ','
       persist: false
