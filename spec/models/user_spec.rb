@@ -205,7 +205,7 @@ describe User do
       end
 
       it "returns memberships in the right order" do
-        expect(subject.booked_memberships.to_a).to eq([first_memb, third_memb, sec_memb])
+        expect(subject.booked_memberships.to_a).to eq([first_memb, sec_memb, third_memb])
       end
     end
 
