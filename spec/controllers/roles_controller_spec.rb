@@ -22,7 +22,7 @@ describe RolesController do
 
     it 'exposes roles' do
       get :index
-      expect(controller.roles.count).to be 2
+      expect(controller.roles.count).to be 3
     end
 
     it 'displays roles on view' do

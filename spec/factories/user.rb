@@ -11,6 +11,7 @@ FactoryGirl.define do
     oauth_token '123'
     gravatar { File.open(Rails.root.join('spec', 'fixtures', 'gravatar', 'gravatar.jpg')) }
     user_notes { Faker::Lorem.sentence }
+    primary_role { create(:technical_role) }
 
     factory :user_deleted do
       deleted_at Time.now
