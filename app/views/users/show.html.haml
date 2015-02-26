@@ -70,10 +70,7 @@
               = f.input :ends_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
               = f.association :role, collection: roles, include_blank: false
             .col-sm-6
-              - if user.primary_role.billable?
-                = f.input :billable, as: :boolean, input_html: { checked: true }
-              - else
-                = f.input :billable, as: :boolean
+              = f.input :billable, as: :boolean, input_html: { checked: user.primary_role.billable? }
             .col-sm-6
               = f.input :booked, as: :boolean
               .hidden= f.input :user_id
