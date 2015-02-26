@@ -183,6 +183,7 @@ describe User do
   describe "#booked_memberships" do
     let!(:project_current) { create(:project, name: "google", potential: true) }
     let!(:project_next) { create(:project, name: "facebook", potential: false) }
+    let!(:project_future) { create(:project, name: "estimote", potential: false) }
     let(:first_memb) do
       create(:membership,
         starts_at: Time.now, ends_at: nil, user: subject, project: project_current)
@@ -190,6 +191,10 @@ describe User do
     let(:sec_memb) do
       create(:membership,
         starts_at: 1.month.from_now, ends_at: nil, user: subject, project: project_next)
+    end
+    let(:third_memb) do
+      create(:membership,
+        starts_at: 2.months.from_now, ends_at: nil, user: subject, project: project_future)
     end
 
     context "when booked membership attribute ends_at is nil" do
@@ -199,7 +204,7 @@ describe User do
       end
 
       it "returns memberships in the right order" do
-        expect(subject.booked_memberships.to_a).to eq([first_memb, sec_memb])
+        expect(subject.booked_memberships.to_a).to eq([first_memb, sec_memb, third_memb])
       end
     end
 
