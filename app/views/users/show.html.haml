@@ -2,7 +2,8 @@
   .col-sm-6
     .user-heading
       %h1
-        = user.gravatar_image class: "img-rounded", alt: user.name
+        - if user.gravatar?
+          = user.gravatar_image class: "img-rounded", alt: user.name
         = user.name
       = mail_to user.email, "send email"
     .list-group
