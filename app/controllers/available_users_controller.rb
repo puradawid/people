@@ -28,6 +28,7 @@ class AvailableUsersController < ApplicationController
 
   def availability_time
     result = []
+    result << { value: 100_000, text: "All" }
     result << { value: 0, text: "From now" }
     result << { value: (1.week.from_now.to_date - Date.today).to_i, text: "1 week" }
     result << { value: (2.weeks.from_now.to_date - Date.today).to_i, text: "2 weeks" }

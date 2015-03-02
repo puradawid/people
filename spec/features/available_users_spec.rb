@@ -27,6 +27,20 @@ describe 'Available users page', js: true do
       expect(page).to have_content dev_with_no_skillz.first_name
       expect(page).not_to have_content another_dev.first_name
     end
+
+    it 'allows to display all users after selecting from now' do
+      expect(page).to have_content another_dev.first_name
+
+      select_option('availability_time', 'From now')
+
+      expect(page).to have_content angular_dev.first_name
+      expect(page).to have_content dev_with_no_skillz.first_name
+      expect(page).not_to have_content another_dev.first_name
+
+      select_option('availability_time', 'All')
+
+      expect(page).to have_content another_dev.first_name
+    end
   end
 
   describe 'table with users' do
