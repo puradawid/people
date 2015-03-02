@@ -1,7 +1,7 @@
 attributes :id, :first_name, :last_name, :email, :archived, :gh_nick, :employment
 
 node :role do |user|
-  user.roles.first.try(:name)
+  user.primary_role.try(:name)
 end
 
 node :contract_type do |user|
