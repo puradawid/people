@@ -20,6 +20,7 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     devs:      '.devs'
     qas:       '.qas'
     pms:       '.pms'
+    modal:     '.add-project-modal'
 
   initialize: ->
     @developers = new Hrguru.Collections.Users(gon.developers)
@@ -83,6 +84,10 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     project_name = project.get('name')
     Messenger().success("#{project_name} has been created")
     @toggleFormClass()
+    @hideModal()
+
+  hideModal: ->
+    @ui.modal.modal('hide')
 
   selectizeUsers: =>
     @developers_selectize.getValue() + ',' + @qas_selectize.getValue() + ',' + @pms_selectize.getValue()
