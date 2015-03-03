@@ -26,4 +26,32 @@ describe 'Dashboard filters', js: true do
       expect(page).to have_text('test')
     end
   end
+
+  describe 'abilities filter' do
+    let(:rails) { create(:ability, name: 'Rails') }
+    let(:ember) { create(:ability, name: 'Ember') }
+    let!(:backend_developer)    { create(:user, abilities: [rails]) }
+    let!(:frontend_developer)   { create(:user, abilities: [ember]) }
+    let!(:full_stack_developer) { create(:user, abilities: [rails, ember]) }
+
+    before { visit '/users' }
+
+    it 'returns users with given ability' do
+      select_option('abilities', 'Rails')
+
+      expect(page).to have_text backend_developer.last_name
+      expect(page).not_to have_text frontend_developer.last_name
+    end
+
+    context 'with multiple abilities' do
+      it 'returns users with all abilities' do
+        select_option('abilities', 'Rails')
+        select_option('abilities', 'Ember')
+
+        expect(page).to have_text full_stack_developer.last_name
+        expect(page).not_to have_text backend_developer.last_name
+        expect(page).not_to have_text frontend_developer.last_name
+      end
+    end
+  end
 end
