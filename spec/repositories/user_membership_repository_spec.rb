@@ -157,37 +157,39 @@ describe UserMembershipRepository do
       create(:project, archived: false, potential: false, end_at: '2014-11-11')
     end
 
-    let(:current_membership_with_end_date) do
+    let!(:current_membership_with_end_date) do
       create(:membership,
-        user: user, starts_at: Time.local(2014, 11, 30), ends_at: Time.local(2014, 12, 29),
+        user: user, starts_at: Time.local(2014, 11, 30), ends_at: Time.local(2014, 12, 25),
         project: not_potential_or_archived_project1)
     end
-    let(:current_membership_without_end_date) do
+    let!(:current_membership_without_end_date) do
       create(:membership,
-        user: user, starts_at: Time.local(2014, 11, 30), ends_at: Time.local(2014, 12, 30),
+        user: user, starts_at: Time.local(2014, 11, 30), ends_at: Time.local(2014, 12, 26),
         project: not_potential_or_archived_project2)
     end
-    let(:not_started_membership) do
+    let!(:not_started_membership) do
       create(:membership,
         user: user, starts_at: Time.local(2014, 12, 30), ends_at: Time.local(2015, 1, 30),
         project: not_potential_or_archived_project1)
     end
+    let!(:booked_membership) do
+      create(:membership,
+             user: user, starts_at: Time.local(2014, 12, 27), ends_at: Time.local(2014, 12, 29),
+             project: not_potential_or_archived_project1, booked: true)
+    end
 
     before do
       Timecop.freeze(Time.local(2014, 12, 1))
-      # lazy load
-      current_membership_with_end_date
-      current_membership_without_end_date
-      not_started_membership
     end
+
     it 'returns current memberships' do
       expect(subject.current.items.to_a).to(
         eq [current_membership_with_end_date, current_membership_without_end_date])
     end
 
-    it 'returns memberships which are not potential, not archived, started and not ended' do
+    it 'returns memberships which are not potential, not booked, not archived, started and not ended' do
       expect(subject.current.items.to_a).to(
-        eq subject.not_potential.not_archived.started.not_ended.items.to_a)
+        eq subject.not_potential.not_archived.not_booked.started.not_ended.items.to_a)
     end
   end
 
