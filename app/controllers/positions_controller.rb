@@ -2,8 +2,6 @@ class PositionsController < ApplicationController
   include Shared::RespondsController
 
   expose(:position, attributes: :position_params)
-  expose(:positions)
-  expose(:positions_decorated) { PositionDecorator.decorate_collection Position.by_user_name_and_date }
   expose_decorated(:users) { current_user.admin? ? User.by_name : [current_user] }
   expose_decorated(:roles) { Role.by_name }
 

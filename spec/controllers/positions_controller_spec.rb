@@ -6,34 +6,6 @@ describe PositionsController do
     sign_in create(:user, admin_role_id: admin.id)
   end
 
-  describe '#index' do
-    render_views
-
-    before do
-      role = create(:role, name: 'developer')
-      user = create(:user, primary_role: role)
-      position = create(:position, user: user, role: role)
-      jun_role = create(:role, name: 'junior')
-      create(:position, user: user, starts_at: position.starts_at - 2.days, role: jun_role)
-    end
-
-    it 'responds success with HTTP status 200' do
-      get :index
-      expect(response).to be_success
-      expect(response.status).to eq(200)
-    end
-
-    it 'exposes positions' do
-      get :index
-      expect(controller.positions.count).to be 2
-    end
-
-    it 'displays position' do
-      get :index
-      expect(response.body).to match(/junior/)
-      expect(response.body).to match(/developer/)
-    end
-  end
   describe '#new' do
     before { get :new }
 

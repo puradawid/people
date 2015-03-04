@@ -33,7 +33,7 @@ Hrguru::Application.routes.draw do
   resources :roles, except: [:new, :edit, :destroy] do
     post 'sort', on: :collection
   end
-  resources :positions, except: [:show]
+  resources :positions, except: [:index, :show]
   resources :abilities
   resources :settings, only: [:update]
   get '/settings', to: 'settings#edit'
