@@ -39,7 +39,7 @@ class UserMembershipRepository
   end
 
   def current
-    not_potential.not_archived.started.not_ended
+    not_potential.not_archived.not_booked.started.not_ended
   end
 
   def currently_booked
