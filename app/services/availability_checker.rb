@@ -25,7 +25,7 @@ class AvailabilityChecker
     if has_memberships_with_gaps?
       first_gap_in_memberships
     else
-      memberships.last.ends_at + 1.day
+      next_working_day(memberships.last.ends_at)
     end
   end
 
@@ -68,7 +68,8 @@ class AvailabilityChecker
   end
 
   def first_gap_in_memberships
-    @memberships_with_gaps.first[:ends] + 1
+    end_date = @memberships_with_gaps.first[:ends]
+    next_working_day(end_date)
   end
 
   def current_memberships_without_end_date
@@ -87,5 +88,12 @@ class AvailabilityChecker
     @memberships_dates = memberships
       .reorder(starts_at: :asc)
       .map{ |membership| { starts: membership.starts_at, ends: membership.ends_at } }
+  end
+
+  def next_working_day(date = Date.tomorrow)
+    begin
+      date += 1
+    end while date.saturday? || date.sunday?
+    date
   end
 end
