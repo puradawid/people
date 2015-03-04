@@ -200,12 +200,12 @@ describe AvailabilityChecker do
         context 'with gap between them' do
           context 'both with end dates' do
             let!(:first) do
-              create(:membership_billable, ends_at: '2015-01-02',
+              create(:membership_billable, ends_at: '2015-01-05',
                                            user: user,
                                            project: project_without_end_date2)
             end
             let!(:second) do
-              create(:membership_billable, starts_at: '2015-01-05',
+              create(:membership_billable, starts_at: '2015-01-08',
                                            ends_at: '2015-02-01',
                                            user: user,
                                            project: project_without_end_date)
@@ -215,19 +215,19 @@ describe AvailabilityChecker do
 
             it 'changes user available since to last possible date' do
               expect(user.available).to be_true
-              expect(user.available_since).to eq(Date.new(2015, 01, 03))
+              expect(user.available_since).to eq(Date.new(2015, 01, 06))
             end
           end
 
           context 'second without end date' do
             let!(:first) do
-              create(:membership_billable, ends_at: '2015-01-03',
+              create(:membership_billable, ends_at: '2015-01-05',
                                            user: user,
                                            project: project_ending)
             end
 
             let!(:second) do
-              create(:membership_billable, starts_at: '2015-01-05',
+              create(:membership_billable, starts_at: '2015-01-07',
                                            user: user,
                                            project: project_without_end_date)
             end
@@ -236,7 +236,7 @@ describe AvailabilityChecker do
 
             it 'changes user availability to true' do
               expect(user.available).to be_true
-              expect(user.available_since).to eq(Date.new(2015, 01, 04))
+              expect(user.available_since).to eq(Date.new(2015, 01, 06))
             end
           end
         end
