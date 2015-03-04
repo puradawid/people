@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 describe AvailabilityChecker do
+  before do
+    Timecop.freeze(Time.local(2015))
+  end
+
+  after do
+    Timecop.return
+  end
+
   subject { AvailabilityChecker.new(user) }
   let!(:user) { create(:user, primary_role: role, available: nil) }
   let(:role) { create(:role, technical: true) }
@@ -287,7 +295,7 @@ describe AvailabilityChecker do
 
         context 'many memberships in the past, one without end right now' do
           let!(:first) do
-            create(:membership_billable, starts_at: '2015-02-10',
+            create(:membership_billable, starts_at: '2015-01-22',
                                          ends_at: nil,
                                          user: user,
                                          project: project)
