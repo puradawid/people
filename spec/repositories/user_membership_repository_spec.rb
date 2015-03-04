@@ -154,7 +154,7 @@ describe UserMembershipRepository do
       create(:project, archived: false, potential: false)
     end
     let!(:not_potential_or_archived_project2) do
-      create(:project, archived: false, potential: false)
+      create(:project, archived: false, potential: false, end_at: '2014-11-11')
     end
 
     let(:current_membership_with_end_date) do
