@@ -1,5 +1,6 @@
 .membership
   .member-photo
+    %img.img-circle{ src: @model.gravatar }
   .member-name
     != @profile_link(@model, Routes.user_path(@model.id))
     - if @model.leader_team_id?
