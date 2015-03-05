@@ -32,6 +32,7 @@ class Membership
   before_destroy :notify_removed
 
   scope :active, -> { where(project_potential: false, project_archived: false) }
+  scope :not_archived, -> { where(project_archived: false) }
   scope :potential, -> { where(project_potential: true) }
   scope :with_role, ->(role) { where(role: role) }
   scope :with_user, ->(user) { where(user: user) }

@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
   expose_decorated(:developers, decorator: UserDecorator) { find_developers }
   expose_decorated(:project_managers, decorator: UserDecorator) { find_pms }
   expose_decorated(:quality_assurances, decorator: UserDecorator) { find_qas }
-  expose_decorated(:memberships) { Membership.unfinished }
+  expose_decorated(:memberships) { Membership.unfinished.not_archived }
 
   def index
     gon.rabl template: 'app/views/dashboard/users', as: 'users'

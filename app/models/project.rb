@@ -114,9 +114,9 @@ class Project
   private
 
   def update_membership_fields
-    if potential_change == [true, false] || archived_change == [true, false]
+    if potential_changed? || archived_changed?
       memberships.each do |membership|
-        membership.update(project_potential: potential, project_archived: archived)
+        membership.update_attributes(project_potential: potential, project_archived: archived)
       end
     end
   end
