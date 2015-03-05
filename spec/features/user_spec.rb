@@ -3,12 +3,14 @@ require 'spec_helper'
 describe 'Profile page', js: true do
   subject { page }
   let(:user) { create(:user, first_name: 'Jack', last_name: 'Sparrow') }
-  before { sign_in(user) }
+  before {
+    page.set_rack_session 'warden.user.user.key' => User.serialize_into_session(user).unshift('User')
+  }
 
   context 'is displayed only by owner' do
     before { visit user_path(user.id) }
 
-    xit { expect(page).to have_content('Sparrow Jack') }
+    it { expect(page).to have_content('Sparrow Jack') }
   end
 
   context 'is not displayed by users without access' do
@@ -16,5 +18,14 @@ describe 'Profile page', js: true do
     before { visit user_path(other.id) }
 
     xit { expect(page).to have_content('Permission denied!') }
+  end
+
+  context 'has billable role' do
+    before do
+      user.primary_role.update_attribute(:billable, true)
+      visit user_path(user.id)
+    end
+
+    it { expect(page.find('[name="membership[billable]"]').value).to eq "1" }
   end
 end
