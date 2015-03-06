@@ -14,13 +14,14 @@ class AvailabilityChecker
   def available?
     free_right_now? ||
       has_no_memberships? ||
-      has_only_memberships_with_end_date? ||
-      has_memberships_with_gaps?
+      has_billable_memberships_with_end_date? ||
+      has_memberships_with_gaps? ||
+      has_only_nonbillable_memberships?
   end
 
   def available_since
     return unless available?
-    return Date.today if free_right_now? || has_no_memberships?
+    return Date.today if free_right_now? || has_no_memberships? || has_only_nonbillable_memberships_whitout_end_data?
 
     if has_memberships_with_gaps?
       first_gap_in_memberships
@@ -55,12 +56,21 @@ class AvailabilityChecker
     first_membership_starts_after_today?
   end
 
+  def has_only_nonbillable_memberships_whitout_end_data?
+    return false unless has_only_nonbillable_memberships?
+    memberships.where(billable: false).all? { |membership| membership.ends_at.nil? }
+  end
+
   def first_membership_starts_after_today?
     memberships.reorder(starts_at: :asc).first.starts_at > Date.today
   end
 
-  def has_only_memberships_with_end_date?
-    current_memberships_without_end_date.blank?
+  def has_only_nonbillable_memberships?
+    memberships.billable.empty?
+  end
+
+  def has_billable_memberships_with_end_date?
+    current_billable_memberships_without_end_date.blank?
   end
 
   def has_memberships_with_gaps?
@@ -72,8 +82,8 @@ class AvailabilityChecker
     next_working_day(end_date)
   end
 
-  def current_memberships_without_end_date
-    @current_memberships_without_end_date ||= memberships.where(ends_at: nil)
+  def current_billable_memberships_without_end_date
+    @current_billable_memberships_without_end_date ||= memberships.billable.where(ends_at: nil)
   end
 
   def current_memberships

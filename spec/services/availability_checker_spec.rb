@@ -59,12 +59,22 @@ describe AvailabilityChecker do
       end
 
       context 'only internal project' do
-        let!(:membership) { create(:membership, user: user, project: internal_project) }
+        let!(:membership) { create(:membership, user: user, ends_at: nil, project: internal_project) }
         before { subject.run! }
 
         it 'changes user availability to true' do
           expect(user.available).to be_true
           expect(user.available_since).to eq(Date.today)
+        end
+      end
+
+      context 'only internal project with end date' do
+        let!(:membership) { create(:membership, user: user, ends_at: '2015-01-05', project: internal_project) }
+        before { subject.run! }
+
+        it 'changes user availability to true but with proper available_since' do
+          expect(user.available).to be_true
+          expect(user.available_since).to eq Date.new(2015, 01, 06)
         end
       end
 
