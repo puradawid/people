@@ -53,7 +53,7 @@ class UserMembershipRepository
   end
 
   def next
-    not_started.not_ended.not_potential.not_booked.not_ended_project
+    not_started.not_ended.not_potential.not_booked
   end
 
   private
