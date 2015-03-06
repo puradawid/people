@@ -150,8 +150,8 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
 
   ui:
     form: '.js-team-member-new'
-    devsCounter: '.devs'
-    juniorsCounter: '.jnrs'
+    billableCounter: '.devs'
+    nonbillableCounter: '.jnrs'
 
   events:
     'click .js-add-member': 'toggleMemberForm'
@@ -173,28 +173,27 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
     @renderMembersRegion()
     @renderLeaderRegion()
 
-  countDevsAndJuniors: ->
+  countMembers: ->
     team_members = _.filter @users.models, (user) =>
       user.get('team_id') is @model.id
-    @countDevs(team_members)
-    @countJuniors(team_members)
+    @countBillable(team_members)
+    @countNonbillable(team_members)
 
-  countDevs: (team_members) ->
-    dev_role_id = (_.filter @roles.models, (role) =>
-      role.get('name') is 'developer')[0].id
-    senior_role_id = (_.filter @roles.models, (role) =>
-      role.get('name') is 'senior')[0].id
-    devs_array = _.filter team_members, (user) =>
-      user.get('role_id') is dev_role_id or
-      user.get('role_id') is senior_role_id
-    @ui.devsCounter.text(devs_array.length)
+  countBillable: (team_members) ->
+    billable_role_ids = (_.filter @roles.models, (role) =>
+      role.get('billable') is true).map (role) ->
+        role.get('id')
+    billable_array = _.filter team_members, (user) =>
+      user.get('role_id') in billable_role_ids
+    @ui.billableCounter.text(billable_array.length)
 
-  countJuniors: (team_members) ->
-    junior_role_id = (_.filter @roles.models, (role) =>
-      role.get('name') is 'junior')[0].id
-    juniors_array = _.filter team_members, (user) =>
-      user.get('role_id') is junior_role_id
-    @ui.juniorsCounter.text(juniors_array.length)
+  countNonbillable: (team_members) ->
+    nonbillable_role_ids = (_.filter @roles.models, (role) =>
+      role.get('billable') is false).map (role) ->
+        role.get('id')
+    nonbillable_array = _.filter team_members, (user) =>
+      user.get('role_id') in nonbillable_role_ids
+    @ui.nonbillableCounter.text(nonbillable_array.length)
 
   highlight: (class_name) ->
     leader_cell = $(@leaderRegion.$el)
@@ -237,7 +236,7 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
     Messenger().error(xhr.responseJSON.errors)
 
   refreshSelectizeOptions: ->
-    @countDevsAndJuniors()
+    @countMembers()
     selected = _.compact(@membersView.collection.pluck('id'))
     to_select = @users.select (model) -> !(model.get('team_id')?)
     @selectize_options = to_select.map (model) -> model.toJSON()
