@@ -197,36 +197,40 @@ describe UserMembershipRepository do
     let!(:not_potential_or_archived_project1) do
       create(:project, archived: false, potential: false)
     end
+    let(:ended_project) do
+      create(:project, archived: false, potential: false, end_at: Time.local(2014))
+    end
     let!(:not_potential_or_archived_project2) do
       create(:project, archived: false, potential: false)
     end
-    let(:next_membership_with_end_date) do
+    let!(:next_membership_with_end_date) do
       create(:membership,
         user: user, starts_at: Time.local(2014, 12, 30), ends_at: Time.local(2015, 1, 30),
         project: not_potential_or_archived_project1)
     end
-    let(:next_membership_without_end_date) do
+    let!(:next_membership_without_end_date) do
       create(:membership,
         user: user, starts_at: Time.local(2014, 12, 30), ends_at: nil,
         project: not_potential_or_archived_project2)
     end
-    let(:started_membership) do
+    let!(:started_membership) do
       create(:membership,
         user: user, starts_at: Time.local(2014, 11, 30), ends_at: Time.local(2014, 12, 29),
         project: not_potential_or_archived_project1)
     end
+    let!(:next_membership) do
+      create(:membership,
+        user: user, starts_at: Time.local(2014, 12, 30), ends_at: nil,
+        project: ended_project)
+    end
 
     before do
       Timecop.freeze(Time.local(2014, 12, 1))
-      # lazy load
-      next_membership_with_end_date
-      next_membership_without_end_date
-      started_membership
     end
 
     it 'returns next memberships' do
       expect(subject.next.items.to_a).to(
-        eq [next_membership_with_end_date, next_membership_without_end_date])
+        eq [next_membership_with_end_date, next_membership_without_end_date, next_membership])
     end
 
     it 'returns memberships which are not started, not ended, not potential and not booked' do
