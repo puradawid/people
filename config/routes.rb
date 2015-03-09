@@ -26,7 +26,7 @@ Hrguru::Application.routes.draw do
 
   resources :users, only: [:index, :show, :update]
   resources :dashboard, only: [:index], path: 'dashboard'
-  resources :projects
+  resources :projects, except: [:index]
   resources :memberships, except: [:show]
   resources :teams
   resources :notes

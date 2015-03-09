@@ -6,32 +6,6 @@ describe ProjectsController do
     sign_in create(:user, admin_role_id: admin.id)
   end
 
-  describe '#index' do
-    render_views
-
-    before do
-      create(:project, name: 'dwhite')
-      create(:project, name: 'hrguru')
-    end
-
-    it 'responds successfully with an HTTP 200 status code' do
-      get :index
-      expect(response).to be_success
-      expect(response.status).to eq(200)
-    end
-
-    it 'exposes projects' do
-      get :index
-      expect(controller.projects.count).to be 2
-    end
-
-    it 'displays projects on view' do
-      get :index
-      expect(response.body).to match(/dwhite/)
-      expect(response.body).to match(/hrguru/)
-    end
-  end
-
   describe '#show' do
     subject { create(:project) }
     before { get :show, id: subject }
