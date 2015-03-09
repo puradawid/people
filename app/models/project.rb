@@ -61,7 +61,7 @@ class Project
   end
 
   def api_slug
-    slug.blank? ? name.try(:delete, '^a-zA-Z').try(:downcase) : slug
+    slug.blank? ? name.try(:delete, '^[a-zA-Z0-9]*$').try(:downcase) : slug
   end
 
   def pm
