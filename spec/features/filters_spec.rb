@@ -27,6 +27,24 @@ describe 'Dashboard filters', js: true do
     end
   end
 
+  describe 'projects filter' do
+    it 'shows all projects when empty string provided' do
+      within '#projects-users' do
+        expect(page).to have_text('zztop')
+        expect(page).to have_text('test')
+      end
+    end
+
+    it 'shows only matched projects when project name provided' do
+      select_option 'projects', 'zztop'
+
+      within '#projects-users' do
+        expect(page).to have_text('zztop')
+        expect(page).not_to have_text('test')
+      end
+    end
+  end
+
   describe 'abilities filter' do
     let(:rails) { create(:ability, name: 'Rails') }
     let(:ember) { create(:ability, name: 'Ember') }
