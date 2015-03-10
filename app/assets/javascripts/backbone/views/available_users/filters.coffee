@@ -17,7 +17,6 @@ class Hrguru.Views.AvailableUsersFilters extends Marionette.View
     availability_time_selectize = @$('select[name=availability_time]').selectize
       create: false
       valueField: 'value'
-      sortField: 'value'
       labelField: 'text'
       options: @availability_time
     availability_time_selectize.change @, @updateSelectizeAvailability
