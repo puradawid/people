@@ -20,7 +20,7 @@
   %td
     .projects-region
     .next_projects-region
-    .potential_projects-region
+    .booked_projects-region
 - else
   %td
     != @role.name if @role
@@ -29,7 +29,7 @@
   %td
     .projects-region
     .next_projects-region
-    .potential_projects-region
+    .booked_projects-region
 - if H.currentUserIsAdmin()
   %td
     %input.form-control.admin_role.role_id{ type: 'checkbox', value: _.first(gon.admin_role)._id }

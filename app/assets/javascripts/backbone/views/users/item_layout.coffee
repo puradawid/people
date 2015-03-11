@@ -20,7 +20,7 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
   regions:
     projectsRegion: '.projects-region'
     nextProjectsRegion: '.next_projects-region'
-    potentialProjectsRegion: '.potential_projects-region'
+    bookedProjectsRegion: '.booked_projects-region'
 
   bindings:
     '.employment': 'employment'
@@ -54,7 +54,7 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
     @toggleVisibility(@model.isActive())
     @renderProjectsRegion()
     @renderNextProjectsRegion()
-    @renderPotentialProjectsRegion()
+    @renderBookedProjectsRegion()
 
   renderProjectsRegion: ->
     collectProjects = new Backbone.Collection @model.get('projects')
@@ -74,14 +74,14 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
       role: @model.get("role")
     @nextProjectsRegion.show projectsView
 
-  renderPotentialProjectsRegion: ->
-    collectProjects = new Backbone.Collection @model.get('potential_projects')
+  renderBookedProjectsRegion: ->
+    collectProjects = new Backbone.Collection @model.get('booked_projects')
     projectsView = new Hrguru.Views.UsersProjects
-      show_dates: false
       collection: collectProjects
-      header: "potential"
+      show_dates: true
+      header: "booked"
       role: @model.get("role")
-    @potentialProjectsRegion.show projectsView
+    @bookedProjectsRegion.show projectsView
 
   onChange: (o, trigger)->
     return unless trigger.stickitChange?
