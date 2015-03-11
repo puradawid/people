@@ -153,6 +153,7 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
 
   ui:
     form: '.js-team-member-new'
+    name: '.team-name'
     billableCounter: '.devs'
     nonbillableCounter: '.jnrs'
 
@@ -175,6 +176,7 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
     @refreshSelectizeOptions()
     @renderMembersRegion()
     @renderLeaderRegion()
+    @initializeTooltip()
 
   countMembers: ->
     team_members = _.filter @users.models, (user) =>
@@ -260,6 +262,9 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
         option: (item, escape) => @completionTemplate(item)
     @selectize = selectize[0].selectize
     @listenTo(EventAggregator, 'selectize:refreshOptions', @refreshSelectizeOptions)
+
+  initializeTooltip: ->
+    if @ui.name.attr('title').length > 9 then @ui.name.tooltip()
 
 class Hrguru.Views.Teams extends Backbone.Marionette.CompositeView
   template: JST['teams/teams']

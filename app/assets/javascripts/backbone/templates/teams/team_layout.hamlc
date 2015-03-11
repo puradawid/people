@@ -2,7 +2,7 @@
   %header
     .team-avatar{style: "background-color: #{@model.colour}"}
       = @model.initials
-    %h3= @model.name
+    %h3.team-name{ data: { toggle: 'tooltip' }, title: @model.name }= @model.name
     %p.devs-indicator
       %span.devs
       %span.jnrs
