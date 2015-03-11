@@ -4,6 +4,9 @@ class Hrguru.Views.ModalView extends Marionette.ItemView
   events:
     'submit form': (e) -> @updateTeam(e)
 
+  events:
+    'click button[type="cancel"]'  : 'closeDialog'
+
   initialize: (options) ->
     @team = options.team
 
@@ -17,6 +20,7 @@ class Hrguru.Views.ModalView extends Marionette.ItemView
       appendTo: '#modal-region'
       show: 200
       hide: 200
+
   updateTeam: (e) ->
     e.preventDefault()
 
@@ -32,3 +36,7 @@ class Hrguru.Views.ModalView extends Marionette.ItemView
 
   teamError: (model, xhr) ->
     Messenger().error(xhr.responseJSON.errors)
+
+  closeDialog: (e) ->
+    e.preventDefault()
+    @close()
