@@ -50,6 +50,7 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
   onRender: ->
     @updateVisibility()
     @stickit()
+    @ui.promote.tooltip()
 
   hideUI: ->
     @ui.promote.hide()

@@ -10,6 +10,6 @@
     .label.label-info.js-number-of-days
 .actions
   - if H.currentUserIsAdmin() and !@model.leader_team_id?
-    %span.js-promote-leader.glyphicon.glyphicon-star.make-leader
+    %span.js-promote-leader.glyphicon.glyphicon-star.make-leader{ data: { toggle: 'tooltip' }, title: 'Promote to leader' }
   - if H.currentUserIsAdmin()
     %span.js-exclude-member.remove &times
