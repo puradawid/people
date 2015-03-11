@@ -6,7 +6,7 @@
     - if @model.leader_team_id?
       %span.glyphicon.glyphicon-star
   .member-details
-    .label.label-default= @role_name
+    .label.label-default{ class: @billable }= @role_name
     .label.label-info.js-number-of-days
 .actions
   - if H.currentUserIsAdmin() and !@model.leader_team_id?

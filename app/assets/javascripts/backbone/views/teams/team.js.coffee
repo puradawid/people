@@ -36,6 +36,7 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
     @noUI = options.noUI?
     @role = options.roles.findWhere id: @model.get('role_id')
     @role_name = if @role then @role.get('name') else 'no role'
+    @billable = if @role.get('billable') then 'billable'
     @listenTo(@model, 'change', @render)
 
   updateVisibility: ->
@@ -60,6 +61,7 @@ class Hrguru.Views.TeamUser extends Backbone.Marionette.ItemView
   serializeData: ->
     model: @model.toJSON()
     role_name: @role_name
+    billable: @billable
 
   onMembersExcludeClicked: =>
     @trigger('exclude', @model)
