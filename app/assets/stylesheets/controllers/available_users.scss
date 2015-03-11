@@ -2,7 +2,8 @@ body.available_users {
   &.index {
 
     .availability-time,
-    .abilities {
+    .abilities,
+    .roles {
       display: inline-block;
       margin-right: 15px;
     }

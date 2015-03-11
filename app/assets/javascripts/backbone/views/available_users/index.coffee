@@ -13,7 +13,9 @@ class Hrguru.Views.AvailableUsersIndex extends Backbone.View
     @roles = new Hrguru.Collections.Roles(gon.roles)
 
   createViews: ->
-    @filters_view = new Hrguru.Views.AvailableUsersFilters(gon.availability_time, gon.abilities)
+    @filters_view = new Hrguru.Views.AvailableUsersFilters(
+      gon.availability_time, gon.abilities, @roles
+    )
     @filters_view.render()
     @tbodyView = new Hrguru.Views.AvailableUsersCollectionView(@users)
     @tbodyView.render()
