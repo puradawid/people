@@ -24,7 +24,14 @@ class Hrguru.Views.AvailableUsersCollectionView extends Marionette.CollectionVie
   sort: (value = 'availability_time', direction = 1) ->
     @collection.sortUsers(value, direction)
     @render()
+    EventAggregator.trigger('users:updateVisibility', @getSelectizeData())
 
   toggleClass: (target) ->
     @$('.active').removeClass('active')
     $(target).addClass('active')
+
+  getSelectizeData: ->
+    data = {}
+    _.each $('.selectized'), (element) ->
+      data[$(element).attr('name')] = $(element)[0].selectize.items
+    data
