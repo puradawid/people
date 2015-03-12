@@ -41,7 +41,7 @@ class Hrguru.Views.DashboardIndex extends Marionette.View
     $el = view.render().$el
     if project.isPotential()
       $el.addClass('potential')
-      $el.hide() unless @filtersView.displayedType == project.type()
+    $el.hide() unless @filtersView.displayedType == project.type()
     $('.open-all-notes').after($el)
 
   fillTable: ->
