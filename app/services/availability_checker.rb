@@ -21,7 +21,9 @@ class AvailabilityChecker
 
   def available_since
     return unless available?
-    return Date.today if free_right_now? || has_no_memberships? || has_only_nonbillable_memberships_whitout_end_data?
+    if free_right_now? || has_no_memberships? || has_only_nonbillable_memberships_without_end_data?
+      return Date.today
+    end
 
     if has_memberships_with_gaps?
       first_gap_in_memberships
@@ -56,7 +58,7 @@ class AvailabilityChecker
     first_membership_starts_after_today?
   end
 
-  def has_only_nonbillable_memberships_whitout_end_data?
+  def has_only_nonbillable_memberships_without_end_data?
     return false unless has_only_nonbillable_memberships?
     memberships.where(billable: false).all? { |membership| membership.ends_at.nil? }
   end
