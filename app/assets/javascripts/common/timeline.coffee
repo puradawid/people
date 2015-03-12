@@ -1,5 +1,5 @@
 (($, moment) ->
-  $.fn.timeline = (events) ->
+  $.fn.timeline = (events, project) ->
     $eventsTag = $("<div class='events'></div>").appendTo(this)
     $buttonLeft = $("<div class='moveLeft'>
                       <button type='button' class='btn btn-success btn-lg'>
@@ -45,6 +45,11 @@
             firstDate = startDate
           else if lastDate < startDate
             lastDate = startDate
+
+        if project? && project.archived
+          startDate = new Date(project.kickoff)
+          lastDate = new Date(project.end_at)
+
         [firstDate, lastDate]
 
       setEnds: (firstDate, lastDate) ->

@@ -22,6 +22,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    gon.project = project
     gon.events = get_events
   end
 
