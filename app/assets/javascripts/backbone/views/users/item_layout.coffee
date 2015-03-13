@@ -26,7 +26,7 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
     '.employment': 'employment'
     '.phone': 'phone'
     '.roles':
-      observe: 'role_id'
+      observe: 'primary_role_id'
       selectOptions:
         collection: -> gon.roles
         labelPath: 'name'
