@@ -7,8 +7,8 @@ class Role
   after_create :move_to_bottom
 
   has_many :memberships
-  has_many :users, inverse_of: :roles
   has_many :positions
+  has_and_belongs_to_many :users
 
   orderable column: :priority
   field :name, type: String
