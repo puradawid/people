@@ -181,24 +181,15 @@ class Hrguru.Views.TeamLayout extends Backbone.Marionette.Layout
   countMembers: ->
     team_members = _.filter @users.models, (user) =>
       user.get('team_id') is @model.id
-    @countBillable(team_members)
-    @countNonbillable(team_members)
+    @setCounter(team_members, true, @ui.billableCounter)
+    @setCounter(team_members, false, @ui.nonbillableCounter)
 
-  countBillable: (team_members) ->
-    billable_role_ids = (_.filter @roles.models, (role) =>
-      role.get('billable') is true).map (role) ->
-        role.get('id')
-    billable_array = _.filter team_members, (user) =>
-      user.get('role_id') in billable_role_ids
-    @ui.billableCounter.text(billable_array.length)
-
-  countNonbillable: (team_members) ->
-    nonbillable_role_ids = (_.filter @roles.models, (role) =>
-      role.get('billable') is false).map (role) ->
-        role.get('id')
-    nonbillable_array = _.filter team_members, (user) =>
-      user.get('role_id') in nonbillable_role_ids
-    @ui.nonbillableCounter.text(nonbillable_array.length)
+  setCounter: (team_members, billable, $counter) ->
+    ids = @roles
+      .filter (role) -> role.get('billable') is billable
+      .map (role) -> role.get('id')
+    filtered = _.filter team_members, (user) -> user.get('role_id') in ids
+    $counter.text(filtered.length)
 
   highlight: (class_name) ->
     leader_cell = $(@leaderRegion.$el)
