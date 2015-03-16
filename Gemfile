@@ -20,8 +20,6 @@ gem 'moped'
 gem 'mongoid-history'
 gem 'mongoid_userstamp'
 
-gem 'pg', '~> 0.17.1'
-
 gem 'dotenv'
 gem 'dotenv-deployment'
 gem 'decent_exposure'
@@ -49,7 +47,7 @@ gem 'render_anywhere', require: false
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-tablesorter'
-gem 'js_stack'
+gem 'js_stack', '0.5.2'
 gem 'gon'
 gem 'simple_form', '~> 3.1.0.rc2'
 gem 'selectize-rails'
