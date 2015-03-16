@@ -26,8 +26,7 @@ class UserSearch < Searchlight::Search
   end
 
   def search_developer
-    role_ids = Role.where(technical: true).pluck(:_id)
-    search.where(:role_id.in => role_ids)
+    search.in(id: Role.where(technical: true).distinct(:user_ids))
   end
 
   private
