@@ -25,6 +25,27 @@ describe 'Dashboard filters', js: true do
       expect(page).to have_text('zztop')
       expect(page).to have_text('test')
     end
+
+    context 'when user has not started a project' do
+      let!(:future_dev) { create(:user) }
+      let!(:future_membership) { create(:membership, user: future_dev, starts_at: 1.week.from_now) }
+
+      it 'shows the user' do
+        full_name = "#{future_dev.last_name} #{future_dev.first_name}"
+        visit '/dashboard'
+        select_option('users', full_name)
+
+        if page.has_css?('.invisible')
+          within '.invisible' do
+            expect(page).not_to have_text(full_name)
+          end
+        end
+
+        within '#projects-users' do
+          expect(page).to have_text(full_name)
+        end
+      end
+    end
   end
 
   describe 'projects filter' do

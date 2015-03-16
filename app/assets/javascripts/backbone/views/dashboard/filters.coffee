@@ -82,6 +82,7 @@ class Hrguru.Views.Dashboard.Filters extends Backbone.View
 
   filterUsers: =>
     EventAggregator.trigger('projects:toggleByUsers', @users_selectize.items)
+    EventAggregator.trigger('memberships:toggleByUsers', @users_selectize.items)
 
   highlightEndingChanged: (event) ->
     EventAggregator.trigger('project:highlightEnding', event.currentTarget.checked)
