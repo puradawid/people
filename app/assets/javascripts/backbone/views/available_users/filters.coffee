@@ -17,7 +17,6 @@ class Hrguru.Views.AvailableUsersFilters extends Marionette.View
 
   initializeAvailabilityTimeFilter: ->
     availability_time_selectize = @$('select[name=availability_time]').selectize
-      create: false
       valueField: 'value'
       labelField: 'text'
       options: @availability_time
@@ -27,7 +26,6 @@ class Hrguru.Views.AvailableUsersFilters extends Marionette.View
   initializeRoleFilter: ->
     roles_selectize = @$('input[name=roles]').selectize
       plugins: ['remove_button']
-      create: false
       valueField: '_id'
       labelField: 'name'
       searchField: 'name'
