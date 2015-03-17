@@ -51,6 +51,7 @@ class Hrguru.Views.Dashboard.EditMembershipPopup extends Marionette.CompositeVie
       error: (model, xhr) =>
         @showError(xhr.responseJSON.errors)
     )
+    @model.set('visible', true)
     if @model.changed.hasOwnProperty('billable')
       @model.trigger('membership:updated:billable', @model)
 

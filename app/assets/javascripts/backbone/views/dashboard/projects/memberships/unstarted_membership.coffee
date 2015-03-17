@@ -11,6 +11,7 @@ class Hrguru.Views.Dashboard.UnstartedMembership extends Hrguru.Views.Dashboard.
     @hidden_by_role = false
     @listenTo(EventAggregator, 'memberships:highlightNotBillable', @highlightNotBillable)
     @listenTo(EventAggregator, 'memberships:toggleByUsers', @toggleByUsers)
+    @$el.toggleClass('invisible', false) if @model.get('visible')
 
   showNext: (state) ->
     @hidden_by_next = !state
