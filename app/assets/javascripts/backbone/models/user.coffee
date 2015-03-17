@@ -142,20 +142,12 @@ class Hrguru.Collections.Users extends Backbone.Collection
 
   compareNumbers: (a, b) ->
     result = 0
-    if a >= b
-      result = 1
-    else
-      result = -1
-    if @sortDirection is 1
-      result
-    else
-      -result
+
+    if a >= b then result = 1 else result = -1
+    if @sortDirection is 1 then result else -result
 
   numbers_comparator: (a, b) ->
-    if a >= b
-      1
-    else
-      -1
+    if a >= b then 1 else -1
 
   active: ->
     filtered = @filter((user) ->
