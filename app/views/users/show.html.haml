@@ -11,9 +11,9 @@
         .list-group-item
           = f.input :contract_type_id, collection: contractTypes
         .list-group-item
-          = f.input :primary_role_id, collection: roles, label: 'Primary role:'
+          = f.input :primary_role_id, collection: user.roles, label: 'Primary role:'
         .list-group-item
-          = f.label :roles_ids, 'Other Roles'
+          = f.label :role_ids, 'Roles'
           = f.input :role_ids,
             as: :select,
             collection: roles,
