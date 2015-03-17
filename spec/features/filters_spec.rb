@@ -96,7 +96,7 @@ describe 'Dashboard filters', js: true do
 
   describe 'User sorts filtered list' do
     let!(:junior_dev) { create(:user, primary_role: create(:junior_role, technical: true)) }
-    let!(:ship) { create(:membership, user: junior_dev, role: junior_dev.primary_role) }
+    let!(:junior_membership) { create(:membership, user: junior_dev, role: junior_dev.primary_role) }
 
     it 'does not disable the filter' do
       visit '/'
