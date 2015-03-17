@@ -39,4 +39,3 @@ Membership.where(billable: nil).each do |membership|
 end
 
 FactoryGirl.create_list(:user, 50) if Rails.env.development?
-

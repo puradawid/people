@@ -31,10 +31,10 @@ class Role
   end
 
   def self.pm
-    where(name: "pm").first_or_create
+    where(name: 'pm').first_or_create
   end
 
   def self.by_name
-    all.sort_by{ |r| r.name.downcase }
+    all.sort_by { |r| r.name.downcase }
   end
 end

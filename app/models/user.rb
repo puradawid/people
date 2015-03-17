@@ -96,7 +96,7 @@ class User
   end
 
   def self.cache_key
-    self.max(:updated_at)
+    max(:updated_at)
   end
 
   def github_connected?

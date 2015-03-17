@@ -102,7 +102,7 @@ class Project
   end
 
   def self.by_name
-    all.sort_by{ |p| p.name.downcase }
+    all.sort_by { |p| p.name.downcase }
   end
 
   POSSIBLE_TYPES.each do |possible_type|

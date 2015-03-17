@@ -9,12 +9,12 @@ class Settings
   class << self
     delegate :inspect, to: :instance
 
-    def method_missing method, *args
+    def method_missing(method, *args)
       instance.public_send(method, *args)
     end
 
     def instance
-      @instance ||= self.first_or_create
+      @instance ||= first_or_create
     end
   end
 end
