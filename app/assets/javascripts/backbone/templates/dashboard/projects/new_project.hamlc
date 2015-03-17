@@ -13,7 +13,7 @@
         .new-project-form
           .row
             .col-md-6
-              .form-groupe
+              .form-group
                 %label.control-label{ for: 'project-name' }
                   Project Name
                   %abbr{ title: 'Required' } *

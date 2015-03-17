@@ -2,24 +2,13 @@ class Hrguru.Views.ModalView extends Marionette.ItemView
   template: JST['teams/_form']
 
   events:
-    'submit form': (e) -> @updateTeam(e)
-
-  events:
-    'click button[type="cancel"]'  : 'closeDialog'
+    'click .edit-team-submit': (e) -> @updateTeam(e)
 
   initialize: (options) ->
     @team = options.team
 
   onShow: ->
-    @$el.dialog
-      title: 'edit name'
-      dialogClass: "no-close"
-      modal: true
-      resizable: false
-      draggable: false
-      appendTo: '#modal-region'
-      show: 200
-      hide: 200
+    @$el.find('.modal').modal('show')
 
   updateTeam: (e) ->
     e.preventDefault()
@@ -36,7 +25,3 @@ class Hrguru.Views.ModalView extends Marionette.ItemView
 
   teamError: (model, xhr) ->
     Messenger().error(xhr.responseJSON.errors)
-
-  closeDialog: (e) ->
-    e.preventDefault()
-    @close()

@@ -1,5 +1,4 @@
 //= require jquery
-//= require jquery-ui
 //= require jquery.scrollTo
 //= require jquery-tablesorter
 //= require jquery_ujs

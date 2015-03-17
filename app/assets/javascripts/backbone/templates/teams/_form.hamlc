@@ -1,8 +1,19 @@
-%form.form-horizontal.edit-team-name
-  .control-group
-    .controls
-      %label
-        New name:
-      %input.new-name{type: 'text', name: 'new-team-name'}
-      %button.btn.btn-primary{type: 'submit'} Confirm
-      %button.btn.btn-default{type: 'cancel'} Cancel
+.modal.fade.edit-team-modal{ tabindex: '-1', role: 'dialog', aria: { labelledby: 'myModal', hidden: 'true' } }
+  .modal-dialog.modal-md
+    .modal-content
+      .modal-header
+        %button.close{ type: 'button', data: { dismiss: 'modal' } }
+          %span &times
+        %h3.modal-title Edit team
+      .modal-body
+        .new-project-form
+          .row
+            .col-md-6
+              .form-group
+                .input-group
+                  %label.control-label
+                    New name:
+                  %input.form-control.new-name{ type: 'text', name: 'new-team-name' }
+      .modal-footer
+        %button.btn.btn-default.edit-team-close{ type: 'button', data: { dismiss: 'modal' } } Close
+        %button.btn.btn-primary.edit-team-submit{ type: 'button' } Save changes
