@@ -67,12 +67,12 @@ describe 'team view', js: true do
     end
 
     it 'shows edit form' do
-      expect(page).to have_content('edit name')
+      expect(page).to have_content('New name')
     end
 
     it 'updates team name' do
-      find('.ui-dialog input.new-name').set('Relatively OK team')
-      find('.edit-team-name button').click
+      find('input.new-name').set('Relatively OK team')
+      find('button.edit-team-submit').click
       expect(page).to have_content('Relatively OK team')
     end
   end
