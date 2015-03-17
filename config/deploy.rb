@@ -1,4 +1,4 @@
-lock '3.2.1'
+lock '3.4.0'
 
 set :application, "people"
 set :repo_url,  "git://github.com/netguru/people.git"
