@@ -40,7 +40,7 @@ describe 'Projects page', js: true do
         page.find('li.potential').click
         within('.project.potential') do
           expect(page.find('.unarchive', visible: false)).to_not be_visible
-          expect(page.find('.archive', visible: false)).to_not be_visible
+          expect(page.find('.archive')).to be_visible
           expect(page.find('.info.js-timeline-show')).to be_visible
         end
       end
