@@ -17,7 +17,7 @@
                 %label.control-label{ for: 'project-name' }
                   Project Name
                   %abbr{ title: 'Required' } *
-                %input#project-name.form-control.name{ placeholder: 'Project name...', type: 'text' }
+                %input#project-name.form-control.name{ placeholder: 'Project name...(without spaces)', type: 'text' }
             .col-md-6
               .form-group
                 %label.control-label{ for: 'project-slug' }

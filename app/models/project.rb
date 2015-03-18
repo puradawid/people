@@ -31,7 +31,8 @@ class Project
   has_many :notes
   accepts_nested_attributes_for :memberships
 
-  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :name, presence: true, uniqueness: { case_sensitive: false },
+    format: { with: /\A[a-zA-Z0-9_\-]+\Z/ }
   validates :slug, allow_blank: true, allow_nil: true, uniqueness: true,
     format: { with: /\A[a-z\d]+\Z/ }
   validates :archived, inclusion: { in: [true, false] }
