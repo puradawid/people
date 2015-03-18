@@ -57,6 +57,7 @@ class User
   scope :by_last_name, -> { asc(:last_name, :first_name) }
   scope :available, -> { where(available: true) }
   scope :active, -> { where(archived: false) }
+  scope :technical, -> { where(:primary_role.in => Role.technical.pluck(:id)) }
   scope :technical_active, -> { where(archived: false, available: true) }
   scope :roles, -> (roles) { where(:primary_role.in => roles) }
   scope :contract_users, ->(contract_type) {

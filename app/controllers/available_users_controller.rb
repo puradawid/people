@@ -23,7 +23,7 @@ class AvailableUsersController < ApplicationController
   def fetch_available_users
     User
       .includes(:roles, :admin_role, :location, :contract_type, :memberships, :abilities)
-      .active.available.by_last_name.decorate
+      .technical.active.available.by_last_name.decorate
   end
 
   def availability_time

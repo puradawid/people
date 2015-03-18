@@ -44,12 +44,20 @@ describe 'Available users page', js: true do
   end
 
   describe 'table with users' do
+    let!(:pm_role) { create(:pm_role) }
+    let!(:pm) { create(:user, primary_role: pm_role, available: true) }
+
     it 'displays users' do
       expect(page).to have_content user.first_name
     end
 
     it 'displays now if available_since is today' do
       expect(page).to have_content 'Now'
+    end
+
+    it 'displays only technical users' do
+      visit '/'
+      expect(page).not_to have_content pm.first_name
     end
   end
 end
