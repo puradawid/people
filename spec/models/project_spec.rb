@@ -157,7 +157,7 @@ describe Project do
   describe "#set_initials" do
     let(:project_camel_case) { create(:project, name: 'BolshoeSpasibo') }
     let(:project) { create(:project, name: 'Blyuz') }
-    let(:project_multiword) { create(:project, name: 'Bolshoe Spasibo Harosho') }
+    let(:project_multiword) { create(:project, name: 'BolshoeSpasiboHarosho') }
 
     context "camel case name" do
       it "sets initials of a project" do
