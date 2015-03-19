@@ -4,10 +4,10 @@ class Project
   include Mongoid::Paranoia
   include Mongoid::History::Trackable
   include Project::UserAvailability
+  include InitialsHandler
 
   after_save :update_membership_fields
   after_save :check_potential
-  before_save :set_initials
   before_save :set_color
 
   SOON_END = 1.week
@@ -136,12 +136,6 @@ class Project
         membership.destroy
       end
     end
-  end
-
-  def set_initials
-    camel_case = name.underscore.split('_')
-    splitted = camel_case.count > 1 ? camel_case : name.split
-    self.initials = splitted[0..1].map { |w| w[0] }.join.upcase
   end
 
   def set_color
