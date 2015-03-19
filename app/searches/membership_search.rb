@@ -9,13 +9,15 @@ class MembershipSearch < Searchlight::Search
   end
 
   def search_archived
-    project_ids = ProjectSearch.new(archived: archived).results.only(:_id).map(&:_id)
-    search.where(:project_id.in => project_ids)
+    search_for_project(archived: archived)
   end
 
   def search_potential
-    project_ids = ProjectSearch.new(potential: potential).results.only(:_id).map(&:_id)
-    search.where(:project_id.in => project_ids)
+    search_for_project(potential: potential)
+  end
+
+  def search_project_end_time
+    search_for_project(end_at: project_end_time)
   end
 
   def search_ends_later_than
@@ -24,11 +26,6 @@ class MembershipSearch < Searchlight::Search
 
   def search_starts_earlier_than
     search.where(:starts_at.lte => starts_earlier_than)
-  end
-
-  def search_project_end_time
-    project_ids = ProjectSearch.new(end_at: project_end_time).results.only(:_id).map(&:_id)
-    search.where(:project_id.in => project_ids)
   end
 
   def search_starts_later_than
@@ -42,5 +39,12 @@ class MembershipSearch < Searchlight::Search
   def search_with_end_date
     ends_at = with_end_date ? :ends_at.ne : :ends_at
     search.where(ends_at => nil)
+  end
+
+  private
+
+  def search_for_project(params)
+    project_ids = ProjectSearch.new(params).results.only(:_id).map(&:_id)
+    search.where(:project_id.in => project_ids)
   end
 end
