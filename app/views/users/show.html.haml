@@ -11,7 +11,7 @@
         .list-group-item
           = f.input :contract_type_id, collection: contractTypes
         .list-group-item
-          = f.input :primary_role_id, collection: user.roles, label: 'Primary role:', include_blank: 'no role'
+          = f.input :primary_role_id, collection: user.roles, label: 'Primary role:', include_blank: 'no role', input_html: { id: 'js-user-primary' }
         .list-group-item
           = f.label :role_ids, 'Roles'
           = f.input :role_ids,
