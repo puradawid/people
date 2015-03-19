@@ -1,11 +1,5 @@
 module HipChat
   class NotifyAdded < Notify
-    attr_accessor :membership
-
-    def initialize(membership)
-      self.membership = membership
-    end
-
     def call!
       return if !AppConfig.hipchat.active || !membership.active?
       msg = HipChat::MessageBuilder.membership_added_message(membership)
