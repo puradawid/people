@@ -28,7 +28,7 @@ class Hrguru.Views.UsersRow extends Backbone.Marionette.Layout
     '.roles':
       observe: 'primary_role_id'
       selectOptions:
-        collection: -> gon.roles
+        collection: -> @model.get('roles')
         labelPath: 'name'
         valuePath: '_id'
         defaultOption:
