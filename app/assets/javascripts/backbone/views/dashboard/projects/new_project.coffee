@@ -120,6 +120,7 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
       labelField: 'name'
       searchField: 'name'
       sortField: 'name'
+      closeAfterSelect: true
       options: @developers.toJSON()
     @developers_selectize = developers_selectize[0].selectize
 
@@ -130,6 +131,7 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
       labelField: 'name'
       searchField: 'name'
       sortField: 'name'
+      closeAfterSelect: true
       options: @quality_assurance.toJSON()
     @qas_selectize = qas_selectize[0].selectize
 
@@ -140,5 +142,6 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
       labelField: 'name'
       searchField: 'name'
       sortField: 'name'
+      closeAfterSelect: true
       options: @project_managers.toJSON()
     @pms_selectize = pms_selectize[0].selectize
