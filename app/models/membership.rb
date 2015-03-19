@@ -2,6 +2,7 @@ class Membership
   include Mongoid::Document
   include Mongoid::Timestamps
   include Membership::UserAvailability
+  include Membership::HipchatNotifications
 
   field :starts_at, type: Date
   field :ends_at, type: Date
@@ -26,10 +27,6 @@ class Membership
   validate :validate_duplicate_project
 
   after_save :check_fields
-
-  after_create :notify_added
-  after_update :notify_updated
-  before_destroy :notify_removed
 
   scope :active, -> { where(project_potential: false, project_archived: false) }
   scope :not_archived, -> { where(project_archived: false) }
@@ -95,28 +92,6 @@ class Membership
 
   def project_state_changed?
     project_potential != project.potential || project_archived != project.archived || project_internal != project.internal
-  end
-
-  def notify_added
-    return unless AppConfig.hipchat.active && active?
-    msg = HipChat::MessageBuilder.membership_added_message(self)
-    hipchat_notify(msg)
-  end
-
-  def notify_removed
-    return unless AppConfig.hipchat.active && active?
-    msg = HipChat::MessageBuilder.membership_removed_message(self)
-    hipchat_notify(msg)
-  end
-
-  def notify_updated
-    return unless AppConfig.hipchat.active && persisted? && active?
-    msg = HipChat::MessageBuilder.membership_updated_message(self, changes)
-    hipchat_notify(msg)
-  end
-
-  def hipchat_notify(msg)
-    HipChat::Notifier.new.send_notification(msg)
   end
 
   def validate_starts_at_ends_at
