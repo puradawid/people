@@ -50,15 +50,6 @@ class Membership
   scope :by_starts_at, -> { desc(:starts_at) }
   scope :for_availability, -> { unfinished.without_bookings.asc(:ends_at) }
 
-  %w(user project role).each do |model|
-    original_model = "original_#{model}"
-    alias_method original_model, model
-
-    define_method(model) do
-      model.capitalize.constantize.unscoped { send original_model }
-    end
-  end
-
   def started?
     starts_at <= Date.today
   end
