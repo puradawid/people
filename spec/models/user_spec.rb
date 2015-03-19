@@ -134,15 +134,16 @@ describe User do
       let(:user_repository) { UserRepository.new }
 
       it 'finds the user' do
-        expect(subject.user_repository.from_api(params).items.first).to eq subject
+        expect(user_repository.from_api(params).items.first).to eq subject
       end
     end
 
     context 'using email' do
       let(:params) { { 'email' => subject.email } }
+      let(:user_repository) { UserRepository.new }
 
       it 'finds the user' do
-        expect(subject.user_repository.from_api(params).items.first).to eq subject
+        expect(user_repository.from_api(params).items.first).to eq subject
       end
     end
   end

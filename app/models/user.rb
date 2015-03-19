@@ -74,28 +74,6 @@ class User
   before_save :end_memberships
   before_update :save_team_join_time
 
-  def self.create_from_google!(params)
-    user = User.where(uid: params['uid']).first
-    user = User.where(email: params['info']['email']).first if user.blank?
-    if user.present?
-      user.update_attributes(uid: params['uid']) if user.uid.blank?
-      user.update_attributes(oauth_token: params['credentials']['token'])
-      user.update_attributes(refresh_token: params['credentials']['refresh_token']) if user.refresh_token.nil?
-      user.update_attributes(oauth_expires_at: params['credentials']['expires_at'])
-      return user
-    end
-    fields = %w(first_name last_name email)
-    attributes = fields.reduce({}) { |mem, key| mem.merge(key => params['info'][key]) }
-    attributes['password'] = Devise.friendly_token[0, 20]
-    attributes['uid'] = params['uid']
-    attributes['oauth_token'] = params['credentials']['token']
-    attributes['refresh_token'] = params['credentials']['refresh_token']
-    attributes['oauth_expires_at'] = params['credentials']['expires_at']
-    UserMailer.notify_operations(params['info']['email']).deliver
-    SendMailJob.new.async.perform(UserMailer, :notify_operations, params['info']['email'])
-    User.create!(attributes)
-  end
-
   def self.cache_key
     max(:updated_at)
   end
@@ -154,16 +132,8 @@ class User
     @current_memberships ||= user_membership_repository.current.items.asc(:ends_at)
   end
 
-  def user_project_repository
-    @user_project_repository ||= UserProjectRepository.new(self)
-  end
-
   def user_membership_repository
     @user_membership_repository ||= UserMembershipRepository.new(self)
-  end
-
-  def user_repository
-    @user_repository ||= UserRepository.new
   end
 
   private
