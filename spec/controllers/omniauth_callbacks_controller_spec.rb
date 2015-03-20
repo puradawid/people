@@ -24,7 +24,7 @@ describe OmniauthCallbacksController do
     end
 
     context 'user is internal' do
-      xit 'signs up user' do
+      it 'signs up user' do
         expect { callback }.to change { User.count }.by(1)
       end
 
