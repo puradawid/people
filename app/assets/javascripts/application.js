@@ -2,6 +2,7 @@
 //= require jquery.scrollTo
 //= require jquery-tablesorter
 //= require jquery_ujs
+//= require jquery-ui/sortable
 //= require jquery.cookie
 //= require netguru_theme
 //= require messenger
