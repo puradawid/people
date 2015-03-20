@@ -4,10 +4,20 @@ class UserRepository
     search(id_or_email: params)
   end
 
+  def active
+    User
+      .includes(:roles, :admin_role, :location, :contract_type, :memberships, :abilities)
+      .active.by_last_name.decorate
+  end
+
   def items
     search = UserSearch.new(search_params)
     clear_search
     search.results
+  end
+
+  def get(id)
+    User.find id
   end
 
   private

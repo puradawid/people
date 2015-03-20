@@ -1,17 +1,26 @@
 class UsersController < ApplicationController
-  expose_decorated(:user) { User.find(params[:id]) }
-  expose(:users) { fetch_users }
-  expose(:roles) { Role.all }
-  expose(:admin_role) { [AdminRole.first_or_create] }
-  expose(:locations) { Location.all }
-  expose(:projects) { Project.includes(:notes).all }
-  expose(:unarchived_projects) { Project.where(archived: false) }
-  expose(:sorted_unarchived_projects) { Project.where(archived: false).sort_by { |project| project.name.downcase } }
-  expose(:abilities) { fetch_abilities }
-  expose(:contractTypes) { ContractType.all }
-  expose(:positions) { PositionDecorator.decorate_collection(user.positions) }
-
   before_filter :authenticate_admin!, only: [:update], unless: -> { current_user? }
+
+  expose(:user_repository) { UserRepository.new }
+  expose(:user_entity) { user_repository.get params[:id]}
+  expose(:user) { UserDecorator.new(user_entity) }
+  expose(:users) { UserDecorator.decorate_collection(user_repository.active) }
+
+  expose(:roles_repository) { RolesRepository.new }
+  expose(:roles) { roles_repository.all }
+  # FIXME: investigate why do we need an array here and don't use array
+  expose(:admin_role) { [roles_repository.get_admin] }
+  expose(:locations) { LocationsRepository.new.all }
+  expose(:projects_repository) { ProjectsRepository.new }
+  expose(:projects) { projects_repository.with_notes }
+  expose(:active_projects) { projects_repository.active_sorted }
+
+  expose(:abilities_repository) { AbilitiesRepository.new }
+  expose(:abilities) { abilities_repository.ordered_by_user_abilities(user_entity) }
+
+  expose(:contract_types) { ContractTypesRepository.new.all }
+  expose(:user_positions_repository) { UserPositionsRepository.new(user_entity) }
+  expose(:positions) { PositionDecorator.decorate_collection(user_positions_repository.all) }
 
   def index
     gon.users = Rabl.render(users, 'users/index', view_path: 'app/views', format: :hash)
@@ -19,7 +28,7 @@ class UsersController < ApplicationController
     gon.roles = roles
     gon.admin_role = admin_role
     gon.locations = locations
-    gon.abilities = Ability.all
+    gon.abilities = abilities_repository.all
     gon.months = months
   end
 
@@ -38,8 +47,8 @@ class UsersController < ApplicationController
 
   def show
     if current_user? || current_user.admin?
-      @membership = Membership.new(user: user, role: user.roles.first)
-      gon.events = fetch_events
+      @membership = UserMembershipRepository.new(user).build(role: user.roles.first)
+      gon.events = user_events
     else
       redirect_to users_path, alert: 'Permission denied! You have no rights to do this.'
     end
@@ -47,27 +56,9 @@ class UsersController < ApplicationController
 
   private
 
-  def fetch_events
-    @events ||= user.memberships.includes(:project).map do |m|
-      if m.project.present?
-        event = { text: m.project.name, startDate: m.starts_at.to_date }
-        event[:endDate] = m.ends_at.to_date if m.ends_at
-        event[:user_id] = m.user.id.to_s
-        event[:billable] = m.billable
-        event
-      end
-    end
-    @events.compact
-  end
-
-  def fetch_users
-    User
-      .includes(:roles, :admin_role, :location, :contract_type, :memberships, :abilities)
-      .active.by_last_name.decorate
-  end
-
-  def fetch_abilities
-    Ability.ordered_by_user_abilities(user)
+  def user_events
+    user_membership_repository = UserMembershipRepository.new(user_entity)
+    UserEventsRepository.new(user_membership_repository).all
   end
 
   def user_params

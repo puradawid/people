@@ -7,6 +7,11 @@ class UserMembershipRepository
 
   def all
     clear_search
+    items
+  end
+
+  def build(attrs)
+    Membership.new({ user: user }.merge(attrs))
   end
 
   %w(potential archived booked with_end_date).each do |m|
