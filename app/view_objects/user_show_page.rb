@@ -51,7 +51,7 @@ class UserShowPage
   end
 
   def user_active_projects
-    upencja = user_project_repository.active_with_memberships.map do |project, ms|
+    user_project_repository.active_with_memberships.map do |project, ms|
       [project, MembershipDecorator.decorate_collection(ms)]
     end
   end
