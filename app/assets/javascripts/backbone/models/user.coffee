@@ -42,7 +42,8 @@ class Hrguru.Models.User extends Backbone.Model
   visibleByRoles: (roles = '') ->
     return true if roles.length == 0
     return false unless @get('role')?
-    @get('role')._id in roles
+    myRoles = @myRoles()
+    (_.difference myRoles, roles).length < myRoles.length
 
   visibleByProjects: (projects = '') ->
     return true if projects.length == 0
@@ -64,6 +65,9 @@ class Hrguru.Models.User extends Backbone.Model
   visibleByMonthsInCurrentProject: (months = '') ->
     return true if months == 0
     @isInProjectForMoreThanMonths(months)
+
+  myRoles: ->
+    _.map @get('roles'), (r) -> r._id
 
   myProjects: ->
     _.map @get("projects"), (p) -> p.project._id
