@@ -5,8 +5,6 @@ class UsersController < ApplicationController
   expose(:user_entity) { user_repository.get params[:id]}
   expose(:user) { UserDecorator.new(user_entity) }
   expose(:users) { UserDecorator.decorate_collection(user_repository.active) }
-  # FIXME: investigate why do we need an array here and don't use array
-
 
   expose(:user_show_page) { UserShowPage.new(user) }
 
@@ -71,6 +69,7 @@ class UsersController < ApplicationController
     gon.users = Rabl.render(users, 'users/index', view_path: 'app/views', format: :hash)
     gon.projects = Rabl.render(projects_a, 'users/projects', format: :hash)
     gon.roles = roles_repository.all
+    # FIXME: investigate why do we need an array here and don't use array
     gon.admin_role = [roles_repository.get_admin]
     gon.locations = LocationsRepository.new.all
     gon.abilities = AbilitiesRepository.new.all
