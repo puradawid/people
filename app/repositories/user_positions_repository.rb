@@ -6,6 +6,7 @@ class UserPositionsRepository
   end
 
   def all
+    # CHECKQUERY:
     user.positions
   end
 end

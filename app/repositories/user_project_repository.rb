@@ -42,6 +42,7 @@ class UserProjectRepository
   end
 
   def memberships_by_project
+    # CHECKQUERY: we use membership.role in view
     user_membership_repository.items.by_starts_at.group_by(&:project_id).each_with_object({}) do
       |data, memo|
       memberships = data[1]
