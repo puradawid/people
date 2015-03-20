@@ -2,28 +2,27 @@
   .col-sm-6
     .user-heading
       %h1
-        - if user.gravatar?
-          = user.gravatar_image class: "img-rounded", alt: user.name
-        = user.name
+        - if user_show_page.user_gravatar.present?
+          = user_show_page.user_gravatar
       = mail_to user.email, "send email"
     .list-group
-      = simple_form_for user do |f|
+      = simple_form_for user_show_page.user do |f|
         .list-group-item
-          = f.input :contract_type_id, collection: contract_types
+          = f.input :contract_type_id, collection: user_show_page.contract_types
         .list-group-item
-          = f.input :primary_role_id, collection: user.roles, label: 'Primary role:', include_blank: 'no role', input_html: { id: 'js-user-primary' }
+          = f.input :primary_role_id, collection: user_show_page.user_roles, label: 'Primary role:', include_blank: 'no role', input_html: { id: 'js-user-primary' }
         .list-group-item
           = f.label :role_ids, 'Roles'
           = f.input :role_ids,
             as: :select,
-            collection: roles,
+            collection: user_show_page.available_roles,
             input_html: { multiple: true, id: 'js-user-roles'},
             label: false
         .list-group-item
           = f.label :ability_ids, 'Skills & technologies'
           = f.input :ability_ids,
             as: :select,
-            collection: abilities,
+            collection: user_show_page.abilities,
             input_html: { multiple: true, id: 'js-user-abilities'},
             label: false
         .list-group-item
@@ -33,7 +32,7 @@
         .list-group-item
           %h4.list-group-item-heading= "Positions"
           .list-group
-            - positions.each do |p|
+            - user_show_page.positions.each do |p|
               .row
                 .col-sm-12-with-margin
                   = link_to edit_position_path(p), class: 'list-group-item' do
@@ -42,14 +41,14 @@
                     = p.role.label
                   = link_to 'delete', p, method: :delete, data: { confirm: I18n.t('confirm_question') }, class: 'btn btn-xs btn-danger pull-right'
           .actions
-            - if current_user.admin? || current_user == user
-              = link_to I18n.t('positions.new'), new_position_path(user: user), class: "btn btn-default btn-success"
+            - if user_show_page.editing_enabled?(current_user)
+              = link_to I18n.t('positions.new'), new_position_path(user: user_show_page.user), class: "btn btn-default btn-success"
         .list-group-item
           .row
             .col-sm-12
               = f.input :employment, wrapper: :prepend, label_html: { class: 'input-group-addon' }
         .list-group-item
-          = f.input :location_id, collection: locations
+          = f.input :location_id, collection: user_show_page.locations
         .list-group-item
           = f.input :skype
         .list-group-item
@@ -62,14 +61,14 @@
   .col-sm-6
     .panel.panel-default
       .panel-body
-        = simple_form_for @membership do |f|
+        = simple_form_for user_show_page.new_membership do |f|
           .row
             .col-sm-6
               = f.input :starts_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
-              = f.association :project, collection: active_projects, include_blank: false
+              = f.association :project, collection: user_show_page.active_projects, include_blank: false
             .col-sm-6
               = f.input :ends_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
-              = f.association :role, collection: roles, include_blank: false
+              = f.association :role, collection: user_show_page.available_roles, include_blank: false
             .col-sm-6
               = f.input :billable, as: :boolean, input_html: { checked: user.primary_role.try(:billable?) }
             .col-sm-6
@@ -88,11 +87,11 @@
     .tab-content
       .tab-pane.active#unarchived{ role: 'tabpanel' }
         .list-group
-          - user.unarchived_projects.reverse_each do |project, memberships|
+          - user_show_page.user_active_projects.reverse_each do |project, memberships|
             = render partial: 'projects', locals: { project: project, memberships: memberships }
       .tab-pane#archived{ role: 'tabpanel' }
         .list-group
-          - user.archived_projects.reverse_each do |project, memberships|
+          - user_show_page.user_archived_projects.reverse_each do |project, memberships|
             = render partial: 'projects', locals: { project: project, memberships: memberships }
 
   .time-section
