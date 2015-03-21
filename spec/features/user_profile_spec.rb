@@ -42,8 +42,4 @@ describe 'profile', js: true do
       expect(page).to have_select('js-user-primary', options: ['no role', 'junior', 'pm'])
     end
   end
-
-
-
-
 end
