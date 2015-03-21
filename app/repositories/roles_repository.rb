@@ -3,7 +3,7 @@ class RolesRepository
     Role.all
   end
 
-  def get_admin
+  def admin_role
     AdminRole.first_or_create
   end
 end

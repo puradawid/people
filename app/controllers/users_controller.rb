@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_filter :authenticate_admin!, only: [:update], unless: -> { current_user? }
 
   expose(:user_repository) { UserRepository.new }
-  expose(:user_entity) { user_repository.get params[:id]}
+  expose(:user_entity) { user_repository.get params[:id] }
   expose(:user) { UserDecorator.new(user_entity) }
   expose(:users) { UserDecorator.decorate_collection(user_repository.active) }
 
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
     gon.projects = Rabl.render(projects_a, 'users/projects', format: :hash)
     gon.roles = roles_repository.all
     # FIXME: investigate why do we need an array here and don't use array
-    gon.admin_role = [roles_repository.get_admin]
+    gon.admin_role = [roles_repository.admin_role]
     gon.locations = LocationsRepository.new.all
     gon.abilities = AbilitiesRepository.new.all
     gon.months = months

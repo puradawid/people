@@ -6,15 +6,17 @@ class UserEventsRepository
   end
 
   def all
-    @events ||= user_membership_repository.all.map do |m|
-      if m.project.present?
-        event = { text: m.project.name, startDate: m.starts_at.to_date }
-        event[:endDate] = m.ends_at.to_date if m.ends_at
-        event[:user_id] = m.user.id.to_s
-        event[:billable] = m.billable
-        event
-      end
-    end
-    @events.compact
+    @events ||= user_membership_repository.all.map { |m| build_event(m) }.compact
+  end
+
+  private
+
+  def build_event(membership)
+    return if membership.project.nil?
+    event = { text: membership.project.name, startDate: membership.starts_at.to_date }
+    event[:endDate] = membership.ends_at.to_date if membership.ends_at.present?
+    event[:user_id] = membership.user.id.to_s
+    event[:billable] = membership.billable
+    event
   end
 end
