@@ -1,5 +1,5 @@
 class LocationsRepository
   def all
-    Location.all
+    @all ||= Location.all
   end
 end

@@ -1,9 +1,9 @@
 class RolesRepository
   def all
-    Role.all
+    @all ||= Role.all.to_a
   end
 
   def admin_role
-    AdminRole.first_or_create
+    @admin_role ||= AdminRole.first_or_create
   end
 end

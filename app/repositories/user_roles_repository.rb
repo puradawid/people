@@ -7,6 +7,6 @@ class UserRolesRepository
 
   def all
     # CHECKQUERY:
-    user.roles
+    @all ||= user.roles.to_a
   end
 end

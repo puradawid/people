@@ -1,6 +1,6 @@
 class AbilitiesRepository
   def all
-    Ability.all
+    @all ||= Ability.all.to_a
   end
 
   def ordered_by_user_abilities(user)

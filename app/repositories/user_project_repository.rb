@@ -1,8 +1,10 @@
 class UserProjectRepository
-  attr_accessor :user
+  attr_accessor :user, :user_membership_repository, :projects_repository
 
-  def initialize(user)
+  def initialize(user, user_membership_repository, projects_repository)
     self.user = user
+    self.user_membership_repository = user_membership_repository
+    self.projects_repository = projects_repository
   end
 
   def active_with_memberships
@@ -37,16 +39,15 @@ class UserProjectRepository
 
   private
 
-  def user_membership_repository
-    @user_membership_repository ||= UserMembershipRepository.new(user)
+  def memberships_by_project
+    @memberships_by_project ||= build_memberships_by_project
   end
 
-  def memberships_by_project
+  def build_memberships_by_project
     # CHECKQUERY: we use membership.role in view
-    user_membership_repository.items.by_starts_at.group_by(&:project_id).each_with_object({}) do |data, memo|
+    user_membership_repository.items.group_by(&:project_id).each_with_object({}) do |data, memo|
       memberships = data[1]
-      # FIXME: use repo
-      project = Project.find(data[0])
+      project = projects_repository.get(data[0])
       memo[project] = memberships
     end
   end

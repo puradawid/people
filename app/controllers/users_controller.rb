@@ -5,8 +5,14 @@ class UsersController < ApplicationController
   expose(:user_entity) { user_repository.get params[:id] }
   expose(:user) { UserDecorator.new(user_entity) }
   expose(:users) { UserDecorator.decorate_collection(user_repository.active) }
+  # FIXME: this is a bad way
+  expose(:user_membership_repository) { user_entity.user_membership_repository }
 
-  expose(:user_show_page) { UserShowPage.new(user) }
+  expose(:user_show_page) { UserShowPage.new(user, user_membership_repository, projects_repository, locations_repository, abilities_repository, roles_repository) }
+  expose(:projects_repository) { ProjectsRepository.new }
+  expose(:locations_repository) { LocationsRepository.new }
+  expose(:abilities_repository) { AbilitiesRepository.new }
+  expose(:roles_repository) { RolesRepository.new }
 
   def index
     setup_gon_for_index
@@ -32,7 +38,6 @@ class UsersController < ApplicationController
   private
 
   def user_events
-    user_membership_repository = UserMembershipRepository.new(user_entity)
     UserEventsRepository.new(user_membership_repository).all
   end
 
@@ -60,15 +65,14 @@ class UsersController < ApplicationController
   end
 
   def setup_gon_for_index
-    projects_a = ProjectsRepository.new.with_notes
-    roles_repository = RolesRepository.new
+    projects_a = projects_repository.with_notes
     gon.users = Rabl.render(users, 'users/index', view_path: 'app/views', format: :hash)
     gon.projects = Rabl.render(projects_a, 'users/projects', format: :hash)
     gon.roles = roles_repository.all
     # FIXME: investigate why do we need an array here and don't use array
     gon.admin_role = [roles_repository.admin_role]
-    gon.locations = LocationsRepository.new.all
-    gon.abilities = AbilitiesRepository.new.all
+    gon.locations = locations_repository.all
+    gon.abilities = abilities_repository.all
     gon.months = months
   end
 end

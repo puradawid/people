@@ -1,8 +1,13 @@
 class UserShowPage
-  attr_accessor :user
+  attr_accessor :user, :user_membership_repository, :projects_repository, :locations_repository, :abilities_repository, :roles_repository
 
-  def initialize(user)
+  def initialize(user, user_membership_repository, projects_repository, locations_repository, abilities_repository, roles_repository)
     self.user = user
+    self.user_membership_repository = user_membership_repository
+    self.projects_repository = projects_repository
+    self.locations_repository = locations_repository
+    self.abilities_repository = abilities_repository
+    self.roles_repository = roles_repository
   end
 
   def user_gravatar
@@ -15,27 +20,27 @@ class UserShowPage
   end
 
   def contract_types
-    ContractTypesRepository.new.all
+    @contract_types ||= ContractTypesRepository.new.all
   end
 
   def user_roles
-    UserRolesRepository.new(user).all
+    @user_roles ||= UserRolesRepository.new(user).all
   end
 
   def available_roles
-    RolesRepository.new.all
+    @available_roles ||= roles_repository.all
   end
 
   def abilities
-    AbilitiesRepository.new.ordered_by_user_abilities(raw_user)
+    @abilities ||= AbilitiesRepository.new.ordered_by_user_abilities(raw_user)
   end
 
   def positions
-    PositionDecorator.decorate_collection UserPositionsRepository.new(raw_user).all
+    @positions ||= PositionDecorator.decorate_collection UserPositionsRepository.new(raw_user).all
   end
 
   def locations
-    LocationsRepository.new.all
+    @locations ||= LocationsRepository.new.all
   end
 
   def new_membership
@@ -65,15 +70,7 @@ class UserShowPage
   private
 
   def user_project_repository
-    UserProjectRepository.new(raw_user)
-  end
-
-  def projects_repository
-    ProjectsRepository.new
-  end
-
-  def user_membership_repository
-    @user_membership_repository ||= UserMembershipRepository.new(raw_user)
+    @user_project_repository ||= UserProjectRepository.new(raw_user, user_membership_repository, projects_repository)
   end
 
   def raw_user
