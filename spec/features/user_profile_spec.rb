@@ -1,9 +1,8 @@
 require 'spec_helper'
 
 describe 'profile', js: true do
-
   let(:user) { create(:junior_dev) }
-	
+
   before do
     page.set_rack_session 'warden.user.user.key' => User.serialize_into_session(user).unshift('User')
     create(:junior_role)
@@ -11,7 +10,7 @@ describe 'profile', js: true do
     create(:role_billable)
     visit user_path(user.id)
   end
-	
+
   describe 'setting role' do
   end
 
