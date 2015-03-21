@@ -22,4 +22,12 @@ FactoryGirl.define do
       available_since { Date.today }
     end
   end
+
+  factory :junior_dev, class: "User" do
+    first_name 'Jan'
+    last_name 'Kowalski'
+    email 'jan.kowalski@example.com'
+    password 'netguru123'
+    without_gh true
+  end
 end
