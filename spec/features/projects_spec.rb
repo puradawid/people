@@ -59,11 +59,11 @@ describe 'Projects page', js: true do
   end
 
   describe 'project adding' do
-    let(:pm_user) { create(:pm_user) }
-    let(:qa_user) { create(:qa_user) }
+    let!(:pm_user) { create(:pm_user) }
+    let!(:qa_user) { create(:qa_user) }
 
     before do
-      click_button('.new-project-add')
+      find('button.new-project-add').click
     end
 
     context 'when adding project correctly' do
@@ -72,9 +72,21 @@ describe 'Projects page', js: true do
     context 'when adding invalid project' do
 
       context 'when name is invalid' do
+        it 'fails with error message' do
+          find_by_id('project-name').set('test test')
+          find_by_id('project-slug').set('test')
+          find('button.new-project-submit').click
+          expect(page.find('.message-error')).to be_visible
+        end
       end
       
-      context 'when slugis invalid' do
+      context 'when slug is invalid' do
+        it 'fails with message error' do
+          find_by_id('project-name').set('test')
+          find_by_id('project-slug').set('tEsT')
+          find('button.new-project-submit').click
+          expect(page.find('.message-error')).to be_visible
+        end
       end
 
     end
