@@ -52,6 +52,7 @@ class UserMembershipRepository
   end
 
   def items
+    # CHECKQUERY: this could also be problematic, projects are loaded here as well
     search = MembershipSearch.new(search_params)
     clear_search
     search.results
