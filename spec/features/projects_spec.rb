@@ -8,8 +8,10 @@ describe 'Projects page', js: true do
   let!(:archived_project) { create(:project, :archived) }
   let!(:pm_user) { create(:pm_user) }
   let!(:qa_user) { create(:qa_user) }
+  let!(:note) { create(:note) }
 
   before do
+    allow_any_instance_of(SendMailJob).to receive(:perform)
     page.set_rack_session 'warden.user.user.key' => User.serialize_into_session(user).unshift('User')
     visit '/dashboard' # Projects tab
   end
@@ -103,6 +105,41 @@ describe 'Projects page', js: true do
           find('button.new-project-submit').click
           expect(page.find('.message-error')).to be_visible
         end
+      end
+    end
+  end
+
+  describe 'managing notes' do
+
+    describe 'add a new note' do
+
+      before do
+        within('div.project') do
+        first('div.show-notes').click
+        end
+      end
+
+      it 'add a note to the project' do
+        find('input.new-project-note-text').set('Test note')
+        find('a.new-project-note-submit').click
+        expect(page.find('div.scroll-overflow', text: 'Test note')).to be_visible
+      end
+    end
+
+    describe 'remove note' do
+
+      before do
+        create(:note, user: pm_user, project: active_project)
+        visit '/dashboard'
+        within('div.project') do
+        first('div.show-notes').click
+        end
+      end
+
+      it 'remove a note' do
+        expect(page.find('div.scroll-overflow', text: note.text)).to be_visible
+        find('span.note-remove').click
+        expect(page.find('.alert-success')).to be_visible
       end
     end
   end
