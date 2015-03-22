@@ -106,4 +106,30 @@ describe 'Projects page', js: true do
       end
     end
   end
+
+  describe 'managing people in project' do
+    describe 'adding member to project' do
+      it 'adds member to project correctly' do
+        within('div.project') do
+          find('div.selectize-input.items').click
+          first('.selectize-dropdown.multi [data-selectable]').click
+        end
+        expect(find('div.project div.non-billable div.count')).to have_text('1')
+      end
+    end
+
+    describe 'removing member from project' do
+      let!(:membership) { create(:membership, user: pm_user, project: active_project) }
+      before do
+        visit '/dashboard'
+      end
+
+      it 'removes member from project correctly' do
+        within('div.project') do
+          find('.icons span.remove', visible: false).click
+        end
+        expect(find('div.project div.non-billable')).to have_no_selector('div.membership')
+      end
+    end
+  end
 end
