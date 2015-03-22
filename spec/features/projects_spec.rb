@@ -79,7 +79,7 @@ describe 'Projects page', js: true do
         find('div.selectize-control.pms .selectize-input').click
         first('div.selectize-dropdown-content [data-selectable]').click
         find('div.selectize-control.qas .selectize-input').click
-        first('div.selectize-dropdown-content [data-selectable]').click    
+        first('div.selectize-dropdown-content [data-selectable]').click
         find('button.new-project-submit').click
         expect(page).to have_content('Project1')
       end
