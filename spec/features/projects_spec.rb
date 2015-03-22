@@ -6,6 +6,8 @@ describe 'Projects page', js: true do
   let!(:active_project) { create(:project) }
   let!(:potential_project) { create(:project, :potential) }
   let!(:archived_project) { create(:project, :archived) }
+  let!(:pm_user) { create(:pm_user) }
+  let!(:qa_user) { create(:qa_user) }
 
   before do
     page.set_rack_session 'warden.user.user.key' => User.serialize_into_session(user).unshift('User')
@@ -59,14 +61,28 @@ describe 'Projects page', js: true do
   end
 
   describe 'project adding' do
-    let!(:pm_user) { create(:pm_user) }
-    let!(:qa_user) { create(:qa_user) }
-
     before do
       find('button.new-project-add').click
     end
 
     context 'when adding project correctly' do
+      it 'adds project correctly' do
+        find_by_id('project-name').set('Project1')
+        find_by_id('project-slug').set('test')
+        find('label[for=kickoff]').click
+        find('.datepicker .today.day').click
+        find_by_id('end-at').set('2020-02-02')
+        find_by_id('project-type').set('Regular')
+        check('Potential')
+        find('div.selectize-control.devs .selectize-input').click
+        first('div.selectize-dropdown-content [data-selectable]').click
+        find('div.selectize-control.pms .selectize-input').click
+        first('div.selectize-dropdown-content [data-selectable]').click
+        find('div.selectize-control.qas .selectize-input').click
+        first('div.selectize-dropdown-content [data-selectable]').click    
+        find('button.new-project-submit').click
+        expect(page).to have_content('Project1')
+      end
     end
 
     context 'when adding invalid project' do
@@ -88,7 +104,6 @@ describe 'Projects page', js: true do
           expect(page.find('.message-error')).to be_visible
         end
       end
-
     end
   end
 end
