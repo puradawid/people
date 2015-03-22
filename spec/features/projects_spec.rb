@@ -115,7 +115,7 @@ describe 'Projects page', js: true do
 
       before do
         within('div.project') do
-        first('div.show-notes').click
+          first('div.show-notes').click
         end
       end
 
@@ -132,7 +132,7 @@ describe 'Projects page', js: true do
         create(:note, user: pm_user, project: active_project)
         visit '/dashboard'
         within('div.project') do
-        first('div.show-notes').click
+          first('div.show-notes').click
         end
       end
 
