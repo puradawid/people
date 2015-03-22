@@ -8,7 +8,7 @@ describe 'Projects page', js: true do
   let!(:archived_project) { create(:project, :archived) }
 
   before do
-    sign_in(user)
+    page.set_rack_session 'warden.user.user.key' => User.serialize_into_session(user).unshift('User')
     visit '/dashboard' # Projects tab
   end
 
@@ -55,6 +55,16 @@ describe 'Projects page', js: true do
           expect(page.find('.info.js-timeline-show')).to be_visible
         end
       end
+    end
+  end
+  describe 'project adding' do
+    let(:pm_user) { create(:pm_user) }
+    let(:qa_user) { create(:qa_user) }
+
+    context 'when adding project correctly' do
+    end
+
+    context 'when adding invalid project' do
     end
   end
 end

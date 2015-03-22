@@ -23,11 +23,17 @@ FactoryGirl.define do
     end
   end
 
-  factory :junior_dev, class: "User" do
-    first_name 'Jan'
-    last_name 'Kowalski'
-    email 'jan.kowalski@example.com'
+  factory :plain_user, class: "User" do
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    email { Faker::Internet.email }
     password 'netguru123'
     without_gh true
+    factory :qa_user do
+      primary_role { create(:qa_role) }
+    end
+    factory :pm_user do
+      primary_role { create(:pm_role) }
+    end
   end
 end

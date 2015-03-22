@@ -30,5 +30,9 @@ FactoryGirl.define do
     factory :technical_role do
       technical true
     end
+
+    factory :qa_role do
+      name 'qa'
+    end
   end
 end
