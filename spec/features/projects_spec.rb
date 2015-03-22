@@ -57,14 +57,26 @@ describe 'Projects page', js: true do
       end
     end
   end
+
   describe 'project adding' do
     let(:pm_user) { create(:pm_user) }
     let(:qa_user) { create(:qa_user) }
+
+    before do
+      click_button('.new-project-add')
+    end
 
     context 'when adding project correctly' do
     end
 
     context 'when adding invalid project' do
+
+      context 'when name is invalid' do
+      end
+      
+      context 'when slugis invalid' do
+      end
+
     end
   end
 end
