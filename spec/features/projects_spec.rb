@@ -65,8 +65,8 @@ describe 'Projects page', js: true do
       find('button.new-project-add').click
     end
 
-    context 'when adding project correctly' do
-      it 'adds project correctly' do
+    context 'when adding valid project' do
+      it 'creates new project' do
         find_by_id('project-name').set('Project1')
         find_by_id('project-slug').set('test')
         find('label[for=kickoff]').click
