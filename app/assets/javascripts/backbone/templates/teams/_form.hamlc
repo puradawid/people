@@ -16,4 +16,4 @@
                   %input.form-control.new-name{ type: 'text', name: 'new-team-name' }
       .modal-footer
         %button.btn.btn-default.edit-team-close{ type: 'button', data: { dismiss: 'modal' } } Close
-        %button.btn.btn-primary.edit-team-submit{ type: 'button' } Save changes
+        %button.btn.btn-primary.js-edit-team-submit{ type: 'button' } Save changes
