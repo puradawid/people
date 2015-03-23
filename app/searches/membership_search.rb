@@ -1,4 +1,4 @@
-class MembershipSearch < Searchlight::Search
+1class MembershipSearch < Searchlight::Search
   search_on Membership.includes(:project, :user)
 
   searches :user, :archived, :booked, :ends_later_than, :with_end_date, :potential,
@@ -44,7 +44,7 @@ class MembershipSearch < Searchlight::Search
   private
 
   def search_for_project(params)
-    project_ids = ProjectSearch.new(params).results.only(:_id).map(&:_id)
+    project_ids = ProjectSearch.new(params).results.pluck(:_id)
     search.where(:project_id.in => project_ids)
   end
 end
