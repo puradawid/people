@@ -1,4 +1,4 @@
-1class MembershipSearch < Searchlight::Search
+class MembershipSearch < Searchlight::Search
   search_on Membership.includes(:project, :user)
 
   searches :user, :archived, :booked, :ends_later_than, :with_end_date, :potential,
