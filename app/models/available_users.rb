@@ -1,6 +1,7 @@
 class AvailableUsers
   def all
     User.where(available: true)
+      .where(archived: false)
       .where(:primary_role.in => technical_roles)
   end
 

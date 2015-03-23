@@ -21,6 +21,10 @@ FactoryGirl.define do
       available true
       available_since { Date.today }
     end
+
+    trait :archived do
+      archived true
+    end
   end
 
   factory :plain_user, class: "User" do
