@@ -5,77 +5,10 @@
         - if user_show_page.user_gravatar.present?
           = user_show_page.user_gravatar
       = mail_to user.email, "send email"
-    .list-group
-      = simple_form_for user_show_page.user do |f|
-        .list-group-item
-          = f.input :contract_type_id, collection: user_show_page.contract_types
-        .list-group-item
-          = f.input :primary_role_id, collection: user_show_page.user_roles, label: 'Primary role:', include_blank: 'no role', input_html: { id: 'js-user-primary' }
-        .list-group-item
-          = f.label :role_ids, 'Roles'
-          = f.input :role_ids,
-            as: :select,
-            collection: user_show_page.available_roles,
-            input_html: { multiple: true, id: 'js-user-roles'},
-            label: false
-        .list-group-item
-          = f.label :ability_ids, 'Skills & technologies'
-          = f.input :ability_ids,
-            as: :select,
-            collection: user_show_page.abilities,
-            input_html: { multiple: true, id: 'js-user-abilities'},
-            label: false
-        .list-group-item
-          = f.label :user_notes, 'Notes'
-          = f.input :user_notes, as: :text, label: false, input_html: { rows: 5 }
-          = f.button :submit, class: 'btn-success'
-        .list-group-item
-          %h4.list-group-item-heading= "Positions"
-          .list-group
-            - user_show_page.positions.each do |p|
-              .row
-                .col-sm-12-with-margin
-                  = link_to edit_position_path(p), class: 'list-group-item' do
-                    %i.fa.fa-calendar
-                    = p.starts_at
-                    = p.role.label
-                  = link_to 'delete', p, method: :delete, data: { confirm: I18n.t('confirm_question') }, class: 'btn btn-xs btn-danger pull-right'
-          .actions
-            - if user_show_page.editing_enabled?(current_user)
-              = link_to I18n.t('positions.new'), new_position_path(user: user_show_page.user), class: "btn btn-default btn-success"
-        .list-group-item
-          .row
-            .col-sm-12
-              = f.input :employment, wrapper: :prepend, label_html: { class: 'input-group-addon' }
-        .list-group-item
-          = f.input :location_id, collection: user_show_page.locations
-        .list-group-item
-          = f.input :skype
-        .list-group-item
-          = f.input :phone
-        .list-group-item
-          = f.input :archived, as: :boolean
-        .list-group-item
-          = f.button :submit, class: 'btn-success'
+    = render 'details_form', details_page: user_details_page
 
   .col-sm-6
-    .panel.panel-default
-      .panel-body
-        = simple_form_for user_show_page.new_membership do |f|
-          .row
-            .col-sm-6
-              = f.input :starts_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
-              = f.association :project, collection: user_show_page.active_projects, include_blank: false
-            .col-sm-6
-              = f.input :ends_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
-              = f.association :role, collection: user_show_page.available_roles, include_blank: false
-            .col-sm-6
-              = f.input :billable, as: :boolean, input_html: { checked: user.primary_role.try(:billable?) }
-            .col-sm-6
-              = f.input :booked, as: :boolean
-              .hidden= f.input :user_id
-          .actions
-            = f.button :submit, "Add to project", data: { confirm: I18n.t('confirm_question') }, class: 'btn-success'
+    = render 'new_membership_form', membership_page: new_membership_page
 
     .tabpanel{ role: 'tabpanel' }
       %ul.nav.nav-tabs{ role: 'tablist' }

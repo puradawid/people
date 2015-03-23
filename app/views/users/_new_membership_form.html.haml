@@ -1,0 +1,17 @@
+.panel.panel-default
+  .panel-body
+    = simple_form_for membership_page.membership do |f|
+      .row
+        .col-sm-6
+          = f.input :starts_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
+          = f.association :project, collection: membership_page.active_projects, include_blank: false
+        .col-sm-6
+          = f.input :ends_at, as: :date_picker, wrapper: :prepend, label_html: { class: 'input-group-addon' }
+          = f.association :role, collection: membership_page.available_roles, include_blank: false
+        .col-sm-6
+          = f.input :billable, as: :boolean, input_html: { checked: membership_page.user_billable? }
+        .col-sm-6
+          = f.input :booked, as: :boolean
+          .hidden= f.input :user_id
+      .actions
+        = f.button :submit, "Add to project", data: { confirm: I18n.t('confirm_question') }, class: 'btn-success'

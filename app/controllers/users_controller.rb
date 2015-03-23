@@ -1,24 +1,51 @@
 class UsersController < ApplicationController
+  include ContextFreeRepos
   before_filter :authenticate_admin!, only: [:update], unless: -> { current_user? }
 
-  expose(:user_repository) { UserRepository.new }
-  expose(:user_entity) { user_repository.get params[:id] }
+  expose(:user_entity) { users_repository.get params[:id] }
   expose(:user) { UserDecorator.new(user_entity) }
-  expose(:users) { UserDecorator.decorate_collection(user_repository.active) }
-  # FIXME: this is a bad way
+  expose(:users) { UserDecorator.decorate_collection(users_repository.active) }
+  # FIXME: this is a bad way, we can't access repo from user model!
   expose(:user_membership_repository) { user_entity.user_membership_repository }
-
-  expose(:user_show_page) { UserShowPage.new(user, user_membership_repository, projects_repository, locations_repository, abilities_repository, roles_repository) }
-  expose(:projects_repository) { ProjectsRepository.new }
-  expose(:locations_repository) { LocationsRepository.new }
-  expose(:abilities_repository) { AbilitiesRepository.new }
-  expose(:roles_repository) { RolesRepository.new }
+  expose(:user_positions_repository) { UserPositionsRepository.new(user) }
+  expose(:user_projects_repository) do
+    UserProjectRepository.new(user, user_membership_repository, projects_repository)
+  end
+  expose(:user_roles_repository) { UserRolesRepository.new(user) }
+  expose(:new_membership_page) do
+    UserShowPage::NewMembership.new(
+      user: user_entity,
+      roles_repository: roles_repository,
+      user_membership_repository: user_membership_repository,
+      user_roles_repository: user_roles_repository,
+      projects_repository: projects_repository
+    )
+  end
+  expose(:user_show_page) do
+    UserShowPage.new(
+      user: user,
+      projects_repository: projects_repository,
+      user_projects_repository: user_projects_repository,
+    )
+  end
+  expose(:user_details_page) do
+    UserShowPage::Details.new(
+      user: user_entity,
+      roles_repository: roles_repository,
+      locations_repository: locations_repository,
+      abilities_repository: abilities_repository,
+      user_positions_repository: user_positions_repository,
+      contract_types_repository: contract_types_repository,
+      user_roles_repository: user_roles_repository,
+    )
+  end
 
   def index
     setup_gon_for_index
   end
 
   def update
+    # TODO: extract to service object - make sure it saves abilities
     user.attributes = user_params
     if user.save
       info = { notice: t('users.updated') }

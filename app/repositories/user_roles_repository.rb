@@ -6,7 +6,6 @@ class UserRolesRepository
   end
 
   def all
-    # CHECKQUERY:
     @all ||= user.roles.to_a
   end
 end
