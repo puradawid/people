@@ -73,7 +73,7 @@ describe 'team view', js: true do
 
     it 'updates team name' do
       find('input.new-name').set('Relatively OK team')
-      find('button.edit-team-submit').click
+      find('button.js-edit-team-submit').click
       expect(page).to have_content('Relatively OK team')
     end
   end
