@@ -1,9 +1,11 @@
 class TeamsController < ApplicationController
   include Shared::RespondsController
+  include ContextFreeRepos
+
   expose(:team, attributes: :team_params)
-  expose(:teams) { Team.all }
-  expose_decorated(:users) { User.all }
-  expose(:roles) { Role.all }
+  expose(:teams) { teams_repository.all }
+  expose_decorated(:users) { users_repository.all }
+  expose(:roles) { roles_repository.all }
 
   before_action :authenticate_admin!, only: [:update, :create, :destroy, :new, :edit]
 

@@ -1,11 +1,13 @@
 class DashboardController < ApplicationController
-  expose(:projects) { Project.by_name }
-  expose(:roles) { Role.all }
-  expose_decorated(:users) { User.includes(:memberships).all }
+  include ContextFreeRepos
+
+  expose(:projects) { projects_repository.all_by_name }
+  expose(:roles) { roles_repository.all }
+  expose_decorated(:users) { users_repository.all_by_name }
   expose_decorated(:developers, decorator: UserDecorator) { find_developers }
   expose_decorated(:project_managers, decorator: UserDecorator) { find_pms }
   expose_decorated(:quality_assurances, decorator: UserDecorator) { find_qas }
-  expose_decorated(:memberships) { Membership.unfinished.not_archived }
+  expose_decorated(:memberships) { memberships_repository.active_ongoing }
 
   def index
     gon.rabl template: 'app/views/dashboard/users', as: 'users'
@@ -25,6 +27,8 @@ class DashboardController < ApplicationController
   end
 
   private
+
+  # TODO: extract find_* to UsersRepository
 
   def find_developers
     UserSearch.new(developer: true).results

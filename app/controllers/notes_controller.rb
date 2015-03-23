@@ -1,5 +1,4 @@
 class NotesController < ApplicationController
-
   include Shared::RespondsController
 
   expose :note, attributes: :note_params
@@ -7,6 +6,7 @@ class NotesController < ApplicationController
   before_filter :authenticate_admin!
 
   def create
+    # TODO: extract to service
     if note.save
       SendMailJob.new.async.perform(NoteMailer, :note_added, note)
       respond_on_success note

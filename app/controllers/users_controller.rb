@@ -2,11 +2,10 @@ class UsersController < ApplicationController
   include ContextFreeRepos
   before_filter :authenticate_admin!, only: [:update], unless: -> { current_user? }
 
-  expose(:user_entity) { users_repository.get params[:id] }
-  expose(:user) { UserDecorator.new(user_entity) }
+  expose(:user) { users_repository.get params[:id] }
   expose(:users) { UserDecorator.decorate_collection(users_repository.active) }
   # FIXME: this is a bad way, we can't access repo from user model!
-  expose(:user_membership_repository) { user_entity.user_membership_repository }
+  expose(:user_membership_repository) { UserMembershipRepository.new(user) }
   expose(:user_positions_repository) { UserPositionsRepository.new(user) }
   expose(:user_projects_repository) do
     UserProjectRepository.new(user, user_membership_repository, projects_repository)
@@ -14,7 +13,7 @@ class UsersController < ApplicationController
   expose(:user_roles_repository) { UserRolesRepository.new(user) }
   expose(:new_membership_page) do
     UserShowPage::NewMembership.new(
-      user: user_entity,
+      user: user,
       roles_repository: roles_repository,
       user_membership_repository: user_membership_repository,
       user_roles_repository: user_roles_repository,
@@ -30,7 +29,7 @@ class UsersController < ApplicationController
   end
   expose(:user_details_page) do
     UserShowPage::Details.new(
-      user: user_entity,
+      user: user,
       roles_repository: roles_repository,
       locations_repository: locations_repository,
       abilities_repository: abilities_repository,

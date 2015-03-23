@@ -1,6 +1,10 @@
 class RolesRepository
   def all
-    @all ||= Role.all.to_a
+    @all ||= Role.all
+  end
+
+  def by_name
+    all.by_name
   end
 
   def admin_role

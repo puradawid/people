@@ -9,6 +9,10 @@ class ProjectsRepository
     all.find { |p| p.id == id }
   end
 
+  def all_by_name
+    all.sort_by(&:name)
+  end
+
   def with_notes
     all
   end

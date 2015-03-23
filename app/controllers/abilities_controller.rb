@@ -1,6 +1,8 @@
 class AbilitiesController < ApplicationController
+  include ContextFreeRepos
+
   expose(:ability, attributes: :ability_params)
-  expose(:abilities) { Ability.all.asc(:name) }
+  expose(:abilities) { abilities_repository.all }
 
   before_filter :authenticate_admin!
 

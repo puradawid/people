@@ -20,6 +20,10 @@ class UserRepository
     User.find id
   end
 
+  def all_by_name
+    User.by_name
+  end
+
   private
 
   def api_request_params(params)
