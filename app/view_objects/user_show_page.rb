@@ -9,7 +9,7 @@ class UserShowPage
 
   def user_gravatar
     return if user.gravatar.nil?
-    user.gravatar_image class: "img-rounded", alt: user.name
+    user.gravatar_image class: 'img-rounded', alt: user.name
   end
 
   def projects_with_notes

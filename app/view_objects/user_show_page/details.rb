@@ -1,11 +1,12 @@
 class UserShowPage
   class Details
     attr_accessor :user, :roles_repository, :contract_types_repository,
-      :locations_repository, :user_positions_repository, :user_roles_repository, :abilities_repository
+      :locations_repository, :user_positions_repository, :user_roles_repository,
+      :abilities_repository
 
     def initialize(user:, roles_repository:, contract_types_repository:,
-                   locations_repository:, user_positions_repository:, user_roles_repository:,
-                   abilities_repository:)
+                   locations_repository:, user_positions_repository:,
+                   user_roles_repository:, abilities_repository:)
       self.user = user
       self.roles_repository = roles_repository
       self.contract_types_repository = contract_types_repository
@@ -34,10 +35,10 @@ class UserShowPage
     def editing_enabled?(current_user)
       current_user.admin? || current_user == user
     end
+
     def abilities
       abilities_repository.ordered_by_user_abilities(user)
     end
-
 
     def available_roles
       @available_roles ||= roles_repository.all
