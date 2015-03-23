@@ -127,6 +127,8 @@ GEM
       mongoid-grid_fs (>= 1.3, < 3.0)
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    childprocess (0.5.5)
+      ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
     cliver (0.3.2)
     codeclimate-test-reporter (0.4.7)
@@ -180,6 +182,7 @@ GEM
       i18n (~> 0.5)
     faraday (0.8.9)
       multipart-post (~> 1.2.0)
+    ffi (1.9.8)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
     flip (1.0.1)
@@ -468,6 +471,7 @@ GEM
       rspec-mocks (~> 2.14.0)
     ruby_parser (3.6.5)
       sexp_processor (~> 4.1)
+    rubyzip (1.1.7)
     rvm1-capistrano3 (1.3.2.2)
       capistrano (~> 3.0)
       sshkit (>= 1.2)
@@ -482,6 +486,11 @@ GEM
     searchlight (3.1.1)
       named (~> 1.0)
     selectize-rails (0.12.0)
+    selenium-webdriver (2.45.0)
+      childprocess (~> 0.5)
+      multi_json (~> 1.0)
+      rubyzip (~> 1.0)
+      websocket (~> 1.0)
     sexp_processor (4.5.0)
     signet (0.4.5)
       addressable (>= 2.2.3)
@@ -541,6 +550,7 @@ GEM
     webmock (1.20.4)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
+    websocket (1.2.1)
     websocket-driver (0.5.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -631,6 +641,7 @@ DEPENDENCIES
   sass-rails
   searchlight
   selectize-rails
+  selenium-webdriver
   simple_form (~> 3.1.0.rc2)
   spork-rails
   sucker_punch

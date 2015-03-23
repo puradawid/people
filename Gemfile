@@ -101,4 +101,5 @@ group :test do
   gem 'rack_session_access'
   gem 'poltergeist'
   gem 'phantomjs', require: 'phantomjs/poltergeist'
+  gem 'selenium-webdriver'
 end
