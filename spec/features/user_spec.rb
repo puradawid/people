@@ -7,12 +7,6 @@ describe 'Profile page', js: true do
     page.set_rack_session 'warden.user.user.key' => User.serialize_into_session(user).unshift('User')
   }
 
-  context 'is displayed only by owner' do
-    before { visit user_path(user.id) }
-
-    it { expect(page).to have_content('Sparrow Jack') }
-  end
-
   context 'is not displayed by users without access' do
     let(:other) { create(:user) }
     before { visit user_path(other.id) }
