@@ -6,7 +6,7 @@ describe AvailableUsers do
     create(:user, :available, primary_role: create(:pm_role))
   end
 
-  subject { AvailableUsers.new.all }
+  subject { described_class.new.all }
 
   it 'returns only available users' do
     expect(subject).to include available_user
