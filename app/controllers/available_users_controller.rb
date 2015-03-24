@@ -1,19 +1,12 @@
 class AvailableUsersController < ApplicationController
   expose(:users) { fetch_available_users }
   expose(:roles) { Role.all }
-  expose(:admin_role) { [AdminRole.first_or_create] }
-  expose(:locations) { Location.all }
-  expose(:projects) { Project.includes(:notes).all }
-  expose(:abilities) { fetch_abilities }
-  expose(:positions) { PositionDecorator.decorate_collection(user.positions) }
+  expose(:abilities) { Ability.all }
 
   def index
     gon.users = Rabl.render(users, 'available_users/index', view_path: 'app/views', format: :hash)
-    gon.rabl template: 'app/views/users/projects', as: 'projects'
     gon.roles = roles
-    gon.admin_role = admin_role
-    gon.locations = locations
-    gon.abilities = Ability.all
+    gon.abilities = abilities
     gon.availability_time = availability_time
   end
 
