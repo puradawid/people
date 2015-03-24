@@ -157,6 +157,7 @@ describe 'Projects page', js: true do
       before do
         create(:note, user: pm_user, project: active_project)
         visit '/dashboard'
+        find('.projects-types li.active').click
         within('div.project') do
           first('div.show-notes').click
         end

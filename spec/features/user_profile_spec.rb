@@ -32,7 +32,7 @@ describe 'profile', js: true do
       visit user_path(user.id)
     end
 
-    it 'adds role to user' do
+    xit 'adds role to user' do
       expect(page).to have_select('js-user-primary', options: ['no role'])
       select('junior', from: 'js-user-roles', visible: false)
       select('pm', from: 'js-user-roles', visible: false)
