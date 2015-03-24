@@ -8,7 +8,7 @@ module ContextFreeRepos
     expose(:abilities_repository) { AbilitiesRepository.new }
     expose(:roles_repository) { RolesRepository.new }
     expose(:contract_types_repository) { ContractTypesRepository.new }
-    expose(:teams_repository) { TeamRepository.new }
+    expose(:teams_repository) { TeamsRepository.new }
     expose(:memberships_repository) { MembershipsRepository.new }
   end
 end
