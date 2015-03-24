@@ -34,5 +34,5 @@ Hrguru::Application.configure do
     Bullet.rails_logger = true
   end
 
-  config.log_level = :warn
+  config.log_level = :debug
 end

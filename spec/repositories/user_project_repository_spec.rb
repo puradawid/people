@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe UserProjectRepository do
-  subject { described_class.new(user) }
+  subject { described_class.new(user, user_membership_repository, projects_repository) }
+  let(:user_membership_repository) { UserMembershipRepository.new(user) }
+  let(:projects_repository) { ProjectsRepository.new }
   let!(:user) { create(:user) }
 
   describe '#potential' do

@@ -5,7 +5,6 @@ class AvailableUsersController < ApplicationController
   expose(:locations) { Location.all }
   expose(:projects) { Project.includes(:notes).all }
   expose(:abilities) { fetch_abilities }
-  expose(:contractTypes) { ContractType.all }
   expose(:positions) { PositionDecorator.decorate_collection(user.positions) }
 
   def index

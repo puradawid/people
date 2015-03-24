@@ -1,5 +1,5 @@
 class MembershipSearch < Searchlight::Search
-  search_on Membership.includes(:project, :user)
+  search_on Membership.includes(:project, :user, :role)
 
   searches :user, :archived, :booked, :ends_later_than, :with_end_date, :potential,
     :starts_earlier_than, :starts_later_than, :project_end_time

@@ -7,6 +7,11 @@ class UserMembershipRepository
 
   def all
     clear_search
+    items
+  end
+
+  def build(attrs)
+    Membership.new({ user: user }.merge(attrs))
   end
 
   %w(potential archived booked with_end_date).each do |m|
@@ -47,6 +52,7 @@ class UserMembershipRepository
   end
 
   def items
+    # CHECKQUERY: this could also be problematic, projects are loaded here as well
     search = MembershipSearch.new(search_params)
     clear_search
     search.results

@@ -102,25 +102,6 @@ class UserDecorator < Draper::Decorator
     roles.map(&:name)
   end
 
-  def archived_projects
-    memberships_by_project.select{ |project, _membership| project.archived? }
-      .sort_by { |_project, memberships| memberships.first.starts_at }
-  end
-
-  def unarchived_projects
-    memberships_by_project.select{ |project, _membership| !project.archived? }
-      .sort_by { |_project, memberships| memberships.first.starts_at }
-  end
-
-  def memberships_by_project
-    user_membership_repository.items.by_starts_at.group_by(&:project_id).each_with_object({}) do
-      |data, memo|
-      memberships = data[1]
-      project = Project.find(data[0])
-      memo[project] = MembershipDecorator.decorate_collection memberships
-    end
-  end
-
   def months_in_current_project
     longest_current_membership = current_memberships.min_by { |m| m.starts_at }
     return 0 if longest_current_membership.nil?

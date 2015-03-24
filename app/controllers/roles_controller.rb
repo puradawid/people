@@ -1,8 +1,10 @@
 class RolesController < ApplicationController
+  include ContextFreeRepos
+
   respond_to :json
 
   expose(:role, attributes: :role_params)
-  expose(:roles) { Role.all }
+  expose(:roles) { roles_repository.all }
 
   before_filter :authenticate_admin!, only: [:index, :create, :update]
 
@@ -27,6 +29,7 @@ class RolesController < ApplicationController
   end
 
   def sort
+    # TODO: extract to service
     params[:role].each_with_index do |id, index|
       Role.where(id: id).update_all(priority: index + 1)
     end

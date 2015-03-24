@@ -1,17 +1,9 @@
 class ProjectsController < ApplicationController
   include Shared::RespondsController
 
-  expose(:project, attributes: :project_params)
-  expose(:projects_sorted) do
-    if params[:search].present?
-      Project.search(params[:search]) rescue []
-    else
-      Project.by_name
-    end
-  end
-  expose(:projects)
-  before_filter :authenticate_admin!, only: [:update, :create, :destroy, :new, :edit]
+  before_filter :authenticate_admin!, except: [:show]
 
+  expose(:project, attributes: :project_params)
 
   def create
     if project.save
@@ -42,10 +34,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def new
-
-  end
-
   private
 
   def project_params
@@ -62,17 +50,5 @@ class ProjectsController < ApplicationController
       event[:billable] = m.billable
       event
     end
-  end
-
-  def get_developers
-    User.all.select{ |user| user.role.present? && ( user.role.name == 'developer' || user.role.name == 'senior' )}
-  end
-
-  def get_quality_assurance
-    User.all.select{ |user| user.role.present? && user.role.name == 'qa' }
-  end
-
-  def get_project_managers
-    User.all.select{ |user| user.role.present? && user.role.name == 'pm' }
   end
 end

@@ -68,7 +68,7 @@ gem 'capistrano-rails'
 gem 'capistrano-bundler'
 gem 'capistrano-passenger'
 
-gem 'rack-mini-profiler', '~> 0.9.2', require: false
+gem 'rack-mini-profiler', require: false
 
 group :development do
   gem 'better_errors'
