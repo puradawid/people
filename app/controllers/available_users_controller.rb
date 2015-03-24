@@ -1,5 +1,5 @@
 class AvailableUsersController < ApplicationController
-  expose_decorated(:users) { AvailableUsers.new.all.decorate }
+  expose(:users) { AvailableUsers.new.all.decorate }
   expose(:roles) { Role.all }
   expose(:abilities) { Ability.all }
 
