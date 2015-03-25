@@ -10,21 +10,6 @@ describe UserDecorator do
   let(:user_without_team) { create(:user) }
   subject { user.decorate }
 
-  describe '#days_in_current_team' do
-    context 'user without team' do
-      subject { user_without_team.decorate }
-      it { expect(subject.days_in_current_team).to eq(0) }
-    end
-
-    context 'user with team' do
-      it { expect(subject.days_in_current_team).to eq(6) }
-    end
-  end
-
-  describe '#as_row' do
-    it { expect(subject.as_row).to eq [user.last_name, user.first_name, user.roles.first, user.location] }
-  end
-
   describe '#project_names' do
     let(:project) { build_stubbed(:project) }
     before do
@@ -34,19 +19,8 @@ describe UserDecorator do
     it { expect(subject.project_names).to eq [project.name] }
   end
 
-  describe '#link' do
-    it { expect(subject.link).to eq h.link_to subject.name, user }
-  end
-
   describe '#gravatar_image' do
     it { expect(subject.gravatar_image).to include(subject.gravatar_url.to_s) }
-  end
-
-  describe '#days_in_current_team' do
-    before do
-      user.team_join_time = 1.day.ago
-    end
-    it { expect(subject.days_in_current_team).to eq 1 }
   end
 
   describe '#github_link' do
