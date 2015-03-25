@@ -23,10 +23,6 @@ class TeamsController < ApplicationController
     save_team_and_respond 201
   end
 
-  def new; end
-
-  def edit; end
-
   def update
     save_team_and_respond 202
   end

@@ -26,10 +26,6 @@ class Position
     pos
   end
 
-  def self.by_user_name_and_date(positions = all)
-    positions.select { |p| p.user.present? }.sort
-  end
-
   private
 
   def validate_chronology

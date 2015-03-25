@@ -55,35 +55,4 @@ describe Position do
       expect(senior_pos.errors).to be_blank
     end
   end
-
-  describe '#by_user_name_and_date' do
-    let(:pos1) { mock_model(described_class, user: nil, role: nil)  }
-    let(:pos2) { mock_model(described_class, user: nil, role: nil)  }
-    let(:pos3) { mock_model(described_class, user: nil, role: nil)  }
-    let(:positions) { [pos1, pos2, pos3] }
-    context 'by_user_name_and_date' do
-
-      it 'not return error when user is nil' do
-        expect(described_class.by_user_name_and_date(positions)).to eq([])
-      end
-      context 'sorts positions' do
-        let(:new_role) { build(:role, name: 'new', technical: true) }
-        let(:first_user) { build(:user, first_name: 'Andrew', last_name: 'Snow', primary_role: new_role) }
-        let(:second_user) { build(:user, first_name: 'Tony', last_name: 'Second', primary_role: new_role) }
-        let(:first_pos) do
-          build(:position, user: first_user, role: new_role,
-          starts_at: Date.new(2014, 7, 14))
-        end
-        let(:second_pos) do
-          build(:position, user: second_user, role: new_role,
-          starts_at: Date.new(2014, 6, 11))
-        end
-        let(:all_pos) { [first_pos, second_pos] }
-
-        it 'in the right order' do
-          expect(described_class.by_user_name_and_date(all_pos)).to eq([second_pos, first_pos])
-        end
-      end
-    end
-  end
 end

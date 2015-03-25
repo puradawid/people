@@ -64,12 +64,6 @@ class User
     ContractType.where(name: contract_type).first.try(:users)
   }
   scope :without_team, -> { where(team: nil) }
-  scope :in_a_project_for_over, lambda { |time|
-    project_ids = Project.where(potential: false, archived: false).only(:_id).map(&:_id)
-    user_ids = Membership.unfinished.where(:starts_at.lt => time.try(:ago)).in(project_id: project_ids)
-      .only(:user_id).map(&:user_id)
-    User.in(_id: user_ids)
-  }
 
   before_save :end_memberships
   before_update :save_team_join_time
@@ -124,10 +118,6 @@ class User
            :starts_at)
   end
 
-  def current_project
-    memberships.active.current_active.present? ? memberships.active.current_active.first.project : nil
-  end
-
   def current_memberships
     @current_memberships ||= user_membership_repository.current.items.asc(:ends_at)
   end
@@ -143,16 +133,5 @@ class User
       team_join_val = team_id.present? ? DateTime.now : nil
       assign_attributes(team_join_time: team_join_val)
     end
-  end
-
-  def assign_abilities
-    if @abilities_list.present?
-      @abilities_list.reject!(&:empty?)
-      self.abilities = @abilities_list.map { |name| Ability.find_or_initialize_by(name: name) }
-    end
-  end
-
-  def map_projects(membership)
-    membership.map { |c_ms| { project: c_ms.project, billable: c_ms.billable, membership: c_ms } }
   end
 end

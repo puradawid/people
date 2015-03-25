@@ -28,10 +28,6 @@ module ApplicationHelper
     icon_generator(name, 'fa fa', options)
   end
 
-  def glyphicon(name, options = {})
-    icon_generator(name, 'glyphicon glyphicon', options)
-  end
-
   def profile_link(user)
     link_to user.name, user_path(user)
   end
