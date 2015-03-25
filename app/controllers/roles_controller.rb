@@ -29,10 +29,7 @@ class RolesController < ApplicationController
   end
 
   def sort
-    # TODO: extract to service
-    params[:role].each_with_index do |id, index|
-      Role.where(id: id).update_all(priority: index + 1)
-    end
+    RolesPriorityUpdater.new(params[:role]).call!
     render json: {}
   end
 
