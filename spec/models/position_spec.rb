@@ -7,25 +7,24 @@ describe Position do
   it { should belong_to :user }
   it { should be_valid }
 
-  describe '#available roles' do
+  describe 'role validation' do
     let(:juniorRole) { create(:role, name: 'junior', technical: true) }
     let!(:seniorRole) { create(:role, name: 'senior', technical: true) }
     let!(:user) { create(:user, primary_role: juniorRole) }
 
-    context 'available roles' do
+    it "doesn't allow to set a given role when user has this role already" do
+      create(:position, user: user, role: juniorRole, starts_at: Time.now)
+      pos = create(:position, user: user)
+      pos.role = juniorRole
+      expect(pos).to_not be_valid
+    end
 
-      it 'returns available roles when user has no possition assigned' do
-        pos = create(:position, user: user)
-        expect(pos.available_roles).to include juniorRole
-        expect(pos.available_roles).to include seniorRole
-      end
-
-      it 'returns available roles when user has possition assigned' do
-        create(:position, user: user, role: juniorRole, starts_at: Time.now)
-        pos = create(:position, user: user)
-        expect(pos.available_roles).to include seniorRole
-        expect(pos.available_roles).to_not include juniorRole
-      end
+    it 'allows to set any role when there is no position assigned' do
+      pos = create(:position, user: user)
+      pos.role = juniorRole
+      expect(pos).to be_valid
+      pos.role = seniorRole
+      expect(pos).to be_valid
     end
   end
 
