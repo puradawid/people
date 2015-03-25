@@ -4,9 +4,19 @@ class DashboardController < ApplicationController
   expose(:projects) { projects_repository.all_by_name }
   expose(:roles) { roles_repository.all }
   expose_decorated(:users) { users_repository.all_by_name }
-  expose_decorated(:developers, decorator: UserDecorator) { find_developers }
-  expose_decorated(:project_managers, decorator: UserDecorator) { find_pms }
-  expose_decorated(:quality_assurances, decorator: UserDecorator) { find_qas }
+
+  expose_decorated(:developers, decorator: UserDecorator) do
+    users_repository.where(developer: true)
+  end
+
+  expose_decorated(:project_managers, decorator: UserDecorator) do
+    users_repository.where(pm: true)
+  end
+
+  expose_decorated(:quality_assurances, decorator: UserDecorator) do
+    users_repository.where(qa: true)
+  end
+
   expose_decorated(:memberships) { memberships_repository.active_ongoing }
 
   def index
@@ -24,21 +34,5 @@ class DashboardController < ApplicationController
     else
       cookies.delete(:note_id)
     end
-  end
-
-  private
-
-  # TODO: extract find_* to UsersRepository
-
-  def find_developers
-    UserSearch.new(developer: true).results
-  end
-
-  def find_pms
-    UserSearch.new(pm: true).results
-  end
-
-  def find_qas
-    UserSearch.new(qa: true).results
   end
 end

@@ -4,6 +4,10 @@ class UserRepository
     search(id_or_email: params)
   end
 
+  def where(params)
+    search(params).items
+  end
+
   def active
     User
       .includes(:roles, :admin_role, :location, :contract_type, :memberships, :abilities)
