@@ -6,16 +6,11 @@ class NotesController < ApplicationController
   before_filter :authenticate_admin!
 
   def create
-    # TODO: extract to service
-    if note.save
-      SendMailJob.new.async.perform(NoteMailer, :note_added, note)
+    if NoteCreator.new(note).create
       respond_on_success note
     else
       respond_on_failure note.errors
     end
-  end
-
-  def show
   end
 
   def update

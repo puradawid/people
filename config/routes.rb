@@ -29,7 +29,7 @@ Hrguru::Application.routes.draw do
   resources :projects, except: [:index]
   resources :memberships, except: [:show]
   resources :teams
-  resources :notes
+  resources :notes, except: [:index]
   resources :roles, except: [:new, :edit, :destroy] do
     post 'sort', on: :collection
   end
