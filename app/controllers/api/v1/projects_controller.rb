@@ -1,8 +1,7 @@
-class Api::V1::ProjectsController < Api::V1::ApiController
-  expose(:projects) { Project.all }
-  expose(:project)
-
-  def index
+module Api::V1
+  class ProjectsController < ApiController
+    expose(:projects) { projects_repository.all }
+    expose(:project)
   end
-
 end
+
