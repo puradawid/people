@@ -1,7 +1,7 @@
 class Position
   class RoleValidator < ActiveModel::Validator
     def validate(record)
-      return if !user_already_has_this_role?(record.user, record.role)
+      return unless user_already_has_this_role?(record.user, record.role)
       record.errors.add(:role, I18n.t('positions.errors.role'))
     end
 
