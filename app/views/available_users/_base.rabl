@@ -4,4 +4,4 @@ attributes :id, :name, :email, :admin_role, :employment, :phone, :location, :con
 node(:info) { |user| user.info }
 node(:notes) { |user| user.user_notes.present? ? simple_format(user.user_notes) : ''  }
 node(:role) { |user| user.primary_role }
-node(:role_name) { |user| user.primary_role.try(:name) }
+node(:role_name) { |user| user.primary_role_name }
