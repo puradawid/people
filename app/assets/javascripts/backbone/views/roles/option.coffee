@@ -7,7 +7,6 @@ class Hrguru.Views.RoleOption extends Backbone.Marionette.ItemView
 
   render: ->
     @$el.html(@model.get('text'))
-
     this
 
 
