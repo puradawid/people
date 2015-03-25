@@ -23,4 +23,14 @@ describe MembershipDecorator do
   describe '#role_name' do
     it { expect(membership.role_name).to eq("#{membership.role.name}") }
   end
+
+  describe '#ends_at_date' do
+    before do
+      membership.ends_at = nil
+    end
+    let(:unexpired_span) { "<span class=\"label label-default\">unexpired</span>" }
+
+    it { expect(membership.ends_at_date).to eq(unexpired_span) }
+    it { expect(old_membership).to_not eq(unexpired_span) }
+  end
 end

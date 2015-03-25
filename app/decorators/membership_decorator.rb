@@ -26,10 +26,19 @@ class MembershipDecorator < Draper::Decorator
   end
 
   def project_name
+    return '' unless project.present?
     project.name
   end
 
   def role_name
     role.name
+  end
+
+  def ends_at_date
+    if ends_at.present?
+      ends_at.to_date
+    else
+      h.content_tag("span", "unexpired", class: "label label-default")
+    end
   end
 end

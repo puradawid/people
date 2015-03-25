@@ -5,7 +5,7 @@ class MembershipsController < ApplicationController
   respond_to :json, only: [:create, :update]
 
   expose(:membership, attributes: :membership_params)
-  expose(:memberships) { memberships_repository.all }
+  expose_decorated(:memberships) { memberships_repository.all }
   expose_decorated(:projects) { projects_repository.all_by_name }
   expose_decorated(:roles) { roles_repository.by_name }
   expose_decorated(:users) { current_user.admin? ? users_repository.all_by_name : [current_user] }
