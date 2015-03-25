@@ -1,6 +1,6 @@
 class AvailableUsersController < ApplicationController
   include ContextFreeRepos
-  expose(:users) { AvailableUsers.new.all.decorate }
+  expose(:users) { available_users_repository.all.decorate }
   expose(:roles) { roles_repository.all }
   expose(:abilities) { abilities_repository.all }
 

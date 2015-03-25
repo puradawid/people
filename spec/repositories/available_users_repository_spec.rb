@@ -1,4 +1,4 @@
-describe AvailableUsers do
+describe AvailableUsersRepository do
   let!(:available_user) { create(:user, :available) }
   let!(:archived_user) { create(:user, :available, :archived) }
   let!(:unavailable_user) { create(:user) }

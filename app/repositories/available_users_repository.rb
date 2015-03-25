@@ -1,4 +1,4 @@
-class AvailableUsers
+class AvailableUsersRepository
   def all
     User.where(available: true)
       .where(archived: false)
