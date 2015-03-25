@@ -4,7 +4,7 @@ class PositionsController < ApplicationController
 
   expose(:position, attributes: :position_params)
   expose_decorated(:users) do
-    current_user.admin? ? users_repository.by_name : [current_user]
+    current_user.admin? ? users_repository.all_by_name : [current_user]
   end
   expose_decorated(:roles) { roles_repository.by_name }
 
