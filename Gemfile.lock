@@ -378,9 +378,11 @@ GEM
       bourbon (~> 3.2.3)
       sass (~> 3.2)
       thor
+    netrc (0.10.3)
     newrelic_rpm (3.11.1.284)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    oauth (0.4.7)
     oauth2 (0.8.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
@@ -452,6 +454,9 @@ GEM
     request_store (1.1.0)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
+    rest-client (1.7.3)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     rollbar (1.4.4)
       multi_json (~> 1.3)
     rspec (2.14.1)
@@ -469,6 +474,12 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    ruby-trello (1.2.1)
+      activemodel (>= 3.2.0)
+      addressable (~> 2.3)
+      json
+      oauth (~> 0.4.5)
+      rest-client (~> 1.7.2)
     ruby_parser (3.6.5)
       sexp_processor (~> 4.1)
     rubyzip (1.1.7)
@@ -637,6 +648,7 @@ DEPENDENCIES
   render_anywhere
   rollbar
   rspec-rails
+  ruby-trello
   rvm1-capistrano3
   sass-rails
   searchlight

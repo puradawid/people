@@ -30,6 +30,9 @@ defaults: &defaults
     new_available_view:   false
   rollbar:
     access_token:         token
+  trello:
+    developer_public_key: key
+    member_token:         token
 
 heroku_settings: &heroku_settings
   <<: *defaults

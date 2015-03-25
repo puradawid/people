@@ -35,6 +35,7 @@ gem 'sucker_punch'
 gem 'hipchat'
 gem 'netguru_theme'
 gem 'searchlight'
+gem 'ruby-trello'
 
 gem 'haml-rails'
 gem 'haml_coffee_assets', github: 'netzpirat/haml_coffee_assets'
