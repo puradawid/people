@@ -6,7 +6,7 @@ class NotesController < ApplicationController
   before_filter :authenticate_admin!
 
   def create
-    if NoteCreator.new(note).create
+    if NoteCreator.new(note).call!
       respond_on_success note
     else
       respond_on_failure note.errors
