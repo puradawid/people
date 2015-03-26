@@ -22,7 +22,7 @@ class Hrguru.Views.AvailableUsersIndex extends Backbone.View
 
   createViews: ->
     @filters_view = new Hrguru.Views.AvailableUsersFilters(
-      @AVAILABILITY_TIME, gon.abilities, @roles
+      @AVAILABILITY_TIME, @getAbilities(), @roles
     )
     @filters_view.render()
     @tbodyView = new Hrguru.Views.AvailableUsersCollectionView(@users)
@@ -30,3 +30,6 @@ class Hrguru.Views.AvailableUsersIndex extends Backbone.View
 
   defaultSorting: ->
     $('.default').click()
+
+  getAbilities: ->
+    gon.abilities
