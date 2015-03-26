@@ -1,8 +1,9 @@
 module Trello
   class ProjectStartChecker
-    attr_accessor :cards
+    attr_accessor :board, :cards
 
-    def initialize
+    def initialize board
+      @board = board
       get_cards
     end
 
@@ -30,7 +31,6 @@ module Trello
     end
 
     def get_cards
-      board = Trello::Board.find AppConfig.trello.schedule_board_id
       @cards = board.cards
     end
 

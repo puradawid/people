@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe Trello::ProjectStartChecker do
-  subject { described_class.new }
-
-  let(:board) { AppConfig.trello.schedule_board_id }
+  subject { described_class.new(board) }
+  
+  let(:board) { Trello::Board.find AppConfig.trello.schedule_board_id }
+  let(:board_id) { AppConfig.trello.schedule_board_id }
   let(:key) { AppConfig.trello.developer_public_key }
   let(:token) { AppConfig.trello.member_token }
   let!(:user) { create(:user, first_name: 'John', last_name: 'Doe') }
@@ -11,7 +12,7 @@ describe Trello::ProjectStartChecker do
   before do
     stub_request(
       :get,
-      "https://api.trello.com/1/boards/#{board}?key=#{key}&token=#{token}"
+      "https://api.trello.com/1/boards/#{board_id}?key=#{key}&token=#{token}"
     ).to_return(
       status: 200,
       body: File.open(Rails.root.join('spec', 'fixtures', 'trello', 'board.json')),
