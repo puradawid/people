@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Trello::ProjectStartChecker do
   subject { described_class.new(board) }
-  
+
   let(:board) { Trello::Board.find AppConfig.trello.schedule_board_id }
   let(:board_id) { AppConfig.trello.schedule_board_id }
   let(:key) { AppConfig.trello.developer_public_key }
@@ -13,7 +13,6 @@ describe Trello::ProjectStartChecker do
   end
   let!(:project) { create(:project, name: 'secondproject') }
   let!(:membership) { create(:membership, project: project, user: user_with_membership) }
-
 
   before do
     stub_request(
