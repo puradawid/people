@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Trello::ProjectStartChecker do
-  subject { Trello::ProjectStartChecker.new }
+  subject { described_class.new }
 
   let(:board) { AppConfig.trello.schedule_board_id }
   let(:key) { AppConfig.trello.developer_public_key }
@@ -32,7 +32,7 @@ describe Trello::ProjectStartChecker do
     it 'creates a new membership for the user' do
       expect do
         subject.run!
-      end.to change{user.memberships.count}.by 1
+      end.to change{ user.memberships.count }.by 1
     end
 
     it 'creates a membership that started yesterday' do
