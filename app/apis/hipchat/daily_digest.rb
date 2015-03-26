@@ -23,7 +23,7 @@ class HipChat::DailyDigest
   def set_digest_content
     set_in_bounds(:beginning_memberships, Membership.potential, :starts_at)
     set_in_bounds(:ending_memberships, Membership.active, :ends_at)
-    set_in_bounds(:ending_projects, Project.ending_in_a_week, :end_at)
+    set_in_bounds(:ending_projects, ProjectDigest.ending_in_a_week, :end_at)
     set_in_bounds(:kickoff_projects, Project.potential, :kickoff)
   end
 

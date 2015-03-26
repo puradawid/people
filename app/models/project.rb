@@ -10,7 +10,6 @@ class Project
   after_save :check_potential
   before_save :set_color
 
-  SOON_END = 1.week
   POSSIBLE_TYPES = %w(regular maintenance_support maintenance_development).freeze
 
   field :name
@@ -42,18 +41,6 @@ class Project
   scope :active, -> { where(archived: false) }
   scope :nonpotential, -> { active.where(potential: false) }
   scope :potential, -> { active.where(potential: true) }
-  POSSIBLE_TYPES.each do |possible_type|
-    scope possible_type, -> { active.where(project_type: possible_type) }
-  end
-  scope :maintenance_development, -> { active.where(maintenance_development: true) }
-  scope :ending_in_a_week, -> { active.between(end_at: (SOON_END.from_now - 1.day)..SOON_END.from_now) }
-  scope :ending_soon, -> { active.between(end_at: Time.now..SOON_END.from_now) }
-  scope :starting_tomorrow, -> { potential.between(kickoff: Time.now..1.day.from_now) }
-  scope :ending_in, ->(days) { between(end_at: Time.now..days.days.from_now) }
-  scope :starting_in, ->(x) { between(kickoff: Time.now..x.days.from_now) }
-  scope :ending_or_starting_in, lambda { |days|
-    any_of(ending_in(days).selector, starting_in(days).selector)
-  }
 
   track_history on: [:archived, :potential], version_field: :version, track_create: true, track_update: true
 
@@ -70,20 +57,8 @@ class Project
     pm_membership.try(:user)
   end
 
-  def self.three_months_old
-    Project.nonpotential.select{ |p| p.nonpotential_switch.to_date == 3.months.ago.to_date }
-  end
-
   def self.search(search)
     Project.where(name: /#{search}/i)
-  end
-
-  def starting_in?(days)
-    Project.starting_in(days).where(id: id).exists?
-  end
-
-  def ending_in?(days)
-    Project.ending_in(days).where(id: id).exists?
   end
 
   def nonpotential_switch
@@ -92,24 +67,6 @@ class Project
     end.last
 
     last_track.present? ? last_track.created_at : created_at
-  end
-
-  def self.upcoming_changes(days)
-    projects = Membership.includes(:project)
-                .upcoming_changes(days)
-                .map(&:project)
-    projects << Project.ending_or_starting_in(days).to_a
-    projects.uniq.flatten
-  end
-
-  def self.by_name
-    all.sort_by { |p| p.name.downcase }
-  end
-
-  POSSIBLE_TYPES.each do |possible_type|
-    define_method "#{possible_type}?" do
-      project_type == possible_type
-    end
   end
 
   private

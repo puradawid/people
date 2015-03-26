@@ -1,18 +1,18 @@
 namespace :mailer do
   task ending_projects: :environment do
-    Project.ending_in_a_week.each do |project|
+    ProjectDigest.ending_in_a_week.each do |project|
       SendMailJob.new.async.perform(ProjectMailer, :ending_soon, project)
     end
   end
 
   task three_months_old: :environment do
-    Project.three_months_old.each do |project|
+    ProjectDigest.three_months_old.each do |project|
       SendMailJob.new.async.perform(ProjectMailer, :three_months_old, project)
     end
   end
 
   task kickoff_tomorrow: :environment do
-    Project.starting_tomorrow.each do |project|
+    ProjectDigest.starting_tomorrow.each do |project|
       SendMailJob.new.async.perform(ProjectMailer, :kickoff_tomorrow, project)
     end
   end
@@ -20,7 +20,7 @@ namespace :mailer do
   desc 'Email upcoming changes to projects'
   task changes_digest: :environment do
     digest_days = AppConfig.emails.notifications.changes_digest
-    Project.upcoming_changes(digest_days).each do |project|
+    ProjectDigest.upcoming_changes(digest_days).each do |project|
       SendMailJob.new.async.perform(ProjectMailer, :upcoming_changes, project, digest_days)
     end
   end

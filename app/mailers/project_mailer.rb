@@ -18,10 +18,10 @@ class ProjectMailer < BaseMailer
   end
 
   def upcoming_changes(project, days)
-    @project = project
+    @project = ProjectDigest.new(project)
     @days = days
-    @memberships_leaving = @project.memberships.leaving(days)
-    @memberships_joining = @project.memberships.joining(days)
+    @memberships_leaving = @project.leaving_memberships(days)
+    @memberships_joining = @project.joining_memberships(days)
     @project_starting = @project.starting_in?(days)
     @project_ending = @project.ending_in?(days)
     to = project.pm.try(:email) || [AppConfig.emails.pm]

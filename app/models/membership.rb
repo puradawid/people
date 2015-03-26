@@ -42,11 +42,11 @@ class Membership
   scope :billable, -> { where(billable: true) }
   scope :without_bookings, -> { where(booked: false) }
   scope :only_active, -> { where(project_potential: false, project_archived: false, booked: false).desc('starts_at').limit(3) }
-  scope :leaving, ->(days) { between(ends_at: Time.now..days.days.from_now) }
-  scope :joining, ->(days) { between(starts_at: Time.now..days.days.from_now) }
+  #
   scope :upcoming_changes, lambda { |days|
-    any_of(leaving(days).selector, joining(days).selector)
+    any_of(between(ends_at: Time.now..days.days.from_now).selector,  between(starts_at: Time.now..days.days.from_now).selector)
   }
+  #
   scope :by_starts_at, -> { desc(:starts_at) }
   scope :for_availability, -> { unfinished.without_bookings.asc(:ends_at) }
 
