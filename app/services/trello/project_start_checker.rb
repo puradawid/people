@@ -25,7 +25,7 @@ module Trello
       UserMembershipRepository.new(user).create(
         project: project_from_label(project_name),
         starts_at: Date.yesterday,
-        role: Role.first,
+        role: user.primary_role,
         billable: false
       )
     end

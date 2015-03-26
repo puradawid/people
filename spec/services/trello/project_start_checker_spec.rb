@@ -40,5 +40,10 @@ describe Trello::ProjectStartChecker do
       subject.run!
       expect(user.memberships.first.starts_at).to eq Date.yesterday
     end
+
+    it 'creates a membership with role set to current user position' do
+      subject.run!
+      expect(user.memberships.first.role).to eq user.primary_role
+    end
   end
 end
