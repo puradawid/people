@@ -24,4 +24,8 @@ class ProjectsRepository
   def active_sorted
     active.sort_by { |project| project.name.downcase }
   end
+
+  def find_or_create_by_name(name)
+    Project.where(name: name).first_or_create
+  end
 end

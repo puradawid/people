@@ -14,6 +14,10 @@ class UserMembershipRepository
     Membership.new({ user: user }.merge(attrs))
   end
 
+  def create(attrs)
+    build(attrs).save
+  end
+
   %w(potential archived booked with_end_date).each do |m|
     define_method m do
       search(m.to_sym => true)
