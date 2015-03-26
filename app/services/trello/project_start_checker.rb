@@ -1,11 +1,13 @@
 module Trello
   class ProjectStartChecker
+    attr_accessor :cards
+
     def initialize
       get_cards
     end
 
     def run!
-      @cards.each do |card|
+      cards.each do |card|
         card_label_names(card).each do |label|
           create_membership_for_user(user_from_card(card), label)
         end
