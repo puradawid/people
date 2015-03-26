@@ -4,6 +4,7 @@ class Hrguru.Helper
     @time_now = moment()
     @server_time = gon.currentTime if gon?
     @current_user = new Hrguru.Models.User(gon.current_user)
+    @admin_role = new Backbone.Model(gon.admin_role)
     @setMessengerOptions()
     @addViewHelpers()
     moment().lang('en')
@@ -62,6 +63,9 @@ class Hrguru.Helper
     return false unless @isNumber(keycode)
     zeroKeycode = 48
     keycode - zeroKeycode
+
+  showAdminId: ->
+    @admin_role.get('_id')
 
   togglePotentialCheckbox: (type) ->
     $('.potential').prop('checked', type is 'potential')

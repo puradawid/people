@@ -95,8 +95,7 @@ class UsersController < ApplicationController
     gon.users = Rabl.render(users, 'users/index', view_path: 'app/views', format: :hash)
     gon.projects = Rabl.render(projects_a, 'users/projects', format: :hash)
     gon.roles = roles_repository.all
-    # FIXME: investigate why do we need an array here and don't use array
-    gon.admin_role = [roles_repository.admin_role]
+    gon.admin_role = roles_repository.admin_role
     gon.locations = locations_repository.all
     gon.abilities = abilities_repository.all
     gon.months = months
