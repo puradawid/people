@@ -6,7 +6,7 @@ class PositionsController < ApplicationController
   expose_decorated(:users) do
     current_user.admin? ? users_repository.all_by_name : [current_user]
   end
-  expose_decorated(:roles) { roles_repository.by_name }
+  expose_decorated(:roles) { roles_repository.all_by_name }
 
   before_filter :authenticate_admin!, except: [:new, :create]
 
