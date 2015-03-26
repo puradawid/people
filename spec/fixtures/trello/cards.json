@@ -48,5 +48,53 @@
         "shortUrl": "https://trello.com/c/kdBGaoBI",
         "subscribed": true,
         "url": "https://trello.com/c/kdBGaoBI/john-doe"
+    },
+    {
+        "badges": {
+            "attachments": 0,
+            "checkItems": 0,
+            "checkItemsChecked": 0,
+            "comments": 0,
+            "description": false,
+            "due": null,
+            "fogbugz": "",
+            "subscribed": true,
+            "viewingMemberVoted": false,
+            "votes": 0
+        },
+        "checkItemStates": [],
+        "closed": false,
+        "dateLastActivity": "2015-03-26T16:39:02.667Z",
+        "desc": "",
+        "descData": null,
+        "due": null,
+        "email": null,
+        "id": "55143611d1316185130fa833",
+        "idAttachmentCover": null,
+        "idBoard": "5512a4c856f2ded676f66138",
+        "idChecklists": [],
+        "idLabels": [
+            "55143621664ce8ff30b7d76f"
+        ],
+        "idList": "5512a55757f29fb10e4cdf21",
+        "idMembers": [],
+        "idMembersVoted": [],
+        "idShort": 2,
+        "labels": [
+            {
+                "color": "sky",
+                "id": "55143621664ce8ff30b7d76f",
+                "idBoard": "5512a4c856f2ded676f66138",
+                "name": "secondproject",
+                "uses": 1
+            }
+        ],
+        "manualCoverAttachment": false,
+        "name": "Other Developer",
+        "pos": 131071,
+        "shortLink": "kdBGaoBI",
+        "shortUrl": "https://trello.com/c/eRrKxOVD",
+        "subscribed": false,
+        "url": "https://trello.com/c/kdBGaoBI/2-other-developer"
     }
 ]
