@@ -6,7 +6,7 @@ describe Trello::ProjectStartChecker do
   let(:board) { AppConfig.trello.schedule_board_id }
   let(:key) { AppConfig.trello.developer_public_key }
   let(:token) { AppConfig.trello.member_token }
-  let(:user) { create(:user, first_name: 'John', last_name: 'Doe') }
+  let!(:user) { create(:user, first_name: 'John', last_name: 'Doe') }
 
   before do
     stub_request(
@@ -33,6 +33,11 @@ describe Trello::ProjectStartChecker do
       expect do
         subject.run!
       end.to change{user.memberships.count}.by 1
+    end
+
+    it 'creates a membership that started yesterday' do
+      subject.run!
+      expect(user.memberships.first.starts_at).to eq Date.yesterday
     end
   end
 end
