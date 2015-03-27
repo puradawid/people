@@ -31,7 +31,7 @@ class ProjectDigest
     end
 
     def upcoming_changes(days)
-      projects = Membership.includes(:project).upcoming_changes(days).map(&:project)
+      projects = MembershipsRepository.new.upcoming_changes(days).map(&:project)
       projects << ProjectDigest.ending_or_starting_in(days).to_a
       projects.uniq.flatten
     end

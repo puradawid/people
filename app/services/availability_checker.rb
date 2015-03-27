@@ -93,7 +93,7 @@ class AvailabilityChecker
   end
 
   def memberships
-    @user.memberships.for_availability
+    @user.memberships.unfinished.without_bookings.asc(:ends_at)
   end
 
   def memberships_dates
