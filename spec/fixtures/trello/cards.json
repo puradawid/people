@@ -96,5 +96,43 @@
         "shortUrl": "https://trello.com/c/eRrKxOVD",
         "subscribed": false,
         "url": "https://trello.com/c/kdBGaoBI/2-other-developer"
+    },
+    {
+        "badges": {
+            "attachments": 0,
+            "checkItems": 0,
+            "checkItemsChecked": 0,
+            "comments": 0,
+            "description": false,
+            "due": null,
+            "fogbugz": "",
+            "subscribed": true,
+            "viewingMemberVoted": false,
+            "votes": 0
+        },
+        "checkItemStates": [],
+        "closed": false,
+        "dateLastActivity": "2015-03-27T13:44:35.641Z",
+        "desc": "",
+        "descData": null,
+        "due": null,
+        "email": null,
+        "id": "55155ec3fe655ead210cffae",
+        "idAttachmentCover": null,
+        "idBoard": "5512a4c856f2ded676f66138",
+        "idChecklists": [],
+        "idLabels": [],
+        "idList": "5512a55757f29fb10e4cdf21",
+        "idMembers": [],
+        "idMembersVoted": [],
+        "idShort": 3,
+        "labels": [],
+        "manualCoverAttachment": false,
+        "name": "Other Developer",
+        "pos": 131071,
+        "shortLink": "kdBGaoBI",
+        "shortUrl": "https://trello.com/c/RLUyE0CN",
+        "subscribed": false,
+        "url": "https://trello.com/c/kdBGaoBI/3-another-developer"
     }
 ]
