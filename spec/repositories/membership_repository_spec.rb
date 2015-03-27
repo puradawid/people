@@ -1,9 +1,9 @@
-require 'rails_helper'
+require 'spec_helper'
 
 describe MembershipsRepository do
   describe ".upcoming_changes" do
     let(:days) { 30 }
-    subject { described_class.upcoming_changes(days).to_a.flatten }
+    subject { described_class.new.upcoming_changes(days).to_a.flatten }
 
     it "includes 2 upcoming changes" do
       membership1 = create :membership, starts_at: 1.week.from_now
