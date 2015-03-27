@@ -43,7 +43,7 @@ module Trello
         first_name: card.name.split[0],
         last_name:  card.name.split[1]
       }
-      User.find_by attrs
+      UserRepository.new.find_by(attrs)
     end
   end
 end

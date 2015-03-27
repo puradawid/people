@@ -28,6 +28,10 @@ class UserRepository
     User.by_name
   end
 
+  def find_by(attrs)
+    User.find_by attrs
+  end
+
   private
 
   def api_request_params(params)
