@@ -6,6 +6,5 @@ module Shared
       after_save :check_user_availability
       after_destroy :check_user_availability
     end
-
   end
 end
