@@ -9,12 +9,31 @@ class Settings
   class << self
     delegate :inspect, to: :instance
 
+    def initialize
+      @instance = first_or_create
+    end
+
     def method_missing(method, *args)
-      instance.public_send(method, *args)
+      instance.public_send(method, *args) if not locked?
     end
 
     def instance
-      @instance ||= first_or_create
+      lock do
+        @instance ||= first_or_create
+      end
+    end
+
+    private
+
+    def lock
+      @locked_instance = true
+      result = yield
+      @locked_instance = false
+      result
+    end
+
+    def locked?
+      @locked_instance
     end
   end
 end
