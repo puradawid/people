@@ -47,9 +47,8 @@ class MembershipsController < ApplicationController
   protected
 
   def membership_params
-    params.require(:membership).
-      permit(:starts_at, :ends_at, :project_id,
-             :user_id, :role_id, :billable, :booked)
+    params.require(:membership).permit(:starts_at, :ends_at, :project_id,
+                                       :user_id, :role_id, :billable, :booked)
   end
 
   private

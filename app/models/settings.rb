@@ -14,7 +14,7 @@ class Settings
     end
 
     def method_missing(method, *args)
-      instance.public_send(method, *args) if not locked?
+      instance.public_send(method, *args) unless locked?
     end
 
     def instance
