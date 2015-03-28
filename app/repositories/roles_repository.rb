@@ -3,7 +3,7 @@ class RolesRepository
     @all ||= Role.all
   end
 
-  def by_name
+  def all_by_name
     all.by_name
   end
 
