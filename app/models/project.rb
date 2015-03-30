@@ -23,6 +23,7 @@ class Project
   field :colour
   field :initials
   field :toggl_bookmark
+  field :github_url
 
   index({ deleted_at: 1 })
 
@@ -37,6 +38,7 @@ class Project
   validates :archived, inclusion: { in: [true, false] }
   validates :potential, inclusion: { in: [true, false] }
   validates :project_type, inclusion: { in: POSSIBLE_TYPES }
+  validates :github_url, url: {allow_nil: true}
 
   scope :active, -> { where(archived: false) }
   scope :nonpotential, -> { active.where(potential: false) }

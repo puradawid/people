@@ -36,6 +36,11 @@
                   %label.date_picker.required.control-label.input-group-addon{ for: 'end-at' }
                     End at
                   %input#end-at.form-control.date_picker.endAt
+            .col-md-12
+              .form-group
+                %label.control-label{ for: 'github-url' }
+                  GitHub URL
+                %input#github-url.form-control.github-url{ placeholder
           .row
             .col-md-6
               .form-group

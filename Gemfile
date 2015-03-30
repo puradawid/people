@@ -20,6 +20,8 @@ gem 'moped'
 gem 'mongoid-history'
 gem 'mongoid_userstamp'
 
+gem 'validate_url'
+
 gem 'dotenv'
 gem 'dotenv-deployment'
 gem 'decent_exposure'

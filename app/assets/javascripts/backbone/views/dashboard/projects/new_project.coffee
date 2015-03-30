@@ -21,6 +21,7 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
     qas:       '.qas'
     pms:       '.pms'
     modal:     '.add-project-modal'
+    github_url: '.github-url'
 
   initialize: ->
     @developers = new Hrguru.Collections.Users(gon.developers)
@@ -55,6 +56,7 @@ class Hrguru.Views.Dashboard.NewProject extends Marionette.ItemView
         internal: false
         kickoff: @ui.kickoff.val()
         archived: false
+        github_url: @ui.github_url.val()
         project_type: project_type
         memberships_attributes: membershipsArray
       memberships: membershipsArray

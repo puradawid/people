@@ -10,6 +10,7 @@
       = f.input :internal, as: :boolean, wrapper: :vertical_boolean, label: false, inline_label: true, input_html: { checked: project.internal }
       = f.input :project_type, label: 'Type', collection: Project::POSSIBLE_TYPES, label_method: ->(l) {l.humanize}, include_blank: false
       = f.input :toggl_bookmark
+      = f.input :github_url
     .col-xs-3#project-membership{ style: 'display: none' }
       .h3 Attached users:
       %table.table.table-hover
