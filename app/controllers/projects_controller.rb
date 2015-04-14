@@ -26,6 +26,14 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def stats
+    if project.github_url.nil?
+      render plain: "no such repo"
+    else
+      render plain: project.to_s
+      end
+  end
+
   def destroy
     if project.destroy && project.potential
       redirect_to(projects_url, notice: I18n.t('projects.success',  type: 'delete'))

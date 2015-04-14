@@ -22,6 +22,8 @@ gem 'mongoid_userstamp'
 
 gem 'validate_url'
 
+gem 'github_stats', github: 'puradawid/github_stats'
+
 gem 'dotenv'
 gem 'dotenv-deployment'
 gem 'decent_exposure'

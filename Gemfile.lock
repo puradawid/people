@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/mongoid/mongoid.git
-  revision: 8f22ade5fda84626e888fd9a4c80dc10e37616b4
+  revision: 7ae983a788c44f9c8b8184ceb68d5eef963bd8a9
   specs:
     mongoid (4.0.2)
       activemodel (~> 4.0)
@@ -25,6 +25,14 @@ GIT
       tilt (~> 1.1)
 
 GIT
+  remote: git://github.com/puradawid/github_stats.git
+  revision: 90a991cdab1c5c3d115b4b6ba0e433255b2b0569
+  specs:
+    github_stats (0.0.1)
+      github_api (= 0.12.3)
+      rails (~> 4.1.8)
+
+GIT
   remote: git://github.com/simi/mongoid_paranoia.git
   revision: 30be52e1dc3ee82af827ceeb2bd478956f49526e
   specs:
@@ -34,7 +42,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    CFPropertyList (2.3.0)
+    CFPropertyList (2.3.1)
     actionmailer (4.1.8)
       actionpack (= 4.1.8)
       actionview (= 4.1.8)
@@ -61,7 +69,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
-    addressable (2.3.7)
+    addressable (2.3.8)
     animate-scss (0.0.5)
       sass
     arel (5.0.1.20140414130214)
@@ -69,7 +77,7 @@ GEM
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
       multi_json (>= 1.0.0)
-    autoprefixer-rails (5.1.7)
+    autoprefixer-rails (5.1.9)
       execjs
       json
     awesome_print (1.6.1)
@@ -80,7 +88,7 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.3)
+    bootstrap-sass (3.3.4.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
     bourbon (3.2.4)
@@ -92,9 +100,8 @@ GEM
     bullet (4.13.2)
       activesupport (>= 3.0.0)
       uniform_notifier (>= 1.6.0)
-    byebug (4.0.1)
+    byebug (4.0.5)
       columnize (= 0.9.0)
-      rb-readline (= 0.5.2)
     capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
@@ -102,7 +109,7 @@ GEM
     capistrano-bundler (1.1.4)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
-    capistrano-passenger (0.0.2)
+    capistrano-passenger (0.0.5)
       capistrano (~> 3.0)
     capistrano-rails (1.1.2)
       capistrano (~> 3.1)
@@ -127,7 +134,7 @@ GEM
       mongoid-grid_fs (>= 1.3, < 3.0)
     celluloid (0.16.0)
       timers (~> 4.0.0)
-    childprocess (0.5.5)
+    childprocess (0.5.6)
       ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
     cliver (0.3.2)
@@ -137,13 +144,13 @@ GEM
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
-    coffee-script (2.3.0)
+    coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.9.1)
+    coffee-script-source (1.9.1.1)
     colorize (0.7.5)
     columnize (0.9.0)
-    connection_pool (2.1.2)
+    connection_pool (2.2.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     database_cleaner (1.4.1)
@@ -151,6 +158,8 @@ GEM
     decent_decoration (0.0.6)
       decent_exposure (>= 2.0)
     decent_exposure (2.3.2)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
     devise (3.4.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -163,15 +172,15 @@ GEM
     dotenv (1.0.2)
     dotenv-deployment (0.3.0)
       dotenv (~> 1.0)
-    draper (1.4.0)
+    draper (2.1.0)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
       activesupport (>= 3.0)
       request_store (~> 1.0)
     easy_diff (0.0.4)
     erubis (2.7.0)
-    excon (0.44.4)
-    execjs (2.4.0)
+    excon (0.45.1)
+    execjs (2.5.2)
     extlib (0.9.16)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -180,21 +189,23 @@ GEM
       railties (>= 3.0.0)
     faker (1.4.3)
       i18n (~> 0.5)
-    faraday (0.8.9)
-      multipart-post (~> 1.2.0)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.8)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
     flip (1.0.1)
       activesupport (>= 3.0, < 5)
       i18n
-    fog (1.28.0)
+    fog (1.29.0)
       fog-atmos
       fog-aws (~> 0.0)
       fog-brightbox (~> 0.4)
-      fog-core (~> 1.27, >= 1.27.3)
+      fog-core (~> 1.27, >= 1.27.4)
       fog-ecloud
       fog-json
+      fog-local
+      fog-powerdns (>= 0.1.1)
       fog-profitbricks
       fog-radosgw (>= 0.0.2)
       fog-riakcs
@@ -211,7 +222,7 @@ GEM
     fog-atmos (0.1.0)
       fog-core
       fog-xml
-    fog-aws (0.1.1)
+    fog-aws (0.1.2)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
@@ -220,23 +231,30 @@ GEM
       fog-core (~> 1.22)
       fog-json
       inflecto (~> 0.0.2)
-    fog-core (1.29.0)
+    fog-core (1.30.0)
       builder
-      excon (~> 0.38)
+      excon (~> 0.45)
       formatador (~> 0.2)
       mime-types
       net-scp (~> 1.1)
       net-ssh (>= 2.1.3)
-    fog-ecloud (0.0.2)
+    fog-ecloud (0.1.1)
       fog-core
       fog-xml
-    fog-json (1.0.0)
+    fog-json (1.0.1)
+      fog-core (~> 1.0)
       multi_json (~> 1.0)
-    fog-profitbricks (0.0.1)
+    fog-local (0.2.1)
+      fog-core (~> 1.27)
+    fog-powerdns (0.1.1)
+      fog-core (~> 1.27)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
+    fog-profitbricks (0.0.2)
       fog-core
       fog-xml
       nokogiri
-    fog-radosgw (0.0.3)
+    fog-radosgw (0.0.4)
       fog-core (>= 1.21.0)
       fog-json
       fog-xml (>= 0.0.1)
@@ -244,49 +262,65 @@ GEM
       fog-core
       fog-json
       fog-xml
-    fog-sakuracloud (1.0.0)
+    fog-sakuracloud (1.0.1)
       fog-core
       fog-json
-    fog-serverlove (0.1.1)
+    fog-serverlove (0.1.2)
       fog-core
       fog-json
-    fog-softlayer (0.4.1)
+    fog-softlayer (0.4.5)
       fog-core
       fog-json
-    fog-storm_on_demand (0.1.0)
+    fog-storm_on_demand (0.1.1)
       fog-core
       fog-json
-    fog-terremark (0.0.4)
+    fog-terremark (0.1.0)
       fog-core
       fog-xml
-    fog-vmfusion (0.0.1)
+    fog-vmfusion (0.1.0)
       fission
       fog-core
-    fog-voxel (0.0.2)
+    fog-voxel (0.1.0)
       fog-core
       fog-xml
-    fog-xml (0.1.1)
+    fog-xml (0.1.2)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
     font-awesome-rails (4.3.0.0)
       railties (>= 3.2, < 5.0)
     formatador (0.2.5)
+    github_api (0.12.3)
+      addressable (~> 2.3)
+      descendants_tracker (~> 0.0.4)
+      faraday (~> 0.8, < 0.10)
+      hashie (>= 3.3)
+      multi_json (>= 1.7.5, < 2.0)
+      nokogiri (~> 1.6.3)
+      oauth2
     gon (5.2.3)
       actionpack (>= 2.3.0)
       json
       multi_json
       request_store (>= 1.0.5)
     google-analytics-rails (0.0.6)
-    google-api-client (0.6.4)
-      addressable (>= 2.3.2)
-      autoparse (>= 0.3.3)
-      extlib (>= 0.9.15)
-      faraday (~> 0.8.4)
-      jwt (>= 0.1.5)
-      launchy (>= 2.1.1)
-      multi_json (>= 1.0.0)
-      signet (~> 0.4.5)
-      uuidtools (>= 2.1.0)
+    google-api-client (0.8.5)
+      activesupport (>= 3.2)
+      addressable (~> 2.3)
+      autoparse (~> 0.3)
+      extlib (~> 0.9)
+      faraday (~> 0.9)
+      googleauth (~> 0.3)
+      launchy (~> 2.4)
+      multi_json (~> 1.10)
+      retriable (~> 1.4)
+      signet (~> 0.6)
+    googleauth (0.4.0)
+      faraday (~> 0.9)
+      jwt (~> 1.4)
+      logging (~> 1.8)
+      memoist (~> 0.11)
+      multi_json (= 1.11)
+      signet (~> 0.6)
     haml (4.0.6)
       tilt
     haml-rails (0.9.0)
@@ -295,10 +329,11 @@ GEM
       haml (>= 4.0.6, < 5.0)
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
-    hashie (2.0.5)
+    hashie (3.4.1)
     hike (1.2.3)
-    hipchat (1.4.0)
+    hipchat (1.5.1)
       httparty
+      mimemagic
     hitimes (1.2.2)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
@@ -308,7 +343,6 @@ GEM
     httparty (0.13.3)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
-    httpauth (0.2.1)
     i18n (0.7.0)
     inflecto (0.0.2)
     ipaddress (0.8.0)
@@ -317,7 +351,7 @@ GEM
     jquery-rails (3.1.2)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-tablesorter (1.16.2)
+    jquery-tablesorter (1.16.5)
       railties (>= 3.2, < 5)
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
@@ -329,35 +363,40 @@ GEM
       js-routes (~> 0.9.6)
       momentjs-rails (~> 2.5.0)
     json (1.8.2)
-    jwt (0.1.8)
-      multi_json (>= 1.5)
+    jwt (1.4.1)
     konf (0.0.2)
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.3.0)
       launchy (~> 2.2)
     libv8 (3.16.14.7)
+    little-plugger (1.1.3)
+    logging (1.8.2)
+      little-plugger (>= 1.1.3)
+      multi_json (>= 1.8.4)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    memoist (0.12.0)
     messengerjs-rails (1.4.1)
     method_source (0.8.2)
     mime-types (2.4.3)
-    mini_magick (4.2.0)
+    mimemagic (0.3.0)
+    mini_magick (4.2.1)
     mini_portile (0.6.2)
-    minitest (5.5.1)
+    minitest (5.6.0)
     momentjs-rails (2.5.1)
       railties (>= 3.1)
     mongoid-grid_fs (2.1.0)
       mime-types (>= 1.0, < 3.0)
       mongoid (>= 3.0, < 5.0)
-    mongoid-history (0.4.5)
+    mongoid-history (0.4.7)
       activesupport
       easy_diff
       mongoid (>= 3.0)
-    mongoid-rspec (1.10.0)
-      mongoid (>= 3.0.1)
+    mongoid-rspec (2.2.0)
+      mongoid (~> 4.0.0)
       rake
-      rspec (>= 2.14)
+      rspec (~> 3.1)
     mongoid_orderable (4.1.1)
       mongoid
     mongoid_userstamp (0.4.0)
@@ -368,7 +407,7 @@ GEM
       optionable (~> 0.2.0)
     multi_json (1.11.0)
     multi_xml (0.5.5)
-    multipart-post (1.2.0)
+    multipart-post (2.0.0)
     named (1.1.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -379,28 +418,31 @@ GEM
       sass (~> 3.2)
       thor
     netrc (0.10.3)
-    newrelic_rpm (3.11.1.284)
+    newrelic_rpm (3.11.2.286)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     oauth (0.4.7)
-    oauth2 (0.8.1)
-      faraday (~> 0.8)
-      httpauth (~> 0.1)
-      jwt (~> 0.1.4)
-      multi_json (~> 1.0)
-    oj (2.12.1)
-    omniauth (1.1.4)
-      hashie (>= 1.2, < 3)
-      rack
-    omniauth-github (1.1.1)
+    oauth2 (1.0.0)
+      faraday (>= 0.8, < 0.10)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (~> 1.2)
+    oj (2.12.2)
+    omniauth (1.2.2)
+      hashie (>= 1.2, < 4)
+      rack (~> 1.0)
+    omniauth-github (1.1.2)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.1)
-    omniauth-google-oauth2 (0.2.1)
-      omniauth (~> 1.0)
-      omniauth-oauth2
-    omniauth-oauth2 (1.1.1)
-      oauth2 (~> 0.8.0)
-      omniauth (~> 1.0)
+    omniauth-google-oauth2 (0.2.6)
+      omniauth (> 1.0)
+      omniauth-oauth2 (~> 1.1)
+    omniauth-oauth2 (1.2.0)
+      faraday (>= 0.8, < 0.10)
+      multi_json (~> 1.3)
+      oauth2 (~> 1.0)
+      omniauth (~> 1.2)
     optionable (0.2.0)
     origin (2.1.1)
     orm_adapter (0.5.0)
@@ -417,7 +459,7 @@ GEM
     pry-byebug (3.1.0)
       byebug (~> 4.0)
       pry (~> 0.10)
-    pry-rails (0.3.3)
+    pry-rails (0.3.4)
       pry (>= 0.9.10)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
@@ -447,7 +489,6 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
-    rb-readline (0.5.2)
     ref (1.0.5)
     render_anywhere (0.0.11)
       rails (>= 3.0.7)
@@ -457,30 +498,37 @@ GEM
     rest-client (1.7.3)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
-    rollbar (1.4.4)
+    retriable (1.4.1)
+    rollbar (1.5.0)
       multi_json (~> 1.3)
-    rspec (2.14.1)
-      rspec-core (~> 2.14.0)
-      rspec-expectations (~> 2.14.0)
-      rspec-mocks (~> 2.14.0)
-    rspec-core (2.14.7)
-    rspec-expectations (2.14.4)
-      diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.14.4)
-    rspec-rails (2.14.0)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      railties (>= 3.0)
-      rspec-core (~> 2.14.0)
-      rspec-expectations (~> 2.14.0)
-      rspec-mocks (~> 2.14.0)
+    rspec (3.2.0)
+      rspec-core (~> 3.2.0)
+      rspec-expectations (~> 3.2.0)
+      rspec-mocks (~> 3.2.0)
+    rspec-core (3.2.3)
+      rspec-support (~> 3.2.0)
+    rspec-expectations (3.2.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.2.0)
+    rspec-mocks (3.2.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.2.0)
+    rspec-rails (3.2.1)
+      actionpack (>= 3.0, < 4.3)
+      activesupport (>= 3.0, < 4.3)
+      railties (>= 3.0, < 4.3)
+      rspec-core (~> 3.2.0)
+      rspec-expectations (~> 3.2.0)
+      rspec-mocks (~> 3.2.0)
+      rspec-support (~> 3.2.0)
+    rspec-support (3.2.2)
     ruby-trello (1.2.1)
       activemodel (>= 3.2.0)
       addressable (~> 2.3)
       json
       oauth (~> 0.4.5)
       rest-client (~> 1.7.2)
-    ruby_parser (3.6.5)
+    ruby_parser (3.6.6)
       sexp_processor (~> 4.1)
     rubyzip (1.1.7)
     rvm1-capistrano3 (1.3.2.2)
@@ -488,7 +536,7 @@ GEM
       sshkit (>= 1.2)
     safe_yaml (1.0.4)
     sass (3.4.13)
-    sass-rails (5.0.1)
+    sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)
@@ -503,11 +551,12 @@ GEM
       rubyzip (~> 1.0)
       websocket (~> 1.0)
     sexp_processor (4.5.0)
-    signet (0.4.5)
-      addressable (>= 2.2.3)
-      faraday (~> 0.8.1)
-      jwt (>= 0.1.5)
-      multi_json (>= 1.0.0)
+    signet (0.6.0)
+      addressable (~> 2.3)
+      extlib (~> 0.9)
+      faraday (~> 0.9)
+      jwt (~> 1.0)
+      multi_json (~> 1.10)
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
@@ -536,7 +585,7 @@ GEM
       net-ssh (>= 2.8.0)
     sucker_punch (1.4.0)
       celluloid (~> 0.16.0)
-    therubyracer (0.12.1)
+    therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
     thor (0.19.1)
@@ -551,18 +600,20 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     uniform_notifier (1.8.0)
-    uuidtools (2.1.5)
+    validate_url (1.0.0)
+      activemodel (>= 3.0.0)
+      addressable
     versionist (1.4.1)
       activesupport (>= 3)
       railties (>= 3)
       yard (~> 0.7)
     warden (1.2.3)
       rack (>= 1.0)
-    webmock (1.20.4)
+    webmock (1.21.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
     websocket (1.2.1)
-    websocket-driver (0.5.3)
+    websocket-driver (0.5.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     whenever (0.9.4)
@@ -606,6 +657,7 @@ DEPENDENCIES
   flip
   fog
   font-awesome-rails
+  github_stats!
   gon
   google-analytics-rails
   google-api-client
@@ -660,6 +712,7 @@ DEPENDENCIES
   therubyracer
   timecop
   uglifier
+  validate_url
   versionist
   webmock
   whenever
