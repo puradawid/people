@@ -141,6 +141,14 @@ $project-height: 45px;
     }
   }
 
+  .recent-commit {
+    font-size: 10px;
+    top: 13px;
+    position: absolute;
+    left: 55px;
+  }
+
+
   .action {
     display: inline-block;
     color: $gray;

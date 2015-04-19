@@ -59,6 +59,7 @@ gem 'selectize-rails'
 gem 'font-awesome-rails'
 gem 'animate-scss'
 gem 'messengerjs-rails'
+gem 'rails-timeago', '~> 2.0'
 
 gem 'whenever', require: false
 gem 'versionist'

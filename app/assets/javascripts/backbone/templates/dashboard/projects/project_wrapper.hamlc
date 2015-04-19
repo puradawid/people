@@ -5,6 +5,8 @@
         #{@.initials}
       .actual-name
         != @link_to @name, Routes.project_path(@id)
+        .recent-commit
+          = $.timeago(@.last_commit_date)
 
         %span.action
           - if H.currentUserIsAdmin()

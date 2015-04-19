@@ -16,3 +16,4 @@
 //= require backbone/hrguru
 //= require abilities/icon_preview
 //= require_tree .
+//= require rails-timeago
